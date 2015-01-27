@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="counter.css">
+</head>
+
+<body>
+
+    <div data-widget="counter" class="counter">
+        <div class="counter-minus">-</div>
+        <input class="counter-input" type="text">
+        <div class="counter-plus">+</div>
+    </div>
+
+    <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script>
+    <script src="./counter.js"></script>
+    <script>
+        $('[data-widget="counter"]').counter({
+            step: 2
+        }).on("counter:update", function (e) {
+            console.log(arguments);
+        }).counter("value", 100);
+    </script>
+</body>
+
+</html>
