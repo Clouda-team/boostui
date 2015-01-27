@@ -1,5 +1,6 @@
 ;
 (function ($) {
+    'use strict';
     /**
      * widget 类工厂
      *
