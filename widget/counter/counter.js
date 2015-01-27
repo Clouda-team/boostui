@@ -1,7 +1,7 @@
 /**
  * 定义一个组件
  */
-$.widget("iui.counter", {
+$.widget("boost.counter", {
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
