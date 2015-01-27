@@ -1,0 +1,23 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.counter {
+  display: table;
+}
+.counter .counter-minus,
+.counter .counter-plus,
+.counter .counter-input {
+  display: table-cell;
+}
+.counter .counter-minus,
+.counter .counter-plus {
+  width: 1%;
+  background: #0e90d2;
+  color: #ffffff;
+  padding: 4px;
+}
+.counter .counter-input {
+  width: 100%;
+}

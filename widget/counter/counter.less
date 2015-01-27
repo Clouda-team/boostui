@@ -1,0 +1,31 @@
+@namespace:~"";
+@global-primary:#0e90d2;
+@white:#fff;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+////
+
+.@{namespace}counter {
+    display: table;
+}
+
+.@{namespace}counter-minus,
+.@{namespace}counter-plus,
+.@{namespace}counter-input {
+    display: table-cell;
+}   
+.@{namespace}counter-minus,
+.@{namespace}counter-plus {
+    width: 1%;
+    background:@global-primary;
+    color:@white;
+    padding:4px;
+}   
+.@{namespace}counter-input {
+    width: 100%;
+}   
+
