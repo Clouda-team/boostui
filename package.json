@@ -1,0 +1,27 @@
+{
+  "name": "boostui",
+  "version": "0.0.1",
+  "description": "a boost ui",
+  "main": "dist/boostui.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Clouda-team/boostui.git"
+  },
+  "keywords": [
+    "ui",
+    "clouda",
+    "boost"
+  ],
+  "author": "Clouda team",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Clouda-team/boostui/issues"
+  },
+  "homepage": "https://github.com/Clouda-team/boostui"
+}
