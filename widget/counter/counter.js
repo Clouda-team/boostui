@@ -1,7 +1,8 @@
+'use strict';
 /**
  * 定义一个组件
  */
-$.widget("iui.counter", {
+$.widget("boost.counter", {
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
@@ -127,4 +128,10 @@ $.widget("iui.counter", {
             return this._value;
         }
     }
+});
+
+
+// 初始化
+$(function () {
+    $('[data-boost-widget="counter"]').counter();
 });

@@ -1,5 +1,6 @@
 ;
 (function ($) {
+    'use strict';
     /**
      * widget 类工厂
      *
@@ -129,8 +130,10 @@
         return target;
     };
 
+
+    var widget_magic = "__iqzll3wmdjthuxr_";
     /**
-     * bridge
+     * bridge 扩展Zepto.fn
      *
      * @param name
      * @param object
@@ -138,6 +141,7 @@
      */
     $.widget.bridge = function (name, constructor) {
         var fullName = constructor.prototype.widgetFullName || name;
+        var dataKey = widget_magic + fullName;
 
         $.fn[name] = function (options) {
             var isMethodCall = typeof options === "string";
@@ -148,7 +152,7 @@
                 //函数调用
                 this.each(function () {
                     var $this = $(this);
-                    var instance = $this.data(fullName);
+                    var instance = $this.data(dataKey);
                     var methodValue;
 
                     if (options === "instance") {
@@ -177,20 +181,21 @@
                 //初始化
                 //支持多个初始化参数
                 if (args.length) {
-                    options = $.widget.extend.apply(null, [options].concat(args));
+                    options = $.widget.extend.apply(null, [{}, options].concat(args));
                 }
 
                 this.each(function () {
                     var $this = $(this);
-                    var instance = $this.data(fullName);
+                    var instance = $this.data(dataKey);
                     if (instance) {
                         //已经初始化过
+                        console.log(instance);
                         instance.option(options || {});
                         if (instance._init) {
                             instance._init();
                         }
                     } else {
-                        $this.data(fullName, new constructor(options, this));
+                        $this.data(dataKey, new constructor(options, this));
                     }
                 });
             }
@@ -213,8 +218,7 @@
     $.Widget.prototype = {
         options: {},
         _createWidget: function (options, element) {
-            var $elememt = this.element = $(element);
-            $elememt.data(this.widgetFullName, this);
+            this.element = $(element);
             this.options = $.widget.extend({},
                 this.options,
                 this._getCreateOptions(),
@@ -224,7 +228,9 @@
             this._trigger("create", null, this._getCreateEventData());
             this._init();
         },
-        _getCreateOptions: noop,
+        _getCreateOptions: function () {
+            return this.element.data(this.widgetFullName);
+        },
         _getCreateEventData: noop,
         _create: noop,
         _init: noop,
@@ -240,6 +246,57 @@
             });
             this.element.trigger(event, data);
             return !($.isFunction(callback) && callback.apply(this.element[0], [event].concat(data)) === false || event.isDefaultPrevented());
+        },
+        option: function (key, value) {
+            var options = key;
+            var parts;
+            var currentOpt;
+            var i;
+
+            if (arguments.length === 0) {
+                //得到所有的 options 值
+                return $.widget.extend({}, this.options);
+            }
+
+            if (typeof key === string) {
+                options = {};
+                parts = key.split(".");
+                key = parts.shift();
+                if (parts.length) {
+                    // key = "a.b.c.d"
+                    currentOpt = options[key] = $.widget.extend({}, this, options[key]);
+                    for (i = 0; i < parts.length - 1; i++) {
+                        key = parts[i];
+                        currentOpt[key] = currentOpt[key] || {};
+                        currentOpt = currentOpt[key];
+                    }
+                    key = parts.pop();
+                    if (arguments.length === 1) {
+                        return currentOpt[key] === undefined ? null : currentOpt[key];
+                    }
+                    currentOpt[key] = value;
+                } else {
+                    if (arguments.length === 1) {
+                        return this.options[key] === undefined ? null : this.options[key];
+                    }
+                    options[key] = value;
+                }
+            }
+
+            this._setOptions(options);
+            return this;
+        },
+        _setOptions: function (options) {
+            var key;
+            for (key in options) {
+                this._setOption(key, options[key]);
+            }
+
+            return this;
+        },
+        _setOption: function (key, value) {
+            this.options[key] = value;
+            return this;
         }
     };
 })(Zepto);
