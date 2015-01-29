@@ -129,3 +129,9 @@ $.widget("boost.counter", {
         }
     }
 });
+
+
+// 初始化
+$(function () {
+    $('[data-boost-widget="counter"]').counter();
+});

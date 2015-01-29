@@ -9,7 +9,7 @@
 
 <body>
 
-    <div data-widget="counter" class="counter">
+    <div data-boost-widget="counter" data-boost-counter='{"step":2,"maxValue":10}' class="counter">
         <div class="counter-minus">-</div>
         <input class="counter-input" type="text">
         <div class="counter-plus">+</div>
@@ -22,11 +22,27 @@
     <script src="../../js/widget.js"></script>
     <script src="./counter.js"></script>
     <script>
-        $('[data-widget="counter"]').counter({
-            step: 2
-        }).on("counter:update", function (e) {
-            console.log(arguments);
-        }).counter("value", 100);
+        $(function () {
+            // 选择元素
+            $('[data-boost-widget="counter"]')
+
+            // 初始化, 已经由默认初始化
+            //.counter({
+            //    step: 2
+            //})
+
+            //监听事件
+            .on("counter:update", function (e) {
+                console.log(arguments);
+            })
+
+            // 函数调用
+            .counter("value", 100);
+
+
+            var options = $('[data-boost-widget="counter"]').counter("option");
+            console.log(options);
+        });
     </script>
 </body>
 
