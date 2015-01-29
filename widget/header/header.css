@@ -1,0 +1,28 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.boostheader {
+  position: relative;
+  height: 44px;
+  background-color: #000000;
+  color: #ffffff;
+  line-height: 44px;
+  text-align: center;
+  font-size: 18px;
+}
+.boostheader-back {
+  display: inline-block;
+  -webkit-tap-highlight-color: transparent;
+  width: 17px;
+  height: 17px;
+  border-left: 3px solid #ffffff;
+  border-bottom: 3px solid #ffffff;
+  position: absolute;
+  left: 20px;
+  top: 13px;
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
