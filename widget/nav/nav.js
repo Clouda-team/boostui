@@ -40,6 +40,7 @@ $.widget("boost.nav", {
          * 建议: Zepto/jQuery 对象变量名前加 $
          */
         this.expandClass = 'boostnav-expand';
+        this.animateClass = 'boostnav-animation';
         this.expandedClass = 'boostnav-expanded';
         this.$item = $ele.find('.boostnav-item');
         this.columnClass = 'boostnav-column-';
@@ -51,6 +52,9 @@ $.widget("boost.nav", {
      * _init 初始化的时候调用
      */
     _init: function () {
+        if (this.options.animate) {
+            this.element.addClass(this.animateClass);
+        }
         this._colunm();
         this._row();
         if (!this.inited) {
@@ -72,13 +76,23 @@ $.widget("boost.nav", {
                 $this.removeClass(nav.expandedClass);
                 var max = nav.options.row * nav.options.column;
                 nav.$item.each(function(i) {
+                    var $navItem = $(this);
                     if (i >= max  - 1) {
-                        $(this).addClass(nav.hideClass);
+                        if (nav.options.animate) {
+                            setTimeout(function() {
+                                $navItem.addClass(nav.hideClass);
+                            }, 500);
+                        } else {
+                            $navItem.addClass(nav.hideClass);
+                        }
                     }
                 });
                 $this.html(nav.options.expand);
             } else {
-                nav.element.css('height', 'auto');
+                var len = nav.$item.length;
+                var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
+                height = nav.$item.eq(0).height() * row + 15;
+                nav.element.css('height', height);
                 $this.addClass(nav.expandedClass);
                 nav.$item.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
@@ -140,8 +154,11 @@ $.widget("boost.nav", {
      */
     _removeExpand: function() {
         var nav =this;
-        var $ele = this.element;
-        $ele.css('height', 'auto');
+        var $ele = nav.element;
+        var len = nav.$item.length;
+        var row = Math.ceil(len / nav.options.column);
+        var height = nav.$item.eq(0).height() * row + 15;
+        $ele.css('height', height);
         $ele.find('.' + nav.expandClass).remove();
         nav.$item.removeClass(this.hideClass);
     },
@@ -196,6 +213,7 @@ $.widget("boost.nav", {
             return this.options.row;
         }
         if (num === false) {
+            this.options.row = false;
             this._removeExpand();
             return;
         }
