@@ -17,6 +17,10 @@
 .boostnav:after {
   clear: both;
 }
+.boostnav-animation {
+  -webkit-transition: height 0.3s ease-in 0;
+  transition: height 0.3s ease-in 0;
+}
 .boostnav-item {
   text-decoration: none;
   line-height: 30px;
