@@ -1,0 +1,19 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+/*-----ui start-----*/
+.boost-toast {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  margin: -40px 0px 0px -120px;
+  width: 210px;
+  padding: 15px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 8px;
+  color: #fff;
+  text-align: center;
+  z-index: 99;
+}
