@@ -258,7 +258,7 @@
                 return $.widget.extend({}, this.options);
             }
 
-            if (typeof key === string) {
+            if (typeof key === "string") {
                 options = {};
                 parts = key.split(".");
                 key = parts.shift();
