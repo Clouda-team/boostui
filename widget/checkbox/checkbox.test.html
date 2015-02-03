@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>checkbox~~~</title>
+
+    <link rel="stylesheet" href="checkbox.css">
+   <!--  <link rel="stylesheet" href="http://www.bootcss.com/p/font-awesome/assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="http://www.bootcss.com/p/font-awesome/assets/css/font-awesome.min.css"> -->
+    <style type="text/css">
+    body{
+        margin: 0;
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <div id="check1" data-boost-widget="checkbox" data-boost-checkbox= '{"type":"group","values":["1","22","333"]}'>
+        <br><br>
+        <span class="boost-checkbox boost-checkbox-default boost-checkbox-checked"></span>
+        <span class="boost-checkbox boost-checkbox-default"></span>
+        <span class="boost-checkbox boost-checkbox-default"></span>
+        <br><br>
+
+    </div>
+
+    <div id="check2" data-boost-widget="checkbox" >
+        <br><br>
+        <span class="item boost-checkbox boost-checkbox-square boost-checkbox-checked"></span>
+        <span class="item boost-checkbox boost-checkbox-square"></span>
+    </div>
+
+     <div id="check3" data-boost-widget="checkbox" data-boost-checkbox='{"type":"radio","values":["radio1","radio2","radio3"]}'>
+        <br><br>
+        <span class="boost-checkbox boost-checkbox-default"></span>
+        <span class="boost-checkbox boost-checkbox-default"></span>
+    </div>
+<br><br>
+    <button id="getData1" >获取第一组值</button>
+    <button id="getData2" >获取第二组值</button>
+    <button id="getData3" >获取第三组值</button>
+    <br>
+    <textarea id="rs"></textarea>
+
+    <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script>
+
+    <script type="text/javascript" src="checkbox.js"></script>
+  <script>
+
+            
+
+        $(function () {
+            // 选择元素
+            $('#check1').checkbox();
+
+            $('#check2').checkbox({
+                "itemSelector":".item",
+                "type":"radio",
+                "values":["aa","b","ccc"] 
+            });
+
+
+            $('#check3').checkbox();
+
+
+
+            /*$('[data-boost-widget="checkbox"]').on("checkbox:statusChange",function(data){
+                console.log(data);
+            });*/
+
+            $("#getData1").on('click',function(s){
+                var a = $('#check1').checkbox("getValues");
+                $("#rs").val(JSON.stringify(a));
+
+            });
+
+            $("#getData2").on('click',function(s){
+                var a = $('#check2').checkbox("getValues");
+                $("#rs").val(a);
+
+            });
+
+
+            $("#getData3").on('click',function(s){
+                var a = $('#check3').checkbox("getValues");
+                $("#rs").val(JSON.stringify(a));
+
+            });
+
+        });
+    </script>
+</body>
+
+</html>
