@@ -1,0 +1,50 @@
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.boost-center {
+  text-align: center;
+}
+/*-----ui start-----*/
+.boost-panel-border {
+  border-left: 1px solid #dddddd;
+  border-right: 1px solid #dddddd;
+}
+.boost-panel-header {
+  height: 35px;
+  line-height: 35px;
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+  padding: 0 15px;
+  font-size: 16px;
+}
+.boost-panel-body {
+  border-bottom: 1px solid #dddddd;
+  font-size: 14px;
+  padding: 10px 15px;
+  line-height: 25px;
+}
+.boost-panel-footer {
+  border-bottom: 1px solid #dddddd;
+  height: 30px;
+  line-height: 30px;
+  padding: 0 15px;
+}
+/*需要限制行数时，需要使用该类，并配合.@{namespace}panel-clamp确定具体行数*/
+.boost-panel-box {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+/*可选择行数，多出...*/
+.boost-panel-clamp1 {
+  -webkit-line-clamp: 1;
+}
+.boost-panel-clamp2 {
+  -webkit-line-clamp: 2;
+}
+.boost-panel-clamp3 {
+  -webkit-line-clamp: 3;
+}
