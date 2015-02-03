@@ -1,14 +1,13 @@
 'use strict';
 
-var gulp = require("gulp");
 var fs = require("fs");
 var path = require("path");
-var handlebars = require('gulp-handlebars');
-var rename = require("gulp-rename");
+
+var gulp = require("gulp");
 var $ = require('gulp-load-plugins')();
-var debug = require('gulp-debug');
-var less = require("gulp-less");
 var del = require('del');
+//var debug = require('gulp-debug');
+//var less = require("gulp-less");
 
 //var tap = require("gulp-tap");
 //var coffee = require('gulp-coffee');
@@ -142,7 +141,7 @@ gulp.task("build:css", function () {
     //return 
     gulp
         .src(CONFIG.LESS_FILE)
-        .pipe(less())
+        .pipe($.less())
         .pipe($.minifyCss())
         .pipe(gulp.dest(CONFIG.DIST_DIR))
         .pipe($.size({
