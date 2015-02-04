@@ -11,7 +11,7 @@ $.widget("boost.list", {
     options: {
         delete: true,
         animate: true,
-        //禁止删除的selector
+        //禁止删除的class
         exception: false
     },
     /**
@@ -81,7 +81,9 @@ $.widget("boost.list", {
             var $this = $(this);
             var hammer = new Hammer(this);
             $this.data('hammer', hammer);
-
+            if ($this.hasClass(list.options.exception)) {
+                return;
+            }
             hammer.on('swipeleft', function(ev) {
                 if ($this.find(list.deleteBtnSelector).length === 0) {
                     $this.parent().append('<span class="' + list.deleteBtnSelector.substr(1) + '">删除</span>');
