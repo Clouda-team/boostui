@@ -1,0 +1,51 @@
+/*@font-face{
+  font-family:'FontAwesome';
+  src:url('http://www.bootcss.com/p/font-awesome/assets/font/fontawesome-webfont.eot?v=3.0.1');
+  src:url('http://www.bootcss.com/p/font-awesome/assets/font/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'),
+  url('http://www.bootcss.com/p/font-awesome/assets/font/fontawesome-webfont.woff?v=3.0.1') format('woff'),
+  url('http://www.bootcss.com/p/font-awesome/assets/font/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
+  font-weight:normal;
+  font-style:normal 
+}*/
+@font-face {
+  font-family: 'BoostFont';
+  src: url('./font/fontawesome-webfont.eot?v=3.0.1');
+  src: url('./font/fontawesome-webfont.eot?#iefix&v=3.0.1') format('embedded-opentype'), url('./font/fontawesome-webfont.woff?v=3.0.1') format('woff'), url('./font/fontawesome-webfont.ttf?v=3.0.1') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+.boost-checkbox {
+  display: inline-block;
+  position: relative;
+  font-family: BoostFont;
+  border: solid 1px #d4d4d4;
+  background-color: #fff;
+}
+.boost-checkbox-checked {
+  border: none;
+  background-color: #2eb6aa;
+  border: solid 1px #2eb6aa;
+}
+.boost-checkbox-checked:before {
+  content: '\f00c';
+  font-size: 30px;
+  color: #fff;
+  position: absolute;
+}
+.boost-checkbox-default {
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+}
+.boost-checkbox-default:before {
+  top: 5px;
+  left: 5px;
+}
+.boost-checkbox-square {
+  width: 38px;
+  height: 38px;
+}
+.boost-checkbox-square:before {
+  top: 4px;
+  left: 4px;
+}
