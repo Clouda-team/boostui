@@ -54,6 +54,8 @@ $.widget("boost.nav", {
     _init: function () {
         if (this.options.animate) {
             this.element.addClass(this.animateClass);
+        } else {
+            this.element.removeClass(this.animateClass);
         }
         this._colunm();
         this._row();

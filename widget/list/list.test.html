@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link rel="stylesheet" href="../../dist/boost.css">
+    <link rel="stylesheet" href="list.css">
+</head>
+
+<body>
+
+    <section class="boostlist">
+        <div class="boostlist-item">
+            <div class="boostlist-item-content">123</div>
+            <span class="boostlist-item-delete">删除</span>
+        </div>
+        <div class="boostlist-item">
+            <div class="boostlist-item-content">1323423</div>
+            <span class="boostlist-item-delete">删除</span>
+        </div>
+        <div class="boostlist-item">
+            <div class="boostlist-item-content">12432343</div>
+            <span class="boostlist-item-delete">删除</span>
+        </div>
+    </section>
+
+    <button id="revert">revert</button>
+
+    <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script>
+    <script src="../../js/hammer.min.js"></script>
+    <script src="./list.js"></script>
+    <script>
+        $('.boostlist').list();//.list('destroy');
+        $('#revert').click(function() {
+            $('.boostlist').list('revert');
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+.boostlist {
+  overflow: hidden;
+}
+.boostlist-card {
+  margin: 6px;
+  border: 1px solid #dddddd;
+}
+.boostlist-card .boostlist-item:last-child {
+  border: none;
+}
+.boostlist-item {
+  text-decoration: none;
+  line-height: 46px;
+  height: 46px;
+  font-size: 15px;
+  color: #0e90d2;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid #f1f1f1;
+}
+.boostlist-animation .boostlist-item {
+  -webkit-transition: height 0.3s ease-in 0;
+  transition: height 0.3s ease-in 0;
+}
+.boostlist-animation .boostlist-item-content {
+  -webkit-transition: left 0.2s ease-in 0;
+  transition: left 0.2s ease-in 0;
+}
+.boostlist-item-content {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: 100%;
+  background-color: #ffffff;
+}
+.boostlist-item-delete {
+  z-index: 1;
+  position: absolute;
+  background-color: #f84b44;
+  text-decoration: none;
+  width: 54px;
+  line-height: 46px;
+  display: block;
+  height: 46px;
+  font-size: 13px;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  right: 0;
+  top: 0;
+}

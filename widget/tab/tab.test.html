@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../dist/boost.css"/>
+    <link rel="stylesheet" href="tab.css">
+</head>
+
+<body>
+
+    <section class="boosttab">
+        <div class="boosttab-header">
+            <div class="boosttab-header-item">我的</div>
+            <div class="boosttab-header-item">你的</div>
+            <div class="boosttab-header-active"></div>
+        </div>
+        <div class="boosttab-content">
+            <div class="boosttab-content-item">我的</div>
+            <div class="boosttab-content-item">你的</div>
+        </div>
+    </section>
+
+    <button id="active">active</button>
+
+    <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script>
+    <script src="./tab.js"></script>
+    <script>
+        $('.boosttab').tab();
+        $('#active').click(function() {
+            $('.boosttab').tab('active', 1);
+        });
+    </script>
+</body>
+
+</html>
