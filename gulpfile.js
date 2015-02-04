@@ -19,16 +19,7 @@ var del = require('del');
 //var through = require("through");
 
 
-//var CONFIG = require("./build.json");
-var CONFIG = {
-    WIDGET_DIR: "widget",
-    DIST_DIR: "dist",
-    LESS_TPL: "less/boost.tpl.less",
-    LESS_FILE: "less/boost.less",
-    JS_TPL: "js/boost.tpl.js",
-    JS_FILE: "js/boost.js",
-    widgets: ["counter"]
-};
+var CONFIG = require("./build.json");
 
 function pregQuote(str, delimiter) {
     // http://kevin.vanzonneveld.net
