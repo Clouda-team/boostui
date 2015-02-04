@@ -1,0 +1,32 @@
+@namespace:~"boost-";
+@global-primary:#0e90d2;
+@white:#fff;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+body{
+  margin: 0
+}
+.@{namespace}center{
+  text-align:center;
+}
+/*-----ui start-----*/
+@height:35px;
+.@{namespace}fixedBar{
+    width:100%;
+    position:fixed;
+    height: @height;
+    line-height: @height;
+    background-color:#ddd;
+}
+.@{namespace}fixedBar-top{
+    top: 0;
+}
+.@{namespace}fixedBar-bottom{
+    bottom: 0;
+}
+
+
