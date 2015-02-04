@@ -1686,7 +1686,7 @@ window.$ === undefined && (window.$ = Zepto)
                 return $.widget.extend({}, this.options);
             }
 
-            if (typeof key === string) {
+            if (typeof key === "string") {
                 options = {};
                 parts = key.split(".");
                 key = parts.shift();
@@ -1729,7 +1729,90 @@ window.$ === undefined && (window.$ = Zepto)
     };
 })(Zepto);
 
-    ;(function($){'use strict';
+    ;(function($){/**
+ * checkbox  组件
+ * Created by dingquan on 15-2-1.
+ */
+
+'use strict';
+
+$.widget("boost.checkbox",{
+	/**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+		itemSelector:'.boost-checkbox',
+        type:'group',
+    },
+    _create:function(){
+
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $this = this.element;
+
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+
+
+        this.$group = $this.find(options.itemSelector); //
+        this.$container = $this;
+        
+        console.log(options.datas);
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        this._initEvent();
+    },
+    _initEvent:function(){
+
+        var that = this;
+        if(this.options.type=="radio"){
+            // radio box
+            console.log(this.options);
+            this.$group.on("tap", function () {
+                var curElem = $(this);
+                that.$container.find(".boost-checkbox-checked").removeClass("boost-checkbox-checked");
+                curElem.addClass("boost-checkbox-checked");              
+            });
+        }else{
+            this.$group.on("tap", function () {
+                var curElem = $(this);
+                if(curElem.hasClass("boost-checkbox-checked")){
+                    curElem.removeClass("boost-checkbox-checked");
+                }else{
+                    curElem.addClass("boost-checkbox-checked");              
+                }
+            });
+        }
+    },
+    /**
+     *	
+     * 	
+     */
+    getValues:function(){
+        var $this, valArr = [],val;
+        var elems = this.$group;
+        for(var i=0;i<elems.length;i++){
+            $this = $(elems[i]);
+            if($this.hasClass("boost-checkbox-checked")){
+                val = this.options.values[i];
+                valArr.push(this.options.values[i]);
+            }
+        }
+        if(this.options.type=="radio"){
+            return val; 
+        }else {
+            return valArr;  
+        }
+    }
+
+});})(Zepto)
+;(function($){'use strict';
 /**
  * 定义一个组件
  */
@@ -1867,4 +1950,365 @@ $(function () {
     $('[data-boost-widget="counter"]').counter();
 });
 })(Zepto)
+;(function($){/**
+     * @function loading
+     * @name loading
+     * @memberof $.fn or $.boost
+     * @grammar  $('.test').loading().show(),$.boost.loading().show()
+     * @desc 页面级loading
+     * @param {Object} opts 组件配置（以下参数为配置项）
+     * @param {String} opts.loadingClass (可选, 默认值:\'\') loading节点的className
+     * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
+     *
+     * @example 
+     * 	1、$('.test').loading().show(), $('.test')为loading自定义节点,并不是容器,切记
+     * 	2、var loading = $.boost.loading({
+     * 						loadingClass: 'my_define'
+     * 					});
+     * 		  loading.show();
+     *  3、var loading = $.boost.loading({
+     * 						loadingHtml: '<div class="my_define">loading...</div>'
+     * 					});
+     * 		  loading.show();
+     */
+    
+'use strict';
+$.widget("boost.loading", {
+	/*配置项*/
+    options: {
+        loadingClass: "",
+        loadingHtml: ""
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.loadingHtml = options.loadingHtml || '<div data-boost-widget="loading" class="' + (options.loadingClass|| '') + ' boost-loading"></div>';
+    },
+    
+    /*显示loading*/
+    show: function(){
+    	if(!this.$el.length){
+    		(this.$el = $(this.loadingHtml)).appendTo(this.$body);
+    	}
+    	return this.$el.show();
+    },
+    
+    /*关闭loading*/
+    hide: function(){
+    	return this.$el.hide();
+    },
+    
+    /*移除loading*/
+    remove: function(){
+    	this.$el.remove();
+    	return this.$el = [];
+    }
+});})(Zepto)
+;(function($){/**
+ * nav 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("boost.nav", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        column: 3,
+        animate: true,
+        time: 500,
+        expand: '更多',
+        pack: '收起',
+        row: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        /**
+         * this 对象为一个 组件 实例
+         * 不是 Zepto/jQuery 对象
+         * 也不是 Dom 对象
+         */
+
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $ele = this.element;
+
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+
+        /**
+         * 建议: Zepto/jQuery 对象变量名前加 $
+         */
+        this.expandClass = 'boostnav-expand';
+        this.animateClass = 'boostnav-animation';
+        this.expandedClass = 'boostnav-expanded';
+        this.$item = $ele.find('.boostnav-item');
+        this.columnClass = 'boostnav-column-';
+        this.hideClass = 'boostnav-item-hide';
+        this.columnRange = [3, 4, 5];
+
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        if (this.options.animate) {
+            this.element.addClass(this.animateClass);
+        }
+        this._colunm();
+        this._row();
+        if (!this.inited) {
+            this._initEvent();
+            this.inited = true;
+        }
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function() {
+        var nav = this;
+        nav.element.on('click', '.' + nav.expandClass, function(e) {
+            var $this = $(this);
+            if ($this.hasClass(nav.expandedClass)) {
+                var height = nav.$item.eq(0).height();
+                nav.element.css('height', 15 + height * nav.options.row);
+                $this.removeClass(nav.expandedClass);
+                var max = nav.options.row * nav.options.column;
+                nav.$item.each(function(i) {
+                    var $navItem = $(this);
+                    if (i >= max  - 1) {
+                        if (nav.options.animate) {
+                            setTimeout(function() {
+                                $navItem.addClass(nav.hideClass);
+                            }, 500);
+                        } else {
+                            $navItem.addClass(nav.hideClass);
+                        }
+                    }
+                });
+                $this.html(nav.options.expand);
+            } else {
+                var len = nav.$item.length;
+                var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
+                height = nav.$item.eq(0).height() * row + 15;
+                nav.element.css('height', height);
+                $this.addClass(nav.expandedClass);
+                nav.$item.removeClass(nav.hideClass);
+                $this.html(nav.options.pack);
+            }
+            if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
+                nav.options.expandHandle(e);
+            }
+
+        });
+    },
+    /**
+     * _column 自定义的成员函数，
+     * 所有以下划线开头的函数不可在外部调用
+     */
+    _colunm: function () {
+        var $ele = this.element;
+        /**
+         * 处理column范围
+         */
+        if (this.options.column && $.inArray(this.options.column, this.columnRange) == -1) {
+            this.options.column = 3;
+        }
+        var columnClass = [];
+        for (var i = 0; i < this.columnRange.length; i++) {
+            columnClass.push(this.columnClass + this.columnRange[i]);
+        }
+        $ele.removeClass(columnClass.join(" ")).addClass(this.columnClass + this.options.column);
+
+    },
+    /**
+     * _row 自定义的成员函数，
+     * @private
+     */
+    _row: function () {
+        var $ele = this.element;
+        var option = this.options;
+        if (option.row === false) {
+            this._removeExpand();
+            return;
+        }
+        option.row = parseInt(option.row);
+        if (option.row < 1) {
+            option.row = false;
+            this._removeExpand();
+            return;
+        }
+
+        var length = this.$item.length;
+        var max = option.column * option.row;
+        if (max >= length) {
+            this._removeExpand();
+            return;
+        }
+        this._addExpand(max);
+    },
+    /**
+     * remove expand
+     * @private
+     */
+    _removeExpand: function() {
+        var nav =this;
+        var $ele = nav.element;
+        var len = nav.$item.length;
+        var row = Math.ceil(len / nav.options.column);
+        var height = nav.$item.eq(0).height() * row + 15;
+        $ele.css('height', height);
+        $ele.find('.' + nav.expandClass).remove();
+        nav.$item.removeClass(this.hideClass);
+    },
+    /**
+     * add expand
+     * @private
+     */
+    _addExpand: function(max) {
+        var nav = this;
+        nav.$item.each(function(i) {
+            if (i >= max - 1) {
+                $(this).addClass(nav.hideClass);
+            } else {
+                $(this).removeClass(nav.hideClass);
+            }
+        });
+        var height = nav.$item.eq(0).height();
+        nav.element.css('height', 15 + height * nav.options.row);
+        if (nav.element.find('.' + nav.expandClass).length === 1) {
+            nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
+        } else {
+            nav.element.append('<span class="boostnav-item ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+        }
+    },
+    /**
+     * 设置列数
+     * 没有返回值或者返回值为 undefined 时会保持调用链，
+     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
+     * @param num
+     * @return {undefined}
+     */
+    column: function(num) {
+        if (arguments.length == 0) {
+            return this.options.column;
+        }
+        if (num && $.inArray(num, this.columnRange) == -1) {
+            return;
+        }
+        this.options.column = num;
+        this._colunm();
+        this._row();
+    },
+    /**
+     * 设置行数
+     * 没有返回值或者返回值为 undefined 时会保持调用链，
+     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
+     * @param num
+     * @return {undefined}
+     */
+    row: function(num) {
+        if (arguments.length == 0) {
+            return this.options.row;
+        }
+        if (num === false) {
+            this.options.row = false;
+            this._removeExpand();
+            return;
+        }
+        var row = parseInt(num);
+        if (!row || row <= 0) {
+            return;
+        }
+        this.options.row = row;
+        this._row();
+    }
+});
+})(Zepto)
+;(function($){/**
+     * @function toast(alert)
+     * @name toast
+     * @memberof $.fn or $.boost
+     * @grammar  $('.test').toast().show('xxx'),$.boost.toast().show('xxx')
+     * @desc 页面级toast(alert)
+     * @param {Object} opts 组件配置（以下参数为配置项）
+     * @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
+     * @param {String} opts.toastTpl (可选, 默认值:\'\') toast模板
+     * @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
+     *
+     * @example 
+     * 	1、$('.test').toast().show('hello world', 2000), $('.test')为toast自定义节点,并不是容器,切记
+     * 	2、var toast = $.boost.toast({
+     * 						toastClass: 'my_define',
+     * 						delay: 5000
+     * 					}); 
+     * 		  toast.show('hello world');
+     *  3、var toast = $.boost.toast({
+     * 						toastTpl: '<div class="my_define">{%content%}</div>'
+     * 					});
+     * 		  toast.show('hello world');
+     */
+    
+'use strict';
+$.widget("boost.toast", {
+    /*配置项*/
+    options: {
+        toastClass: "",
+        toastTpl: "",
+        delay: 2500
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.toastTpl = options.toastTpl || '<div data-boost-widget="toast" class="' + (options.toastClass|| '') + ' boost-toast">{%content%}</div>';
+    },
+    
+    /*设置延时消失*/
+    _setDelay: function(delay){
+    	var self = this;
+    	delay = parseInt(delay, 10) || this.options.delay;
+    	clearTimeout(this.timeout);
+    	this.timeOut = window.setTimeout(function(){
+    		self.hide();
+    	}, delay);
+    },
+    
+    /*显示toast*/
+    show: function(content, delay){
+    	if(!content){
+    		return false;
+    	}
+    	if(!this.$el.length){
+    		(this.$el = $(this.toastTpl.replace(/{%content%}/g, content))).appendTo(this.$body);
+    	}else{
+    		this.$el.html(content);
+    	}
+    	this._setDelay(delay);
+    	return this.$el.show();
+    },
+    
+    /*关闭toast*/
+    hide: function(){
+    	return this.$el.hide();
+    },
+    
+    /*移除toast*/
+    remove: function(){
+    	this.$el.remove();
+    	return this.$el = [];
+    }
+});})(Zepto)
 })(window);
