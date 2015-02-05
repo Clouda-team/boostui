@@ -1,48 +1,38 @@
-@namespace:~"boost-";
-@global-primary:#0e90d2;
-@white:#fff;
 
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-.@{namespace}center{
-  text-align:center;
-}
-/*-----ui start-----*/
-@border:1px solid #ddd;
-@height35:35px;
-@height30:30px;
-@padding15: 15px;
-@padding10: 10px;
-@font16:16px;
-@font14:14px;
-@lineheight25:25px;
+@panel-border:1px solid #ddd;
+@panel-heightlarger:35px;
+@panel-heightsmall:30px;
+@panel-paddinglarger: 15px;
+@panel-paddingsmall: 10px;
+@panel-fontlarger:16px;
+@panel-fontsmall:14px;
+@panel-lineheight:25px;
 
 .@{namespace}panel-border{
-  border-left:@border;
-  border-right:@border;
+  border-left:@panel-border;
+  border-right:@panel-border;
 }
 .@{namespace}panel-header{
-  height: @height35;
-  line-height: @height35;
-  border-top:@border;
-  border-bottom:@border;
-  padding: 0 @padding15;
-  font-size: @font16;
+  height: @panel-heightlarger;
+  line-height: @panel-heightlarger;
+  border-top:@panel-border;
+  border-bottom:@panel-border;
+  padding: 0 @panel-paddinglarger;
+  font-size: @panel-fontlarger;
+  text-align: center;
 }
 .@{namespace}panel-body{
-  border-bottom: @border;
-  font-size: @font14;
-  padding: @padding10 @padding15;
-  line-height: @lineheight25;
+  border-bottom: @panel-border;
+  font-size: @panel-fontsmall;
+  padding: @panel-paddingsmall @panel-paddinglarger;
+  line-height: @panel-lineheight;
 }
 .@{namespace}panel-footer{
-  border-bottom: @border;
-  height: @height30;
-  line-height: @height30;
-  padding: 0 @padding15;
+  border-bottom: @panel-border;
+  height: @panel-heightsmall;
+  line-height: @panel-heightsmall;
+  padding: 0 @panel-paddinglarger;
+  text-align: center;
 }
 
 /*需要限制行数时，需要使用该类，并配合.@{namespace}panel-clamp确定具体行数*/
