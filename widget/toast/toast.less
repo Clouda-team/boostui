@@ -1,25 +1,22 @@
-@namespace:~"boost-";
-@global-primary:#0e90d2;
-@white:#fff;
+@toast-zindex: 99;
+@toast-width: 210px;
+@toast-padding: 15px;
+@toast-radius: 8px;
+@toast-filter: .7;
+@toast-margin: -40px 0px 0px -120px;
 
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-/*-----ui start-----*/
 .@{namespace}toast {
   position:fixed;
   left:50%;
   top:50%;
-  margin:-40px 0px 0px -120px;
-  width:210px;
-  padding:15px;
-  background-color:rgba(0,0,0,0.7);
-  border-radius: 8px;
-  color:#fff;
+  margin:@toast-margin;
+  width: @toast-width;
+  padding: @toast-padding;
+  background-color:rgba(0, 0, 0, @toast-filter);
+  border-radius: @toast-radius;
+  color: @white;
   text-align:center;
-  z-index: 99;
+  z-index: @toast-zindex;
 }
 
 

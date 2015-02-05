@@ -4,23 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-    <title></title>
-    <link rel="stylesheet" href="toast.css">
+    <title>toast</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
 </head>
 	
 <body>
-
-    
-
-    <script src="../../js/zepto.js"></script>
-    <script src="../../js/event.js"></script>
-    <script src="../../js/touch.js"></script>
-    <script src="../../js/data.js"></script>
-    <script src="../../js/widget.js"></script>
-    <script src="./toast.js"></script>
+	<div class="j_test_toast">{%content%}</div>
+	<button onclick="triggerToast()">点我，点我</button>
+    <script src="../../dist/boost.js"></script>
     <script>
-        var toast = $.boost.toast();
-        toast.show('test', 3000);
+    	function triggerToast(){
+    		var toast = $.blend.toast();
+        	toast.show('test', 3000);
+    	}
+        $('.j_test_toast').toast().toast('show', 'hello', 2000);
     </script>
 </body>
 

@@ -1,0 +1,69 @@
+@dialog-zindexlarger: 95;
+@dialog-zindexsmall: 90;
+@dialog-width: 280px;
+@dialog-duration: .2s;
+@dialog-radius: 5px;
+@dialog-padding: 10px;
+@dialog-body-margin: 8px;
+@dialog-fontlarger: 16px;
+@dialog-fontsmall: 14px;
+
+.@{namespace}dialog {
+    position: absolute;
+    display: block;
+    width: @dialog-width;
+    border: solid 1px #72767b;
+    -webkit-border-radius: @dialog-radius;
+    border-radius: @dialog-radius;
+    padding: @dialog-padding;
+    transform:scale(1);
+    -webkit-transform: scale(1);
+    -webkit-transition: all  @dialog-duration  ease-in-out;
+    transition: all @dialog-duration  ease-in-out;
+    z-index: @dialog-zindexlarger;
+    top: 50%;
+    left: 50%;
+    background-color: @white;
+    color:@black;
+}
+
+.@{namespace}dialog-mask {
+    display:block;
+    width:100%;
+    height:100%;
+    background:@black;
+    z-index: @dialog-zindexsmall;
+    position:absolute;
+    top:0;
+    left:0;
+}
+
+.@{namespace}dialog-hidden {
+    opacity: 0;
+    -webkit-transform: scale(0);
+    top: 50%;
+    left: 50%;
+    margin: 0 auto;
+}
+.@{namespace}dialog-header{
+    font-weight:bold;
+    font-size:@dialog-fontlarger;
+    margin:0;
+    padding:0;
+}
+.@{namespace}dialog-body{
+    font-size:@dialog-fontsmall;
+    margin:@dialog-body-margin;
+}
+.@{namespace}dialog-footer{
+    width:100%;
+    display:-webkit-box;
+}
+.@{namespace}dialog-cancel,
+.@{namespace}dialog-done{
+   box-flex: 1;
+   -webkit-box-flex: 1; 
+   display:block;
+   text-align:center;
+}
+

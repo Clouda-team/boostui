@@ -4,23 +4,28 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-    <title></title>
-    <link rel="stylesheet" href="loading.css">
+    <title>loading</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
 </head>
 	
 <body>
 
     
 
-    <script src="../../js/zepto.js"></script>
-    <script src="../../js/event.js"></script>
-    <script src="../../js/touch.js"></script>
-    <script src="../../js/data.js"></script>
-    <script src="../../js/widget.js"></script>
-    <script src="./loading.js"></script>
+    <button onclick="triggerLoading()">打开loading</button>
+    <br/><br/>
+    <button onclick="closeLoading()">关闭loading</button>
+    <div class="j_test_loading" style="display:none">loading</div>
+    <script src="../../dist/boost.js"></script>
     <script>
-        var loading = $.boost.loading();
-        loading.show();
+    	var loading = $.blend.loading();
+    	function triggerLoading(){
+        	loading.show();
+    	}
+    	function closeLoading(){
+        	loading.hide();
+    	}
+        $('.j_test_loading').loading();
     </script>
 </body>
 
