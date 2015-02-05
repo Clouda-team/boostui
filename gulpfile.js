@@ -19,16 +19,7 @@ var del = require('del');
 //var through = require("through");
 
 
-//var CONFIG = require("./build.json");
-var CONFIG = {
-    WIDGET_DIR: "widget",
-    DIST_DIR: "dist",
-    LESS_TPL: "less/boost.tpl.less",
-    LESS_FILE: "less/boost.less",
-    JS_TPL: "js/boost.tpl.js",
-    JS_FILE: "js/boost.js",
-    widgets: ["counter"]
-};
+var CONFIG = require("./build.json");
 
 function pregQuote(str, delimiter) {
     // http://kevin.vanzonneveld.net
@@ -98,6 +89,7 @@ gulp.task("build:prepar", function () {
     var lessTpl = fs.readFileSync(CONFIG.LESS_TPL, FS_OPTIONS);
     var lessData = {};
 
+    lessData.namespace = JSON.stringify(CONFIG.NAMESPACE);
     lessData.widgets = allLessFiles.map(function (file) {
         return "@import \"../" + file + "\";"
     }).join("\n");
@@ -113,6 +105,7 @@ gulp.task("build:prepar", function () {
     jsData.read = function (file) {
         return fs.readFileSync(file, FS_OPTIONS);
     };
+    jsData.namespace = JSON.stringify(CONFIG.NAMESPACE);
     fs.writeFileSync(CONFIG.JS_FILE, format(jsTpl, jsData, "/*!", "*/"));
 });
 
@@ -124,7 +117,16 @@ gulp.task("build:js", function () {
     //return 
     gulp
         .src(CONFIG.JS_FILE)
+        .pipe(gulp.dest(CONFIG.DIST_DIR))
+        .pipe($.size({
+            showFiles: true,
+            title: 'source'
+        }))
         .pipe($.uglify())
+        .pipe($.rename({
+            suffix: '.min',
+            extname: '.js'
+        }))
         .pipe(gulp.dest(CONFIG.DIST_DIR))
         .pipe($.size({
             showFiles: true,
@@ -142,7 +144,16 @@ gulp.task("build:css", function () {
     gulp
         .src(CONFIG.LESS_FILE)
         .pipe($.less())
+        .pipe(gulp.dest(CONFIG.DIST_DIR))
+        .pipe($.size({
+            showFiles: true,
+            title: 'source'
+        }))
         .pipe($.minifyCss())
+        .pipe($.rename({
+            suffix: '.min',
+            extname: '.css'
+        }))
         .pipe(gulp.dest(CONFIG.DIST_DIR))
         .pipe($.size({
             showFiles: true,

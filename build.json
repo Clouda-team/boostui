@@ -1,0 +1,10 @@
+{
+    "WIDGET_DIR": "widget",
+    "DIST_DIR": "dist",
+    "LESS_TPL": "less/boost.tpl.less",
+    "LESS_FILE": "less/boost.less",
+    "JS_TPL": "js/boost.tpl.js",
+    "JS_FILE": "js/boost.js",
+    "NAMESPACE": "blend-",
+    "widgets": "*"
+}

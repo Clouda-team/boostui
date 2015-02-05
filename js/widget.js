@@ -160,6 +160,14 @@
                         return false;
                     }
 
+                    if (options === "destroy") {
+                        if (instance.destroy) {
+                            instance.destroy();
+                        }
+                        $this.removeData(dataKey);
+                        return;
+                    }
+
                     if (!instance) {
                         //TODO Error
                         throw new Error("cannot call methods on " + name + " prior to initialization; " +
@@ -189,7 +197,6 @@
                     var instance = $this.data(dataKey);
                     if (instance) {
                         //已经初始化过
-                        console.log(instance);
                         instance.option(options || {});
                         if (instance._init) {
                             instance._init();
@@ -234,6 +241,14 @@
         _getCreateEventData: noop,
         _create: noop,
         _init: noop,
+
+        destroy: function () {
+            this._destroy();
+            //TODO 批量删除事件绑定好像不大好做 -_-!!
+            //    var $this = this.element;
+            //    $this.off(this.widgetName);
+        },
+        _destroy: noop,
 
         _trigger: function (type, originalEvent, data) {
             var event;
