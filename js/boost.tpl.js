@@ -1,4 +1,5 @@
 (function (window, undefined) {
+    var NAMESPACE = /*!namespace*/;
     /*!read(js/zepto.js)*/
     /*!read(js/event.js)*/
     /*!read(js/data.js)*/
