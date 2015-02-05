@@ -22,7 +22,7 @@
      * 
      *
      * @example 
-     * 	1、$('.dialog').dialog().show(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
+     * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
      * 	2、var dialog = $.blend.dialog({
      * 						title: 'my title',
      * 						message: 'my message',
@@ -70,7 +70,10 @@ $.widget("blend.dialog", {
     
     /*初始化*/
     _init: function(){
-    	this.$el.length && this._bindEvent();
+    	if(this.$el.length){
+    		this._bindEvent();
+    		this.show();
+    	}
     },
     
     /*事件绑定*/
@@ -90,6 +93,11 @@ $.widget("blend.dialog", {
         });	
     },
     
+    /*定义事件派发*/
+    _trigger: function(event){
+    	this.$el.trigger('dialog:' + event);
+    },
+    
     /*生成dialog html片段*/
     getDefaultDialogHtml: function(){
 	    return '<div data-'+ NAMESPACE + 'widget="dialog" id="' + this.id + '" class="' + NAMESPACE + 'dialog ' + NAMESPACE + 'dialog-hidden'+ this.addCssClass + '">'
@@ -105,6 +113,9 @@ $.widget("blend.dialog", {
     /*显示dialog*/
     show: function(){
     	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
     	if(!this.$el.length){
     		(this.$el = $(this.defaultDialogHtml)).appendTo(this.$body);
     		this._bindEvent();
@@ -114,17 +125,24 @@ $.widget("blend.dialog", {
     	window.setTimeout(function(){
     		self.$el.removeClass(NAMESPACE + 'dialog-hidden');
     		self._trigger('show');
+    		self.lock = false;
     	}, 50);
+    	this.lock = true;
     	return this.$el;
     },
     
     /*关闭dialog*/
     hide: function () {
     	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
         window.setTimeout(function(){
     		self.unmask();
+    		self.lock = false;
     	}, 200);
     	this._trigger('hide');
+    	this.lock = true;
         return this.$el.addClass(NAMESPACE + 'dialog-hidden');
     },
     

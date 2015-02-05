@@ -12,7 +12,7 @@
      * @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
      *
      * @example 
-     * 	1、$('.test').toast().show('hello world', 2000), $('.test')为toast自定义节点,并不是容器,切记
+     * 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
      * 	2、var toast = $.blend.toast({
      * 						toastClass: 'my_define',
      * 						delay: 5000

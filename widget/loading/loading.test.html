@@ -15,6 +15,7 @@
     <button onclick="triggerLoading()">打开loading</button>
     <br/><br/>
     <button onclick="closeLoading()">关闭loading</button>
+    <div class="j_test_loading" style="display:none">loading</div>
     <script src="../../dist/boost.js"></script>
     <script>
     	var loading = $.blend.loading();
@@ -24,7 +25,7 @@
     	function closeLoading(){
         	loading.hide();
     	}
-        
+        $('.j_test_loading').loading();
     </script>
 </body>
 

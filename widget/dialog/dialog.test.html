@@ -13,6 +13,15 @@
 	<button onclick="dialog2.show()">两个按钮dialog</button>
 	<br/><br/><br/><br/><br/><br/>
 	<button onclick="dialog1.show()">一个按钮dialog</button>
+	
+    <div data-blend-widget="dialog" class="blend-dialog blend-dialog-hidden j_test_dialog">
+         <div class="blend-dialog-header"> 标题 </div>
+      	 <div class="blend-dialog-body"> 内容 </div>
+      	 <div class="blend-dialog-footer">
+         	<a href="javascript:void(0);" class="blend-dialog-cancel">取消</a>
+        	<a href="javascript:void(0);" class="blend-dialog-done">确认</a>
+      	 </div>
+     </div>
     <script src="../../dist/boost.js"></script>
     <script>
         var dialog1 = $.blend.dialog({
@@ -25,9 +34,9 @@
         	maskTapClose: true,
         	autoCloseDone: false
         });
-        $('body').on('dialog:show', function(){
-        	alert('done');
-        }) 
+        $('.j_test_dialog').dialog().on('dialog:show', function(){
+        	alert('show')
+        }); 
     </script>
 </body>
 

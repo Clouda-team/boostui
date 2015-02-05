@@ -11,7 +11,7 @@
      * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
      *
      * @example 
-     * 	1、$('.test').loading().show(), $('.test')为loading自定义节点,并不是容器,切记
+     * 	1、$('.j_test_loading').loading(), $('.j_test_loading')为loading自定义节点,并不是容器,切记
      * 	2、var loading = $.blend.loading({
      * 						loadingClass: 'my_define'
      * 					});
@@ -40,7 +40,11 @@ $.widget("blend.loading", {
     
     /*初始化*/
     _init: function(){
-    	!this.$el.length && (this.defaultSegment = true);	
+    	if(this.$el.length){
+    		this.show();
+    	}else{
+    		this.defaultSegment = true
+    	}
     },
     
     /*显示loading*/
