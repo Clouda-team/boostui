@@ -2,16 +2,17 @@
 /**
  * 定义一个组件
  */
-$.widget("boost.counter", {
+$.widget("blend.counter", {
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
     options: {
-        minusSelector: ".counter-minus",
-        plusSelector: ".counter-plus",
-        inputSelector: ".counter-input",
+        minusSelector: "." + NAMESPACE + "counter-minus",
+        plusSelector: "." + NAMESPACE + "counter-plus",
+        inputSelector: "." + NAMESPACE + "counter-input",
         minValue: 0,
         maxValue: Infinity,
+        disableClass: NAMESPACE + "disabled",
         step: 1
     },
     /**
@@ -27,7 +28,7 @@ $.widget("boost.counter", {
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
-        var $this = this.element;
+        var $el = this.element;
 
         /**
          * 经过继承的 options
@@ -37,9 +38,9 @@ $.widget("boost.counter", {
         /**
          * 建议: Zepto/jQuery 对象变量名前加 $
          */
-        this.$minus = $this.find(options.minusSelector); // !!!选择器选择的时候需要指定范围!!!
-        this.$plus = $this.find(options.plusSelector);
-        this.$input = $this.find(options.inputSelector);
+        this.$minus = $el.find(options.minusSelector); // !!!选择器选择的时候需要指定范围!!!
+        this.$plus = $el.find(options.plusSelector);
+        this.$input = $el.find(options.inputSelector);
     },
     /**
      * _init 初始化的时候调用
@@ -68,10 +69,10 @@ $.widget("boost.counter", {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on("tap click", function () {
+        this.$plus.on("tap", function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on("tap click", function () {
+        this.$minus.on("tap", function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on("blur", function () {
@@ -98,8 +99,11 @@ $.widget("boost.counter", {
                 return;
             }
 
+            this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+            this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
             value = Math.min(this._maxValue, Math.max(this._minValue, value));
             oldValue = this._value;
+
             if (oldValue === value) {
                 return;
             }
@@ -130,8 +134,7 @@ $.widget("boost.counter", {
     }
 });
 
-
 // 初始化
 $(function () {
-    $('[data-boost-widget="counter"]').counter();
+    $('[data-blend-widget="counter"]').counter();
 });

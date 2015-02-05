@@ -1,3 +1,10 @@
+@counter-btn-color:    @white;
+@counter-btn-bg:       @brand-primary;
+@counter-btn-disabled: #999;
+@counter-input-color:  #999;
+@counter-input-bg:     @white;
+@counter-input-border: #e6e4e3;
+
 .@{namespace}counter {
     display: table;
 }
@@ -9,12 +16,27 @@
 }   
 .@{namespace}counter-minus,
 .@{namespace}counter-plus {
-    width: 1%;
-    background:@brand-primary;
-    color:@gray-light;
-    padding:4px;
+    width: 35px;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: top;
+    text-align: center;
+    background-color: @counter-btn-bg;
+    color: @counter-btn-color;
+    font-size: 1.6rem;
+    &.@{namespace}disabled {
+        background-color: @counter-btn-disabled;
+    }
 }   
 .@{namespace}counter-input {
-    width: 100%;
+    height: 30px;
+    width: 35px;
+    border: none;
+    font-size: 1.6rem;
+    color: @counter-input-color;
+    background-color: @counter-input-bg; 
+    border-top: 1px solid @counter-input-border;
+    border-bottom: 1px solid @counter-input-border;
+    text-align: center;
 }   
 
