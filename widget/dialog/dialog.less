@@ -1,64 +1,68 @@
-@namespace:~"blend-";
-a{
-  text-decoration: none;
+@dialog-zindexlarger: 95;
+@dialog-zindexsmall: 90;
+@dialog-width: 280px;
+@dialog-duration: .2s;
+@dialog-radius: 5px;
+@dialog-padding: 10px;
+@dialog-body-margin: 8px;
+@dialog-fontlarger: 16px;
+@dialog-fontsmall: 14px;
+
+.@{namespace}dialog {
+    position: absolute;
+    display: block;
+    width: @dialog-width;
+    border: solid 1px #72767b;
+    -webkit-border-radius: @dialog-radius;
+    border-radius: @dialog-radius;
+    padding: @dialog-padding;
+    transform:scale(1);
+    -webkit-transform: scale(1);
+    -webkit-transition: all  @dialog-duration  ease-in-out;
+    transition: all @dialog-duration  ease-in-out;
+    z-index: @dialog-zindexlarger;
+    top: 50%;
+    left: 50%;
+    background-color: @white;
+    color:@black;
 }
-/*-----ui start-----*/
-.@{namespace}mask {
+
+.@{namespace}dialog-mask {
     display:block;
     width:100%;
     height:100%;
-    background:#000;
-    z-index: 90;
+    background:@black;
+    z-index: @dialog-zindexsmall;
     position:absolute;
     top:0;
     left:0;
 }
-.@{namespace}dialog {
-    position: absolute;
-    display: block;
-    width: 280px;
-    border: solid 1px #72767b;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-    padding: 10px;
-    transform:scale(1);
-    -webkit-transform: scale(1);
-    -webkit-transition: all  0.20s  ease-in-out;
-    transition: all 0.20s  ease-in-out;
-    z-index: 95;
-    top: 50%;
-    left: 50%;
-    background-color: #fff;
-    color:#000;
-}
+
 .@{namespace}dialog-hidden {
     opacity: 0;
     -webkit-transform: scale(0);
     top: 50%;
     left: 50%;
-    margin: 0px auto;
+    margin: 0 auto;
 }
 .@{namespace}dialog-header{
     font-weight:bold;
-    font-size:16px;
+    font-size:@dialog-fontlarger;
     margin:0;
     padding:0;
 }
 .@{namespace}dialog-body{
-    font-size:14px;
-    margin:8px;
+    font-size:@dialog-fontsmall;
+    margin:@dialog-body-margin;
 }
 .@{namespace}dialog-footer{
     width:100%;
-    text-align:center;
-    display:block;
-    clear:both;
+    display:-webkit-box;
 }
-.@{namespace}dialog-cancel{
-   float:left;
-}
+.@{namespace}dialog-cancel,
 .@{namespace}dialog-done{
-   float:right;
-   margin-right:4px;
+   box-flex: 1;
+   -webkit-box-flex: 1; 
+   display:block;
 }
 

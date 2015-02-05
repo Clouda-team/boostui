@@ -1,23 +1,17 @@
-@namespace:~"boost-";
-@global-primary:#0e90d2;
-@white:#fff;
+@loading-width: 40px;
+@loading-zindex: 100;
+@dialog-duration: .6s;
 
-*,
-*:before,
-*:after {
-    box-sizing: border-box;
-}
-/*-----ui start-----*/
 .@{namespace}loading{
-  height: 40px;
-  width: 40px;
+  height: @loading-width;
+  width: @loading-width;
   position: fixed;
   margin: -20px 0 0 -20px;
   left: 50%;
   top: 50%;
-  z-index: 99;
-  -webkit-animation: rotation .6s infinite linear;
-  animation: rotation .6s infinite linear;
+  z-index: @loading-zindex;
+  -webkit-animation: rotation @dialog-duration infinite linear;
+  animation: rotation @dialog-duration infinite linear;
   border-left: 4px solid rgba(47,60,87,.15);
   border-right: 4px solid rgba(47,60,87,.15);
   border-bottom: 4px solid rgba(47,60,87,.15);

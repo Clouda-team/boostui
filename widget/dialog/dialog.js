@@ -1,8 +1,10 @@
 /**
      * @function dialog
      * @name dialog
+     * @author wangzhonghua
+     * @date 2015.02.05
      * @memberof $.fn or $.blend
-     * @grammar  $('.test').dialog().show(),$.boost.dialog().show()
+     * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
      * @desc 页面级dialog
      * @param {Object} options 组件配置（以下参数为配置项）
      * @param {String} options.id (可选, 默认值: 随机数) dialog id
@@ -21,7 +23,7 @@
      *
      * @example 
      * 	1、$('.dialog').dialog().show(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
-     * 	2、var dialog = $.boost.dialog({
+     * 	2、var dialog = $.blend.dialog({
      * 						title: 'my title',
      * 						message: 'my message',
      * 					}); 
@@ -29,7 +31,7 @@
      */
     
 'use strict';
-$.widget("boost.dialog", {
+$.widget("blend.dialog", {
     /*配置项*/
     options: {
     	id: null,
@@ -51,7 +53,7 @@ $.widget("boost.dialog", {
     	var options = this.options;
     	this.$el = this.element;
 		this.$body = $('body');
-		this.id = options.id || (((1+Math.random())*0x1000)|0).toString(16),
+		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
         this.addCssClass = options.addCssClass ? options.addCssClass : "";
         this.title = options.title || "标题";
         this.message = options.message || "";
@@ -77,11 +79,11 @@ $.widget("boost.dialog", {
    		$(window).on("orientationchange resize", function () {
             self.setPosition();
         });
-        this.$el.on("tap", "." + (this.cancelClass || 'blend-dialog-cancel'), function(){
-        	self.$el.trigger('dialog.cancel');
+        this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
+        	self._trigger('cancel');
         	self.autoCloseDone && self.hide();
-        }).on("tap", "." + (this.doneClass || 'blend-dialog-done'), function(){
-        	self.$el.trigger('dialog.done');
+        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-done'), function(){
+        	self._trigger('done');
         	self.autoCloseDone && self.hide();
         }).on("dialog.close", function(){
         	self.hide();
@@ -90,12 +92,12 @@ $.widget("boost.dialog", {
     
     /*生成dialog html片段*/
     getDefaultDialogHtml: function(){
-	    return '<div data-blend-widget="dialog" id="' + this.id + '" class="blend-dialog blend-dialog-hidden'+ this.addCssClass + '">'
-	                  + '<div class="blend-dialog-header">' + this.title + '</div>'
-	                  + '<div class="blend-dialog-body">' + this.message + '</div>'
-	                  + '<div class="blend-dialog-footer">'
-	                     +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' blend-dialog-cancel">' + this.cancelText + '</a>'
-	                     +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.doneClass + '  blend-dialog-done">' + this.doneText + '</a>')
+	    return '<div data-'+ NAMESPACE + 'widget="dialog" id="' + this.id + '" class="' + NAMESPACE + 'dialog ' + NAMESPACE + 'dialog-hidden'+ this.addCssClass + '">'
+	                  + '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-body">' + this.message + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-footer">'
+	                     +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
+	                     +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.doneClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button">' + this.doneText + '</a>')
 	                  + '</div>'
 	             +'</div>';
     },
@@ -110,7 +112,8 @@ $.widget("boost.dialog", {
     	this.setPosition();
     	this.mask(0.5);
     	window.setTimeout(function(){
-    		self.$el.removeClass('blend-dialog-hidden').trigger('dialog.show');
+    		self.$el.removeClass(NAMESPACE + 'dialog-hidden');
+    		self._trigger('show');
     	}, 50);
     	return this.$el;
     },
@@ -121,21 +124,25 @@ $.widget("boost.dialog", {
         window.setTimeout(function(){
     		self.unmask();
     	}, 200);
-        return this.$el.addClass('blend-dialog-hidden').trigger('dialog.hide');
+    	this._trigger('hide');
+        return this.$el.addClass(NAMESPACE + 'dialog-hidden');
     },
     
-    /*移除dialog*/
-    remove: function(){
-    	this.$el.remove();
+    /*销毁dialog*/
+    destroy: function(){
     	this.unmask();
-    	return this.$el = [];
+    	if(this.defaultDialogHtml){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
     },
     
     /*显示mask*/
     mask: function (opacity) {
     	var self = this;
         opacity = opacity ? " style='opacity:" + opacity + ";'" : "";
-        (this.maskDom = $("<div class='blend-mask'" + opacity + "></div>")).prependTo(this.$body);
+        (this.maskDom = $('<div class="'+ NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
         this.maskDom.on('tap', function(e){
         	e.preventDefault();
         	self.maskTapClose && self.hide();
