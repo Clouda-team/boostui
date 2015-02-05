@@ -4,7 +4,7 @@
  */
 
 
-$.widget("boost.nav", {
+$.widget("blend.nav", {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -14,54 +14,39 @@ $.widget("boost.nav", {
         time: 500,
         expand: '更多',
         pack: '收起',
+        itemClass: NAMESPACE + 'nav-item',
         row: false
     },
     /**
      * _create 创建组件时调用一次
      */
     _create: function () {
-        /**
-         * this 对象为一个 组件 实例
-         * 不是 Zepto/jQuery 对象
-         * 也不是 Dom 对象
-         */
+        var nav = this;
+        var $el = nav.element;
+        nav.$items = $el.find('.' + nav.options.itemClass);
 
-        /**
-         * this.element 组件对应的单个 Zepto/jQuery 对象
-         */
-        var $ele = this.element;
-
-        /**
-         * 经过继承的 options
-         */
-        var options = this.options;
-
-        /**
-         * 建议: Zepto/jQuery 对象变量名前加 $
-         */
-        this.expandClass = 'boostnav-expand';
-        this.animateClass = 'boostnav-animation';
-        this.expandedClass = 'boostnav-expanded';
-        this.$item = $ele.find('.boostnav-item');
-        this.columnClass = 'boostnav-column-';
-        this.hideClass = 'boostnav-item-hide';
-        this.columnRange = [3, 4, 5];
-
+        nav.expandClass = NAMESPACE + 'nav-expand';
+        nav.animateClass = NAMESPACE + 'nav-animation';
+        nav.expandedClass = NAMESPACE + 'nav-expanded';
+        nav.columnClassPre = NAMESPACE + 'nav-column-';
+        nav.hideClass = NAMESPACE + 'nav-item-hide';
+        nav.columnRange = [3, 4, 5];
     },
     /**
      * _init 初始化的时候调用
      */
     _init: function () {
-        if (this.options.animate) {
-            this.element.addClass(this.animateClass);
+        var nav = this;
+        if (nav.options.animate) {
+            nav.element.addClass(nav.animateClass);
         } else {
-            this.element.removeClass(this.animateClass);
+            nav.element.removeClass(nav.animateClass);
         }
-        this._colunm();
-        this._row();
-        if (!this.inited) {
-            this._initEvent();
-            this.inited = true;
+        nav._colunm();
+        nav._row();
+        if (!nav.inited) {
+            nav._initEvent();
+            nav.inited = true;
         }
     },
     /**
@@ -70,20 +55,20 @@ $.widget("boost.nav", {
      */
     _initEvent: function() {
         var nav = this;
-        nav.element.on('click', '.' + nav.expandClass, function(e) {
+        nav.element.on('click.nav', '.' + nav.expandClass, function(e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
-                var height = nav.$item.eq(0).height();
+                var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
                 $this.removeClass(nav.expandedClass);
                 var max = nav.options.row * nav.options.column;
-                nav.$item.each(function(i) {
+                nav.$items.each(function(i) {
                     var $navItem = $(this);
                     if (i >= max  - 1) {
                         if (nav.options.animate) {
                             setTimeout(function() {
                                 $navItem.addClass(nav.hideClass);
-                            }, 500);
+                            }, nav.options.time);
                         } else {
                             $navItem.addClass(nav.hideClass);
                         }
@@ -91,12 +76,12 @@ $.widget("boost.nav", {
                 });
                 $this.html(nav.options.expand);
             } else {
-                var len = nav.$item.length;
+                var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
-                height = nav.$item.eq(0).height() * row + 15;
+                height = nav.$items.eq(0).height() * row + 15;
                 nav.element.css('height', height);
                 $this.addClass(nav.expandedClass);
-                nav.$item.removeClass(nav.hideClass);
+                nav.$items.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
             }
             if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
@@ -110,7 +95,8 @@ $.widget("boost.nav", {
      * 所有以下划线开头的函数不可在外部调用
      */
     _colunm: function () {
-        var $ele = this.element;
+        var nav = this;
+        var $el = this.element;
         /**
          * 处理column范围
          */
@@ -119,9 +105,9 @@ $.widget("boost.nav", {
         }
         var columnClass = [];
         for (var i = 0; i < this.columnRange.length; i++) {
-            columnClass.push(this.columnClass + this.columnRange[i]);
+            columnClass.push(this.columnClassPre + this.columnRange[i]);
         }
-        $ele.removeClass(columnClass.join(" ")).addClass(this.columnClass + this.options.column);
+        $el.removeClass(columnClass.join(" ")).addClass(this.columnClassPre + this.options.column);
 
     },
     /**
@@ -129,7 +115,8 @@ $.widget("boost.nav", {
      * @private
      */
     _row: function () {
-        var $ele = this.element;
+        var nav = this;
+        var $el = this.element;
         var option = this.options;
         if (option.row === false) {
             this._removeExpand();
@@ -142,7 +129,7 @@ $.widget("boost.nav", {
             return;
         }
 
-        var length = this.$item.length;
+        var length = nav.$items.length;
         var max = option.column * option.row;
         if (max >= length) {
             this._removeExpand();
@@ -155,14 +142,14 @@ $.widget("boost.nav", {
      * @private
      */
     _removeExpand: function() {
-        var nav =this;
-        var $ele = nav.element;
-        var len = nav.$item.length;
+        var nav = this;
+        var $el = nav.element;
+        var len = nav.$items.length;
         var row = Math.ceil(len / nav.options.column);
-        var height = nav.$item.eq(0).height() * row + 15;
-        $ele.css('height', height);
-        $ele.find('.' + nav.expandClass).remove();
-        nav.$item.removeClass(this.hideClass);
+        var height = nav.$items.eq(0).height() * row + 15;
+        $el.css('height', height);
+        $el.find('.' + nav.expandClass).remove();
+        nav.$items.removeClass(this.hideClass);
     },
     /**
      * add expand
@@ -170,20 +157,30 @@ $.widget("boost.nav", {
      */
     _addExpand: function(max) {
         var nav = this;
-        nav.$item.each(function(i) {
+        nav.$items.each(function(i) {
             if (i >= max - 1) {
                 $(this).addClass(nav.hideClass);
             } else {
                 $(this).removeClass(nav.hideClass);
             }
         });
-        var height = nav.$item.eq(0).height();
+        var height = nav.$items.eq(0).height();
         nav.element.css('height', 15 + height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
         } else {
-            nav.element.append('<span class="boostnav-item ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+            nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function() {
+        var nav = this;
+        nav.options.row = false;
+        nav._removeExpand();
+        nav.element.off('click.nav', '.' + nav.expandClass);
     },
     /**
      * 设置列数
