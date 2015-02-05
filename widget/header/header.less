@@ -1,24 +1,5 @@
-@namespaces: boost;
-@global-primary:#0e90d2;
-@black:#000;
-@white:#fff;
 
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.rotate(@deg) {
-  -webkit-transform: rotate(@deg);
-  transform: rotate(@deg);
-}
-.highlight() {
-  -webkit-tap-highlight-color: transparent;
-}
-
-
-
-.@{namespaces}header {
+.@{namespace}header {
   position: relative;
   height: 44px;
   background-color: @black;
@@ -28,9 +9,8 @@
   font-size: 18px;
 }
 
-.@{namespaces}header-back {
+.@{namespace}header-back {
   display: inline-block;
-  .highlight();
   width: 17px;
   height: 17px;
   border-left: 3px solid @white;
@@ -38,5 +18,6 @@
   position: absolute;
   left: 20px;
   top: 13px;
+  .highlight();
   .rotate(45deg);
 }
