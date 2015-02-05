@@ -1,68 +1,67 @@
+@badge-primary:     @brand-primary;
+@badge-secondary:   @brand-secondary;
+@badge-success:     @brand-success;
+@badge-info:        @brand-info;
+@badge-warning:     @brand-warning;
+@badge-danger:      @brand-danger;
+@badge-default:     @badge-secondary;
+
+
 .@{namespace}badge {
     display: inline-block;
     min-width: 20px;
-    //padding:.25em .625em;
     padding: 3px;
     font-size: 12px;
-    /*font-weight: 700;*/
     color: #fff;
     line-height: 1;
     vertical-align: baseline;
     white-space: nowrap;
     text-align: center;
-    background-color: #999;
+    background-color: @badge-default;
     border-radius: 0;
     border: solid 1px;
 
     &.@{namespace}badge-empty {
         padding: 2px;
         background-color: transparent;
+        color: @badge-default;
     }
 }
 
-.@{namespace}badge-default {
-    //.button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
-    background-color: @btn-default-bg;
-    &.@{namespace}badge-empty {
-        color: @btn-default-bg;
-    }
-}
 .@{namespace}badge-primary {
-    //.button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
-    background-color: @btn-primary-bg;
+    background-color: @badge-primary;
     &.@{namespace}badge-empty {
-        color: @btn-primary-bg;
+        color: @badge-primary;
     }
 }
-// Success appears as green
+.@{namespace}badge-secondary {
+    background-color: @badge-secondary;
+    &.@{namespace}badge-empty {
+        color: @badge-secondary;
+    }
+}
+
 .@{namespace}badge-success {
-    //.button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
-    background-color: @btn-success-bg;
+    background-color: @badge-success;
     &.@{namespace}badge-empty {
-        color: @btn-success-bg;
+        color: @badge-success;
     }
 }
-// Info appears as blue-green
 .@{namespace}badge-info {
-    //.button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
-    background-color: @btn-info-bg;
+    background-color: @badge-info;
     &.@{namespace}badge-empty {
-        color: @btn-info-bg;
+        color: @badge-info;
     }
 }
-// Warning appears as orange
 .@{namespace}badge-warning {
-    //.button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
-    background-color: @btn-warning-bg;
+    background-color: @badge-warning;
     &.@{namespace}badge-empty {
-        color: @btn-warning-bg;
+        color: @badge-warning;
     }
 }
-// Danger and error appear as red
 .@{namespace}badge-danger {
-    //.button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
-    background-color: @btn-danger-bg;
+    background-color: @badge-danger;
     &.@{namespace}badge-empty {
-        color: @btn-danger-bg;
+        color: @badge-danger;
     }
 }
