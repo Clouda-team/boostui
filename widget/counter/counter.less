@@ -1,9 +1,11 @@
 @counter-btn-color:    @white;
 @counter-btn-bg:       @brand-primary;
-@counter-btn-disabled: #999;
+@counter-btn-border:   #dcdcdc;
+@counter-btn-disabled: #e7e7e7;
+
 @counter-input-color:  #999;
 @counter-input-bg:     @white;
-@counter-input-border: #e6e4e3;
+@counter-input-border: @counter-btn-border;
 
 .@{namespace}counter {
     display: table;
@@ -13,30 +15,38 @@
 .@{namespace}counter-plus,
 .@{namespace}counter-input {
     display: table-cell;
+    height: 30px;
+    vertical-align: top;
+    text-align: center;
+    font-size: 16px;
 }   
 .@{namespace}counter-minus,
 .@{namespace}counter-plus {
     width: 35px;
-    height: 30px;
-    line-height: 30px;
-    vertical-align: top;
-    text-align: center;
-    background-color: @counter-btn-bg;
+    line-height: 28px;
+    //background-color: @counter-btn-bg;
     color: @counter-btn-color;
-    font-size: 1.6rem;
+    border: 1px solid @counter-btn-border;
     &.@{namespace}disabled {
         background-color: @counter-btn-disabled;
     }
 }   
+.@{namespace}counter-minus{
+    background: data-uri('../widget/counter/sub.png') @counter-btn-bg no-repeat center;
+    background-size: 16px 2px;
+    text-indent: -9999px;
+}
+.@{namespace}counter-plus{
+    background: data-uri('../widget/counter/add.png') @counter-btn-bg no-repeat center;
+    background-size: 16px 16px;
+    text-indent: -9999px;
+}
 .@{namespace}counter-input {
-    height: 30px;
     width: 35px;
-    border: none;
-    font-size: 1.6rem;
+    border-style: solid none;
+    border-width: 1px;
+    border-color: @counter-input-border;
     color: @counter-input-color;
     background-color: @counter-input-bg; 
-    border-top: 1px solid @counter-input-border;
-    border-bottom: 1px solid @counter-input-border;
-    text-align: center;
 }   
 
