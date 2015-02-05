@@ -1,6 +1,6 @@
 @loading-width: 40px;
 @loading-zindex: 100;
-@dialog-duration: .6s;
+@loading-duration: .6s;
 
 .@{namespace}loading{
   height: @loading-width;
@@ -10,8 +10,8 @@
   left: 50%;
   top: 50%;
   z-index: @loading-zindex;
-  -webkit-animation: rotation @dialog-duration infinite linear;
-  animation: rotation @dialog-duration infinite linear;
+  -webkit-animation: rotation @loading-duration infinite linear;
+  animation: rotation @loading-duration infinite linear;
   border-left: 4px solid rgba(47,60,87,.15);
   border-right: 4px solid rgba(47,60,87,.15);
   border-bottom: 4px solid rgba(47,60,87,.15);
