@@ -6,39 +6,57 @@
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <title></title>
     <link rel="stylesheet" href="../../dist/boost.css">
-    <link rel="stylesheet" href="list.css">
 </head>
 
 <body>
 
-    <section class="boostlist">
-        <div class="boostlist-item">
-            <div class="boostlist-item-content">123</div>
-            <span class="boostlist-item-delete">删除</span>
+    <section data-blend-widget="list" class="blend-list">
+        <div class="blend-list-item">
+            <div class="blend-list-item-content">123</div>
+            <span class="blend-list-item-delete">删除</span>
         </div>
-        <div class="boostlist-item">
-            <div class="boostlist-item-content">1323423</div>
-            <span class="boostlist-item-delete">删除</span>
+        <div class="blend-list-item">
+            <div class="blend-list-item-content">1323423</div>
+            <span class="blend-list-item-delete">删除</span>
         </div>
-        <div class="boostlist-item">
-            <div class="boostlist-item-content">12432343</div>
-            <span class="boostlist-item-delete">删除</span>
+        <div class="blend-list-item">
+            <div class="blend-list-item-content">12432343</div>
+            <span class="blend-list-item-delete">删除</span>
         </div>
     </section>
 
-    <button id="revert">revert</button>
+    <button id="revert">revert</button><br>
+    <button id="add">add</button><br>
+    <button id="refresh">refresh</button><br>
+    <button id="destroy">destroy</button><br>
+    <button id="create">create</button><br>
 
-    <script src="../../js/zepto.js"></script>
-    <script src="../../js/event.js"></script>
-    <script src="../../js/touch.js"></script>
-    <script src="../../js/data.js"></script>
-    <script src="../../js/widget.js"></script>
     <script src="../../js/hammer.min.js"></script>
-    <script src="./list.js"></script>
+    <script src="../../dist/boost.js"></script>
+
     <script>
-        $('.boostlist').list();//.list('destroy');
+        var $blendList = $('.blend-list').eq(0);
+        $blendList.list();//.list('destroy');
         $('#revert').click(function() {
-            $('.boostlist').list('revert');
+            $blendList.list('revert');
+        });
+        $('#add').click(function() {
+            $blendList.append([
+                '<div class="blend-list-item">',
+                    '<div class="blend-list-item-content">12432343</div>',
+                    '<span class="blend-list-item-delete">删除</span>',
+                '</div>'
+            ].join(''));
+            $blendList.list('refresh');
+        });
+        $('#refresh').click(function() {
+            $blendList.list('refresh');
+        });
+        $('#destroy').click(function() {
+            $blendList.list('destroy');
+        });
+        $('#create').click(function() {
+            $blendList.list();
         });
     </script>
 
