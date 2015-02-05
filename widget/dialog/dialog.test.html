@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link rel="stylesheet" href="dialog.css">
+</head>
+	
+<body>
+
+    <div data-blend-widget="dialog" class="blend-dialog blend-dialog-hidden j_dialog_test">
+         <div class="blend-dialog-header"> 哈哈 </div>
+      	 <div class="blend-dialog-body"> test </div>
+      	 <div class="blend-dialog-footer">
+         	<a href="javascript:void(0);" class="blend-dialog-cancel">失败</a>
+        	<a href="javascript:void(0);" class="blend-dialog-done">成功</a>
+      	 </div>
+     </div>
+
+    <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script>
+    <script src="./dialog.js"></script>
+    <script>
+        var dialog = $.boost.dialog({
+        	message: "hello world!!!",
+        	maskTapClose: true,
+        	cancelOnly: 1
+        });
+        dialog.show();    
+    </script>
+</body>
+
+</html>
