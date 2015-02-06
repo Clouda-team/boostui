@@ -1,10 +1,9 @@
 /**
- * tab 组件
- * Created by wanghongliang02 on 15-1-29.
+ * @file tab 组件
+ * @author wanghongliang02
  */
 
-
-$.widget("blend.tab", {
+$.widget('blend.tab', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -16,7 +15,7 @@ $.widget("blend.tab", {
     /**
      * _create 创建组件时调用一次
      */
-    _create: function() {
+    _create: function () {
         var tab = this;
         var $el = this.element;
         tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
@@ -25,7 +24,7 @@ $.widget("blend.tab", {
         tab.$headerItem = $el.find(tab.itemSelector);
         tab.$contentItem = $el.find(tab.itemContentSelector);
         tab.$activeEle = $el.find(tab.itemActiveSelector);
-        //计算active宽度和位置
+        // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
         tab.$activeEle.css('width', this.itemWidth * .7);
         tab.itemOffsetX = this.itemWidth * .15;
@@ -35,7 +34,7 @@ $.widget("blend.tab", {
     /**
      * _init 初始化的时候调用
      */
-    _init: function() {
+    _init: function () {
         var tab = this;
 
         tab._checkStart();
@@ -46,23 +45,25 @@ $.widget("blend.tab", {
         tab._switch(tab.options.start);
 
         if (tab.options.animate) {
-            //初始化的时候不出动画
-            setTimeout(function() {
+            // 初始化的时候不出动画
+            setTimeout(function () {
                 tab.element.addClass(tab.options.animateClass);
             }, 0);
-        } else {
+        }
+        else {
             tab.element.removeClass(tab.options.animateClass);
         }
+
 
     },
     /**
      * 验证初始化的start参数
      * @private
      */
-    _checkStart: function() {
+    _checkStart: function () {
         var tab = this;
         var lenth = tab.$headerItem.length;
-        tab.options.start = parseInt(tab.options.start);
+        tab.options.start = parseInt(tab.options.start, 10);
         if (tab.options.start < 0 || tab.options.start >= lenth) {
             tab.options.start = 0;
         }
@@ -73,25 +74,27 @@ $.widget("blend.tab", {
      *
      * @private
      */
-    _initEvent: function() {
+    _initEvent: function () {
         var tab = this;
-        tab.$headerItem.on('click.tab', function(e) {
+        tab.$headerItem.on('click.tab', function (e) {
             var index = $(this).index();
             tab._switch(index);
         });
     },
     /**
      * tab切换
-     * @param index
+     * @param {number} index 要切换到tab序号。
      * @private
      */
-    _switch: function(index) {
+    _switch: function (index) {
         var tab = this;
         if (arguments.length === 0) {
             tab.current = tab.options.start;
-        } else {
+        }
+        else {
             tab.current = index;
         }
+
         var left = tab.itemOffsetX + tab.current * tab.itemWidth;
         tab.$activeEle.css('left', left);
         tab.$contentItem.hide();
@@ -101,16 +104,17 @@ $.widget("blend.tab", {
      * 销毁tab对象
      * @private
      */
-    _destroy: function() {
+    _destroy: function () {
         var tab = this;
         tab.$headerItem.off('click.tab');
     },
 
     /**
      * 切换到某个tab,获取当前的tab
-     * @param index
+     * @param {number=} index 切换的tab序号
+     * @return {current|*|number} 当前tab序号或者不返回
      */
-    active: function(index) {
+    active: function (index) {
         var tab = this;
         if (arguments.length === 0) {
             return tab.current;

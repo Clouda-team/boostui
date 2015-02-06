@@ -1,10 +1,9 @@
 /**
- * nav 组件
- * Created by wanghongliang02 on 15-1-29.
+ * @file nav 组件
+ * @author wanghongliang02
  */
 
-
-$.widget("blend.nav", {
+$.widget('blend.nav', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -39,7 +38,8 @@ $.widget("blend.nav", {
         var nav = this;
         if (nav.options.animate) {
             nav.element.addClass(nav.animateClass);
-        } else {
+        }
+        else {
             nav.element.removeClass(nav.animateClass);
         }
         nav._colunm();
@@ -53,29 +53,31 @@ $.widget("blend.nav", {
      *
      * @private
      */
-    _initEvent: function() {
+    _initEvent: function () {
         var nav = this;
-        nav.element.on('click.nav', '.' + nav.expandClass, function(e) {
+        nav.element.on('click.nav', '.' + nav.expandClass, function (e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
                 $this.removeClass(nav.expandedClass);
                 var max = nav.options.row * nav.options.column;
-                nav.$items.each(function(i) {
+                nav.$items.each(function (i) {
                     var $navItem = $(this);
-                    if (i >= max  - 1) {
+                    if (i >= max - 1) {
                         if (nav.options.animate) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $navItem.addClass(nav.hideClass);
                             }, nav.options.time);
-                        } else {
+                        }
+                        else {
                             $navItem.addClass(nav.hideClass);
                         }
                     }
                 });
                 $this.html(nav.options.expand);
-            } else {
+            }
+            else {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
                 height = nav.$items.eq(0).height() * row + 15;
@@ -96,18 +98,18 @@ $.widget("blend.nav", {
      */
     _colunm: function () {
         var nav = this;
-        var $el = this.element;
+        var $el = nav.element;
         /**
          * 处理column范围
          */
-        if (this.options.column && $.inArray(this.options.column, this.columnRange) == -1) {
-            this.options.column = 3;
+        if (nav.options.column && $.inArray(nav.options.column, nav.columnRange) === -1) {
+            nav.options.column = 3;
         }
         var columnClass = [];
-        for (var i = 0; i < this.columnRange.length; i++) {
-            columnClass.push(this.columnClassPre + this.columnRange[i]);
+        for (var i = 0; i < nav.columnRange.length; i++) {
+            columnClass.push(nav.columnClassPre + nav.columnRange[i]);
         }
-        $el.removeClass(columnClass.join(" ")).addClass(this.columnClassPre + this.options.column);
+        $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
 
     },
     /**
@@ -116,32 +118,31 @@ $.widget("blend.nav", {
      */
     _row: function () {
         var nav = this;
-        var $el = this.element;
-        var option = this.options;
+        var option = nav.options;
         if (option.row === false) {
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
-        option.row = parseInt(option.row);
+        option.row = parseInt(option.row, 10);
         if (option.row < 1) {
             option.row = false;
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
 
         var length = nav.$items.length;
         var max = option.column * option.row;
         if (max >= length) {
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
-        this._addExpand(max);
+        nav._addExpand(max);
     },
     /**
      * remove expand
      * @private
      */
-    _removeExpand: function() {
+    _removeExpand: function () {
         var nav = this;
         var $el = nav.element;
         var len = nav.$items.length;
@@ -152,15 +153,16 @@ $.widget("blend.nav", {
         nav.$items.removeClass(this.hideClass);
     },
     /**
-     * add expand
+     * @param {number} max 最大行数
      * @private
      */
-    _addExpand: function(max) {
+    _addExpand: function (max) {
         var nav = this;
-        nav.$items.each(function(i) {
+        nav.$items.each(function (i) {
             if (i >= max - 1) {
                 $(this).addClass(nav.hideClass);
-            } else {
+            }
+            else {
                 $(this).removeClass(nav.hideClass);
             }
         });
@@ -168,7 +170,8 @@ $.widget("blend.nav", {
         nav.element.css('height', 15 + height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
-        } else {
+        }
+        else {
             nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
     },
@@ -176,7 +179,7 @@ $.widget("blend.nav", {
      * 销毁对象
      * @private
      */
-    _destroy: function() {
+    _destroy: function () {
         var nav = this;
         nav.options.row = false;
         nav._removeExpand();
@@ -186,14 +189,14 @@ $.widget("blend.nav", {
      * 设置列数
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param num
+     * @param {number} num 列数
      * @return {undefined}
      */
-    column: function(num) {
-        if (arguments.length == 0) {
+    column: function (num) {
+        if (arguments.length === 0) {
             return this.options.column;
         }
-        if (num && $.inArray(num, this.columnRange) == -1) {
+        if (num && $.inArray(num, this.columnRange) === -1) {
             return;
         }
         this.options.column = num;
@@ -204,11 +207,11 @@ $.widget("blend.nav", {
      * 设置行数
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param num
+     * @param {number} num 行数
      * @return {undefined}
      */
-    row: function(num) {
-        if (arguments.length == 0) {
+    row: function (num) {
+        if (arguments.length === 0) {
             return this.options.row;
         }
         if (num === false) {
@@ -216,7 +219,7 @@ $.widget("blend.nav", {
             this._removeExpand();
             return;
         }
-        var row = parseInt(num);
+        var row = parseInt(num, 10);
         if (!row || row <= 0) {
             return;
         }
