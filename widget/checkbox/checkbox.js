@@ -5,12 +5,12 @@
 
 'use strict';
 
-$.widget("boost.checkbox",{
+$.widget("blend.checkbox",{
 	/**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-		itemSelector:'.boost-checkbox',
+		itemSelector:'.'+ NAMESPACE +'checkbox',
         type:'group',
     },
     _create:function(){
@@ -45,16 +45,16 @@ $.widget("boost.checkbox",{
             console.log(this.options);
             this.$group.on("tap", function () {
                 var curElem = $(this);
-                that.$container.find(".boost-checkbox-checked").removeClass("boost-checkbox-checked");
-                curElem.addClass("boost-checkbox-checked");              
+                that.$container.find("."+ NAMESPACE +"checkbox-checked").removeClass(NAMESPACE+"checkbox-checked");
+                curElem.addClass(NAMESPACE+"checkbox-checked");              
             });
         }else{
             this.$group.on("tap", function () {
                 var curElem = $(this);
-                if(curElem.hasClass("boost-checkbox-checked")){
-                    curElem.removeClass("boost-checkbox-checked");
+                if(curElem.hasClass(NAMESPACE+"checkbox-checked")){
+                    curElem.removeClass(NAMESPACE+"checkbox-checked");
                 }else{
-                    curElem.addClass("boost-checkbox-checked");              
+                    curElem.addClass(NAMESPACE+"checkbox-checked");              
                 }
             });
         }
@@ -68,7 +68,7 @@ $.widget("boost.checkbox",{
         var elems = this.$group;
         for(var i=0;i<elems.length;i++){
             $this = $(elems[i]);
-            if($this.hasClass("boost-checkbox-checked")){
+            if($this.hasClass(NAMESPACE+"checkbox-checked")){
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
