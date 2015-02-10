@@ -1,4 +1,5 @@
 (function (window, undefined) {
+    var NAMESPACE = "blend-";
     //     Zepto.js
 //     (c) 2010-2015 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -1588,6 +1589,14 @@ window.$ === undefined && (window.$ = Zepto)
                         return false;
                     }
 
+                    if (options === "destroy") {
+                        if (instance.destroy) {
+                            instance.destroy();
+                        }
+                        $this.removeData(dataKey);
+                        return;
+                    }
+
                     if (!instance) {
                         //TODO Error
                         throw new Error("cannot call methods on " + name + " prior to initialization; " +
@@ -1617,7 +1626,6 @@ window.$ === undefined && (window.$ = Zepto)
                     var instance = $this.data(dataKey);
                     if (instance) {
                         //已经初始化过
-                        console.log(instance);
                         instance.option(options || {});
                         if (instance._init) {
                             instance._init();
@@ -1662,6 +1670,14 @@ window.$ === undefined && (window.$ = Zepto)
         _getCreateEventData: noop,
         _create: noop,
         _init: noop,
+
+        destroy: function () {
+            this._destroy();
+            //TODO 批量删除事件绑定好像不大好做 -_-!!
+            //    var $this = this.element;
+            //    $this.off(this.widgetName);
+        },
+        _destroy: noop,
 
         _trigger: function (type, originalEvent, data) {
             var event;
@@ -1736,12 +1752,12 @@ window.$ === undefined && (window.$ = Zepto)
 
 'use strict';
 
-$.widget("boost.checkbox",{
+$.widget("blend.checkbox",{
 	/**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-		itemSelector:'.boost-checkbox',
+		itemSelector:'.'+ NAMESPACE +'checkbox',
         type:'group',
     },
     _create:function(){
@@ -1776,16 +1792,16 @@ $.widget("boost.checkbox",{
             console.log(this.options);
             this.$group.on("tap", function () {
                 var curElem = $(this);
-                that.$container.find(".boost-checkbox-checked").removeClass("boost-checkbox-checked");
-                curElem.addClass("boost-checkbox-checked");              
+                that.$container.find("."+ NAMESPACE +"checkbox-checked").removeClass(NAMESPACE+"checkbox-checked");
+                curElem.addClass(NAMESPACE+"checkbox-checked");              
             });
         }else{
             this.$group.on("tap", function () {
                 var curElem = $(this);
-                if(curElem.hasClass("boost-checkbox-checked")){
-                    curElem.removeClass("boost-checkbox-checked");
+                if(curElem.hasClass(NAMESPACE+"checkbox-checked")){
+                    curElem.removeClass(NAMESPACE+"checkbox-checked");
                 }else{
-                    curElem.addClass("boost-checkbox-checked");              
+                    curElem.addClass(NAMESPACE+"checkbox-checked");              
                 }
             });
         }
@@ -1799,7 +1815,7 @@ $.widget("boost.checkbox",{
         var elems = this.$group;
         for(var i=0;i<elems.length;i++){
             $this = $(elems[i]);
-            if($this.hasClass("boost-checkbox-checked")){
+            if($this.hasClass(NAMESPACE+"checkbox-checked")){
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
@@ -1816,16 +1832,17 @@ $.widget("boost.checkbox",{
 /**
  * 定义一个组件
  */
-$.widget("boost.counter", {
+$.widget("blend.counter", {
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
     options: {
-        minusSelector: ".counter-minus",
-        plusSelector: ".counter-plus",
-        inputSelector: ".counter-input",
+        minusSelector: "." + NAMESPACE + "counter-minus",
+        plusSelector: "." + NAMESPACE + "counter-plus",
+        inputSelector: "." + NAMESPACE + "counter-input",
         minValue: 0,
         maxValue: Infinity,
+        disableClass: NAMESPACE + "disabled",
         step: 1
     },
     /**
@@ -1841,7 +1858,7 @@ $.widget("boost.counter", {
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
-        var $this = this.element;
+        var $el = this.element;
 
         /**
          * 经过继承的 options
@@ -1851,9 +1868,9 @@ $.widget("boost.counter", {
         /**
          * 建议: Zepto/jQuery 对象变量名前加 $
          */
-        this.$minus = $this.find(options.minusSelector); // !!!选择器选择的时候需要指定范围!!!
-        this.$plus = $this.find(options.plusSelector);
-        this.$input = $this.find(options.inputSelector);
+        this.$minus = $el.find(options.minusSelector); // !!!选择器选择的时候需要指定范围!!!
+        this.$plus = $el.find(options.plusSelector);
+        this.$input = $el.find(options.inputSelector);
     },
     /**
      * _init 初始化的时候调用
@@ -1882,10 +1899,10 @@ $.widget("boost.counter", {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on("tap click", function () {
+        this.$plus.on("tap", function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on("tap click", function () {
+        this.$minus.on("tap", function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on("blur", function () {
@@ -1912,8 +1929,11 @@ $.widget("boost.counter", {
                 return;
             }
 
+            this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+            this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
             value = Math.min(this._maxValue, Math.max(this._minValue, value));
             oldValue = this._value;
+
             if (oldValue === value) {
                 return;
             }
@@ -1944,36 +1964,387 @@ $.widget("boost.counter", {
     }
 });
 
-
 // 初始化
 $(function () {
-    $('[data-boost-widget="counter"]').counter();
+    $('[data-blend-widget="counter"]').counter();
+});
+})(Zepto)
+;(function($){/**
+     * @function dialog
+     * @name dialog
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
+     * @desc 页面级dialog
+     * @param {Object} options 组件配置（以下参数为配置项）
+     * @param {String} options.id (可选, 默认值: 随机数) dialog id
+     * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
+     * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
+     * @param {String} options.title (可选, 默认值: 标题) dialog 标题
+     * @param {String} options.message (可选, 默认值: \'\') dialog 内容
+     * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
+     * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
+     * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
+     * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
+     * @param {String} options.cancelOnly (可选, 默认值: false) dialog 只显示一个按钮
+     * @param {String} options.autoCloseDone (可选, 默认值: true) dialog按钮点击后是否关闭dialog
+     * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
+     * 
+     *
+     * @example 
+     * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
+     * 	2、var dialog = $.blend.dialog({
+     * 						title: 'my title',
+     * 						message: 'my message',
+     * 					}); 
+     * 		  dialog.show();
+     */
+    
+'use strict';
+$.widget("blend.dialog", {
+    /*配置项*/
+    options: {
+    	id: null,
+    	top: null,
+        addCssClass: null,
+        title: null,
+        message: null,
+        cancelText: null,
+        cancelClass: null,
+        doneText: null,
+        doneClass: null,
+        cancelOnly: false,
+        autoCloseDone: true,
+        maskTapClose: false,
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
+        this.addCssClass = options.addCssClass ? options.addCssClass : "";
+        this.title = options.title || "标题";
+        this.message = options.message || "";
+        this.cancelText = options.cancelText || "取消";
+        this.cancelClass = options.cancelClass || "";
+        this.doneText = options.doneText || "确认";
+        this.doneClass = options.doneClass || "";
+        this.cancelOnly = options.cancelOnly || false;
+        this.autoCloseDone = options.autoCloseDone !== undefined ? options.autoCloseDone : true;
+		this.maskTapClose = options.maskTapClose || false;
+		this.top = options.top;
+		this.defaultDialogHtml = this.$el.length? '': this.getDefaultDialogHtml();
+    },
+    
+    /*初始化*/
+    _init: function(){
+    	if(this.$el.length){
+    		this._bindEvent();
+    		this.show();
+    	}
+    },
+    
+    /*事件绑定*/
+    _bindEvent: function(){
+   		var self = this;
+   		$(window).on("orientationchange resize", function () {
+            self.setPosition();
+        });
+        this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
+        	self._trigger('cancel');
+        	self.autoCloseDone && self.hide();
+        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-done'), function(){
+        	self._trigger('done');
+        	self.autoCloseDone && self.hide();
+        }).on("dialog.close", function(){
+        	self.hide();
+        });	
+    },
+    
+    /*定义事件派发*/
+    _trigger: function(event){
+    	this.$el.trigger('dialog:' + event);
+    },
+    
+    /*生成dialog html片段*/
+    getDefaultDialogHtml: function(){
+	    return '<div data-'+ NAMESPACE + 'widget="dialog" id="' + this.id + '" class="' + NAMESPACE + 'dialog ' + NAMESPACE + 'dialog-hidden'+ this.addCssClass + '">'
+	                  + '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-body">' + this.message + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-footer">'
+	                     +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
+	                     +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.doneClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button">' + this.doneText + '</a>')
+	                  + '</div>'
+	             +'</div>';
+    },
+    
+    /*显示dialog*/
+    show: function(){
+    	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
+    	if(!this.$el.length){
+    		(this.$el = $(this.defaultDialogHtml)).appendTo(this.$body);
+    		this._bindEvent();
+    	}
+    	this.setPosition();
+    	this.mask(0.5);
+    	window.setTimeout(function(){
+    		self.$el.removeClass(NAMESPACE + 'dialog-hidden');
+    		self._trigger('show');
+    		self.lock = false;
+    	}, 50);
+    	this.lock = true;
+    	return this.$el;
+    },
+    
+    /*关闭dialog*/
+    hide: function () {
+    	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
+        window.setTimeout(function(){
+    		self.unmask();
+    		self.lock = false;
+    	}, 200);
+    	this._trigger('hide');
+    	this.lock = true;
+        return this.$el.addClass(NAMESPACE + 'dialog-hidden');
+    },
+    
+    /*销毁dialog*/
+    destroy: function(){
+    	this.unmask();
+    	if(this.defaultDialogHtml){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
+    },
+    
+    /*显示mask*/
+    mask: function (opacity) {
+    	var self = this;
+        opacity = opacity ? " style='opacity:" + opacity + ";'" : "";
+        (this.maskDom = $('<div class="'+ NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.on('tap', function(e){
+        	e.preventDefault();
+        	self.maskTapClose && self.hide();
+        }).on('touchmove', function(e){
+        	e.preventDefault();
+        });
+    },
+    
+    /*关闭mask*/
+	unmask: function (){
+		this.maskDom.off('touchstart touchmove').remove();
+	},
+	
+	/*设置dialog位置*/
+	setPosition: function () {
+        var top = typeof this.top == 'undefined'?((window.innerHeight / 2.5) + window.pageYOffset) - (popup[0].clientHeight / 2): parseInt(this.top);
+        var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
+        return this.$el.css({
+        	top: top + "px",
+        	left: left + "px"
+        });
+   }
+});
+})(Zepto)
+;(function($){/**
+     * @function fixedBar
+     * @name fixedBar
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @example 
+     * 	$.boost.fixedBar()
+     */
+    
+'use strict';
+$.widget("blend.fixedBar", {
+	
+    _init: function () {
+    	//此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fixedBar不能落底的问题。
+		$(window).on('resize orientationchange', function(){
+			 window.scrollBy(0,0);
+		});
+    },
+    
+});})(Zepto)
+;(function($){/**
+ * list 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("blend.list", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        delete: true,
+        animate: true,
+        itemSelector: '.' + NAMESPACE + 'list-item',
+        animateClass: NAMESPACE + 'list-animation',
+        itemContentSelector: '.' + NAMESPACE + 'list-item-content',
+        itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
+        // 禁止删除的class
+        exceptionClass: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function() {
+        // 保存上一个删除的dom，for revert
+        this.$tempEl = null;
+        this.tempIndex = null;
+        this.deleteWidth = '-54px';
+        this.deleteBtnClass = NAMESPACE + 'list-item-delete';
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function() {
+        var list = this;
+        if (!list.options.delete) {
+            this._destroy();
+            return;
+        }
+        if (list.options.animate) {
+            list.element.addClass(list.options.animateClass);
+        } else {
+            list.element.removeClass(list.options.animateClass);
+        }
+        list._initEvent();
+    },
+    /**
+     * 绑定事件
+     * @private
+     */
+    _initEvent: function() {
+        var list = this;
+        var $items = list.element.find(list.options.itemSelector);
+        $items.each(function() {
+            var $this = $(this);
+            var hammer = $this.data('hammer');
+            if (!hammer) {
+                hammer = new Hammer(this);
+            }
+            $this.data('hammer', hammer);
+            if ($this.hasClass(list.options.exceptionClass)) {
+                return;
+            }
+            hammer.on('swipeleft', function(ev) {
+                if ($this.find('.' + list.deleteBtnClass).length === 0) {
+                    $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
+                }
+                $this.addClass(list.options.itemDeleteActiveClass);
+                $this.find(list.options.itemContentSelector).css('left', list.deleteWidth);
+            });
+        });
+        if (!list.eventInit) {
+            list.eventInit = true;
+            list.element.on('click.list', '.' + list.deleteBtnClass, function(e) {
+                var $parent = $(this).closest(list.options.itemSelector);
+                list.tempIndex = $parent.index();
+                $parent.data('height', $parent.height());
+                $parent.height(0);
+                setTimeout(function() {
+                    list.$tempEl = $parent.detach();
+                    list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
+                    list.$tempEl.find(list.options.itemContentSelector).css('left', 0);
+                }, list.options.animate ? 500 : 0);
+            });
+            // 未点击删除时的恢复
+            list.element.on('touchstart.list', function(e) {
+                var $target = $(e.target);
+                var className = list.deleteBtnClass;
+                if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
+                    var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
+                    if ($el.length === 1) {
+                        $el.removeClass(list.options.itemDeleteActiveClass);
+                        $el.find(list.options.itemContentSelector).css('left', 0);
+                    }
+                }
+            });
+        }
+
+    },
+    /**
+     * destroy the swipe event
+     * 取消一个列表的滑动删除效果
+     * @private
+     */
+    _destroy: function() {
+        var list = this;
+        var $items = list.element.find(list.options.itemSelector);
+        $items.each(function() {
+            var hammer = $(this).data('hammer');
+            if (hammer) {
+                hammer.off('swipeleft');
+            }
+        });
+        list.eventInit = false;
+        list.element.off('click.list', '.' + list.deleteBtnClass);
+        list.element.off('touchstart.list');
+    },
+    /**
+     * 刷新配置
+     */
+    refresh: function() {
+        this._init();
+    },
+    /**
+     * 用于删除失败时的恢复
+     */
+    revert: function() {
+        var list = this;
+        if (list.tempIndex === null || list.tempIndex === -1) {
+            return;
+        }
+        var height = list.$tempEl.data('height');
+        var $lastItem = list.element.find(list.options.itemSelector).eq(list.tempIndex);
+        if ($lastItem.length === 1) {
+            list.$tempEl.insertBefore($lastItem).height(height);
+        } else {
+            list.$tempEl.appendTo(list.element).height(height);
+        }
+    }
+
 });
 })(Zepto)
 ;(function($){/**
      * @function loading
      * @name loading
-     * @memberof $.fn or $.boost
-     * @grammar  $('.test').loading().show(),$.boost.loading().show()
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').loading().show(),$.blend.loading().show()
      * @desc 页面级loading
      * @param {Object} opts 组件配置（以下参数为配置项）
      * @param {String} opts.loadingClass (可选, 默认值:\'\') loading节点的className
      * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
      *
      * @example 
-     * 	1、$('.test').loading().show(), $('.test')为loading自定义节点,并不是容器,切记
-     * 	2、var loading = $.boost.loading({
+     * 	1、$('.j_test_loading').loading(), $('.j_test_loading')为loading自定义节点,并不是容器,切记
+     * 	2、var loading = $.blend.loading({
      * 						loadingClass: 'my_define'
      * 					});
      * 		  loading.show();
-     *  3、var loading = $.boost.loading({
+     *  3、var loading = $.blend.loading({
      * 						loadingHtml: '<div class="my_define">loading...</div>'
      * 					});
      * 		  loading.show();
      */
     
 'use strict';
-$.widget("boost.loading", {
+$.widget("blend.loading", {
 	/*配置项*/
     options: {
         loadingClass: "",
@@ -1985,7 +2356,16 @@ $.widget("boost.loading", {
     	var options = this.options;
     	this.$el = this.element;
 		this.$body = $('body');
-		this.loadingHtml = options.loadingHtml || '<div data-boost-widget="loading" class="' + (options.loadingClass|| '') + ' boost-loading"></div>';
+		this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + (options.loadingClass|| '') + ' ' + NAMESPACE + 'loading"></div>';
+    },
+    
+    /*初始化*/
+    _init: function(){
+    	if(this.$el.length){
+    		this.show();
+    	}else{
+    		this.defaultSegment = true
+    	}
     },
     
     /*显示loading*/
@@ -2001,10 +2381,13 @@ $.widget("boost.loading", {
     	return this.$el.hide();
     },
     
-    /*移除loading*/
-    remove: function(){
-    	this.$el.remove();
-    	return this.$el = [];
+    /*销毁toast*/
+    destroy: function(){
+    	if(this.defaultSegment){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
     }
 });})(Zepto)
 ;(function($){/**
@@ -2013,7 +2396,7 @@ $.widget("boost.loading", {
  */
 
 
-$.widget("boost.nav", {
+$.widget("blend.nav", {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -2023,52 +2406,39 @@ $.widget("boost.nav", {
         time: 500,
         expand: '更多',
         pack: '收起',
+        itemClass: NAMESPACE + 'nav-item',
         row: false
     },
     /**
      * _create 创建组件时调用一次
      */
     _create: function () {
-        /**
-         * this 对象为一个 组件 实例
-         * 不是 Zepto/jQuery 对象
-         * 也不是 Dom 对象
-         */
+        var nav = this;
+        var $el = nav.element;
+        nav.$items = $el.find('.' + nav.options.itemClass);
 
-        /**
-         * this.element 组件对应的单个 Zepto/jQuery 对象
-         */
-        var $ele = this.element;
-
-        /**
-         * 经过继承的 options
-         */
-        var options = this.options;
-
-        /**
-         * 建议: Zepto/jQuery 对象变量名前加 $
-         */
-        this.expandClass = 'boostnav-expand';
-        this.animateClass = 'boostnav-animation';
-        this.expandedClass = 'boostnav-expanded';
-        this.$item = $ele.find('.boostnav-item');
-        this.columnClass = 'boostnav-column-';
-        this.hideClass = 'boostnav-item-hide';
-        this.columnRange = [3, 4, 5];
-
+        nav.expandClass = NAMESPACE + 'nav-expand';
+        nav.animateClass = NAMESPACE + 'nav-animation';
+        nav.expandedClass = NAMESPACE + 'nav-expanded';
+        nav.columnClassPre = NAMESPACE + 'nav-column-';
+        nav.hideClass = NAMESPACE + 'nav-item-hide';
+        nav.columnRange = [3, 4, 5];
     },
     /**
      * _init 初始化的时候调用
      */
     _init: function () {
-        if (this.options.animate) {
-            this.element.addClass(this.animateClass);
+        var nav = this;
+        if (nav.options.animate) {
+            nav.element.addClass(nav.animateClass);
+        } else {
+            nav.element.removeClass(nav.animateClass);
         }
-        this._colunm();
-        this._row();
-        if (!this.inited) {
-            this._initEvent();
-            this.inited = true;
+        nav._colunm();
+        nav._row();
+        if (!nav.inited) {
+            nav._initEvent();
+            nav.inited = true;
         }
     },
     /**
@@ -2077,20 +2447,20 @@ $.widget("boost.nav", {
      */
     _initEvent: function() {
         var nav = this;
-        nav.element.on('click', '.' + nav.expandClass, function(e) {
+        nav.element.on('click.nav', '.' + nav.expandClass, function(e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
-                var height = nav.$item.eq(0).height();
+                var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
                 $this.removeClass(nav.expandedClass);
                 var max = nav.options.row * nav.options.column;
-                nav.$item.each(function(i) {
+                nav.$items.each(function(i) {
                     var $navItem = $(this);
                     if (i >= max  - 1) {
                         if (nav.options.animate) {
                             setTimeout(function() {
                                 $navItem.addClass(nav.hideClass);
-                            }, 500);
+                            }, nav.options.time);
                         } else {
                             $navItem.addClass(nav.hideClass);
                         }
@@ -2098,12 +2468,12 @@ $.widget("boost.nav", {
                 });
                 $this.html(nav.options.expand);
             } else {
-                var len = nav.$item.length;
+                var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
-                height = nav.$item.eq(0).height() * row + 15;
+                height = nav.$items.eq(0).height() * row + 15;
                 nav.element.css('height', height);
                 $this.addClass(nav.expandedClass);
-                nav.$item.removeClass(nav.hideClass);
+                nav.$items.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
             }
             if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
@@ -2117,7 +2487,8 @@ $.widget("boost.nav", {
      * 所有以下划线开头的函数不可在外部调用
      */
     _colunm: function () {
-        var $ele = this.element;
+        var nav = this;
+        var $el = this.element;
         /**
          * 处理column范围
          */
@@ -2126,9 +2497,9 @@ $.widget("boost.nav", {
         }
         var columnClass = [];
         for (var i = 0; i < this.columnRange.length; i++) {
-            columnClass.push(this.columnClass + this.columnRange[i]);
+            columnClass.push(this.columnClassPre + this.columnRange[i]);
         }
-        $ele.removeClass(columnClass.join(" ")).addClass(this.columnClass + this.options.column);
+        $el.removeClass(columnClass.join(" ")).addClass(this.columnClassPre + this.options.column);
 
     },
     /**
@@ -2136,7 +2507,8 @@ $.widget("boost.nav", {
      * @private
      */
     _row: function () {
-        var $ele = this.element;
+        var nav = this;
+        var $el = this.element;
         var option = this.options;
         if (option.row === false) {
             this._removeExpand();
@@ -2149,7 +2521,7 @@ $.widget("boost.nav", {
             return;
         }
 
-        var length = this.$item.length;
+        var length = nav.$items.length;
         var max = option.column * option.row;
         if (max >= length) {
             this._removeExpand();
@@ -2162,14 +2534,14 @@ $.widget("boost.nav", {
      * @private
      */
     _removeExpand: function() {
-        var nav =this;
-        var $ele = nav.element;
-        var len = nav.$item.length;
+        var nav = this;
+        var $el = nav.element;
+        var len = nav.$items.length;
         var row = Math.ceil(len / nav.options.column);
-        var height = nav.$item.eq(0).height() * row + 15;
-        $ele.css('height', height);
-        $ele.find('.' + nav.expandClass).remove();
-        nav.$item.removeClass(this.hideClass);
+        var height = nav.$items.eq(0).height() * row + 15;
+        $el.css('height', height);
+        $el.find('.' + nav.expandClass).remove();
+        nav.$items.removeClass(this.hideClass);
     },
     /**
      * add expand
@@ -2177,20 +2549,30 @@ $.widget("boost.nav", {
      */
     _addExpand: function(max) {
         var nav = this;
-        nav.$item.each(function(i) {
+        nav.$items.each(function(i) {
             if (i >= max - 1) {
                 $(this).addClass(nav.hideClass);
             } else {
                 $(this).removeClass(nav.hideClass);
             }
         });
-        var height = nav.$item.eq(0).height();
+        var height = nav.$items.eq(0).height();
         nav.element.css('height', 15 + height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
         } else {
-            nav.element.append('<span class="boostnav-item ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+            nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function() {
+        var nav = this;
+        nav.options.row = false;
+        nav._removeExpand();
+        nav.element.off('click.nav', '.' + nav.expandClass);
     },
     /**
      * 设置列数
@@ -2235,11 +2617,138 @@ $.widget("boost.nav", {
     }
 });
 })(Zepto)
+;(function($){
+
+})(Zepto)
+;(function($){/**
+ * tab 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("blend.tab", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        start: 0,
+        animate: true,
+        animateClass: NAMESPACE + 'tab-animation'
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function() {
+        var tab = this;
+        var $el = this.element;
+        tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
+        tab.itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
+        tab.itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
+        tab.$headerItem = $el.find(tab.itemSelector);
+        tab.$contentItem = $el.find(tab.itemContentSelector);
+        tab.$activeEle = $el.find(tab.itemActiveSelector);
+        //计算active宽度和位置
+        tab.itemWidth = this.$headerItem.eq(0).width();
+        tab.$activeEle.css('width', this.itemWidth * .7);
+        tab.itemOffsetX = this.itemWidth * .15;
+        tab.current = 0;
+
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function() {
+        var tab = this;
+
+        tab._checkStart();
+        if (!tab.inited) {
+            tab._initEvent();
+            tab.inited = true;
+        }
+        tab._switch(tab.options.start);
+
+        if (tab.options.animate) {
+            //初始化的时候不出动画
+            setTimeout(function() {
+                tab.element.addClass(tab.options.animateClass);
+            }, 0);
+        } else {
+            tab.element.removeClass(tab.options.animateClass);
+        }
+
+    },
+    /**
+     * 验证初始化的start参数
+     * @private
+     */
+    _checkStart: function() {
+        var tab = this;
+        var lenth = tab.$headerItem.length;
+        tab.options.start = parseInt(tab.options.start);
+        if (tab.options.start < 0 || tab.options.start >= lenth) {
+            tab.options.start = 0;
+        }
+        tab.current = tab.options.start;
+    },
+
+    /**
+     *
+     * @private
+     */
+    _initEvent: function() {
+        var tab = this;
+        tab.$headerItem.on('click.tab', function(e) {
+            var index = $(this).index();
+            tab._switch(index);
+        });
+    },
+    /**
+     * tab切换
+     * @param index
+     * @private
+     */
+    _switch: function(index) {
+        var tab = this;
+        if (arguments.length === 0) {
+            tab.current = tab.options.start;
+        } else {
+            tab.current = index;
+        }
+        var left = tab.itemOffsetX + tab.current * tab.itemWidth;
+        tab.$activeEle.css('left', left);
+        tab.$contentItem.hide();
+        tab.$contentItem.eq(tab.current).show();
+    },
+    /**
+     * 销毁tab对象
+     * @private
+     */
+    _destroy: function() {
+        var tab = this;
+        tab.$headerItem.off('click.tab');
+    },
+
+    /**
+     * 切换到某个tab,获取当前的tab
+     * @param index
+     */
+    active: function(index) {
+        var tab = this;
+        if (arguments.length === 0) {
+            return tab.current;
+        }
+        this._switch(index);
+    }
+
+});
+})(Zepto)
 ;(function($){/**
      * @function toast(alert)
      * @name toast
-     * @memberof $.fn or $.boost
-     * @grammar  $('.test').toast().show('xxx'),$.boost.toast().show('xxx')
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').toast().show('xxx'),$.blend.toast().show('xxx')
      * @desc 页面级toast(alert)
      * @param {Object} opts 组件配置（以下参数为配置项）
      * @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
@@ -2247,20 +2756,20 @@ $.widget("boost.nav", {
      * @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
      *
      * @example 
-     * 	1、$('.test').toast().show('hello world', 2000), $('.test')为toast自定义节点,并不是容器,切记
-     * 	2、var toast = $.boost.toast({
+     * 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
+     * 	2、var toast = $.blend.toast({
      * 						toastClass: 'my_define',
      * 						delay: 5000
      * 					}); 
      * 		  toast.show('hello world');
-     *  3、var toast = $.boost.toast({
+     *  3、var toast = $.blend.toast({
      * 						toastTpl: '<div class="my_define">{%content%}</div>'
      * 					});
      * 		  toast.show('hello world');
      */
     
 'use strict';
-$.widget("boost.toast", {
+$.widget("blend.toast", {
     /*配置项*/
     options: {
         toastClass: "",
@@ -2273,9 +2782,13 @@ $.widget("boost.toast", {
     	var options = this.options;
     	this.$el = this.element;
 		this.$body = $('body');
-		this.toastTpl = options.toastTpl || '<div data-boost-widget="toast" class="' + (options.toastClass|| '') + ' boost-toast">{%content%}</div>';
+		this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="' + (options.toastClass|| '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
     },
     
+    /*初始化*/
+    _init: function(){
+    	!this.$el.length && (this.defaultSegment = true);	
+    },
     /*设置延时消失*/
     _setDelay: function(delay){
     	var self = this;
@@ -2305,10 +2818,13 @@ $.widget("boost.toast", {
     	return this.$el.hide();
     },
     
-    /*移除toast*/
-    remove: function(){
-    	this.$el.remove();
-    	return this.$el = [];
+    /*销毁toast*/
+    destroy: function(){
+    	if(this.defaultSegment){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
     }
 });})(Zepto)
 })(window);

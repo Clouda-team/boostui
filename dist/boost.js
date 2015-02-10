@@ -1,1 +1,2830 @@
-!function(t,e){var n=function(){function e(t){return null==t?String(t):X[J.call(t)]||"object"}function n(t){return"function"==e(t)}function i(t){return null!=t&&t==t.window}function o(t){return null!=t&&t.nodeType==t.DOCUMENT_NODE}function r(t){return"object"==e(t)}function s(t){return r(t)&&!i(t)&&Object.getPrototypeOf(t)==Object.prototype}function a(t){return"number"==typeof t.length}function u(t){return k.call(t,function(t){return null!=t})}function c(t){return t.length>0?$.fn.concat.apply([],t):t}function l(t){return t.replace(/::/g,"/").replace(/([A-Z]+)([A-Z][a-z])/g,"$1_$2").replace(/([a-z\d])([A-Z])/g,"$1_$2").replace(/_/g,"-").toLowerCase()}function h(t){return t in V?V[t]:V[t]=new RegExp("(^|\\s)"+t+"(\\s|$)")}function f(t,e){return"number"!=typeof e||L[l(t)]?e:e+"px"}function p(t){var e,n;return D[t]||(e=A.createElement(t),A.body.appendChild(e),n=getComputedStyle(e,"").getPropertyValue("display"),e.parentNode.removeChild(e),"none"==n&&(n="block"),D[t]=n),D[t]}function d(t){return"children"in t?M.call(t.children):$.map(t.childNodes,function(t){return 1==t.nodeType?t:void 0})}function m(t,e){var n,i=t?t.length:0;for(n=0;i>n;n++)this[n]=t[n];this.length=i,this.selector=e||""}function g(t,e,n){for(_ in e)n&&(s(e[_])||te(e[_]))?(s(e[_])&&!s(t[_])&&(t[_]={}),te(e[_])&&!te(t[_])&&(t[_]=[]),g(t[_],e[_],n)):e[_]!==E&&(t[_]=e[_])}function v(t,e){return null==e?$(t):$(t).filter(e)}function y(t,e,i,o){return n(e)?e.call(t,i,o):e}function b(t,e,n){null==n?t.removeAttribute(e):t.setAttribute(e,n)}function w(t,e){var n=t.className||"",i=n&&n.baseVal!==E;return e===E?i?n.baseVal:n:void(i?n.baseVal=e:t.className=e)}function x(t){try{return t?"true"==t||("false"==t?!1:"null"==t?null:+t+""==t?+t:/^[\[\{]/.test(t)?$.parseJSON(t):t):t}catch(e){return t}}function C(t,e){e(t);for(var n=0,i=t.childNodes.length;i>n;n++)C(t.childNodes[n],e)}var E,_,$,T,N,O,S=[],P=S.concat,k=S.filter,M=S.slice,A=t.document,D={},V={},L={"column-count":1,columns:1,"font-weight":1,"line-height":1,opacity:1,"z-index":1,zoom:1},j=/^\s*<(\w+|!)[^>]*>/,R=/^<(\w+)\s*\/?>(?:<\/\1>|)$/,z=/<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/gi,Z=/^(?:body|html)$/i,F=/([A-Z])/g,H=["val","css","html","text","data","width","height","offset"],q=["after","prepend","before","append"],I=A.createElement("table"),B=A.createElement("tr"),U={tr:A.createElement("tbody"),tbody:I,thead:I,tfoot:I,td:B,th:B,"*":A.createElement("div")},W=/complete|loaded|interactive/,Y=/^[\w-]*$/,X={},J=X.toString,G={},K=A.createElement("div"),Q={tabindex:"tabIndex",readonly:"readOnly","for":"htmlFor","class":"className",maxlength:"maxLength",cellspacing:"cellSpacing",cellpadding:"cellPadding",rowspan:"rowSpan",colspan:"colSpan",usemap:"useMap",frameborder:"frameBorder",contenteditable:"contentEditable"},te=Array.isArray||function(t){return t instanceof Array};return G.matches=function(t,e){if(!e||!t||1!==t.nodeType)return!1;var n=t.webkitMatchesSelector||t.mozMatchesSelector||t.oMatchesSelector||t.matchesSelector;if(n)return n.call(t,e);var i,o=t.parentNode,r=!o;return r&&(o=K).appendChild(t),i=~G.qsa(o,e).indexOf(t),r&&K.removeChild(t),i},N=function(t){return t.replace(/-+(.)?/g,function(t,e){return e?e.toUpperCase():""})},O=function(t){return k.call(t,function(e,n){return t.indexOf(e)==n})},G.fragment=function(t,e,n){var i,o,r;return R.test(t)&&(i=$(A.createElement(RegExp.$1))),i||(t.replace&&(t=t.replace(z,"<$1></$2>")),e===E&&(e=j.test(t)&&RegExp.$1),e in U||(e="*"),r=U[e],r.innerHTML=""+t,i=$.each(M.call(r.childNodes),function(){r.removeChild(this)})),s(n)&&(o=$(i),$.each(n,function(t,e){H.indexOf(t)>-1?o[t](e):o.attr(t,e)})),i},G.Z=function(t,e){return new m(t,e)},G.isZ=function(t){return t instanceof G.Z},G.init=function(t,e){var i;if(!t)return G.Z();if("string"==typeof t)if(t=t.trim(),"<"==t[0]&&j.test(t))i=G.fragment(t,RegExp.$1,e),t=null;else{if(e!==E)return $(e).find(t);i=G.qsa(A,t)}else{if(n(t))return $(A).ready(t);if(G.isZ(t))return t;if(te(t))i=u(t);else if(r(t))i=[t],t=null;else if(j.test(t))i=G.fragment(t.trim(),RegExp.$1,e),t=null;else{if(e!==E)return $(e).find(t);i=G.qsa(A,t)}}return G.Z(i,t)},$=function(t,e){return G.init(t,e)},$.extend=function(t){var e,n=M.call(arguments,1);return"boolean"==typeof t&&(e=t,t=n.shift()),n.forEach(function(n){g(t,n,e)}),t},G.qsa=function(t,e){var n,i="#"==e[0],o=!i&&"."==e[0],r=i||o?e.slice(1):e,s=Y.test(r);return t.getElementById&&s&&i?(n=t.getElementById(r))?[n]:[]:1!==t.nodeType&&9!==t.nodeType&&11!==t.nodeType?[]:M.call(s&&!i&&t.getElementsByClassName?o?t.getElementsByClassName(r):t.getElementsByTagName(e):t.querySelectorAll(e))},$.contains=A.documentElement.contains?function(t,e){return t!==e&&t.contains(e)}:function(t,e){for(;e&&(e=e.parentNode);)if(e===t)return!0;return!1},$.type=e,$.isFunction=n,$.isWindow=i,$.isArray=te,$.isPlainObject=s,$.isEmptyObject=function(t){var e;for(e in t)return!1;return!0},$.inArray=function(t,e,n){return S.indexOf.call(e,t,n)},$.camelCase=N,$.trim=function(t){return null==t?"":String.prototype.trim.call(t)},$.uuid=0,$.support={},$.expr={},$.noop=function(){},$.map=function(t,e){var n,i,o,r=[];if(a(t))for(i=0;i<t.length;i++)n=e(t[i],i),null!=n&&r.push(n);else for(o in t)n=e(t[o],o),null!=n&&r.push(n);return c(r)},$.each=function(t,e){var n,i;if(a(t)){for(n=0;n<t.length;n++)if(e.call(t[n],n,t[n])===!1)return t}else for(i in t)if(e.call(t[i],i,t[i])===!1)return t;return t},$.grep=function(t,e){return k.call(t,e)},t.JSON&&($.parseJSON=JSON.parse),$.each("Boolean Number String Function Array Date RegExp Object Error".split(" "),function(t,e){X["[object "+e+"]"]=e.toLowerCase()}),$.fn={constructor:G.Z,length:0,forEach:S.forEach,reduce:S.reduce,push:S.push,sort:S.sort,splice:S.splice,indexOf:S.indexOf,concat:function(){var t,e,n=[];for(t=0;t<arguments.length;t++)e=arguments[t],n[t]=G.isZ(e)?e.toArray():e;return P.apply(G.isZ(this)?this.toArray():this,n)},map:function(t){return $($.map(this,function(e,n){return t.call(e,n,e)}))},slice:function(){return $(M.apply(this,arguments))},ready:function(t){return W.test(A.readyState)&&A.body?t($):A.addEventListener("DOMContentLoaded",function(){t($)},!1),this},get:function(t){return t===E?M.call(this):this[t>=0?t:t+this.length]},toArray:function(){return this.get()},size:function(){return this.length},remove:function(){return this.each(function(){null!=this.parentNode&&this.parentNode.removeChild(this)})},each:function(t){return S.every.call(this,function(e,n){return t.call(e,n,e)!==!1}),this},filter:function(t){return n(t)?this.not(this.not(t)):$(k.call(this,function(e){return G.matches(e,t)}))},add:function(t,e){return $(O(this.concat($(t,e))))},is:function(t){return this.length>0&&G.matches(this[0],t)},not:function(t){var e=[];if(n(t)&&t.call!==E)this.each(function(n){t.call(this,n)||e.push(this)});else{var i="string"==typeof t?this.filter(t):a(t)&&n(t.item)?M.call(t):$(t);this.forEach(function(t){i.indexOf(t)<0&&e.push(t)})}return $(e)},has:function(t){return this.filter(function(){return r(t)?$.contains(this,t):$(this).find(t).size()})},eq:function(t){return-1===t?this.slice(t):this.slice(t,+t+1)},first:function(){var t=this[0];return t&&!r(t)?t:$(t)},last:function(){var t=this[this.length-1];return t&&!r(t)?t:$(t)},find:function(t){var e,n=this;return e=t?"object"==typeof t?$(t).filter(function(){var t=this;return S.some.call(n,function(e){return $.contains(e,t)})}):1==this.length?$(G.qsa(this[0],t)):this.map(function(){return G.qsa(this,t)}):$()},closest:function(t,e){var n=this[0],i=!1;for("object"==typeof t&&(i=$(t));n&&!(i?i.indexOf(n)>=0:G.matches(n,t));)n=n!==e&&!o(n)&&n.parentNode;return $(n)},parents:function(t){for(var e=[],n=this;n.length>0;)n=$.map(n,function(t){return(t=t.parentNode)&&!o(t)&&e.indexOf(t)<0?(e.push(t),t):void 0});return v(e,t)},parent:function(t){return v(O(this.pluck("parentNode")),t)},children:function(t){return v(this.map(function(){return d(this)}),t)},contents:function(){return this.map(function(){return this.contentDocument||M.call(this.childNodes)})},siblings:function(t){return v(this.map(function(t,e){return k.call(d(e.parentNode),function(t){return t!==e})}),t)},empty:function(){return this.each(function(){this.innerHTML=""})},pluck:function(t){return $.map(this,function(e){return e[t]})},show:function(){return this.each(function(){"none"==this.style.display&&(this.style.display=""),"none"==getComputedStyle(this,"").getPropertyValue("display")&&(this.style.display=p(this.nodeName))})},replaceWith:function(t){return this.before(t).remove()},wrap:function(t){var e=n(t);if(this[0]&&!e)var i=$(t).get(0),o=i.parentNode||this.length>1;return this.each(function(n){$(this).wrapAll(e?t.call(this,n):o?i.cloneNode(!0):i)})},wrapAll:function(t){if(this[0]){$(this[0]).before(t=$(t));for(var e;(e=t.children()).length;)t=e.first();$(t).append(this)}return this},wrapInner:function(t){var e=n(t);return this.each(function(n){var i=$(this),o=i.contents(),r=e?t.call(this,n):t;o.length?o.wrapAll(r):i.append(r)})},unwrap:function(){return this.parent().each(function(){$(this).replaceWith($(this).children())}),this},clone:function(){return this.map(function(){return this.cloneNode(!0)})},hide:function(){return this.css("display","none")},toggle:function(t){return this.each(function(){var e=$(this);(t===E?"none"==e.css("display"):t)?e.show():e.hide()})},prev:function(t){return $(this.pluck("previousElementSibling")).filter(t||"*")},next:function(t){return $(this.pluck("nextElementSibling")).filter(t||"*")},html:function(t){return 0 in arguments?this.each(function(e){var n=this.innerHTML;$(this).empty().append(y(this,t,e,n))}):0 in this?this[0].innerHTML:null},text:function(t){return 0 in arguments?this.each(function(e){var n=y(this,t,e,this.textContent);this.textContent=null==n?"":""+n}):0 in this?this[0].textContent:null},attr:function(t,e){var n;return"string"!=typeof t||1 in arguments?this.each(function(n){if(1===this.nodeType)if(r(t))for(_ in t)b(this,_,t[_]);else b(this,t,y(this,e,n,this.getAttribute(t)))}):this.length&&1===this[0].nodeType?!(n=this[0].getAttribute(t))&&t in this[0]?this[0][t]:n:E},removeAttr:function(t){return this.each(function(){1===this.nodeType&&t.split(" ").forEach(function(t){b(this,t)},this)})},prop:function(t,e){return t=Q[t]||t,1 in arguments?this.each(function(n){this[t]=y(this,e,n,this[t])}):this[0]&&this[0][t]},data:function(t,e){var n="data-"+t.replace(F,"-$1").toLowerCase(),i=1 in arguments?this.attr(n,e):this.attr(n);return null!==i?x(i):E},val:function(t){return 0 in arguments?this.each(function(e){this.value=y(this,t,e,this.value)}):this[0]&&(this[0].multiple?$(this[0]).find("option").filter(function(){return this.selected}).pluck("value"):this[0].value)},offset:function(e){if(e)return this.each(function(t){var n=$(this),i=y(this,e,t,n.offset()),o=n.offsetParent().offset(),r={top:i.top-o.top,left:i.left-o.left};"static"==n.css("position")&&(r.position="relative"),n.css(r)});if(!this.length)return null;var n=this[0].getBoundingClientRect();return{left:n.left+t.pageXOffset,top:n.top+t.pageYOffset,width:Math.round(n.width),height:Math.round(n.height)}},css:function(t,n){if(arguments.length<2){var i,o=this[0];if(!o)return;if(i=getComputedStyle(o,""),"string"==typeof t)return o.style[N(t)]||i.getPropertyValue(t);if(te(t)){var r={};return $.each(t,function(t,e){r[e]=o.style[N(e)]||i.getPropertyValue(e)}),r}}var s="";if("string"==e(t))n||0===n?s=l(t)+":"+f(t,n):this.each(function(){this.style.removeProperty(l(t))});else for(_ in t)t[_]||0===t[_]?s+=l(_)+":"+f(_,t[_])+";":this.each(function(){this.style.removeProperty(l(_))});return this.each(function(){this.style.cssText+=";"+s})},index:function(t){return t?this.indexOf($(t)[0]):this.parent().children().indexOf(this[0])},hasClass:function(t){return t?S.some.call(this,function(t){return this.test(w(t))},h(t)):!1},addClass:function(t){return t?this.each(function(e){if("className"in this){T=[];var n=w(this),i=y(this,t,e,n);i.split(/\s+/g).forEach(function(t){$(this).hasClass(t)||T.push(t)},this),T.length&&w(this,n+(n?" ":"")+T.join(" "))}}):this},removeClass:function(t){return this.each(function(e){if("className"in this){if(t===E)return w(this,"");T=w(this),y(this,t,e,T).split(/\s+/g).forEach(function(t){T=T.replace(h(t)," ")}),w(this,T.trim())}})},toggleClass:function(t,e){return t?this.each(function(n){var i=$(this),o=y(this,t,n,w(this));o.split(/\s+/g).forEach(function(t){(e===E?!i.hasClass(t):e)?i.addClass(t):i.removeClass(t)})}):this},scrollTop:function(t){if(this.length){var e="scrollTop"in this[0];return t===E?e?this[0].scrollTop:this[0].pageYOffset:this.each(e?function(){this.scrollTop=t}:function(){this.scrollTo(this.scrollX,t)})}},scrollLeft:function(t){if(this.length){var e="scrollLeft"in this[0];return t===E?e?this[0].scrollLeft:this[0].pageXOffset:this.each(e?function(){this.scrollLeft=t}:function(){this.scrollTo(t,this.scrollY)})}},position:function(){if(this.length){var t=this[0],e=this.offsetParent(),n=this.offset(),i=Z.test(e[0].nodeName)?{top:0,left:0}:e.offset();return n.top-=parseFloat($(t).css("margin-top"))||0,n.left-=parseFloat($(t).css("margin-left"))||0,i.top+=parseFloat($(e[0]).css("border-top-width"))||0,i.left+=parseFloat($(e[0]).css("border-left-width"))||0,{top:n.top-i.top,left:n.left-i.left}}},offsetParent:function(){return this.map(function(){for(var t=this.offsetParent||A.body;t&&!Z.test(t.nodeName)&&"static"==$(t).css("position");)t=t.offsetParent;return t})}},$.fn.detach=$.fn.remove,["width","height"].forEach(function(t){var e=t.replace(/./,function(t){return t[0].toUpperCase()});$.fn[t]=function(n){var r,s=this[0];return n===E?i(s)?s["inner"+e]:o(s)?s.documentElement["scroll"+e]:(r=this.offset())&&r[t]:this.each(function(e){s=$(this),s.css(t,y(this,n,e,s[t]()))})}}),q.forEach(function(n,i){var o=i%2;$.fn[n]=function(){var n,r,s=$.map(arguments,function(t){return n=e(t),"object"==n||"array"==n||null==t?t:G.fragment(t)}),a=this.length>1;return s.length<1?this:this.each(function(e,n){r=o?n:n.parentNode,n=0==i?n.nextSibling:1==i?n.firstChild:2==i?n:null;var u=$.contains(A.documentElement,r);s.forEach(function(e){if(a)e=e.cloneNode(!0);else if(!r)return $(e).remove();r.insertBefore(e,n),u&&C(e,function(e){null==e.nodeName||"SCRIPT"!==e.nodeName.toUpperCase()||e.type&&"text/javascript"!==e.type||e.src||t.eval.call(t,e.innerHTML)})})})},$.fn[o?n+"To":"insert"+(i?"Before":"After")]=function(t){return $(t)[n](this),this}}),G.Z.prototype=m.prototype=$.fn,G.uniq=O,G.deserializeValue=x,$.zepto=G,$}();t.Zepto=n,t.$===e&&(t.$=n),function(e){function n(t){return t._zid||(t._zid=p++)}function i(t,e,i,s){if(e=o(e),e.ns)var a=r(e.ns);return(v[n(t)]||[]).filter(function(t){return!(!t||e.e&&t.e!=e.e||e.ns&&!a.test(t.ns)||i&&n(t.fn)!==n(i)||s&&t.sel!=s)})}function o(t){var e=(""+t).split(".");return{e:e[0],ns:e.slice(1).sort().join(" ")}}function r(t){return new RegExp("(?:^| )"+t.replace(" "," .* ?")+"(?: |$)")}function s(t,e){return t.del&&!b&&t.e in w||!!e}function a(t){return x[t]||b&&w[t]||t}function u(t,i,r,u,c,h,p){var d=n(t),m=v[d]||(v[d]=[]);i.split(/\s/).forEach(function(n){if("ready"==n)return e(document).ready(r);var i=o(n);i.fn=r,i.sel=c,i.e in x&&(r=function(t){var n=t.relatedTarget;return!n||n!==this&&!e.contains(this,n)?i.fn.apply(this,arguments):void 0}),i.del=h;var d=h||r;i.proxy=function(e){if(e=l(e),!e.isImmediatePropagationStopped()){e.data=u;var n=d.apply(t,e._args==f?[e]:[e].concat(e._args));return n===!1&&(e.preventDefault(),e.stopPropagation()),n}},i.i=m.length,m.push(i),"addEventListener"in t&&t.addEventListener(a(i.e),i.proxy,s(i,p))})}function c(t,e,o,r,u){var c=n(t);(e||"").split(/\s/).forEach(function(e){i(t,e,o,r).forEach(function(e){delete v[c][e.i],"removeEventListener"in t&&t.removeEventListener(a(e.e),e.proxy,s(e,u))})})}function l(t,n){return(n||!t.isDefaultPrevented)&&(n||(n=t),e.each($,function(e,i){var o=n[e];t[e]=function(){return this[i]=C,o&&o.apply(n,arguments)},t[i]=E}),(n.defaultPrevented!==f?n.defaultPrevented:"returnValue"in n?n.returnValue===!1:n.getPreventDefault&&n.getPreventDefault())&&(t.isDefaultPrevented=C)),t}function h(t){var e,n={originalEvent:t};for(e in t)_.test(e)||t[e]===f||(n[e]=t[e]);return l(n,t)}var f,p=1,d=Array.prototype.slice,m=e.isFunction,g=function(t){return"string"==typeof t},v={},y={},b="onfocusin"in t,w={focus:"focusin",blur:"focusout"},x={mouseenter:"mouseover",mouseleave:"mouseout"};y.click=y.mousedown=y.mouseup=y.mousemove="MouseEvents",e.event={add:u,remove:c},e.proxy=function(t,i){var o=2 in arguments&&d.call(arguments,2);if(m(t)){var r=function(){return t.apply(i,o?o.concat(d.call(arguments)):arguments)};return r._zid=n(t),r}if(g(i))return o?(o.unshift(t[i],t),e.proxy.apply(null,o)):e.proxy(t[i],t);throw new TypeError("expected function")},e.fn.bind=function(t,e,n){return this.on(t,e,n)},e.fn.unbind=function(t,e){return this.off(t,e)},e.fn.one=function(t,e,n,i){return this.on(t,e,n,i,1)};var C=function(){return!0},E=function(){return!1},_=/^([A-Z]|returnValue$|layer[XY]$)/,$={preventDefault:"isDefaultPrevented",stopImmediatePropagation:"isImmediatePropagationStopped",stopPropagation:"isPropagationStopped"};e.fn.delegate=function(t,e,n){return this.on(e,t,n)},e.fn.undelegate=function(t,e,n){return this.off(e,t,n)},e.fn.live=function(t,n){return e(document.body).delegate(this.selector,t,n),this},e.fn.die=function(t,n){return e(document.body).undelegate(this.selector,t,n),this},e.fn.on=function(t,n,i,o,r){var s,a,l=this;return t&&!g(t)?(e.each(t,function(t,e){l.on(t,n,i,e,r)}),l):(g(n)||m(o)||o===!1||(o=i,i=n,n=f),(o===f||i===!1)&&(o=i,i=f),o===!1&&(o=E),l.each(function(l,f){r&&(s=function(t){return c(f,t.type,o),o.apply(this,arguments)}),n&&(a=function(t){var i,r=e(t.target).closest(n,f).get(0);return r&&r!==f?(i=e.extend(h(t),{currentTarget:r,liveFired:f}),(s||o).apply(r,[i].concat(d.call(arguments,1)))):void 0}),u(f,t,o,i,n,a||s)}))},e.fn.off=function(t,n,i){var o=this;return t&&!g(t)?(e.each(t,function(t,e){o.off(t,n,e)}),o):(g(n)||m(i)||i===!1||(i=n,n=f),i===!1&&(i=E),o.each(function(){c(this,t,i,n)}))},e.fn.trigger=function(t,n){return t=g(t)||e.isPlainObject(t)?e.Event(t):l(t),t._args=n,this.each(function(){t.type in w&&"function"==typeof this[t.type]?this[t.type]():"dispatchEvent"in this?this.dispatchEvent(t):e(this).triggerHandler(t,n)})},e.fn.triggerHandler=function(t,n){var o,r;return this.each(function(s,a){o=h(g(t)?e.Event(t):t),o._args=n,o.target=a,e.each(i(a,t.type||t),function(t,e){return r=e.proxy(o),o.isImmediatePropagationStopped()?!1:void 0})}),r},"focusin focusout focus blur load resize scroll unload click dblclick mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave change select keydown keypress keyup error".split(" ").forEach(function(t){e.fn[t]=function(e){return 0 in arguments?this.bind(t,e):this.trigger(t)}}),e.Event=function(t,e){g(t)||(e=t,t=e.type);var n=document.createEvent(y[t]||"Events"),i=!0;if(e)for(var o in e)"bubbles"==o?i=!!e[o]:n[o]=e[o];return n.initEvent(t,i,!0),l(n)}}(n),function(t){function n(n,o){var c=n[u],l=c&&r[c];if(o===e)return l||i(n);if(l){if(o in l)return l[o];var h=a(o);if(h in l)return l[h]}return s.call(t(n),o)}function i(n,i,s){var c=n[u]||(n[u]=++t.uuid),l=r[c]||(r[c]=o(n));return i!==e&&(l[a(i)]=s),l}function o(e){var n={};return t.each(e.attributes||c,function(e,i){0==i.name.indexOf("data-")&&(n[a(i.name.replace("data-",""))]=t.zepto.deserializeValue(i.value))}),n}var r={},s=t.fn.data,a=t.camelCase,u=t.expando="Zepto"+ +new Date,c=[];t.fn.data=function(o,r){return r===e?t.isPlainObject(o)?this.each(function(e,n){t.each(o,function(t,e){i(n,t,e)})}):0 in this?n(this[0],o):e:this.each(function(){i(this,o,r)})},t.fn.removeData=function(e){return"string"==typeof e&&(e=e.split(/\s+/)),this.each(function(){var n=this[u],i=n&&r[n];i&&t.each(e||i,function(t){delete i[e?a(this):t]})})},["remove","empty"].forEach(function(e){var n=t.fn[e];t.fn[e]=function(){var t=this.find("*");return"remove"===e&&(t=t.add(this)),t.removeData(),n.call(this)}})}(n),function(n){function i(t,e,n,i){return Math.abs(t-e)>=Math.abs(n-i)?t-e>0?"Left":"Right":n-i>0?"Up":"Down"}function o(){f=null,d.last&&(d.el.trigger("longTap"),d={})}function r(){f&&clearTimeout(f),f=null}function s(){c&&clearTimeout(c),l&&clearTimeout(l),h&&clearTimeout(h),f&&clearTimeout(f),c=l=h=f=null,d={}}function a(t){return("touch"==t.pointerType||t.pointerType==t.MSPOINTER_TYPE_TOUCH)&&t.isPrimary}function u(t,e){return t.type=="pointer"+e||t.type.toLowerCase()=="mspointer"+e}var c,l,h,f,p,d={},m=750;n(document).ready(function(){var g,v,y,b,w=0,x=0;"MSGesture"in t&&(p=new MSGesture,p.target=document.body),n(document).bind("MSGestureEnd",function(t){var e=t.velocityX>1?"Right":t.velocityX<-1?"Left":t.velocityY>1?"Down":t.velocityY<-1?"Up":null;e&&(d.el.trigger("swipe"),d.el.trigger("swipe"+e))}).on("touchstart MSPointerDown pointerdown",function(t){(!(b=u(t,"down"))||a(t))&&(y=b?t:t.touches[0],t.touches&&1===t.touches.length&&d.x2&&(d.x2=e,d.y2=e),g=Date.now(),v=g-(d.last||g),d.el=n("tagName"in y.target?y.target:y.target.parentNode),c&&clearTimeout(c),d.x1=y.pageX,d.y1=y.pageY,v>0&&250>=v&&(d.isDoubleTap=!0),d.last=g,f=setTimeout(o,m),p&&b&&p.addPointer(t.pointerId))}).on("touchmove MSPointerMove pointermove",function(t){(!(b=u(t,"move"))||a(t))&&(y=b?t:t.touches[0],r(),d.x2=y.pageX,d.y2=y.pageY,w+=Math.abs(d.x1-d.x2),x+=Math.abs(d.y1-d.y2))}).on("touchend MSPointerUp pointerup",function(t){(!(b=u(t,"up"))||a(t))&&(r(),d.x2&&Math.abs(d.x1-d.x2)>30||d.y2&&Math.abs(d.y1-d.y2)>30?h=setTimeout(function(){d.el.trigger("swipe"),d.el.trigger("swipe"+i(d.x1,d.x2,d.y1,d.y2)),d={}},0):"last"in d&&(30>w&&30>x?l=setTimeout(function(){var t=n.Event("tap");t.cancelTouch=s,d.el.trigger(t),d.isDoubleTap?(d.el&&d.el.trigger("doubleTap"),d={}):c=setTimeout(function(){c=null,d.el&&d.el.trigger("singleTap"),d={}},250)},0):d={}),w=x=0)}).on("touchcancel MSPointerCancel pointercancel",s),n(t).on("scroll",s)}),["swipe","swipeLeft","swipeRight","swipeUp","swipeDown","doubleTap","tap","singleTap","longTap"].forEach(function(t){n.fn[t]=function(e){return this.on(t,e)}})}(n),function(t){"use strict";t.widget=function(e,n,i){var o,r,s,a={},u=e.split(".")[0];return e=e.split(".")[1],o=u+"-"+e,i||(i=n,n=t.Widget),t[u]=t[u]||{},r=t[u][e]=function(t,e){return this._createWidget?void(arguments.length&&this._createWidget(t,e)):new r(t,e)},s=new n,s.options=t.widget.extend({},s.options),t.each(i,function(e,i){var o,r;t.isFunction(i)?(o=function(){return n.prototype[e].apply(this,arguments)},r=function(t){return n.prototype[e].apply(this,t)},a[e]=function(){var t,e=this._super,n=this._superApply;try{t=i.apply(this,arguments)}finally{this._super=e,this.__superApply=n}return t}):a[e]=i}),r.prototype=t.widget.extend(s,a,{constructor:r,namespace:u,widgetName:e,widgetFullName:o}),t.widget.bridge(e,r),r};var n=Array.prototype.slice;t.widget.extend=function(i){for(var o,r,s=n.call(arguments,1),a=0,u=s.length;u>a;a++)for(o in s[a])r=s[a][o],s[a].hasOwnProperty(o)&&r!==e&&(i[o]=t.isPlainObject(r)?t.isPlainObject(i[o])?t.widget.extend({},i[o],r):t.widget.extend({},r):r);return i};var i="__iqzll3wmdjthuxr_";t.widget.bridge=function(o,r){var s=r.prototype.widgetFullName||o,a=i+s;t.fn[o]=function(i){var s="string"==typeof i,u=n.call(arguments,1),c=this;return s?this.each(function(){var n,r=t(this),s=r.data(a);if("instance"===i)return c=s,!1;if(!s)throw new Error("cannot call methods on "+o+" prior to initialization; attempted to call method '"+i+"'");if(!t.isFunction(s[i])||"_"===i.charAt(0))throw new Error("no such method '"+i+"' for "+o+" widget instance");return n=s[i].apply(s,u),n!==s&&n!==e?(c=n,!1):void 0}):(u.length&&(i=t.widget.extend.apply(null,[{},i].concat(u))),this.each(function(){var e=t(this),n=e.data(a);n?(console.log(n),n.option(i||{}),n._init&&n._init()):e.data(a,new r(i,this))})),c}};var o=function(){};t.Widget=function(){},t.Widget.prototype={options:{},_createWidget:function(e,n){this.element=t(n),this.options=t.widget.extend({},this.options,this._getCreateOptions(),e),this._create(),this._trigger("create",null,this._getCreateEventData()),this._init()},_getCreateOptions:function(){return this.element.data(this.widgetFullName)},_getCreateEventData:o,_create:o,_init:o,_trigger:function(e,n,i){var o,r=this.options[e];return e=this.widgetName+":"+e,i=i||{},o=t.Event(e,{originalEvent:n}),this.element.trigger(o,i),!(t.isFunction(r)&&r.apply(this.element[0],[o].concat(i))===!1||o.isDefaultPrevented())},option:function(n,i){var o,r,s,a=n;if(0===arguments.length)return t.widget.extend({},this.options);if("string"==typeof n)if(a={},o=n.split("."),n=o.shift(),o.length){for(r=a[n]=t.widget.extend({},this,a[n]),s=0;s<o.length-1;s++)n=o[s],r[n]=r[n]||{},r=r[n];if(n=o.pop(),1===arguments.length)return r[n]===e?null:r[n];r[n]=i}else{if(1===arguments.length)return this.options[n]===e?null:this.options[n];a[n]=i}return this._setOptions(a),this},_setOptions:function(t){var e;for(e in t)this._setOption(e,t[e]);return this},_setOption:function(t,e){return this.options[t]=e,this}}}(n),function(t){"use strict";t.widget("boost.checkbox",{options:{itemSelector:".boost-checkbox",type:"group"},_create:function(){var t=this.element,e=this.options;this.$group=t.find(e.itemSelector),this.$container=t,console.log(e.datas)},_init:function(){this._initEvent()},_initEvent:function(){var e=this;"radio"==this.options.type?(console.log(this.options),this.$group.on("tap",function(){var n=t(this);e.$container.find(".boost-checkbox-checked").removeClass("boost-checkbox-checked"),n.addClass("boost-checkbox-checked")})):this.$group.on("tap",function(){var e=t(this);e.hasClass("boost-checkbox-checked")?e.removeClass("boost-checkbox-checked"):e.addClass("boost-checkbox-checked")})},getValues:function(){for(var e,n,i=[],o=this.$group,r=0;r<o.length;r++)e=t(o[r]),e.hasClass("boost-checkbox-checked")&&(n=this.options.values[r],i.push(this.options.values[r]));return"radio"==this.options.type?n:i}})}(n),function(t){"use strict";t.widget("boost.counter",{options:{minusSelector:".counter-minus",plusSelector:".counter-plus",inputSelector:".counter-input",minValue:0,maxValue:1/0,step:1},_create:function(){var t=this.element,e=this.options;this.$minus=t.find(e.minusSelector),this.$plus=t.find(e.plusSelector),this.$input=t.find(e.inputSelector)},_init:function(){var t=this.options,e=Number(t.minValue),n=Number(t.maxValue);this._minValue=isNaN(e)?0:e,this._maxValue=isNaN(n)?1/0:n,this._initValue(),this._initEvent()},_initValue:function(){this.value(Number(this.$input.val()))},_initEvent:function(){var t=this,e=Number(this.options.step);e=isNaN(e)?1:e,this.$plus.on("tap click",function(){t.value(t._value+e)}),this.$minus.on("tap click",function(){t.value(t._value-e)}),this.$input.on("blur",function(){t._initValue()})},value:function(t){var e,n,i;return arguments.length>0?(e=Number(t),void(isNaN(e)||(e=Math.min(this._maxValue,Math.max(this._minValue,e)),n=this._value,n!==e&&(i={oldValue:n,newValue:e},this._trigger("beforeupdate",null,i)&&(this.$input.val(e),this._value=e,this._trigger("update",null,i)))))):this._value}}),t(function(){t('[data-boost-widget="counter"]').counter()})}(n),function(t){"use strict";t.widget("boost.loading",{options:{loadingClass:"",loadingHtml:""},_create:function(){var e=this.options;this.$el=this.element,this.$body=t("body"),this.loadingHtml=e.loadingHtml||'<div data-boost-widget="loading" class="'+(e.loadingClass||"")+' boost-loading"></div>'},show:function(){return this.$el.length||(this.$el=t(this.loadingHtml)).appendTo(this.$body),this.$el.show()},hide:function(){return this.$el.hide()},remove:function(){return this.$el.remove(),this.$el=[]}})}(n),function(t){t.widget("boost.nav",{options:{column:3,animate:!0,time:500,expand:"更多",pack:"收起",row:!1},_create:function(){{var t=this.element;this.options}this.expandClass="boostnav-expand",this.animateClass="boostnav-animation",this.expandedClass="boostnav-expanded",this.$item=t.find(".boostnav-item"),this.columnClass="boostnav-column-",this.hideClass="boostnav-item-hide",this.columnRange=[3,4,5]},_init:function(){this.options.animate&&this.element.addClass(this.animateClass),this._colunm(),this._row(),this.inited||(this._initEvent(),this.inited=!0)},_initEvent:function(){var e=this;e.element.on("click","."+e.expandClass,function(n){var i=t(this);if(i.hasClass(e.expandedClass)){var o=e.$item.eq(0).height();e.element.css("height",15+o*e.options.row),i.removeClass(e.expandedClass);var r=e.options.row*e.options.column;e.$item.each(function(n){var i=t(this);n>=r-1&&(e.options.animate?setTimeout(function(){i.addClass(e.hideClass)},500):i.addClass(e.hideClass))}),i.html(e.options.expand)}else{var s=e.$item.length,a=Math.ceil(s/e.options.column)+(s%e.options.column?0:1);o=e.$item.eq(0).height()*a+15,e.element.css("height",o),i.addClass(e.expandedClass),e.$item.removeClass(e.hideClass),i.html(e.options.pack)}e.options.expandHandle&&t.isFunction(e.options.expandHandle)&&e.options.expandHandle(n)})},_colunm:function(){var e=this.element;this.options.column&&-1==t.inArray(this.options.column,this.columnRange)&&(this.options.column=3);for(var n=[],i=0;i<this.columnRange.length;i++)n.push(this.columnClass+this.columnRange[i]);e.removeClass(n.join(" ")).addClass(this.columnClass+this.options.column)},_row:function(){var t=(this.element,this.options);if(t.row===!1)return void this._removeExpand();if(t.row=parseInt(t.row),t.row<1)return t.row=!1,void this._removeExpand();var e=this.$item.length,n=t.column*t.row;return n>=e?void this._removeExpand():void this._addExpand(n)},_removeExpand:function(){var t=this,e=t.element,n=t.$item.length,i=Math.ceil(n/t.options.column),o=t.$item.eq(0).height()*i+15;e.css("height",o),e.find("."+t.expandClass).remove(),t.$item.removeClass(this.hideClass)},_addExpand:function(e){var n=this;n.$item.each(function(i){i>=e-1?t(this).addClass(n.hideClass):t(this).removeClass(n.hideClass)});var i=n.$item.eq(0).height();n.element.css("height",15+i*n.options.row),1===n.element.find("."+n.expandClass).length?n.element.find("."+n.expandClass).removeClass(n.expandedClass).html(n.options.expand):n.element.append('<span class="boostnav-item '+n.expandClass+'">'+n.options.expand+"</span>")},column:function(e){return 0==arguments.length?this.options.column:void(e&&-1==t.inArray(e,this.columnRange)||(this.options.column=e,this._colunm(),this._row()))},row:function(t){if(0==arguments.length)return this.options.row;if(t===!1)return this.options.row=!1,void this._removeExpand();var e=parseInt(t);!e||0>=e||(this.options.row=e,this._row())}})}(n),function(e){"use strict";e.widget("boost.toast",{options:{toastClass:"",toastTpl:"",delay:2500},_create:function(){var t=this.options;this.$el=this.element,this.$body=e("body"),this.toastTpl=t.toastTpl||'<div data-boost-widget="toast" class="'+(t.toastClass||"")+' boost-toast">{%content%}</div>'},_setDelay:function(e){var n=this;e=parseInt(e,10)||this.options.delay,clearTimeout(this.timeout),this.timeOut=t.setTimeout(function(){n.hide()},e)},show:function(t,n){return t?(this.$el.length?this.$el.html(t):(this.$el=e(this.toastTpl.replace(/{%content%}/g,t))).appendTo(this.$body),this._setDelay(n),this.$el.show()):!1},hide:function(){return this.$el.hide()},remove:function(){return this.$el.remove(),this.$el=[]}})}(n)}(window);
+(function (window, undefined) {
+    var NAMESPACE = "blend-";
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+var Zepto = (function() {
+  var undefined, key, $, classList, emptyArray = [], concat = emptyArray.concat, filter = emptyArray.filter, slice = emptyArray.slice,
+    document = window.document,
+    elementDisplay = {}, classCache = {},
+    cssNumber = { 'column-count': 1, 'columns': 1, 'font-weight': 1, 'line-height': 1,'opacity': 1, 'z-index': 1, 'zoom': 1 },
+    fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/,
+    tagExpanderRE = /<(?!area|br|col|embed|hr|img|input|link|meta|param)(([\w:]+)[^>]*)\/>/ig,
+    rootNodeRE = /^(?:body|html)$/i,
+    capitalRE = /([A-Z])/g,
+
+    // special attributes that should be get/set via method calls
+    methodAttributes = ['val', 'css', 'html', 'text', 'data', 'width', 'height', 'offset'],
+
+    adjacencyOperators = [ 'after', 'prepend', 'before', 'append' ],
+    table = document.createElement('table'),
+    tableRow = document.createElement('tr'),
+    containers = {
+      'tr': document.createElement('tbody'),
+      'tbody': table, 'thead': table, 'tfoot': table,
+      'td': tableRow, 'th': tableRow,
+      '*': document.createElement('div')
+    },
+    readyRE = /complete|loaded|interactive/,
+    simpleSelectorRE = /^[\w-]*$/,
+    class2type = {},
+    toString = class2type.toString,
+    zepto = {},
+    camelize, uniq,
+    tempParent = document.createElement('div'),
+    propMap = {
+      'tabindex': 'tabIndex',
+      'readonly': 'readOnly',
+      'for': 'htmlFor',
+      'class': 'className',
+      'maxlength': 'maxLength',
+      'cellspacing': 'cellSpacing',
+      'cellpadding': 'cellPadding',
+      'rowspan': 'rowSpan',
+      'colspan': 'colSpan',
+      'usemap': 'useMap',
+      'frameborder': 'frameBorder',
+      'contenteditable': 'contentEditable'
+    },
+    isArray = Array.isArray ||
+      function(object){ return object instanceof Array }
+
+  zepto.matches = function(element, selector) {
+    if (!selector || !element || element.nodeType !== 1) return false
+    var matchesSelector = element.webkitMatchesSelector || element.mozMatchesSelector ||
+                          element.oMatchesSelector || element.matchesSelector
+    if (matchesSelector) return matchesSelector.call(element, selector)
+    // fall back to performing a selector:
+    var match, parent = element.parentNode, temp = !parent
+    if (temp) (parent = tempParent).appendChild(element)
+    match = ~zepto.qsa(parent, selector).indexOf(element)
+    temp && tempParent.removeChild(element)
+    return match
+  }
+
+  function type(obj) {
+    return obj == null ? String(obj) :
+      class2type[toString.call(obj)] || "object"
+  }
+
+  function isFunction(value) { return type(value) == "function" }
+  function isWindow(obj)     { return obj != null && obj == obj.window }
+  function isDocument(obj)   { return obj != null && obj.nodeType == obj.DOCUMENT_NODE }
+  function isObject(obj)     { return type(obj) == "object" }
+  function isPlainObject(obj) {
+    return isObject(obj) && !isWindow(obj) && Object.getPrototypeOf(obj) == Object.prototype
+  }
+  function likeArray(obj) { return typeof obj.length == 'number' }
+
+  function compact(array) { return filter.call(array, function(item){ return item != null }) }
+  function flatten(array) { return array.length > 0 ? $.fn.concat.apply([], array) : array }
+  camelize = function(str){ return str.replace(/-+(.)?/g, function(match, chr){ return chr ? chr.toUpperCase() : '' }) }
+  function dasherize(str) {
+    return str.replace(/::/g, '/')
+           .replace(/([A-Z]+)([A-Z][a-z])/g, '$1_$2')
+           .replace(/([a-z\d])([A-Z])/g, '$1_$2')
+           .replace(/_/g, '-')
+           .toLowerCase()
+  }
+  uniq = function(array){ return filter.call(array, function(item, idx){ return array.indexOf(item) == idx }) }
+
+  function classRE(name) {
+    return name in classCache ?
+      classCache[name] : (classCache[name] = new RegExp('(^|\\s)' + name + '(\\s|$)'))
+  }
+
+  function maybeAddPx(name, value) {
+    return (typeof value == "number" && !cssNumber[dasherize(name)]) ? value + "px" : value
+  }
+
+  function defaultDisplay(nodeName) {
+    var element, display
+    if (!elementDisplay[nodeName]) {
+      element = document.createElement(nodeName)
+      document.body.appendChild(element)
+      display = getComputedStyle(element, '').getPropertyValue("display")
+      element.parentNode.removeChild(element)
+      display == "none" && (display = "block")
+      elementDisplay[nodeName] = display
+    }
+    return elementDisplay[nodeName]
+  }
+
+  function children(element) {
+    return 'children' in element ?
+      slice.call(element.children) :
+      $.map(element.childNodes, function(node){ if (node.nodeType == 1) return node })
+  }
+
+  function Z(dom, selector) {
+    var i, len = dom ? dom.length : 0
+    for (i = 0; i < len; i++) this[i] = dom[i]
+    this.length = len
+    this.selector = selector || ''
+  }
+
+  // `$.zepto.fragment` takes a html string and an optional tag name
+  // to generate DOM nodes nodes from the given html string.
+  // The generated DOM nodes are returned as an array.
+  // This function can be overriden in plugins for example to make
+  // it compatible with browsers that don't support the DOM fully.
+  zepto.fragment = function(html, name, properties) {
+    var dom, nodes, container
+
+    // A special case optimization for a single tag
+    if (singleTagRE.test(html)) dom = $(document.createElement(RegExp.$1))
+
+    if (!dom) {
+      if (html.replace) html = html.replace(tagExpanderRE, "<$1></$2>")
+      if (name === undefined) name = fragmentRE.test(html) && RegExp.$1
+      if (!(name in containers)) name = '*'
+
+      container = containers[name]
+      container.innerHTML = '' + html
+      dom = $.each(slice.call(container.childNodes), function(){
+        container.removeChild(this)
+      })
+    }
+
+    if (isPlainObject(properties)) {
+      nodes = $(dom)
+      $.each(properties, function(key, value) {
+        if (methodAttributes.indexOf(key) > -1) nodes[key](value)
+        else nodes.attr(key, value)
+      })
+    }
+
+    return dom
+  }
+
+  // `$.zepto.Z` swaps out the prototype of the given `dom` array
+  // of nodes with `$.fn` and thus supplying all the Zepto functions
+  // to the array. This method can be overriden in plugins.
+  zepto.Z = function(dom, selector) {
+    return new Z(dom, selector)
+  }
+
+  // `$.zepto.isZ` should return `true` if the given object is a Zepto
+  // collection. This method can be overriden in plugins.
+  zepto.isZ = function(object) {
+    return object instanceof zepto.Z
+  }
+
+  // `$.zepto.init` is Zepto's counterpart to jQuery's `$.fn.init` and
+  // takes a CSS selector and an optional context (and handles various
+  // special cases).
+  // This method can be overriden in plugins.
+  zepto.init = function(selector, context) {
+    var dom
+    // If nothing given, return an empty Zepto collection
+    if (!selector) return zepto.Z()
+    // Optimize for string selectors
+    else if (typeof selector == 'string') {
+      selector = selector.trim()
+      // If it's a html fragment, create nodes from it
+      // Note: In both Chrome 21 and Firefox 15, DOM error 12
+      // is thrown if the fragment doesn't begin with <
+      if (selector[0] == '<' && fragmentRE.test(selector))
+        dom = zepto.fragment(selector, RegExp.$1, context), selector = null
+      // If there's a context, create a collection on that context first, and select
+      // nodes from there
+      else if (context !== undefined) return $(context).find(selector)
+      // If it's a CSS selector, use it to select nodes.
+      else dom = zepto.qsa(document, selector)
+    }
+    // If a function is given, call it when the DOM is ready
+    else if (isFunction(selector)) return $(document).ready(selector)
+    // If a Zepto collection is given, just return it
+    else if (zepto.isZ(selector)) return selector
+    else {
+      // normalize array if an array of nodes is given
+      if (isArray(selector)) dom = compact(selector)
+      // Wrap DOM nodes.
+      else if (isObject(selector))
+        dom = [selector], selector = null
+      // If it's a html fragment, create nodes from it
+      else if (fragmentRE.test(selector))
+        dom = zepto.fragment(selector.trim(), RegExp.$1, context), selector = null
+      // If there's a context, create a collection on that context first, and select
+      // nodes from there
+      else if (context !== undefined) return $(context).find(selector)
+      // And last but no least, if it's a CSS selector, use it to select nodes.
+      else dom = zepto.qsa(document, selector)
+    }
+    // create a new Zepto collection from the nodes found
+    return zepto.Z(dom, selector)
+  }
+
+  // `$` will be the base `Zepto` object. When calling this
+  // function just call `$.zepto.init, which makes the implementation
+  // details of selecting nodes and creating Zepto collections
+  // patchable in plugins.
+  $ = function(selector, context){
+    return zepto.init(selector, context)
+  }
+
+  function extend(target, source, deep) {
+    for (key in source)
+      if (deep && (isPlainObject(source[key]) || isArray(source[key]))) {
+        if (isPlainObject(source[key]) && !isPlainObject(target[key]))
+          target[key] = {}
+        if (isArray(source[key]) && !isArray(target[key]))
+          target[key] = []
+        extend(target[key], source[key], deep)
+      }
+      else if (source[key] !== undefined) target[key] = source[key]
+  }
+
+  // Copy all but undefined properties from one or more
+  // objects to the `target` object.
+  $.extend = function(target){
+    var deep, args = slice.call(arguments, 1)
+    if (typeof target == 'boolean') {
+      deep = target
+      target = args.shift()
+    }
+    args.forEach(function(arg){ extend(target, arg, deep) })
+    return target
+  }
+
+  // `$.zepto.qsa` is Zepto's CSS selector implementation which
+  // uses `document.querySelectorAll` and optimizes for some special cases, like `#id`.
+  // This method can be overriden in plugins.
+  zepto.qsa = function(element, selector){
+    var found,
+        maybeID = selector[0] == '#',
+        maybeClass = !maybeID && selector[0] == '.',
+        nameOnly = maybeID || maybeClass ? selector.slice(1) : selector, // Ensure that a 1 char tag name still gets checked
+        isSimple = simpleSelectorRE.test(nameOnly)
+    return (element.getElementById && isSimple && maybeID) ? // Safari DocumentFragment doesn't have getElementById
+      ( (found = element.getElementById(nameOnly)) ? [found] : [] ) :
+      (element.nodeType !== 1 && element.nodeType !== 9 && element.nodeType !== 11) ? [] :
+      slice.call(
+        isSimple && !maybeID && element.getElementsByClassName ? // DocumentFragment doesn't have getElementsByClassName/TagName
+          maybeClass ? element.getElementsByClassName(nameOnly) : // If it's simple, it could be a class
+          element.getElementsByTagName(selector) : // Or a tag
+          element.querySelectorAll(selector) // Or it's not simple, and we need to query all
+      )
+  }
+
+  function filtered(nodes, selector) {
+    return selector == null ? $(nodes) : $(nodes).filter(selector)
+  }
+
+  $.contains = document.documentElement.contains ?
+    function(parent, node) {
+      return parent !== node && parent.contains(node)
+    } :
+    function(parent, node) {
+      while (node && (node = node.parentNode))
+        if (node === parent) return true
+      return false
+    }
+
+  function funcArg(context, arg, idx, payload) {
+    return isFunction(arg) ? arg.call(context, idx, payload) : arg
+  }
+
+  function setAttribute(node, name, value) {
+    value == null ? node.removeAttribute(name) : node.setAttribute(name, value)
+  }
+
+  // access className property while respecting SVGAnimatedString
+  function className(node, value){
+    var klass = node.className || '',
+        svg   = klass && klass.baseVal !== undefined
+
+    if (value === undefined) return svg ? klass.baseVal : klass
+    svg ? (klass.baseVal = value) : (node.className = value)
+  }
+
+  // "true"  => true
+  // "false" => false
+  // "null"  => null
+  // "42"    => 42
+  // "42.5"  => 42.5
+  // "08"    => "08"
+  // JSON    => parse if valid
+  // String  => self
+  function deserializeValue(value) {
+    try {
+      return value ?
+        value == "true" ||
+        ( value == "false" ? false :
+          value == "null" ? null :
+          +value + "" == value ? +value :
+          /^[\[\{]/.test(value) ? $.parseJSON(value) :
+          value )
+        : value
+    } catch(e) {
+      return value
+    }
+  }
+
+  $.type = type
+  $.isFunction = isFunction
+  $.isWindow = isWindow
+  $.isArray = isArray
+  $.isPlainObject = isPlainObject
+
+  $.isEmptyObject = function(obj) {
+    var name
+    for (name in obj) return false
+    return true
+  }
+
+  $.inArray = function(elem, array, i){
+    return emptyArray.indexOf.call(array, elem, i)
+  }
+
+  $.camelCase = camelize
+  $.trim = function(str) {
+    return str == null ? "" : String.prototype.trim.call(str)
+  }
+
+  // plugin compatibility
+  $.uuid = 0
+  $.support = { }
+  $.expr = { }
+  $.noop = function() {}
+
+  $.map = function(elements, callback){
+    var value, values = [], i, key
+    if (likeArray(elements))
+      for (i = 0; i < elements.length; i++) {
+        value = callback(elements[i], i)
+        if (value != null) values.push(value)
+      }
+    else
+      for (key in elements) {
+        value = callback(elements[key], key)
+        if (value != null) values.push(value)
+      }
+    return flatten(values)
+  }
+
+  $.each = function(elements, callback){
+    var i, key
+    if (likeArray(elements)) {
+      for (i = 0; i < elements.length; i++)
+        if (callback.call(elements[i], i, elements[i]) === false) return elements
+    } else {
+      for (key in elements)
+        if (callback.call(elements[key], key, elements[key]) === false) return elements
+    }
+
+    return elements
+  }
+
+  $.grep = function(elements, callback){
+    return filter.call(elements, callback)
+  }
+
+  if (window.JSON) $.parseJSON = JSON.parse
+
+  // Populate the class2type map
+  $.each("Boolean Number String Function Array Date RegExp Object Error".split(" "), function(i, name) {
+    class2type[ "[object " + name + "]" ] = name.toLowerCase()
+  })
+
+  // Define methods that will be available on all
+  // Zepto collections
+  $.fn = {
+    constructor: zepto.Z,
+    length: 0,
+
+    // Because a collection acts like an array
+    // copy over these useful array functions.
+    forEach: emptyArray.forEach,
+    reduce: emptyArray.reduce,
+    push: emptyArray.push,
+    sort: emptyArray.sort,
+    splice: emptyArray.splice,
+    indexOf: emptyArray.indexOf,
+    concat: function(){
+      var i, value, args = []
+      for (i = 0; i < arguments.length; i++) {
+        value = arguments[i]
+        args[i] = zepto.isZ(value) ? value.toArray() : value
+      }
+      return concat.apply(zepto.isZ(this) ? this.toArray() : this, args)
+    },
+
+    // `map` and `slice` in the jQuery API work differently
+    // from their array counterparts
+    map: function(fn){
+      return $($.map(this, function(el, i){ return fn.call(el, i, el) }))
+    },
+    slice: function(){
+      return $(slice.apply(this, arguments))
+    },
+
+    ready: function(callback){
+      // need to check if document.body exists for IE as that browser reports
+      // document ready when it hasn't yet created the body element
+      if (readyRE.test(document.readyState) && document.body) callback($)
+      else document.addEventListener('DOMContentLoaded', function(){ callback($) }, false)
+      return this
+    },
+    get: function(idx){
+      return idx === undefined ? slice.call(this) : this[idx >= 0 ? idx : idx + this.length]
+    },
+    toArray: function(){ return this.get() },
+    size: function(){
+      return this.length
+    },
+    remove: function(){
+      return this.each(function(){
+        if (this.parentNode != null)
+          this.parentNode.removeChild(this)
+      })
+    },
+    each: function(callback){
+      emptyArray.every.call(this, function(el, idx){
+        return callback.call(el, idx, el) !== false
+      })
+      return this
+    },
+    filter: function(selector){
+      if (isFunction(selector)) return this.not(this.not(selector))
+      return $(filter.call(this, function(element){
+        return zepto.matches(element, selector)
+      }))
+    },
+    add: function(selector,context){
+      return $(uniq(this.concat($(selector,context))))
+    },
+    is: function(selector){
+      return this.length > 0 && zepto.matches(this[0], selector)
+    },
+    not: function(selector){
+      var nodes=[]
+      if (isFunction(selector) && selector.call !== undefined)
+        this.each(function(idx){
+          if (!selector.call(this,idx)) nodes.push(this)
+        })
+      else {
+        var excludes = typeof selector == 'string' ? this.filter(selector) :
+          (likeArray(selector) && isFunction(selector.item)) ? slice.call(selector) : $(selector)
+        this.forEach(function(el){
+          if (excludes.indexOf(el) < 0) nodes.push(el)
+        })
+      }
+      return $(nodes)
+    },
+    has: function(selector){
+      return this.filter(function(){
+        return isObject(selector) ?
+          $.contains(this, selector) :
+          $(this).find(selector).size()
+      })
+    },
+    eq: function(idx){
+      return idx === -1 ? this.slice(idx) : this.slice(idx, + idx + 1)
+    },
+    first: function(){
+      var el = this[0]
+      return el && !isObject(el) ? el : $(el)
+    },
+    last: function(){
+      var el = this[this.length - 1]
+      return el && !isObject(el) ? el : $(el)
+    },
+    find: function(selector){
+      var result, $this = this
+      if (!selector) result = $()
+      else if (typeof selector == 'object')
+        result = $(selector).filter(function(){
+          var node = this
+          return emptyArray.some.call($this, function(parent){
+            return $.contains(parent, node)
+          })
+        })
+      else if (this.length == 1) result = $(zepto.qsa(this[0], selector))
+      else result = this.map(function(){ return zepto.qsa(this, selector) })
+      return result
+    },
+    closest: function(selector, context){
+      var node = this[0], collection = false
+      if (typeof selector == 'object') collection = $(selector)
+      while (node && !(collection ? collection.indexOf(node) >= 0 : zepto.matches(node, selector)))
+        node = node !== context && !isDocument(node) && node.parentNode
+      return $(node)
+    },
+    parents: function(selector){
+      var ancestors = [], nodes = this
+      while (nodes.length > 0)
+        nodes = $.map(nodes, function(node){
+          if ((node = node.parentNode) && !isDocument(node) && ancestors.indexOf(node) < 0) {
+            ancestors.push(node)
+            return node
+          }
+        })
+      return filtered(ancestors, selector)
+    },
+    parent: function(selector){
+      return filtered(uniq(this.pluck('parentNode')), selector)
+    },
+    children: function(selector){
+      return filtered(this.map(function(){ return children(this) }), selector)
+    },
+    contents: function() {
+      return this.map(function() { return this.contentDocument || slice.call(this.childNodes) })
+    },
+    siblings: function(selector){
+      return filtered(this.map(function(i, el){
+        return filter.call(children(el.parentNode), function(child){ return child!==el })
+      }), selector)
+    },
+    empty: function(){
+      return this.each(function(){ this.innerHTML = '' })
+    },
+    // `pluck` is borrowed from Prototype.js
+    pluck: function(property){
+      return $.map(this, function(el){ return el[property] })
+    },
+    show: function(){
+      return this.each(function(){
+        this.style.display == "none" && (this.style.display = '')
+        if (getComputedStyle(this, '').getPropertyValue("display") == "none")
+          this.style.display = defaultDisplay(this.nodeName)
+      })
+    },
+    replaceWith: function(newContent){
+      return this.before(newContent).remove()
+    },
+    wrap: function(structure){
+      var func = isFunction(structure)
+      if (this[0] && !func)
+        var dom   = $(structure).get(0),
+            clone = dom.parentNode || this.length > 1
+
+      return this.each(function(index){
+        $(this).wrapAll(
+          func ? structure.call(this, index) :
+            clone ? dom.cloneNode(true) : dom
+        )
+      })
+    },
+    wrapAll: function(structure){
+      if (this[0]) {
+        $(this[0]).before(structure = $(structure))
+        var children
+        // drill down to the inmost element
+        while ((children = structure.children()).length) structure = children.first()
+        $(structure).append(this)
+      }
+      return this
+    },
+    wrapInner: function(structure){
+      var func = isFunction(structure)
+      return this.each(function(index){
+        var self = $(this), contents = self.contents(),
+            dom  = func ? structure.call(this, index) : structure
+        contents.length ? contents.wrapAll(dom) : self.append(dom)
+      })
+    },
+    unwrap: function(){
+      this.parent().each(function(){
+        $(this).replaceWith($(this).children())
+      })
+      return this
+    },
+    clone: function(){
+      return this.map(function(){ return this.cloneNode(true) })
+    },
+    hide: function(){
+      return this.css("display", "none")
+    },
+    toggle: function(setting){
+      return this.each(function(){
+        var el = $(this)
+        ;(setting === undefined ? el.css("display") == "none" : setting) ? el.show() : el.hide()
+      })
+    },
+    prev: function(selector){ return $(this.pluck('previousElementSibling')).filter(selector || '*') },
+    next: function(selector){ return $(this.pluck('nextElementSibling')).filter(selector || '*') },
+    html: function(html){
+      return 0 in arguments ?
+        this.each(function(idx){
+          var originHtml = this.innerHTML
+          $(this).empty().append( funcArg(this, html, idx, originHtml) )
+        }) :
+        (0 in this ? this[0].innerHTML : null)
+    },
+    text: function(text){
+      return 0 in arguments ?
+        this.each(function(idx){
+          var newText = funcArg(this, text, idx, this.textContent)
+          this.textContent = newText == null ? '' : ''+newText
+        }) :
+        (0 in this ? this[0].textContent : null)
+    },
+    attr: function(name, value){
+      var result
+      return (typeof name == 'string' && !(1 in arguments)) ?
+        (!this.length || this[0].nodeType !== 1 ? undefined :
+          (!(result = this[0].getAttribute(name)) && name in this[0]) ? this[0][name] : result
+        ) :
+        this.each(function(idx){
+          if (this.nodeType !== 1) return
+          if (isObject(name)) for (key in name) setAttribute(this, key, name[key])
+          else setAttribute(this, name, funcArg(this, value, idx, this.getAttribute(name)))
+        })
+    },
+    removeAttr: function(name){
+      return this.each(function(){ this.nodeType === 1 && name.split(' ').forEach(function(attribute){
+        setAttribute(this, attribute)
+      }, this)})
+    },
+    prop: function(name, value){
+      name = propMap[name] || name
+      return (1 in arguments) ?
+        this.each(function(idx){
+          this[name] = funcArg(this, value, idx, this[name])
+        }) :
+        (this[0] && this[0][name])
+    },
+    data: function(name, value){
+      var attrName = 'data-' + name.replace(capitalRE, '-$1').toLowerCase()
+
+      var data = (1 in arguments) ?
+        this.attr(attrName, value) :
+        this.attr(attrName)
+
+      return data !== null ? deserializeValue(data) : undefined
+    },
+    val: function(value){
+      return 0 in arguments ?
+        this.each(function(idx){
+          this.value = funcArg(this, value, idx, this.value)
+        }) :
+        (this[0] && (this[0].multiple ?
+           $(this[0]).find('option').filter(function(){ return this.selected }).pluck('value') :
+           this[0].value)
+        )
+    },
+    offset: function(coordinates){
+      if (coordinates) return this.each(function(index){
+        var $this = $(this),
+            coords = funcArg(this, coordinates, index, $this.offset()),
+            parentOffset = $this.offsetParent().offset(),
+            props = {
+              top:  coords.top  - parentOffset.top,
+              left: coords.left - parentOffset.left
+            }
+
+        if ($this.css('position') == 'static') props['position'] = 'relative'
+        $this.css(props)
+      })
+      if (!this.length) return null
+      var obj = this[0].getBoundingClientRect()
+      return {
+        left: obj.left + window.pageXOffset,
+        top: obj.top + window.pageYOffset,
+        width: Math.round(obj.width),
+        height: Math.round(obj.height)
+      }
+    },
+    css: function(property, value){
+      if (arguments.length < 2) {
+        var computedStyle, element = this[0]
+        if(!element) return
+        computedStyle = getComputedStyle(element, '')
+        if (typeof property == 'string')
+          return element.style[camelize(property)] || computedStyle.getPropertyValue(property)
+        else if (isArray(property)) {
+          var props = {}
+          $.each(property, function(_, prop){
+            props[prop] = (element.style[camelize(prop)] || computedStyle.getPropertyValue(prop))
+          })
+          return props
+        }
+      }
+
+      var css = ''
+      if (type(property) == 'string') {
+        if (!value && value !== 0)
+          this.each(function(){ this.style.removeProperty(dasherize(property)) })
+        else
+          css = dasherize(property) + ":" + maybeAddPx(property, value)
+      } else {
+        for (key in property)
+          if (!property[key] && property[key] !== 0)
+            this.each(function(){ this.style.removeProperty(dasherize(key)) })
+          else
+            css += dasherize(key) + ':' + maybeAddPx(key, property[key]) + ';'
+      }
+
+      return this.each(function(){ this.style.cssText += ';' + css })
+    },
+    index: function(element){
+      return element ? this.indexOf($(element)[0]) : this.parent().children().indexOf(this[0])
+    },
+    hasClass: function(name){
+      if (!name) return false
+      return emptyArray.some.call(this, function(el){
+        return this.test(className(el))
+      }, classRE(name))
+    },
+    addClass: function(name){
+      if (!name) return this
+      return this.each(function(idx){
+        if (!('className' in this)) return
+        classList = []
+        var cls = className(this), newName = funcArg(this, name, idx, cls)
+        newName.split(/\s+/g).forEach(function(klass){
+          if (!$(this).hasClass(klass)) classList.push(klass)
+        }, this)
+        classList.length && className(this, cls + (cls ? " " : "") + classList.join(" "))
+      })
+    },
+    removeClass: function(name){
+      return this.each(function(idx){
+        if (!('className' in this)) return
+        if (name === undefined) return className(this, '')
+        classList = className(this)
+        funcArg(this, name, idx, classList).split(/\s+/g).forEach(function(klass){
+          classList = classList.replace(classRE(klass), " ")
+        })
+        className(this, classList.trim())
+      })
+    },
+    toggleClass: function(name, when){
+      if (!name) return this
+      return this.each(function(idx){
+        var $this = $(this), names = funcArg(this, name, idx, className(this))
+        names.split(/\s+/g).forEach(function(klass){
+          (when === undefined ? !$this.hasClass(klass) : when) ?
+            $this.addClass(klass) : $this.removeClass(klass)
+        })
+      })
+    },
+    scrollTop: function(value){
+      if (!this.length) return
+      var hasScrollTop = 'scrollTop' in this[0]
+      if (value === undefined) return hasScrollTop ? this[0].scrollTop : this[0].pageYOffset
+      return this.each(hasScrollTop ?
+        function(){ this.scrollTop = value } :
+        function(){ this.scrollTo(this.scrollX, value) })
+    },
+    scrollLeft: function(value){
+      if (!this.length) return
+      var hasScrollLeft = 'scrollLeft' in this[0]
+      if (value === undefined) return hasScrollLeft ? this[0].scrollLeft : this[0].pageXOffset
+      return this.each(hasScrollLeft ?
+        function(){ this.scrollLeft = value } :
+        function(){ this.scrollTo(value, this.scrollY) })
+    },
+    position: function() {
+      if (!this.length) return
+
+      var elem = this[0],
+        // Get *real* offsetParent
+        offsetParent = this.offsetParent(),
+        // Get correct offsets
+        offset       = this.offset(),
+        parentOffset = rootNodeRE.test(offsetParent[0].nodeName) ? { top: 0, left: 0 } : offsetParent.offset()
+
+      // Subtract element margins
+      // note: when an element has margin: auto the offsetLeft and marginLeft
+      // are the same in Safari causing offset.left to incorrectly be 0
+      offset.top  -= parseFloat( $(elem).css('margin-top') ) || 0
+      offset.left -= parseFloat( $(elem).css('margin-left') ) || 0
+
+      // Add offsetParent borders
+      parentOffset.top  += parseFloat( $(offsetParent[0]).css('border-top-width') ) || 0
+      parentOffset.left += parseFloat( $(offsetParent[0]).css('border-left-width') ) || 0
+
+      // Subtract the two offsets
+      return {
+        top:  offset.top  - parentOffset.top,
+        left: offset.left - parentOffset.left
+      }
+    },
+    offsetParent: function() {
+      return this.map(function(){
+        var parent = this.offsetParent || document.body
+        while (parent && !rootNodeRE.test(parent.nodeName) && $(parent).css("position") == "static")
+          parent = parent.offsetParent
+        return parent
+      })
+    }
+  }
+
+  // for now
+  $.fn.detach = $.fn.remove
+
+  // Generate the `width` and `height` functions
+  ;['width', 'height'].forEach(function(dimension){
+    var dimensionProperty =
+      dimension.replace(/./, function(m){ return m[0].toUpperCase() })
+
+    $.fn[dimension] = function(value){
+      var offset, el = this[0]
+      if (value === undefined) return isWindow(el) ? el['inner' + dimensionProperty] :
+        isDocument(el) ? el.documentElement['scroll' + dimensionProperty] :
+        (offset = this.offset()) && offset[dimension]
+      else return this.each(function(idx){
+        el = $(this)
+        el.css(dimension, funcArg(this, value, idx, el[dimension]()))
+      })
+    }
+  })
+
+  function traverseNode(node, fun) {
+    fun(node)
+    for (var i = 0, len = node.childNodes.length; i < len; i++)
+      traverseNode(node.childNodes[i], fun)
+  }
+
+  // Generate the `after`, `prepend`, `before`, `append`,
+  // `insertAfter`, `insertBefore`, `appendTo`, and `prependTo` methods.
+  adjacencyOperators.forEach(function(operator, operatorIndex) {
+    var inside = operatorIndex % 2 //=> prepend, append
+
+    $.fn[operator] = function(){
+      // arguments can be nodes, arrays of nodes, Zepto objects and HTML strings
+      var argType, nodes = $.map(arguments, function(arg) {
+            argType = type(arg)
+            return argType == "object" || argType == "array" || arg == null ?
+              arg : zepto.fragment(arg)
+          }),
+          parent, copyByClone = this.length > 1
+      if (nodes.length < 1) return this
+
+      return this.each(function(_, target){
+        parent = inside ? target : target.parentNode
+
+        // convert all methods to a "before" operation
+        target = operatorIndex == 0 ? target.nextSibling :
+                 operatorIndex == 1 ? target.firstChild :
+                 operatorIndex == 2 ? target :
+                 null
+
+        var parentInDocument = $.contains(document.documentElement, parent)
+
+        nodes.forEach(function(node){
+          if (copyByClone) node = node.cloneNode(true)
+          else if (!parent) return $(node).remove()
+
+          parent.insertBefore(node, target)
+          if (parentInDocument) traverseNode(node, function(el){
+            if (el.nodeName != null && el.nodeName.toUpperCase() === 'SCRIPT' &&
+               (!el.type || el.type === 'text/javascript') && !el.src)
+              window['eval'].call(window, el.innerHTML)
+          })
+        })
+      })
+    }
+
+    // after    => insertAfter
+    // prepend  => prependTo
+    // before   => insertBefore
+    // append   => appendTo
+    $.fn[inside ? operator+'To' : 'insert'+(operatorIndex ? 'Before' : 'After')] = function(html){
+      $(html)[operator](this)
+      return this
+    }
+  })
+
+  zepto.Z.prototype = Z.prototype = $.fn
+
+  // Export internal API functions in the `$.zepto` namespace
+  zepto.uniq = uniq
+  zepto.deserializeValue = deserializeValue
+  $.zepto = zepto
+
+  return $
+})()
+
+// by zhangyuanwei
+// don't export global zepto variable 
+//// If `$` is not yet defined, point it to `Zepto`
+window.Zepto = Zepto
+window.$ === undefined && (window.$ = Zepto)
+
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+;(function($){
+  var _zid = 1, undefined,
+      slice = Array.prototype.slice,
+      isFunction = $.isFunction,
+      isString = function(obj){ return typeof obj == 'string' },
+      handlers = {},
+      specialEvents={},
+      focusinSupported = 'onfocusin' in window,
+      focus = { focus: 'focusin', blur: 'focusout' },
+      hover = { mouseenter: 'mouseover', mouseleave: 'mouseout' }
+
+  specialEvents.click = specialEvents.mousedown = specialEvents.mouseup = specialEvents.mousemove = 'MouseEvents'
+
+  function zid(element) {
+    return element._zid || (element._zid = _zid++)
+  }
+  function findHandlers(element, event, fn, selector) {
+    event = parse(event)
+    if (event.ns) var matcher = matcherFor(event.ns)
+    return (handlers[zid(element)] || []).filter(function(handler) {
+      return handler
+        && (!event.e  || handler.e == event.e)
+        && (!event.ns || matcher.test(handler.ns))
+        && (!fn       || zid(handler.fn) === zid(fn))
+        && (!selector || handler.sel == selector)
+    })
+  }
+  function parse(event) {
+    var parts = ('' + event).split('.')
+    return {e: parts[0], ns: parts.slice(1).sort().join(' ')}
+  }
+  function matcherFor(ns) {
+    return new RegExp('(?:^| )' + ns.replace(' ', ' .* ?') + '(?: |$)')
+  }
+
+  function eventCapture(handler, captureSetting) {
+    return handler.del &&
+      (!focusinSupported && (handler.e in focus)) ||
+      !!captureSetting
+  }
+
+  function realEvent(type) {
+    return hover[type] || (focusinSupported && focus[type]) || type
+  }
+
+  function add(element, events, fn, data, selector, delegator, capture){
+    var id = zid(element), set = (handlers[id] || (handlers[id] = []))
+    events.split(/\s/).forEach(function(event){
+      if (event == 'ready') return $(document).ready(fn)
+      var handler   = parse(event)
+      handler.fn    = fn
+      handler.sel   = selector
+      // emulate mouseenter, mouseleave
+      if (handler.e in hover) fn = function(e){
+        var related = e.relatedTarget
+        if (!related || (related !== this && !$.contains(this, related)))
+          return handler.fn.apply(this, arguments)
+      }
+      handler.del   = delegator
+      var callback  = delegator || fn
+      handler.proxy = function(e){
+        e = compatible(e)
+        if (e.isImmediatePropagationStopped()) return
+        e.data = data
+        var result = callback.apply(element, e._args == undefined ? [e] : [e].concat(e._args))
+        if (result === false) e.preventDefault(), e.stopPropagation()
+        return result
+      }
+      handler.i = set.length
+      set.push(handler)
+      if ('addEventListener' in element)
+        element.addEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+    })
+  }
+  function remove(element, events, fn, selector, capture){
+    var id = zid(element)
+    ;(events || '').split(/\s/).forEach(function(event){
+      findHandlers(element, event, fn, selector).forEach(function(handler){
+        delete handlers[id][handler.i]
+      if ('removeEventListener' in element)
+        element.removeEventListener(realEvent(handler.e), handler.proxy, eventCapture(handler, capture))
+      })
+    })
+  }
+
+  $.event = { add: add, remove: remove }
+
+  $.proxy = function(fn, context) {
+    var args = (2 in arguments) && slice.call(arguments, 2)
+    if (isFunction(fn)) {
+      var proxyFn = function(){ return fn.apply(context, args ? args.concat(slice.call(arguments)) : arguments) }
+      proxyFn._zid = zid(fn)
+      return proxyFn
+    } else if (isString(context)) {
+      if (args) {
+        args.unshift(fn[context], fn)
+        return $.proxy.apply(null, args)
+      } else {
+        return $.proxy(fn[context], fn)
+      }
+    } else {
+      throw new TypeError("expected function")
+    }
+  }
+
+  $.fn.bind = function(event, data, callback){
+    return this.on(event, data, callback)
+  }
+  $.fn.unbind = function(event, callback){
+    return this.off(event, callback)
+  }
+  $.fn.one = function(event, selector, data, callback){
+    return this.on(event, selector, data, callback, 1)
+  }
+
+  var returnTrue = function(){return true},
+      returnFalse = function(){return false},
+      ignoreProperties = /^([A-Z]|returnValue$|layer[XY]$)/,
+      eventMethods = {
+        preventDefault: 'isDefaultPrevented',
+        stopImmediatePropagation: 'isImmediatePropagationStopped',
+        stopPropagation: 'isPropagationStopped'
+      }
+
+  function compatible(event, source) {
+    if (source || !event.isDefaultPrevented) {
+      source || (source = event)
+
+      $.each(eventMethods, function(name, predicate) {
+        var sourceMethod = source[name]
+        event[name] = function(){
+          this[predicate] = returnTrue
+          return sourceMethod && sourceMethod.apply(source, arguments)
+        }
+        event[predicate] = returnFalse
+      })
+
+      if (source.defaultPrevented !== undefined ? source.defaultPrevented :
+          'returnValue' in source ? source.returnValue === false :
+          source.getPreventDefault && source.getPreventDefault())
+        event.isDefaultPrevented = returnTrue
+    }
+    return event
+  }
+
+  function createProxy(event) {
+    var key, proxy = { originalEvent: event }
+    for (key in event)
+      if (!ignoreProperties.test(key) && event[key] !== undefined) proxy[key] = event[key]
+
+    return compatible(proxy, event)
+  }
+
+  $.fn.delegate = function(selector, event, callback){
+    return this.on(event, selector, callback)
+  }
+  $.fn.undelegate = function(selector, event, callback){
+    return this.off(event, selector, callback)
+  }
+
+  $.fn.live = function(event, callback){
+    $(document.body).delegate(this.selector, event, callback)
+    return this
+  }
+  $.fn.die = function(event, callback){
+    $(document.body).undelegate(this.selector, event, callback)
+    return this
+  }
+
+  $.fn.on = function(event, selector, data, callback, one){
+    var autoRemove, delegator, $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.on(type, selector, data, fn, one)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = data, data = selector, selector = undefined
+    if (callback === undefined || data === false)
+      callback = data, data = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(_, element){
+      if (one) autoRemove = function(e){
+        remove(element, e.type, callback)
+        return callback.apply(this, arguments)
+      }
+
+      if (selector) delegator = function(e){
+        var evt, match = $(e.target).closest(selector, element).get(0)
+        if (match && match !== element) {
+          evt = $.extend(createProxy(e), {currentTarget: match, liveFired: element})
+          return (autoRemove || callback).apply(match, [evt].concat(slice.call(arguments, 1)))
+        }
+      }
+
+      add(element, event, callback, data, selector, delegator || autoRemove)
+    })
+  }
+  $.fn.off = function(event, selector, callback){
+    var $this = this
+    if (event && !isString(event)) {
+      $.each(event, function(type, fn){
+        $this.off(type, selector, fn)
+      })
+      return $this
+    }
+
+    if (!isString(selector) && !isFunction(callback) && callback !== false)
+      callback = selector, selector = undefined
+
+    if (callback === false) callback = returnFalse
+
+    return $this.each(function(){
+      remove(this, event, callback, selector)
+    })
+  }
+
+  $.fn.trigger = function(event, args){
+    event = (isString(event) || $.isPlainObject(event)) ? $.Event(event) : compatible(event)
+    event._args = args
+    return this.each(function(){
+      // handle focus(), blur() by calling them directly
+      if (event.type in focus && typeof this[event.type] == "function") this[event.type]()
+      // items in the collection might not be DOM elements
+      else if ('dispatchEvent' in this) this.dispatchEvent(event)
+      else $(this).triggerHandler(event, args)
+    })
+  }
+
+  // triggers event handlers on current element just as if an event occurred,
+  // doesn't trigger an actual event, doesn't bubble
+  $.fn.triggerHandler = function(event, args){
+    var e, result
+    this.each(function(i, element){
+      e = createProxy(isString(event) ? $.Event(event) : event)
+      e._args = args
+      e.target = element
+      $.each(findHandlers(element, event.type || event), function(i, handler){
+        result = handler.proxy(e)
+        if (e.isImmediatePropagationStopped()) return false
+      })
+    })
+    return result
+  }
+
+  // shortcut methods for `.bind(event, fn)` for each event type
+  ;('focusin focusout focus blur load resize scroll unload click dblclick '+
+  'mousedown mouseup mousemove mouseover mouseout mouseenter mouseleave '+
+  'change select keydown keypress keyup error').split(' ').forEach(function(event) {
+    $.fn[event] = function(callback) {
+      return (0 in arguments) ?
+        this.bind(event, callback) :
+        this.trigger(event)
+    }
+  })
+
+  $.Event = function(type, props) {
+    if (!isString(type)) props = type, type = props.type
+    var event = document.createEvent(specialEvents[type] || 'Events'), bubbles = true
+    if (props) for (var name in props) (name == 'bubbles') ? (bubbles = !!props[name]) : (event[name] = props[name])
+    event.initEvent(type, bubbles, true)
+    return compatible(event)
+  }
+
+})(Zepto)
+
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+// The following code is heavily inspired by jQuery's $.fn.data()
+
+;(function($){
+  var data = {}, dataAttr = $.fn.data, camelize = $.camelCase,
+    exp = $.expando = 'Zepto' + (+new Date()), emptyArray = []
+
+  // Get value from node:
+  // 1. first try key as given,
+  // 2. then try camelized key,
+  // 3. fall back to reading "data-*" attribute.
+  function getData(node, name) {
+    var id = node[exp], store = id && data[id]
+    if (name === undefined) return store || setData(node)
+    else {
+      if (store) {
+        if (name in store) return store[name]
+        var camelName = camelize(name)
+        if (camelName in store) return store[camelName]
+      }
+      return dataAttr.call($(node), name)
+    }
+  }
+
+  // Store value under camelized key on node
+  function setData(node, name, value) {
+    var id = node[exp] || (node[exp] = ++$.uuid),
+      store = data[id] || (data[id] = attributeData(node))
+    if (name !== undefined) store[camelize(name)] = value
+    return store
+  }
+
+  // Read all "data-*" attributes from a node
+  function attributeData(node) {
+    var store = {}
+    $.each(node.attributes || emptyArray, function(i, attr){
+      if (attr.name.indexOf('data-') == 0)
+        store[camelize(attr.name.replace('data-', ''))] =
+          $.zepto.deserializeValue(attr.value)
+    })
+    return store
+  }
+
+  $.fn.data = function(name, value) {
+    return value === undefined ?
+      // set multiple values via object
+      $.isPlainObject(name) ?
+        this.each(function(i, node){
+          $.each(name, function(key, value){ setData(node, key, value) })
+        }) :
+        // get value from first element
+        (0 in this ? getData(this[0], name) : undefined) :
+      // set value on all elements
+      this.each(function(){ setData(this, name, value) })
+  }
+
+  $.fn.removeData = function(names) {
+    if (typeof names == 'string') names = names.split(/\s+/)
+    return this.each(function(){
+      var id = this[exp], store = id && data[id]
+      if (store) $.each(names || store, function(key){
+        delete store[names ? camelize(this) : key]
+      })
+    })
+  }
+
+  // Generate extended `remove` and `empty` functions
+  ;['remove', 'empty'].forEach(function(methodName){
+    var origFn = $.fn[methodName]
+    $.fn[methodName] = function() {
+      var elements = this.find('*')
+      if (methodName === 'remove') elements = elements.add(this)
+      elements.removeData()
+      return origFn.call(this)
+    }
+  })
+})(Zepto)
+
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
+;(function($){
+  var touch = {},
+    touchTimeout, tapTimeout, swipeTimeout, longTapTimeout,
+    longTapDelay = 750,
+    gesture
+
+  function swipeDirection(x1, x2, y1, y2) {
+    return Math.abs(x1 - x2) >=
+      Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down')
+  }
+
+  function longTap() {
+    longTapTimeout = null
+    if (touch.last) {
+      touch.el.trigger('longTap')
+      touch = {}
+    }
+  }
+
+  function cancelLongTap() {
+    if (longTapTimeout) clearTimeout(longTapTimeout)
+    longTapTimeout = null
+  }
+
+  function cancelAll() {
+    if (touchTimeout) clearTimeout(touchTimeout)
+    if (tapTimeout) clearTimeout(tapTimeout)
+    if (swipeTimeout) clearTimeout(swipeTimeout)
+    if (longTapTimeout) clearTimeout(longTapTimeout)
+    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null
+    touch = {}
+  }
+
+  function isPrimaryTouch(event){
+    return (event.pointerType == 'touch' ||
+      event.pointerType == event.MSPOINTER_TYPE_TOUCH)
+      && event.isPrimary
+  }
+
+  function isPointerEventType(e, type){
+    return (e.type == 'pointer'+type ||
+      e.type.toLowerCase() == 'mspointer'+type)
+  }
+
+  $(document).ready(function(){
+    var now, delta, deltaX = 0, deltaY = 0, firstTouch, _isPointerType
+
+    if ('MSGesture' in window) {
+      gesture = new MSGesture()
+      gesture.target = document.body
+    }
+
+    $(document)
+      .bind('MSGestureEnd', function(e){
+        var swipeDirectionFromVelocity =
+          e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
+        if (swipeDirectionFromVelocity) {
+          touch.el.trigger('swipe')
+          touch.el.trigger('swipe'+ swipeDirectionFromVelocity)
+        }
+      })
+      .on('touchstart MSPointerDown pointerdown', function(e){
+        if((_isPointerType = isPointerEventType(e, 'down')) &&
+          !isPrimaryTouch(e)) return
+        firstTouch = _isPointerType ? e : e.touches[0]
+        if (e.touches && e.touches.length === 1 && touch.x2) {
+          // Clear out touch movement data if we have it sticking around
+          // This can occur if touchcancel doesn't fire due to preventDefault, etc.
+          touch.x2 = undefined
+          touch.y2 = undefined
+        }
+        now = Date.now()
+        delta = now - (touch.last || now)
+        touch.el = $('tagName' in firstTouch.target ?
+          firstTouch.target : firstTouch.target.parentNode)
+        touchTimeout && clearTimeout(touchTimeout)
+        touch.x1 = firstTouch.pageX
+        touch.y1 = firstTouch.pageY
+        if (delta > 0 && delta <= 250) touch.isDoubleTap = true
+        touch.last = now
+        longTapTimeout = setTimeout(longTap, longTapDelay)
+        // adds the current touch contact for IE gesture recognition
+        if (gesture && _isPointerType) gesture.addPointer(e.pointerId);
+      })
+      .on('touchmove MSPointerMove pointermove', function(e){
+        if((_isPointerType = isPointerEventType(e, 'move')) &&
+          !isPrimaryTouch(e)) return
+        firstTouch = _isPointerType ? e : e.touches[0]
+        cancelLongTap()
+        touch.x2 = firstTouch.pageX
+        touch.y2 = firstTouch.pageY
+
+        deltaX += Math.abs(touch.x1 - touch.x2)
+        deltaY += Math.abs(touch.y1 - touch.y2)
+      })
+      .on('touchend MSPointerUp pointerup', function(e){
+        if((_isPointerType = isPointerEventType(e, 'up')) &&
+          !isPrimaryTouch(e)) return
+        cancelLongTap()
+
+        // swipe
+        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) ||
+            (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30))
+
+          swipeTimeout = setTimeout(function() {
+            touch.el.trigger('swipe')
+            touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)))
+            touch = {}
+          }, 0)
+
+        // normal tap
+        else if ('last' in touch)
+          // don't fire tap when delta position changed by more than 30 pixels,
+          // for instance when moving to a point and back to origin
+          if (deltaX < 30 && deltaY < 30) {
+            // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
+            // ('tap' fires before 'scroll')
+            tapTimeout = setTimeout(function() {
+
+              // trigger universal 'tap' with the option to cancelTouch()
+              // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+              var event = $.Event('tap')
+              event.cancelTouch = cancelAll
+              touch.el.trigger(event)
+
+              // trigger double tap immediately
+              if (touch.isDoubleTap) {
+                if (touch.el) touch.el.trigger('doubleTap')
+                touch = {}
+              }
+
+              // trigger single tap after 250ms of inactivity
+              else {
+                touchTimeout = setTimeout(function(){
+                  touchTimeout = null
+                  if (touch.el) touch.el.trigger('singleTap')
+                  touch = {}
+                }, 250)
+              }
+            }, 0)
+          } else {
+            touch = {}
+          }
+          deltaX = deltaY = 0
+
+      })
+      // when the browser window loses focus,
+      // for example when a modal dialog is shown,
+      // cancel all ongoing events
+      .on('touchcancel MSPointerCancel pointercancel', cancelAll)
+
+    // scrolling the window indicates intention of the user
+    // to scroll, not tap or swipe, so cancel all ongoing events
+    $(window).on('scroll', cancelAll)
+  })
+
+  ;['swipe', 'swipeLeft', 'swipeRight', 'swipeUp', 'swipeDown',
+    'doubleTap', 'tap', 'singleTap', 'longTap'].forEach(function(eventName){
+    $.fn[eventName] = function(callback){ return this.on(eventName, callback) }
+  })
+})(Zepto)
+
+    ;
+(function ($) {
+    'use strict';
+    /**
+     * widget 类工厂
+     *
+     * @param name {string} widget名
+     * @param base {function} 父类
+     * @param prototype {object} 原型
+     * @return {function} 类构造函数
+     */
+    $.widget = function (name, base, prototype) {
+        /**
+         * 组件全名
+         */
+        var fullName;
+        /**
+         * 组件构造函数
+         */
+        var constructor;
+        /**
+         * 基础原型
+         */
+        var basePrototype;
+        /**
+         * 用于实现 this._super 调用
+         */
+        var proxiedPrototype = {};
+        var namespace = name.split(".")[0];
+
+        name = name.split(".")[1];
+        fullName = namespace + "-" + name;
+
+        if (!prototype) {
+            prototype = base;
+            base = $.Widget;
+        }
+
+        $[namespace] = $[namespace] || {};
+        constructor = $[namespace][name] = function (options, element) {
+            // 检查是否是通过 new 调用的(instanceof)
+            if (!this._createWidget) {
+                return new constructor(options, element);
+            }
+
+            //没有参数的时候用于继承时候构造原型
+            if (arguments.length) {
+                this._createWidget(options, element);
+            }
+        };
+
+        basePrototype = new base();
+        basePrototype.options = $.widget.extend({}, basePrototype.options);
+
+        // 将原型复制到代理对象上，提供 this._super 和 this._superApply 支持
+        $.each(prototype, function (prop, value) {
+            var _super;
+            var _superApply;
+
+            if (!$.isFunction(value)) {
+                proxiedPrototype[prop] = value;
+            } else {
+                _super = function () {
+                    return base.prototype[prop].apply(this, arguments);
+                };
+                _superApply = function (args) {
+                    return base.prototype[prop].apply(this, args);
+                };
+                proxiedPrototype[prop] = function () {
+                    var returnValue;
+                    var __super = this._super;
+                    var __superApply = this._superApply;
+
+                    try {
+                        returnValue = value.apply(this, arguments);
+                    } finally {
+                        this._super = __super;
+                        this.__superApply = __superApply;
+                    }
+
+                    return returnValue;
+                };
+            }
+        });
+
+        constructor.prototype = $.widget.extend(basePrototype, proxiedPrototype, {
+            constructor: constructor,
+            namespace: namespace,
+            widgetName: name,
+            widgetFullName: fullName
+        });
+
+        $.widget.bridge(name, constructor);
+
+        return constructor;
+    };
+
+    var slice = Array.prototype.slice;
+
+    /**
+     * extend 复制对象属性到 target 上
+     *
+     * @param target
+     * @return {undefined}
+     */
+    $.widget.extend = function (target) {
+        var input = slice.call(arguments, 1);
+        var inputIndex = 0;
+        var inputLength = input.length;
+        var key;
+        var value;
+
+        for (; inputIndex < inputLength; inputIndex++) {
+            for (key in input[inputIndex]) {
+                value = input[inputIndex][key];
+                if (input[inputIndex].hasOwnProperty(key) && value !== undefined) {
+                    if ($.isPlainObject(value)) {
+                        // Clone objects
+                        target[key] = $.isPlainObject(target[key]) ?
+                            $.widget.extend({}, target[key], value) :
+                            $.widget.extend({}, value);
+                    } else {
+                        // Copy everything else by reference
+                        target[key] = value;
+                    }
+                }
+            }
+        }
+
+        return target;
+    };
+
+
+    var widget_magic = "__iqzll3wmdjthuxr_";
+    /**
+     * bridge 扩展Zepto.fn
+     *
+     * @param name
+     * @param object
+     * @return {undefined}
+     */
+    $.widget.bridge = function (name, constructor) {
+        var fullName = constructor.prototype.widgetFullName || name;
+        var dataKey = widget_magic + fullName;
+
+        $.fn[name] = function (options) {
+            var isMethodCall = typeof options === "string";
+            var args = slice.call(arguments, 1);
+            var returnValue = this;
+
+            if (isMethodCall) {
+                //函数调用
+                this.each(function () {
+                    var $this = $(this);
+                    var instance = $this.data(dataKey);
+                    var methodValue;
+
+                    if (options === "instance") {
+                        returnValue = instance;
+                        return false;
+                    }
+
+                    if (options === "destroy") {
+                        if (instance.destroy) {
+                            instance.destroy();
+                        }
+                        $this.removeData(dataKey);
+                        return;
+                    }
+
+                    if (!instance) {
+                        //TODO Error
+                        throw new Error("cannot call methods on " + name + " prior to initialization; " +
+                            "attempted to call method '" + options + "'");
+                    }
+
+                    if (!$.isFunction(instance[options]) || options.charAt(0) === "_") {
+                        //TODO Error
+                        throw new Error("no such method '" + options + "' for " + name + " widget instance");
+                    }
+
+                    methodValue = instance[options].apply(instance, args);
+                    if (methodValue !== instance && methodValue !== undefined) {
+                        returnValue = methodValue;
+                        return false;
+                    }
+                });
+            } else {
+                //初始化
+                //支持多个初始化参数
+                if (args.length) {
+                    options = $.widget.extend.apply(null, [{}, options].concat(args));
+                }
+
+                this.each(function () {
+                    var $this = $(this);
+                    var instance = $this.data(dataKey);
+                    if (instance) {
+                        //已经初始化过
+                        instance.option(options || {});
+                        if (instance._init) {
+                            instance._init();
+                        }
+                    } else {
+                        $this.data(dataKey, new constructor(options, this));
+                    }
+                });
+            }
+
+            return returnValue;
+        };
+    };
+
+    var noop = function () {};
+
+    /**
+     * $.Widget 父类
+     *
+     * @param  options
+     * @param element
+     * @class $.Widget
+     */
+    $.Widget = function ( /* options, element */ ) {};
+
+    $.Widget.prototype = {
+        options: {},
+        _createWidget: function (options, element) {
+            this.element = $(element);
+            this.options = $.widget.extend({},
+                this.options,
+                this._getCreateOptions(),
+                options);
+
+            this._create();
+            this._trigger("create", null, this._getCreateEventData());
+            this._init();
+        },
+        _getCreateOptions: function () {
+            return this.element.data(this.widgetFullName);
+        },
+        _getCreateEventData: noop,
+        _create: noop,
+        _init: noop,
+
+        destroy: function () {
+            this._destroy();
+            //TODO 批量删除事件绑定好像不大好做 -_-!!
+            //    var $this = this.element;
+            //    $this.off(this.widgetName);
+        },
+        _destroy: noop,
+
+        _trigger: function (type, originalEvent, data) {
+            var event;
+            var callback = this.options[type];
+
+            type = this.widgetName + ":" + type;
+            data = data || {};
+            event = $.Event(type, {
+                originalEvent: originalEvent
+            });
+            this.element.trigger(event, data);
+            return !($.isFunction(callback) && callback.apply(this.element[0], [event].concat(data)) === false || event.isDefaultPrevented());
+        },
+        option: function (key, value) {
+            var options = key;
+            var parts;
+            var currentOpt;
+            var i;
+
+            if (arguments.length === 0) {
+                //得到所有的 options 值
+                return $.widget.extend({}, this.options);
+            }
+
+            if (typeof key === "string") {
+                options = {};
+                parts = key.split(".");
+                key = parts.shift();
+                if (parts.length) {
+                    // key = "a.b.c.d"
+                    currentOpt = options[key] = $.widget.extend({}, this, options[key]);
+                    for (i = 0; i < parts.length - 1; i++) {
+                        key = parts[i];
+                        currentOpt[key] = currentOpt[key] || {};
+                        currentOpt = currentOpt[key];
+                    }
+                    key = parts.pop();
+                    if (arguments.length === 1) {
+                        return currentOpt[key] === undefined ? null : currentOpt[key];
+                    }
+                    currentOpt[key] = value;
+                } else {
+                    if (arguments.length === 1) {
+                        return this.options[key] === undefined ? null : this.options[key];
+                    }
+                    options[key] = value;
+                }
+            }
+
+            this._setOptions(options);
+            return this;
+        },
+        _setOptions: function (options) {
+            var key;
+            for (key in options) {
+                this._setOption(key, options[key]);
+            }
+
+            return this;
+        },
+        _setOption: function (key, value) {
+            this.options[key] = value;
+            return this;
+        }
+    };
+})(Zepto);
+
+    ;(function($){/**
+ * checkbox  组件
+ * Created by dingquan on 15-2-1.
+ */
+
+'use strict';
+
+$.widget("blend.checkbox",{
+	/**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+		itemSelector:'.'+ NAMESPACE +'checkbox',
+        type:'group',
+    },
+    _create:function(){
+
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $this = this.element;
+
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+
+
+        this.$group = $this.find(options.itemSelector); //
+        this.$container = $this;
+        
+        console.log(options.datas);
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        this._initEvent();
+    },
+    _initEvent:function(){
+
+        var that = this;
+        if(this.options.type=="radio"){
+            // radio box
+            console.log(this.options);
+            this.$group.on("tap", function () {
+                var curElem = $(this);
+                that.$container.find("."+ NAMESPACE +"checkbox-checked").removeClass(NAMESPACE+"checkbox-checked");
+                curElem.addClass(NAMESPACE+"checkbox-checked");              
+            });
+        }else{
+            this.$group.on("tap", function () {
+                var curElem = $(this);
+                if(curElem.hasClass(NAMESPACE+"checkbox-checked")){
+                    curElem.removeClass(NAMESPACE+"checkbox-checked");
+                }else{
+                    curElem.addClass(NAMESPACE+"checkbox-checked");              
+                }
+            });
+        }
+    },
+    /**
+     *	
+     * 	
+     */
+    getValues:function(){
+        var $this, valArr = [],val;
+        var elems = this.$group;
+        for(var i=0;i<elems.length;i++){
+            $this = $(elems[i]);
+            if($this.hasClass(NAMESPACE+"checkbox-checked")){
+                val = this.options.values[i];
+                valArr.push(this.options.values[i]);
+            }
+        }
+        if(this.options.type=="radio"){
+            return val; 
+        }else {
+            return valArr;  
+        }
+    }
+
+});})(Zepto)
+;(function($){'use strict';
+/**
+ * 定义一个组件
+ */
+$.widget("blend.counter", {
+    /**
+     * 组件的默认选项，可以由多从覆盖关系
+     */
+    options: {
+        minusSelector: "." + NAMESPACE + "counter-minus",
+        plusSelector: "." + NAMESPACE + "counter-plus",
+        inputSelector: "." + NAMESPACE + "counter-input",
+        minValue: 0,
+        maxValue: Infinity,
+        disableClass: NAMESPACE + "disabled",
+        step: 1
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        /**
+         * this 对象为一个 组件 实例
+         * 不是 Zepto/jQuery 对象
+         * 也不是 Dom 对象
+         */
+
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $el = this.element;
+
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+
+        /**
+         * 建议: Zepto/jQuery 对象变量名前加 $
+         */
+        this.$minus = $el.find(options.minusSelector); // !!!选择器选择的时候需要指定范围!!!
+        this.$plus = $el.find(options.plusSelector);
+        this.$input = $el.find(options.inputSelector);
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        var options = this.options;
+        var minValue = Number(options.minValue);
+        var maxValue = Number(options.maxValue);
+
+        this._minValue = isNaN(minValue) ? 0 : minValue;
+        this._maxValue = isNaN(maxValue) ? Infinity : maxValue;
+
+        this._initValue();
+        this._initEvent();
+    },
+    /**
+     * _initValue 自定义的成员函数，
+     * 所有以下划线开头的函数不可在外部调用
+     */
+    _initValue: function () {
+        //var initValue = Number(this.$input.val());
+        //this._value = isNaN(initValue) ? 0 : initValue;
+        this.value(Number(this.$input.val()));
+    },
+    _initEvent: function () {
+        var thisObj = this;
+        var step = Number(this.options.step);
+        step = isNaN(step) ? 1 : step;
+        this.$plus.on("tap", function () {
+            thisObj.value(thisObj._value + step);
+        });
+        this.$minus.on("tap", function () {
+            thisObj.value(thisObj._value - step);
+        });
+        this.$input.on("blur", function () {
+            thisObj._initValue();
+        });
+    },
+    /**
+     * value 自定义的成员方法,
+     * 没有返回值或者返回值为 undefined 时会保持调用链，
+     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
+     *
+     * @param n
+     * @return {undefined}
+     */
+    value: function (n) {
+        var value;
+        var oldValue;
+        var eventData;
+
+        if (arguments.length > 0) {
+
+            value = Number(n);
+            if (isNaN(value)) {
+                return;
+            }
+
+            this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+            this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+            value = Math.min(this._maxValue, Math.max(this._minValue, value));
+            oldValue = this._value;
+
+            if (oldValue === value) {
+                return;
+            }
+
+            eventData = {
+                oldValue: oldValue,
+                newValue: value
+            };
+
+            /**
+             * this._trigger 派发自定义事件
+             * 使用 jQuery/Zepto 的事件机制
+             * 监听时需要加上模块名
+             * eg: $("xx").navbar().on("navbar:xxx", function(){
+             *    // 可以通过 return false 影响程序执行
+             *    return false;
+             * });
+             */
+            if (this._trigger("beforeupdate", null, eventData)) {
+
+                this.$input.val(value);
+                this._value = value;
+                this._trigger("update", null, eventData);
+            }
+        } else {
+            return this._value;
+        }
+    }
+});
+
+// 初始化
+$(function () {
+    $('[data-blend-widget="counter"]').counter();
+});
+})(Zepto)
+;(function($){/**
+     * @function dialog
+     * @name dialog
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
+     * @desc 页面级dialog
+     * @param {Object} options 组件配置（以下参数为配置项）
+     * @param {String} options.id (可选, 默认值: 随机数) dialog id
+     * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
+     * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
+     * @param {String} options.title (可选, 默认值: 标题) dialog 标题
+     * @param {String} options.message (可选, 默认值: \'\') dialog 内容
+     * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
+     * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
+     * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
+     * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
+     * @param {String} options.cancelOnly (可选, 默认值: false) dialog 只显示一个按钮
+     * @param {String} options.autoCloseDone (可选, 默认值: true) dialog按钮点击后是否关闭dialog
+     * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
+     * 
+     *
+     * @example 
+     * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
+     * 	2、var dialog = $.blend.dialog({
+     * 						title: 'my title',
+     * 						message: 'my message',
+     * 					}); 
+     * 		  dialog.show();
+     */
+    
+'use strict';
+$.widget("blend.dialog", {
+    /*配置项*/
+    options: {
+    	id: null,
+    	top: null,
+        addCssClass: null,
+        title: null,
+        message: null,
+        cancelText: null,
+        cancelClass: null,
+        doneText: null,
+        doneClass: null,
+        cancelOnly: false,
+        autoCloseDone: true,
+        maskTapClose: false,
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
+        this.addCssClass = options.addCssClass ? options.addCssClass : "";
+        this.title = options.title || "标题";
+        this.message = options.message || "";
+        this.cancelText = options.cancelText || "取消";
+        this.cancelClass = options.cancelClass || "";
+        this.doneText = options.doneText || "确认";
+        this.doneClass = options.doneClass || "";
+        this.cancelOnly = options.cancelOnly || false;
+        this.autoCloseDone = options.autoCloseDone !== undefined ? options.autoCloseDone : true;
+		this.maskTapClose = options.maskTapClose || false;
+		this.top = options.top;
+		this.defaultDialogHtml = this.$el.length? '': this.getDefaultDialogHtml();
+    },
+    
+    /*初始化*/
+    _init: function(){
+    	if(this.$el.length){
+    		this._bindEvent();
+    		this.show();
+    	}
+    },
+    
+    /*事件绑定*/
+    _bindEvent: function(){
+   		var self = this;
+   		$(window).on("orientationchange resize", function () {
+            self.setPosition();
+        });
+        this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
+        	self._trigger('cancel');
+        	self.autoCloseDone && self.hide();
+        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-done'), function(){
+        	self._trigger('done');
+        	self.autoCloseDone && self.hide();
+        }).on("dialog.close", function(){
+        	self.hide();
+        });	
+    },
+    
+    /*定义事件派发*/
+    _trigger: function(event){
+    	this.$el.trigger('dialog:' + event);
+    },
+    
+    /*生成dialog html片段*/
+    getDefaultDialogHtml: function(){
+	    return '<div data-'+ NAMESPACE + 'widget="dialog" id="' + this.id + '" class="' + NAMESPACE + 'dialog ' + NAMESPACE + 'dialog-hidden'+ this.addCssClass + '">'
+	                  + '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-body">' + this.message + '</div>'
+	                  + '<div class="'+ NAMESPACE + 'dialog-footer">'
+	                     +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
+	                     +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.doneClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button">' + this.doneText + '</a>')
+	                  + '</div>'
+	             +'</div>';
+    },
+    
+    /*显示dialog*/
+    show: function(){
+    	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
+    	if(!this.$el.length){
+    		(this.$el = $(this.defaultDialogHtml)).appendTo(this.$body);
+    		this._bindEvent();
+    	}
+    	this.setPosition();
+    	this.mask(0.5);
+    	window.setTimeout(function(){
+    		self.$el.removeClass(NAMESPACE + 'dialog-hidden');
+    		self._trigger('show');
+    		self.lock = false;
+    	}, 50);
+    	this.lock = true;
+    	return this.$el;
+    },
+    
+    /*关闭dialog*/
+    hide: function () {
+    	var self = this;
+    	if(this.lock){
+    		return this.$el;
+    	}
+        window.setTimeout(function(){
+    		self.unmask();
+    		self.lock = false;
+    	}, 200);
+    	this._trigger('hide');
+    	this.lock = true;
+        return this.$el.addClass(NAMESPACE + 'dialog-hidden');
+    },
+    
+    /*销毁dialog*/
+    destroy: function(){
+    	this.unmask();
+    	if(this.defaultDialogHtml){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
+    },
+    
+    /*显示mask*/
+    mask: function (opacity) {
+    	var self = this;
+        opacity = opacity ? " style='opacity:" + opacity + ";'" : "";
+        (this.maskDom = $('<div class="'+ NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.on('tap', function(e){
+        	e.preventDefault();
+        	self.maskTapClose && self.hide();
+        }).on('touchmove', function(e){
+        	e.preventDefault();
+        });
+    },
+    
+    /*关闭mask*/
+	unmask: function (){
+		this.maskDom.off('touchstart touchmove').remove();
+	},
+	
+	/*设置dialog位置*/
+	setPosition: function () {
+        var top = typeof this.top == 'undefined'?((window.innerHeight / 2.5) + window.pageYOffset) - (popup[0].clientHeight / 2): parseInt(this.top);
+        var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
+        return this.$el.css({
+        	top: top + "px",
+        	left: left + "px"
+        });
+   }
+});
+})(Zepto)
+;(function($){/**
+     * @function fixedBar
+     * @name fixedBar
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @example 
+     * 	$.boost.fixedBar()
+     */
+    
+'use strict';
+$.widget("blend.fixedBar", {
+	
+    _init: function () {
+    	//此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fixedBar不能落底的问题。
+		$(window).on('resize orientationchange', function(){
+			 window.scrollBy(0,0);
+		});
+    },
+    
+});})(Zepto)
+;(function($){/**
+ * list 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("blend.list", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        delete: true,
+        animate: true,
+        itemSelector: '.' + NAMESPACE + 'list-item',
+        animateClass: NAMESPACE + 'list-animation',
+        itemContentSelector: '.' + NAMESPACE + 'list-item-content',
+        itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
+        // 禁止删除的class
+        exceptionClass: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function() {
+        // 保存上一个删除的dom，for revert
+        this.$tempEl = null;
+        this.tempIndex = null;
+        this.deleteWidth = '-54px';
+        this.deleteBtnClass = NAMESPACE + 'list-item-delete';
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function() {
+        var list = this;
+        if (!list.options.delete) {
+            this._destroy();
+            return;
+        }
+        if (list.options.animate) {
+            list.element.addClass(list.options.animateClass);
+        } else {
+            list.element.removeClass(list.options.animateClass);
+        }
+        list._initEvent();
+    },
+    /**
+     * 绑定事件
+     * @private
+     */
+    _initEvent: function() {
+        var list = this;
+        var $items = list.element.find(list.options.itemSelector);
+        $items.each(function() {
+            var $this = $(this);
+            var hammer = $this.data('hammer');
+            if (!hammer) {
+                hammer = new Hammer(this);
+            }
+            $this.data('hammer', hammer);
+            if ($this.hasClass(list.options.exceptionClass)) {
+                return;
+            }
+            hammer.on('swipeleft', function(ev) {
+                if ($this.find('.' + list.deleteBtnClass).length === 0) {
+                    $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
+                }
+                $this.addClass(list.options.itemDeleteActiveClass);
+                $this.find(list.options.itemContentSelector).css('left', list.deleteWidth);
+            });
+        });
+        if (!list.eventInit) {
+            list.eventInit = true;
+            list.element.on('click.list', '.' + list.deleteBtnClass, function(e) {
+                var $parent = $(this).closest(list.options.itemSelector);
+                list.tempIndex = $parent.index();
+                $parent.data('height', $parent.height());
+                $parent.height(0);
+                setTimeout(function() {
+                    list.$tempEl = $parent.detach();
+                    list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
+                    list.$tempEl.find(list.options.itemContentSelector).css('left', 0);
+                }, list.options.animate ? 500 : 0);
+            });
+            // 未点击删除时的恢复
+            list.element.on('touchstart.list', function(e) {
+                var $target = $(e.target);
+                var className = list.deleteBtnClass;
+                if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
+                    var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
+                    if ($el.length === 1) {
+                        $el.removeClass(list.options.itemDeleteActiveClass);
+                        $el.find(list.options.itemContentSelector).css('left', 0);
+                    }
+                }
+            });
+        }
+
+    },
+    /**
+     * destroy the swipe event
+     * 取消一个列表的滑动删除效果
+     * @private
+     */
+    _destroy: function() {
+        var list = this;
+        var $items = list.element.find(list.options.itemSelector);
+        $items.each(function() {
+            var hammer = $(this).data('hammer');
+            if (hammer) {
+                hammer.off('swipeleft');
+            }
+        });
+        list.eventInit = false;
+        list.element.off('click.list', '.' + list.deleteBtnClass);
+        list.element.off('touchstart.list');
+    },
+    /**
+     * 刷新配置
+     */
+    refresh: function() {
+        this._init();
+    },
+    /**
+     * 用于删除失败时的恢复
+     */
+    revert: function() {
+        var list = this;
+        if (list.tempIndex === null || list.tempIndex === -1) {
+            return;
+        }
+        var height = list.$tempEl.data('height');
+        var $lastItem = list.element.find(list.options.itemSelector).eq(list.tempIndex);
+        if ($lastItem.length === 1) {
+            list.$tempEl.insertBefore($lastItem).height(height);
+        } else {
+            list.$tempEl.appendTo(list.element).height(height);
+        }
+    }
+
+});
+})(Zepto)
+;(function($){/**
+     * @function loading
+     * @name loading
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').loading().show(),$.blend.loading().show()
+     * @desc 页面级loading
+     * @param {Object} opts 组件配置（以下参数为配置项）
+     * @param {String} opts.loadingClass (可选, 默认值:\'\') loading节点的className
+     * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
+     *
+     * @example 
+     * 	1、$('.j_test_loading').loading(), $('.j_test_loading')为loading自定义节点,并不是容器,切记
+     * 	2、var loading = $.blend.loading({
+     * 						loadingClass: 'my_define'
+     * 					});
+     * 		  loading.show();
+     *  3、var loading = $.blend.loading({
+     * 						loadingHtml: '<div class="my_define">loading...</div>'
+     * 					});
+     * 		  loading.show();
+     */
+    
+'use strict';
+$.widget("blend.loading", {
+	/*配置项*/
+    options: {
+        loadingClass: "",
+        loadingHtml: ""
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + (options.loadingClass|| '') + ' ' + NAMESPACE + 'loading"></div>';
+    },
+    
+    /*初始化*/
+    _init: function(){
+    	if(this.$el.length){
+    		this.show();
+    	}else{
+    		this.defaultSegment = true
+    	}
+    },
+    
+    /*显示loading*/
+    show: function(){
+    	if(!this.$el.length){
+    		(this.$el = $(this.loadingHtml)).appendTo(this.$body);
+    	}
+    	return this.$el.show();
+    },
+    
+    /*关闭loading*/
+    hide: function(){
+    	return this.$el.hide();
+    },
+    
+    /*销毁toast*/
+    destroy: function(){
+    	if(this.defaultSegment){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
+    }
+});})(Zepto)
+;(function($){/**
+ * nav 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("blend.nav", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        column: 3,
+        animate: true,
+        time: 500,
+        expand: '更多',
+        pack: '收起',
+        itemClass: NAMESPACE + 'nav-item',
+        row: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var nav = this;
+        var $el = nav.element;
+        nav.$items = $el.find('.' + nav.options.itemClass);
+
+        nav.expandClass = NAMESPACE + 'nav-expand';
+        nav.animateClass = NAMESPACE + 'nav-animation';
+        nav.expandedClass = NAMESPACE + 'nav-expanded';
+        nav.columnClassPre = NAMESPACE + 'nav-column-';
+        nav.hideClass = NAMESPACE + 'nav-item-hide';
+        nav.columnRange = [3, 4, 5];
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        var nav = this;
+        if (nav.options.animate) {
+            nav.element.addClass(nav.animateClass);
+        } else {
+            nav.element.removeClass(nav.animateClass);
+        }
+        nav._colunm();
+        nav._row();
+        if (!nav.inited) {
+            nav._initEvent();
+            nav.inited = true;
+        }
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function() {
+        var nav = this;
+        nav.element.on('click.nav', '.' + nav.expandClass, function(e) {
+            var $this = $(this);
+            if ($this.hasClass(nav.expandedClass)) {
+                var height = nav.$items.eq(0).height();
+                nav.element.css('height', 15 + height * nav.options.row);
+                $this.removeClass(nav.expandedClass);
+                var max = nav.options.row * nav.options.column;
+                nav.$items.each(function(i) {
+                    var $navItem = $(this);
+                    if (i >= max  - 1) {
+                        if (nav.options.animate) {
+                            setTimeout(function() {
+                                $navItem.addClass(nav.hideClass);
+                            }, nav.options.time);
+                        } else {
+                            $navItem.addClass(nav.hideClass);
+                        }
+                    }
+                });
+                $this.html(nav.options.expand);
+            } else {
+                var len = nav.$items.length;
+                var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
+                height = nav.$items.eq(0).height() * row + 15;
+                nav.element.css('height', height);
+                $this.addClass(nav.expandedClass);
+                nav.$items.removeClass(nav.hideClass);
+                $this.html(nav.options.pack);
+            }
+            if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
+                nav.options.expandHandle(e);
+            }
+
+        });
+    },
+    /**
+     * _column 自定义的成员函数，
+     * 所有以下划线开头的函数不可在外部调用
+     */
+    _colunm: function () {
+        var nav = this;
+        var $el = this.element;
+        /**
+         * 处理column范围
+         */
+        if (this.options.column && $.inArray(this.options.column, this.columnRange) == -1) {
+            this.options.column = 3;
+        }
+        var columnClass = [];
+        for (var i = 0; i < this.columnRange.length; i++) {
+            columnClass.push(this.columnClassPre + this.columnRange[i]);
+        }
+        $el.removeClass(columnClass.join(" ")).addClass(this.columnClassPre + this.options.column);
+
+    },
+    /**
+     * _row 自定义的成员函数，
+     * @private
+     */
+    _row: function () {
+        var nav = this;
+        var $el = this.element;
+        var option = this.options;
+        if (option.row === false) {
+            this._removeExpand();
+            return;
+        }
+        option.row = parseInt(option.row);
+        if (option.row < 1) {
+            option.row = false;
+            this._removeExpand();
+            return;
+        }
+
+        var length = nav.$items.length;
+        var max = option.column * option.row;
+        if (max >= length) {
+            this._removeExpand();
+            return;
+        }
+        this._addExpand(max);
+    },
+    /**
+     * remove expand
+     * @private
+     */
+    _removeExpand: function() {
+        var nav = this;
+        var $el = nav.element;
+        var len = nav.$items.length;
+        var row = Math.ceil(len / nav.options.column);
+        var height = nav.$items.eq(0).height() * row + 15;
+        $el.css('height', height);
+        $el.find('.' + nav.expandClass).remove();
+        nav.$items.removeClass(this.hideClass);
+    },
+    /**
+     * add expand
+     * @private
+     */
+    _addExpand: function(max) {
+        var nav = this;
+        nav.$items.each(function(i) {
+            if (i >= max - 1) {
+                $(this).addClass(nav.hideClass);
+            } else {
+                $(this).removeClass(nav.hideClass);
+            }
+        });
+        var height = nav.$items.eq(0).height();
+        nav.element.css('height', 15 + height * nav.options.row);
+        if (nav.element.find('.' + nav.expandClass).length === 1) {
+            nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
+        } else {
+            nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+        }
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function() {
+        var nav = this;
+        nav.options.row = false;
+        nav._removeExpand();
+        nav.element.off('click.nav', '.' + nav.expandClass);
+    },
+    /**
+     * 设置列数
+     * 没有返回值或者返回值为 undefined 时会保持调用链，
+     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
+     * @param num
+     * @return {undefined}
+     */
+    column: function(num) {
+        if (arguments.length == 0) {
+            return this.options.column;
+        }
+        if (num && $.inArray(num, this.columnRange) == -1) {
+            return;
+        }
+        this.options.column = num;
+        this._colunm();
+        this._row();
+    },
+    /**
+     * 设置行数
+     * 没有返回值或者返回值为 undefined 时会保持调用链，
+     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
+     * @param num
+     * @return {undefined}
+     */
+    row: function(num) {
+        if (arguments.length == 0) {
+            return this.options.row;
+        }
+        if (num === false) {
+            this.options.row = false;
+            this._removeExpand();
+            return;
+        }
+        var row = parseInt(num);
+        if (!row || row <= 0) {
+            return;
+        }
+        this.options.row = row;
+        this._row();
+    }
+});
+})(Zepto)
+;(function($){
+
+})(Zepto)
+;(function($){/**
+ * tab 组件
+ * Created by wanghongliang02 on 15-1-29.
+ */
+
+
+$.widget("blend.tab", {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        start: 0,
+        animate: true,
+        animateClass: NAMESPACE + 'tab-animation'
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function() {
+        var tab = this;
+        var $el = this.element;
+        tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
+        tab.itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
+        tab.itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
+        tab.$headerItem = $el.find(tab.itemSelector);
+        tab.$contentItem = $el.find(tab.itemContentSelector);
+        tab.$activeEle = $el.find(tab.itemActiveSelector);
+        //计算active宽度和位置
+        tab.itemWidth = this.$headerItem.eq(0).width();
+        tab.$activeEle.css('width', this.itemWidth * .7);
+        tab.itemOffsetX = this.itemWidth * .15;
+        tab.current = 0;
+
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function() {
+        var tab = this;
+
+        tab._checkStart();
+        if (!tab.inited) {
+            tab._initEvent();
+            tab.inited = true;
+        }
+        tab._switch(tab.options.start);
+
+        if (tab.options.animate) {
+            //初始化的时候不出动画
+            setTimeout(function() {
+                tab.element.addClass(tab.options.animateClass);
+            }, 0);
+        } else {
+            tab.element.removeClass(tab.options.animateClass);
+        }
+
+    },
+    /**
+     * 验证初始化的start参数
+     * @private
+     */
+    _checkStart: function() {
+        var tab = this;
+        var lenth = tab.$headerItem.length;
+        tab.options.start = parseInt(tab.options.start);
+        if (tab.options.start < 0 || tab.options.start >= lenth) {
+            tab.options.start = 0;
+        }
+        tab.current = tab.options.start;
+    },
+
+    /**
+     *
+     * @private
+     */
+    _initEvent: function() {
+        var tab = this;
+        tab.$headerItem.on('click.tab', function(e) {
+            var index = $(this).index();
+            tab._switch(index);
+        });
+    },
+    /**
+     * tab切换
+     * @param index
+     * @private
+     */
+    _switch: function(index) {
+        var tab = this;
+        if (arguments.length === 0) {
+            tab.current = tab.options.start;
+        } else {
+            tab.current = index;
+        }
+        var left = tab.itemOffsetX + tab.current * tab.itemWidth;
+        tab.$activeEle.css('left', left);
+        tab.$contentItem.hide();
+        tab.$contentItem.eq(tab.current).show();
+    },
+    /**
+     * 销毁tab对象
+     * @private
+     */
+    _destroy: function() {
+        var tab = this;
+        tab.$headerItem.off('click.tab');
+    },
+
+    /**
+     * 切换到某个tab,获取当前的tab
+     * @param index
+     */
+    active: function(index) {
+        var tab = this;
+        if (arguments.length === 0) {
+            return tab.current;
+        }
+        this._switch(index);
+    }
+
+});
+})(Zepto)
+;(function($){/**
+     * @function toast(alert)
+     * @name toast
+     * @author wangzhonghua
+     * @date 2015.02.05
+     * @memberof $.fn or $.blend
+     * @grammar  $('.test').toast().show('xxx'),$.blend.toast().show('xxx')
+     * @desc 页面级toast(alert)
+     * @param {Object} opts 组件配置（以下参数为配置项）
+     * @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
+     * @param {String} opts.toastTpl (可选, 默认值:\'\') toast模板
+     * @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
+     *
+     * @example 
+     * 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
+     * 	2、var toast = $.blend.toast({
+     * 						toastClass: 'my_define',
+     * 						delay: 5000
+     * 					}); 
+     * 		  toast.show('hello world');
+     *  3、var toast = $.blend.toast({
+     * 						toastTpl: '<div class="my_define">{%content%}</div>'
+     * 					});
+     * 		  toast.show('hello world');
+     */
+    
+'use strict';
+$.widget("blend.toast", {
+    /*配置项*/
+    options: {
+        toastClass: "",
+        toastTpl: "",
+        delay: 2500
+    },
+    
+    /* _create 创建组件时调用一次*/
+    _create: function () {
+    	var options = this.options;
+    	this.$el = this.element;
+		this.$body = $('body');
+		this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="' + (options.toastClass|| '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
+    },
+    
+    /*初始化*/
+    _init: function(){
+    	!this.$el.length && (this.defaultSegment = true);	
+    },
+    /*设置延时消失*/
+    _setDelay: function(delay){
+    	var self = this;
+    	delay = parseInt(delay, 10) || this.options.delay;
+    	clearTimeout(this.timeout);
+    	this.timeOut = window.setTimeout(function(){
+    		self.hide();
+    	}, delay);
+    },
+    
+    /*显示toast*/
+    show: function(content, delay){
+    	if(!content){
+    		return false;
+    	}
+    	if(!this.$el.length){
+    		(this.$el = $(this.toastTpl.replace(/{%content%}/g, content))).appendTo(this.$body);
+    	}else{
+    		this.$el.html(content);
+    	}
+    	this._setDelay(delay);
+    	return this.$el.show();
+    },
+    
+    /*关闭toast*/
+    hide: function(){
+    	return this.$el.hide();
+    },
+    
+    /*销毁toast*/
+    destroy: function(){
+    	if(this.defaultSegment){
+    		this.$el.remove();
+    		this.$el = [];
+    	}
+    	return this.$el;
+    }
+});})(Zepto)
+})(window);

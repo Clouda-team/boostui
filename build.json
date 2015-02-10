@@ -6,5 +6,5 @@
     "JS_TPL": "js/boost.tpl.js",
     "JS_FILE": "js/boost.js",
     "NAMESPACE": "blend-",
-    "widgets": ["counter", "badge", "button"]
+    "widgets": "*"
 }
