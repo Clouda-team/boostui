@@ -4,50 +4,38 @@
  */
 
 
-$.widget("boost.tab", {
+$.widget("blend.tab", {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
         start: 0,
-        animate: true
+        animate: true,
+        animateClass: NAMESPACE + 'tab-animation'
     },
     /**
      * _create 创建组件时调用一次
      */
-    _create: function () {
-        /**
-         * this 对象为一个 组件 实例
-         * 不是 Zepto/jQuery 对象
-         * 也不是 Dom 对象
-         */
-
-        /**
-         * this.element 组件对应的单个 Zepto/jQuery 对象
-         */
-        var $ele = this.element;
-
-        /**
-         * 建议: Zepto/jQuery 对象变量名前加 $
-         */
-        this.itemSelector = '.boosttab-header-item';
-        this.itemContentSelector = '.boosttab-content-item';
-        this.itemActiveSelector = '.boosttab-header-active';
-        this.animateClass = 'boosttab-animation';
-        this.$headerItem = $ele.find(this.itemSelector);
-        this.$contentItem = $ele.find(this.itemContentSelector);
-        this.$activeEle = $ele.find(this.itemActiveSelector);
+    _create: function() {
+        var tab = this;
+        var $el = this.element;
+        tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
+        tab.itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
+        tab.itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
+        tab.$headerItem = $el.find(tab.itemSelector);
+        tab.$contentItem = $el.find(tab.itemContentSelector);
+        tab.$activeEle = $el.find(tab.itemActiveSelector);
         //计算active宽度和位置
-        this.itemWidth = this.$headerItem.eq(0).width();
-        this.$activeEle.css('width', this.itemWidth * .7);
-        this.itemOffsetX = this.itemWidth * .15;
-        this.current = 0;
+        tab.itemWidth = this.$headerItem.eq(0).width();
+        tab.$activeEle.css('width', this.itemWidth * .7);
+        tab.itemOffsetX = this.itemWidth * .15;
+        tab.current = 0;
 
     },
     /**
      * _init 初始化的时候调用
      */
-    _init: function () {
+    _init: function() {
         var tab = this;
 
         tab._checkStart();
@@ -60,10 +48,10 @@ $.widget("boost.tab", {
         if (tab.options.animate) {
             //初始化的时候不出动画
             setTimeout(function() {
-                tab.element.addClass(tab.animateClass);
+                tab.element.addClass(tab.options.animateClass);
             }, 0);
         } else {
-            tab.element.removeClass(tab.animateClass);
+            tab.element.removeClass(tab.options.animateClass);
         }
 
     },
@@ -71,7 +59,7 @@ $.widget("boost.tab", {
      * 验证初始化的start参数
      * @private
      */
-    _checkStart: function () {
+    _checkStart: function() {
         var tab = this;
         var lenth = tab.$headerItem.length;
         tab.options.start = parseInt(tab.options.start);
@@ -85,9 +73,9 @@ $.widget("boost.tab", {
      *
      * @private
      */
-    _initEvent: function () {
+    _initEvent: function() {
         var tab = this;
-        tab.$headerItem.on('click', function (e) {
+        tab.$headerItem.on('click.tab', function(e) {
             var index = $(this).index();
             tab._switch(index);
         });
@@ -97,7 +85,7 @@ $.widget("boost.tab", {
      * @param index
      * @private
      */
-    _switch: function (index) {
+    _switch: function(index) {
         var tab = this;
         if (arguments.length === 0) {
             tab.current = tab.options.start;
@@ -109,12 +97,20 @@ $.widget("boost.tab", {
         tab.$contentItem.hide();
         tab.$contentItem.eq(tab.current).show();
     },
+    /**
+     * 销毁tab对象
+     * @private
+     */
+    _destroy: function() {
+        var tab = this;
+        tab.$headerItem.off('click.tab');
+    },
 
     /**
      * 切换到某个tab,获取当前的tab
      * @param index
      */
-    active: function (index) {
+    active: function(index) {
         var tab = this;
         if (arguments.length === 0) {
             return tab.current;

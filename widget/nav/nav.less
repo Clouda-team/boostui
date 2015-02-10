@@ -1,34 +1,3 @@
-@namespaces: boost;
-@global-primary: #0E90D2;
-@black: #000;
-@white: #FFF;
-@border-color: #F1F1F1;
-
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-.highlight() {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.clearfix() {
-  &:before,
-  &:after {
-    content: " "; // 1
-    display: table; // 2
-  }
-  &:after {
-    clear: both;
-  }
-}
-
-.text-overflow() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
 
 .nav-item-column(@num) {
   width: percentage(1 / @num);
@@ -38,24 +7,24 @@
 
 }
 
-.@{namespaces}nav {
+.@{namespace}nav {
   padding: 7px 0;
   border-bottom: 1px solid @border-color;
   overflow: hidden;
   .clearfix();
 }
 
-.@{namespaces}nav-animation {
+.@{namespace}nav-animation {
   -webkit-transition:height .3s ease-in 0;
   transition:height .3s ease-in 0;
 }
 
-.@{namespaces}nav-item {
+.@{namespace}nav-item {
   text-decoration: none;
   line-height: 30px;
   height: 30px;
   font-size: 15px;
-  color: @global-primary;
+  color: @font-color;
   text-align: center;
   float: left;
   .text-overflow();
@@ -73,37 +42,37 @@
     display: none;
   }
 
-  &.@{namespaces}nav-item-hide {
+  &.@{namespace}nav-item-hide {
     display: none;
   }
 }
 
-.@{namespaces}nav-expand {
+.@{namespace}nav-expand {
   float: right;
   text-decoration: none;
   line-height: 30px;
   height: 30px;
   font-size: 15px;
-  color: @global-primary;
+  color: @font-color;
   text-align: center;
   .text-overflow();
 }
 
-.@{namespaces}nav-column-3 {
-  .@{namespaces}nav-item, .@{namespaces}nav-expand {
+.@{namespace}nav-column-3 {
+  .@{namespace}nav-item, .@{namespace}nav-expand {
     .nav-item-column(3);
   }
 
 }
 
-.@{namespaces}nav-column-4, .@{namespaces}nav-expand {
-  .@{namespaces}nav-item {
+.@{namespace}nav-column-4, .@{namespace}nav-expand {
+  .@{namespace}nav-item {
     .nav-item-column(4);
   }
 }
 
-.@{namespaces}nav-column-5, .@{namespaces}nav-expand {
-  .@{namespaces}nav-item {
+.@{namespace}nav-column-5, .@{namespace}nav-expand {
+  .@{namespace}nav-item {
     .nav-item-column(5);
   }
 }

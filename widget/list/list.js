@@ -4,145 +4,122 @@
  */
 
 
-$.widget("boost.list", {
+$.widget("blend.list", {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
         delete: true,
         animate: true,
-        //禁止删除的class
-        exception: false
+        itemSelector: '.' + NAMESPACE + 'list-item',
+        animateClass: NAMESPACE + 'list-animation',
+        itemContentSelector: '.' + NAMESPACE + 'list-item-content',
+        itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
+        // 禁止删除的class
+        exceptionClass: false
     },
     /**
      * _create 创建组件时调用一次
      */
-    _create: function () {
-        /**
-         * this 对象为一个 组件 实例
-         * 不是 Zepto/jQuery 对象
-         * 也不是 Dom 对象
-         */
-
-        /**
-         * this.element 组件对应的单个 Zepto/jQuery 对象
-         */
-        var $ele = this.element;
-
-        /**
-         * 经过继承的 options
-         */
-        var options = this.options;
-
-        /**
-         * 建议: Zepto/jQuery 对象变量名前加 $
-         */
-        this.itemSelector = '.boostlist-item';
-        this.itemContentSelector = '.boostlist-item-content';
-        this.itemDeleteActiveSelector = '.boostlist-item-delete-active';
-        this.animateClass = 'boostlist-animation';
-        this.$item = $ele.find(this.itemSelector);
-        this.deleteBtnSelector = '.boostlist-item-delete';
-        //保存上一个删除的dom，for revert
-        this.$tempEle = null;
+    _create: function() {
+        // 保存上一个删除的dom，for revert
+        this.$tempEl = null;
         this.tempIndex = null;
         this.deleteWidth = '-54px';
+        this.deleteBtnClass = NAMESPACE + 'list-item-delete';
     },
     /**
      * _init 初始化的时候调用
      */
-    _init: function () {
+    _init: function() {
         var list = this;
         if (!list.options.delete) {
-            if (list.inited) {
-                this._destroy();
-            }
+            this._destroy();
             return;
         }
         if (list.options.animate) {
-            list.element.addClass(this.animateClass);
+            list.element.addClass(list.options.animateClass);
         } else {
-            list.element.removeClass(this.animateClass);
+            list.element.removeClass(list.options.animateClass);
         }
-        if (!list.inited) {
-            this._initEvent();
-            this.inited = true;
-        }
+        list._initEvent();
     },
     /**
-     *
+     * 绑定事件
      * @private
      */
     _initEvent: function() {
         var list = this;
-
-        var $items = list.element.find(list.itemSelector);
+        var $items = list.element.find(list.options.itemSelector);
         $items.each(function() {
             var $this = $(this);
-            var hammer = new Hammer(this);
+            var hammer = $this.data('hammer');
+            if (!hammer) {
+                hammer = new Hammer(this);
+            }
             $this.data('hammer', hammer);
-            if ($this.hasClass(list.options.exception)) {
+            if ($this.hasClass(list.options.exceptionClass)) {
                 return;
             }
             hammer.on('swipeleft', function(ev) {
-                if ($this.find(list.deleteBtnSelector).length === 0) {
-                    $this.parent().append('<span class="' + list.deleteBtnSelector.substr(1) + '">删除</span>');
+                if ($this.find('.' + list.deleteBtnClass).length === 0) {
+                    $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
                 }
-                $this.addClass(list.itemDeleteActiveSelector.substr(1));
-                $this.find(list.itemContentSelector).css('left', list.deleteWidth);
+                $this.addClass(list.options.itemDeleteActiveClass);
+                $this.find(list.options.itemContentSelector).css('left', list.deleteWidth);
             });
         });
-
-        list.element.on('click', list.deleteBtnSelector, function(e) {
-            var $parent = $(this).closest(list.itemSelector);
-            list.tempIndex = $parent.index();
-            $parent.data('height', $parent.height());
-            $parent.height(0);
-            setTimeout(function() {
-                list.$tempEle = $parent.detach();
-                list.$tempEle.removeClass(list.itemDeleteActiveSelector.substr(1));
-                list.$tempEle.find(list.itemContentSelector).css('left', 0);
-            }, list.options.animate ? 500 : 0);
-
-        });
-        //全局监听，未点击删除时的恢复
-        $('body').on('touchstart', function(e) {
-            var $target = $(e.target);
-            var className = list.deleteBtnSelector.substr(1);
-            if (!$target.hasClass(className) && list.element.find(list.itemDeleteActiveSelector).length === 1) {
-                list._hideDelete();
-            }
-        });
-    },
-    _hideDelete: function() {
-        var list = this;
-        var $ele = list.element.find(list.itemDeleteActiveSelector);
-        if ($ele.length === 1) {
-            $ele.removeClass(list.itemDeleteActiveSelector.substr(1));
-            $ele.find(list.itemContentSelector).css('left', 0);
+        if (!list.eventInit) {
+            list.eventInit = true;
+            list.element.on('click.list', '.' + list.deleteBtnClass, function(e) {
+                var $parent = $(this).closest(list.options.itemSelector);
+                list.tempIndex = $parent.index();
+                $parent.data('height', $parent.height());
+                $parent.height(0);
+                setTimeout(function() {
+                    list.$tempEl = $parent.detach();
+                    list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
+                    list.$tempEl.find(list.options.itemContentSelector).css('left', 0);
+                }, list.options.animate ? 500 : 0);
+            });
+            // 未点击删除时的恢复
+            list.element.on('touchstart.list', function(e) {
+                var $target = $(e.target);
+                var className = list.deleteBtnClass;
+                if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
+                    var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
+                    if ($el.length === 1) {
+                        $el.removeClass(list.options.itemDeleteActiveClass);
+                        $el.find(list.options.itemContentSelector).css('left', 0);
+                    }
+                }
+            });
         }
+
     },
     /**
-     *  * _destroy 自定义的成员函数，
      * destroy the swipe event
-     * 所有以下划线开头的函数不可在外部调用
+     * 取消一个列表的滑动删除效果
      * @private
      */
-    _destroy: function () {
+    _destroy: function() {
         var list = this;
-        var $items = list.element.find(list.itemSelector);
-        list.inited = false;
+        var $items = list.element.find(list.options.itemSelector);
         $items.each(function() {
             var hammer = $(this).data('hammer');
-            hammer.off('swipeleft');
+            if (hammer) {
+                hammer.off('swipeleft');
+            }
         });
-
+        list.eventInit = false;
+        list.element.off('click.list', '.' + list.deleteBtnClass);
+        list.element.off('touchstart.list');
     },
     /**
-     * 取消一个列表的滑动删除效果
+     * 刷新配置
      */
-    destroy: function() {
-        this._destroy();
+    refresh: function() {
+        this._init();
     },
     /**
      * 用于删除失败时的恢复
@@ -152,12 +129,12 @@ $.widget("boost.list", {
         if (list.tempIndex === null || list.tempIndex === -1) {
             return;
         }
-        var height = list.$tempEle.data('height');
-        var $lastItem = list.element.find(this.itemSelector).eq(list.tempIndex);
+        var height = list.$tempEl.data('height');
+        var $lastItem = list.element.find(list.options.itemSelector).eq(list.tempIndex);
         if ($lastItem.length === 1) {
-            list.$tempEle.insertBefore($lastItem).height(height);
+            list.$tempEl.insertBefore($lastItem).height(height);
         } else {
-            list.$tempEle.appendTo(list.element).height(height);
+            list.$tempEl.appendTo(list.element).height(height);
         }
     }
 

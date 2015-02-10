@@ -1,58 +1,32 @@
-@namespaces: boost;
-@global-primary: #0E90D2;
-@black: #000;
-@white: #FFF;
-@red: #f84b44;
-@border-color: #F1F1F1;
-@border-card-color: #dddddd;
-
-*, *:before, *:after {
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  .highlight();
-}
-
-.highlight() {
-  -webkit-tap-highlight-color: transparent;
-}
-
-.text-overflow() {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-
-
-.@{namespaces}list {
+.@{namespace}list {
   overflow: hidden;
 }
 
-.@{namespaces}list-card {
+.@{namespace}list-card {
   margin: 6px;
-  border: 1px solid @border-card-color;
-  .@{namespaces}list-item:last-child {
+  border: 1px solid @border-color;
+  .@{namespace}list-item:last-child {
     border: none;
   }
 }
 
-.@{namespaces}list-item {
+.@{namespace}list-item {
   text-decoration: none;
   line-height: 46px;
   height: 46px;
   font-size: 15px;
-  color: @global-primary;
+  color: @font-color;
   overflow: hidden;
   position: relative;
   border-bottom: 1px solid @border-color;
 }
 
-.@{namespaces}list-animation {
-  .@{namespaces}list-item{
+.@{namespace}list-animation {
+  .@{namespace}list-item{
     -webkit-transition: height .3s ease-in 0;
     transition: height .3s ease-in 0;
   }
-  .@{namespaces}list-item-content{
+  .@{namespace}list-item-content{
     -webkit-transition: left .2s ease-in 0;
     transition: left .2s ease-in 0;
   }
@@ -60,7 +34,7 @@
 }
 
 
-.@{namespaces}list-item-content {
+.@{namespace}list-item-content {
   position: absolute;
   left: 0;
   top: 0;
@@ -69,7 +43,7 @@
   background-color: @white;
 }
 
-.@{namespaces}list-item-delete {
+.@{namespace}list-item-delete {
   z-index: 1;
   position: absolute;
   background-color: @red;
@@ -82,6 +56,7 @@
   color: @white;
   text-align: center;
   .text-overflow();
+  .highlight();
   right: 0;
   top: 0;
 }
