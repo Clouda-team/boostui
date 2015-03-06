@@ -1,3 +1,5 @@
+/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
 /**
  * @file nav 组件
  * @author wanghongliang02

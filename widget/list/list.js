@@ -1,3 +1,6 @@
+/* globals NAMESPACE */
+/* globals Hammer */
+/* eslint-disable fecs-camelcase */
 /**
  * @file list 组件
  * @author wanghongliang02
@@ -8,7 +11,7 @@ $.widget('blend.list', {
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        delete: true,
+        del: true,
         animate: true,
         itemSelector: '.' + NAMESPACE + 'list-item',
         animateClass: NAMESPACE + 'list-animation',
@@ -31,7 +34,7 @@ $.widget('blend.list', {
      */
     _init: function () {
         var list = this;
-        if (!list.options.delete) {
+        if (!list.options.del) {
             this._destroy();
             return;
         }
