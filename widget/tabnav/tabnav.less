@@ -16,17 +16,21 @@
   position: relative;
 }
 .@{namespace}tabnav-item:after {
-  width: 1px;
+  width: 0;
   height: 20px;
   content: " ";
   display: block;
   position: absolute;
   top: 10px;
   right: 0;
-  background-color: #efefef;
+  /*background-color: #efefef;*/
+  border-left: 1px solid #efefef;
 }
 .@{namespace}tabnav-item:last-child:after {
   display: none;
+}
+.@{namespace}tabnav-dash .@{namespace}tabnav-item:after {
+  border-left-style: dashed;
 }
 
 .@{namespace}tabnav-item-text {
