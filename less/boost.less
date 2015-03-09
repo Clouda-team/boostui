@@ -1,9 +1,17 @@
 // build variables
 @namespace: ~"blend-";
 
-@import "bootstrap.less";
+// Core variables and mixins
+@import "variables.less";
+@import "mixins.less";
+
 @import "colors.less";
 @import "boostmixins.less";
+
+// Reset and dependencies
+@import "normalize.less";
+
+// Widgets
 @import "../widget/badge/badge.less";
 @import "../widget/button/button.less";
 @import "../widget/checkbox/checkbox.less";
@@ -16,6 +24,7 @@
 @import "../widget/nav/nav.less";
 @import "../widget/panel/panel.less";
 @import "../widget/picture/picture.less";
+@import "../widget/slider/slider.less";
 @import "../widget/tab/tab.less";
 @import "../widget/tabnav/tabnav.less";
 @import "../widget/toast/toast.less";

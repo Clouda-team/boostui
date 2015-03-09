@@ -901,5 +901,6 @@ var Zepto = (function() {
 // by zhangyuanwei
 // don't export global zepto variable 
 //// If `$` is not yet defined, point it to `Zepto`
-window.Zepto = Zepto
-window.$ === undefined && (window.$ = Zepto)
+//window.Zepto = Zepto
+//window.$ === undefined && (window.$ = Zepto)
+window.blend = Zepto;
