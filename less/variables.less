@@ -41,27 +41,72 @@
 //
 //## Font, line-height, and color for body text, headings, and more.
 
-@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-@font-family-serif:       Georgia, "Times New Roman", Times, serif;
-//** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
-@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+//@font-family-sans-serif:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+//@font-family-serif:       Georgia, "Times New Roman", Times, serif;
+////** Default monospace fonts for `<code>`, `<kbd>`, and `<pre>`.
+//@font-family-monospace:   Menlo, Monaco, Consolas, "Courier New", monospace;
+//@font-family-base:        @font-family-sans-serif;
+
+// from amazeui. by zhangyuanwei
+@font-family-sans-serif: "Segoe UI", "Lucida Grande", Helvetica, Arial, "Microsoft YaHei", FreeSans, Arimo, "Droid Sans","wenquanyi micro hei","Hiragino      Sans GB", "Hiragino Sans GB W3", "FontAwesome", sans-serif;
+@font-family-serif: Georgia, "Times New Roman", Times, SimSun, "FontAwesome", serif; //FangSong, STFangSong
+@font-family-monospace: Monaco, Menlo, Consolas, "Courier New", "FontAwesome", monospace;
+@font-family-kai: Georgia, "Times New Roman", Times, Kai, "Kaiti SC", KaiTi, BiauKai, "FontAwesome", serif;
 @font-family-base:        @font-family-sans-serif;
 
-@font-size-base:          14px;
-@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
-@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+//@font-size-base:          14px;
+//@font-size-large:         ceil((@font-size-base * 1.25)); // ~18px
+//@font-size-small:         ceil((@font-size-base * 0.85)); // ~12px
+//
+//@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
+//@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
+//@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
+//@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
+//@font-size-h5:            @font-size-base;
+//@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+//
+////** Unit-less `line-height` for use in components like buttons.
+//@line-height-base:        1.428571429; // 20/14
+////** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
+//@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
 
-@font-size-h1:            floor((@font-size-base * 2.6)); // ~36px
-@font-size-h2:            floor((@font-size-base * 2.15)); // ~30px
-@font-size-h3:            ceil((@font-size-base * 1.7)); // ~24px
-@font-size-h4:            ceil((@font-size-base * 1.25)); // ~18px
-@font-size-h5:            @font-size-base;
-@font-size-h6:            ceil((@font-size-base * 0.85)); // ~12px
+//from amazeui. by zhangyuanwei
+// Font  size
+// -----------------------------------------------------------------------------
 
-//** Unit-less `line-height` for use in components like buttons.
-@line-height-base:        1.428571429; // 20/14
-//** Computed "line-height" (`font-size` * `line-height`) for use with `margin`, `padding`, etc.
-@line-height-computed:    floor((@font-size-base * @line-height-base)); // ~20px
+@global-font-size:              1.4rem; //16px
+@global-line-height:            1.4;
+@font-size-base:          @global-font-size;
+
+@line-height-base:        @global-line-height;
+@line-height-computed:    floor(@font-size-base * @line-height-base); // 2 
+
+
+//@font-size-xxs:           @global-font-size - 0.6; // 10px - 1rem
+//@font-size-xs:            @global-font-size - 0.4; // 12px
+@font-size-sm:            @global-font-size - 0.2; // 14px
+////@font-size-default:     @global-font-size;       // 16px
+@font-size-lg:            @global-font-size + 0.2; // 18px
+//@font-size-xl:            @global-font-size + 0.8; // 24px
+//@font-size-xxl:           @global-font-size * 2;   // 32px
+//@font-size-xxxl:          @global-font-size * 2 + 1; // 42px
+//aliase
+@font-size-small:         @font-size-sm;
+@font-size-large:         @font-size-lg;
+
+
+// Border radius
+// -----------------------------------------------------------------------------
+
+@global-radius:         0;
+@radius-normal:         2px;
+@radius-lg:             5px;
+@radius-sm:             1px;
+
+@global-rounded:         1000px;
+@global-square:           0;
+
+
 
 //** By default, this inherits from the `<body>`.
 @headings-font-family:    inherit;
@@ -98,7 +143,9 @@
 @padding-xs-vertical:       1px;
 @padding-xs-horizontal:     5px;
 
-@line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
+//@line-height-large:         1.3333333; // extra decimals for Win 8.1 Chrome
+// by zhangyuanwei
+@line-height-large:         1.25;
 @line-height-small:         1.5;
 
 @border-radius-base:        4px;
