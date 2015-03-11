@@ -35,7 +35,7 @@ $.widget("blend.dialog", {
     /*配置项*/
     options: {
     	id: null,
-    	top: null,
+    	top: undefined,
         addCssClass: null,
         title: null,
         message: null,
@@ -176,7 +176,7 @@ $.widget("blend.dialog", {
 	
 	/*设置dialog位置*/
 	setPosition: function () {
-        var top = typeof this.top == 'undefined'?((window.innerHeight / 2.5) + window.pageYOffset) - (popup[0].clientHeight / 2): parseInt(this.top);
+        var top = typeof this.top == 'undefined'?((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2): parseInt(this.top);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
         	top: top + "px",
