@@ -7,7 +7,15 @@
 @panel-fontlarger:16px;
 @panel-fontsmall:14px;
 @panel-lineheight:25px;
-
+.@{namespace}panel-left{
+  text-align: left;
+}
+.@{namespace}panel-center{
+  text-align: center;
+}
+.@{namespace}panel-right{
+  text-align: right;
+}
 .@{namespace}panel-border{
   border-left:@panel-border;
   border-right:@panel-border;
@@ -19,7 +27,6 @@
   border-bottom:@panel-border;
   padding: 0 @panel-paddinglarger;
   font-size: @panel-fontlarger;
-  text-align: center;
 }
 .@{namespace}panel-body{
   border-bottom: @panel-border;
@@ -32,7 +39,6 @@
   height: @panel-heightsmall;
   line-height: @panel-heightsmall;
   padding: 0 @panel-paddinglarger;
-  text-align: center;
 }
 
 /*需要限制行数时，需要使用该类，并配合.@{namespace}panel-clamp确定具体行数*/
