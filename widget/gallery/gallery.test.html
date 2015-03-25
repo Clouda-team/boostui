@@ -1,0 +1,104 @@
+<!DOCTYPE>
+
+<html>
+<head>
+	<title>gallery测试页面</title>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <!-- <link rel="stylesheet" type="text/css" href="fullSlider.css"> -->
+    <link rel="stylesheet" href="../../dist/boost.css">
+    <script type="text/javascript" src="http://weinre123.duapp.com/target/target-script-min.js"></script>
+    <style type="text/css">
+    body{
+        margin: 0;
+        padding: 0;
+    }
+
+    </style>
+</head>
+
+<body>
+
+	<div id="gallery_wrapper" data-blend-widget="gallery" class="blend-gallery" data-blend-gallery=''>
+        
+    </div>
+<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
+    <button id="show">click to show</button>
+
+<!--     <script src="../../js/zepto.js"></script>
+    <script src="../../js/event.js"></script>
+    <script src="../../js/touch.js"></script>
+    <script src="../../js/data.js"></script>
+    <script src="../../js/widget.js"></script> 
+    <script type="text/javascript" src="./gallery.js"></script> -->
+
+    <script src="../../dist/boost.js"></script>
+    <script type="text/javascript">
+
+    	var $ = blend;
+    	var list = [{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/1.jpg",
+            description:"这是第1张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/2.jpg",
+            description:"这是第2张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/3.jpg",
+            description:"这是第3张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/4.jpg",
+            description:"这是第4张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/5.jpg",
+            description:"这是第5张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/6.jpg",
+            description:"这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！",
+            title:"图片集"
+        }];
+
+
+    	var wrapper = $("#gallery_wrapper").gallery({
+    		data:list,
+            // isDebug:true,
+            duration:2000,
+            isLooping:true,
+    		isAutoplay:false //是否自动播放
+        });
+
+
+        $("#show").on("click",function(){
+            wrapper.gallery("show");
+            /*setTimeout(function(){
+                alert("show time is up!");
+                wrapper.gallery("hide");
+            },10000);*/
+        });
+
+
+        document.addEventListener("click",function(){
+            console.log(121212);
+        });
+
+    </script>
+
+</body>
+</html>
