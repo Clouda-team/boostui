@@ -901,14 +901,25 @@ var Zepto = (function() {
 // by zhangyuanwei
 var _Zepto = window.Zepto;
 var _$ = window.$;
+var hasZepto = "Zepto" in window;
+var has$ = "$" in window;
+
 
 Zepto.noConflict = function(deep){
     if(window.$ === Zepto){
+      if(has$){
         window.$ = _$;
+      }else{
+        delete window.$;
+      }
     }
 
     if(deep && window.Zepto === Zepto){
+      if(hasZepto){
         window.Zepto = _Zepto;
+      }else{
+        delete window.Zepto;
+      }
     }
     return Zepto;
 };

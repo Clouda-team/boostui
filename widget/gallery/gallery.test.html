@@ -21,7 +21,7 @@
 
 <body>
 
-	<div id="gallery_wrapper" data-blend-widget="gallery" class="blend-gallery" data-blend-gallery=''>
+	<div id="gallery_wrapper"  class="blend-gallery" data-blend-gallery=''>
         
     </div>
 <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
@@ -33,12 +33,23 @@
     <script src="../../js/data.js"></script>
     <script src="../../js/widget.js"></script> 
     <script type="text/javascript" src="./gallery.js"></script> -->
+    <!-- // <script src="../../js/zepto.js"></script> -->
 
     <script src="../../dist/boost.js"></script>
     <script type="text/javascript">
+        window.boost = $.noConflict(true);
+    </script>
 
-    	var $ = blend;
-    	var list = [{
+    <script src="../../js/zepto.js"></script>
+    
+    <script type="text/javascript">
+
+    	// var $ = blend;
+        
+        ;(function(){
+            
+
+        var list = [{
             // height: 414,
             // width: 300,
             image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/1.jpg",
@@ -77,17 +88,17 @@
         }];
 
 
-    	var wrapper = $("#gallery_wrapper").gallery({
-    		data:list,
+        var wrapper = boost("#gallery_wrapper").gallery({
+            data:list,
             // isDebug:true,
             duration:2000,
             isLooping:true,
             useZoom:true,
-    		isAutoplay:false //是否自动播放
+            isAutoplay:false //是否自动播放
         });
 
 
-        $("#show").on("click",function(){
+        boost("#show").on("click",function(){
             wrapper.gallery("show");
             /*setTimeout(function(){
                 alert("show time is up!");
@@ -99,6 +110,9 @@
         document.addEventListener("click",function(){
             console.log(121212);
         });
+        })(); 
+
+        
 
     </script>
 
