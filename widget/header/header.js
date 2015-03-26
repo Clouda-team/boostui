@@ -37,8 +37,6 @@ $.widget("blend.header", {
         var $rightItems = $el.find(options.rightSelector).find(options.itemSelector);
         var $titleItems = $el.find(options.titleSelector).find(options.itemSelector);
 
-        console.log($leftItems, $rightItems, $titleItems);
-
         uixTitle = blend.create("title", {
             text: $titleItems.text()
                 //TODO 支持Image

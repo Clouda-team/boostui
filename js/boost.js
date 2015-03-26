@@ -945,11 +945,21 @@ var Zepto = (function() {
 })()
 
 // by zhangyuanwei
-// don't export global zepto variable 
-//// If `$` is not yet defined, point it to `Zepto`
-//window.Zepto = Zepto
-//window.$ === undefined && (window.$ = Zepto)
-window.blend = Zepto;
+var _Zepto = window.Zepto;
+var _$ = window.$;
+
+Zepto.noConflict = function(deep){
+    if(window.$ === Zepto){
+        window.$ = _$;
+    }
+
+    if(deep && window.Zepto === Zepto){
+        window.Zepto = _Zepto;
+    }
+    return Zepto;
+};
+
+window.Zepto = window.$ = Zepto;
 
     //     Zepto.js
 //     (c) 2010-2015 Thomas Fuchs
@@ -2052,7 +2062,7 @@ $.widget("blend.dialog", {
     /*配置项*/
     options: {
     	id: null,
-    	top: null,
+    	top: undefined,
         addCssClass: null,
         title: null,
         message: null,
@@ -2193,7 +2203,7 @@ $.widget("blend.dialog", {
 	
 	/*设置dialog位置*/
 	setPosition: function () {
-        var top = typeof this.top == 'undefined'?((window.innerHeight / 2.5) + window.pageYOffset) - (popup[0].clientHeight / 2): parseInt(this.top);
+        var top = typeof this.top == 'undefined'?((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2): parseInt(this.top);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
         	top: top + "px",
@@ -2222,6 +2232,635 @@ $.widget("blend.fixedBar", {
 		});
     },
     
+});})(Zepto)
+;(function($){/**
+ *
+ * gallery 组件
+ * Created by dingquan on 15-3-24.
+ */
+
+'use strict';
+// var NAMESPACE = "blend-";
+$.widget("blend.gallery",{
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+       
+    },
+    _create:function(){
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $el = this.element;
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+        
+        if(!options.data || !options.data.length){
+            throw new Error("data can not be empty");
+        } 
+        
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+      
+      this._createMask();   //创建遮罩mask
+        
+      this._setting();  // 设置相关内部属性
+      
+      this._renderHTML();
+      this._bindHandler();
+        
+    },
+    _createMask:function(){
+
+      if(this.mask){
+        //已经初始化过mask
+        return;
+      }
+
+      var mask = document.createElement("div");
+      mask.classList.add(NAMESPACE+"gallery-mask");
+      document.querySelector("body").appendChild(this.mask = mask);
+
+    },
+    /**
+     * 根据传入options 设置内部变量
+     * 
+     * @return {[type]} [description]
+     */
+    _setting:function(){
+
+        var opts = this.options;
+        // 幻灯片外层容器
+        this.wrap = this.mask;  
+        // 幻灯片 内容list 
+        this.data = opts.data;
+        // 内容类型 dom or pic
+        this.type = 'pic';
+        // 滑动方向
+        this.isVertical = false;
+        // Overspread mode
+        this.isOverspread = opts.isOverspread || false;
+        // 图片切换时间间隔
+        this.duration = opts.duration || 2000;
+        // 指定开始播放的图片index
+        this.initIndex = opts.initIndex || 0;
+        if (this.initIndex > this.data.length - 1 || this.initIndex < 0) {
+          this.initIndex = 0;
+        }
+        // touchstart prevent default to fixPage 
+        this.fixPage = true;
+        
+        this.slideIndex = this.slideIndex || this.initIndex || 0;
+
+        this.axis = 'X';
+        this.reverseAxis = this.axis === 'Y' ? 'X' : 'Y';
+
+        this.width = this.wrap.clientWidth;
+        this.height = this.wrap.clientHeight;
+        this.ratio = this.height / this.width;
+        this.scale = this.width;
+        // Callback function when your finger is moving
+        this.onslide = opts.onslide;
+        // Callback function when your finger touch the screen
+        this.onslidestart = opts.onslidestart;
+        // Callback function when the finger move out of the screen
+        this.onslideend = opts.onslideend;
+        // Callback function when the finger move out of the screen
+        this.onslidechange = opts.onslidechange;
+
+        this.offset = this.offset || {
+          X: 0,
+          Y: 0
+        };
+        this.useZoom = opts.useZoom || false;
+        // looping logic adjust
+        if (this.data.length < 2) {
+          this.isLooping = false;
+          this.isAutoPlay = false;
+        } else {
+          this.isLooping = opts.isLooping || false;
+          this.isAutoplay = opts.isAutoplay || false;
+        }
+        // little trick set, when you chooce tear & vertical same time
+        // iSlider overspread mode will be set true autometicly
+        if (opts.animateType === 'card' && this.isVertical) {
+          this.isOverspread = true;
+        }
+        // 自动播放模式
+        if (this.isAutoplay) {
+          this.show();
+          this._play();
+        }
+        if (this.useZoom) {
+          this._initZoom(opts);
+        }
+        // debug mode
+        this.log = opts.isDebug ? function (str) {
+          window.console.log(str);
+        } : function () {
+        };
+        // set Damping function
+        this._setUpDamping();
+        // stop autoplay when window blur
+    //    this._setPlayWhenFocus();
+        // set animate Function
+        this._animateFunc = opts.animateType in this._animateFuncs ? this._animateFuncs[opts.animateType] : this._animateFuncs['default'];
+       
+    },
+    _animateFuncs : {
+        'default': function (dom, axis, scale, i, offset) {
+            dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
+        }
+    },
+    _setUpDamping:function(){
+      var oneIn2 = this.scale >> 1;
+      var oneIn4 = oneIn2 >> 1;
+      var oneIn16 = oneIn4 >> 2;
+      this._damping = function (distance) {
+        var dis = Math.abs(distance);
+        var result;
+        if (dis < oneIn2) {
+          result = dis >> 1;
+        } else if (dis < oneIn2 + oneIn4) {
+          result = oneIn4 + (dis - oneIn2 >> 2);
+        } else {
+          result = oneIn4 + oneIn16 + (dis - oneIn2 - oneIn4 >> 3);
+        }
+        return distance > 0 ? result : -result;
+      };
+    },
+    /**
+    * render single item html by idx
+    * @param {element} el ..
+    * @param {number}  i  ..
+    */
+    _renderItem :function (el, i) {
+      var item;
+      var html;
+      var len = this.data.length;
+      // get the right item of data
+      if (!this.isLooping) {
+        item = this.data[i] || { empty: true };
+      } else {
+        if (i < 0) {
+          item = this.data[len + i];
+        } else if (i > len - 1) {
+          item = this.data[i - len];
+        } else {
+          item = this.data[i];
+        }
+      }
+      if (item.empty) {
+        el.innerHTML = '';
+        el.style.background = '';
+        return;
+      }
+      if (this.type === 'pic') {
+        if (!this.isOverspread) {
+          html = item.height / item.width > this.ratio ? '<img  height="' + this.height + '" src="' + item.image + '">' : '<img width="' + this.width + '" src="' + item.image + '">';
+        } else {
+          el.style.background = 'url(' + item.image + ') 50% 50% no-repeat';
+          el.style.backgroundSize = 'cover';
+        }
+      } else if (this.type === 'dom') {
+        html = item.image;
+      }
+      html && (el.innerHTML = html);
+    },
+    /**
+     * render list html
+     */
+    _renderHTML : function () {
+
+      this.outer && (this.outer.innerHTML = '');
+      // initail ul element
+      var outer = this.outer || document.createElement('ul');
+      outer.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;margin:0;padding:0;list-style:none;';
+      // storage li elements, only store 3 elements to reduce memory usage
+      this.els = [];
+      for (var i = 0; i < 3; i++) {
+        var li = document.createElement('li');
+        li.className = this.type === 'dom' ? NAMESPACE+'gallery-dom' : NAMESPACE+'gallery-pic';
+        li.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;';
+        this.els.push(li);
+        // prepare style animation
+        this._animateFunc(li, this.axis, this.scale, i, 0);
+
+        if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
+          this._renderItem(li, 1 - i + this.slideIndex);
+        } else {
+          this._renderItem(li, i - 1 + this.slideIndex);
+        }
+        outer.appendChild(li);
+      }
+      this._initLoadImg();
+      // append ul to div#canvas
+      if (!this.outer) {
+        this.outer = outer;
+        this.wrap.appendChild(outer);
+      }
+
+      if(!this.topMenu){
+        this._renderTopAndBottom();
+      }
+      
+    },
+    _renderTopAndBottom:function(){
+
+      var device = this._device();
+
+      var topMenu = this.topMenu || document.createElement('div');
+      var bottomMenu = this.bottomMenu || document.createElement('div');
+
+      topMenu.classList.add(NAMESPACE+"gallery-top");
+      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
+
+
+
+      var topBack = this.topBack || document.createElement('span');
+      topBack.classList.add(NAMESPACE+"gallery-top-back");
+      topMenu.appendChild(topBack);
+
+      topBack.addEventListener("click",(function(val){
+        var that = val;
+
+        return function (e) {
+          e.preventDefault();
+          that.outer.innerHTML = "";
+          that.mask.style.visibility = "hidden";
+        }
+      })(this));
+
+
+      //底部内容展示
+      var bottomTitle = this.bottomTitle || document.createElement("div");
+      bottomTitle.classList.add(NAMESPACE+"gallery-bottom-title");
+      bottomMenu.appendChild(this.bottomTitle = bottomTitle);
+
+      var bottomInfoWrap = this.bottomInfoWrap || document.createElement("div");
+      bottomInfoWrap.classList.add(NAMESPACE+"gallery-bottom-info-wrap");
+
+
+      var bottomInfo = this.bottomInfo || document.createElement("div");
+      bottomInfo.classList.add(NAMESPACE+"gallery-bottom-info");
+
+
+      var bottomPage = this.bottomPage || document.createElement("span");
+      bottomPage.classList.add(NAMESPACE+"gallery-bottom-page");
+
+      bottomMenu.appendChild(this.bottomPage = bottomPage);
+
+
+      bottomInfoWrap.appendChild(this.bottomInfo = bottomInfo);
+
+      bottomMenu.appendChild(bottomInfoWrap);
+
+      this.wrap.appendChild(this.topMenu = topMenu);
+      this.wrap.appendChild(this.bottomMenu = bottomMenu);
+
+    },
+    /**
+     *  preload img when slideChange
+     *  @param {number} dataIndex means which image will be load
+     */
+    _preloadImg : function (dataIndex) {
+      var len = this.data.length;
+      var idx = dataIndex;
+      var self = this;
+      var loadImg = function (index) {
+        if (!self.data[index].loaded) {
+          var preloadImg = new Image();
+          preloadImg.src = self.data[index].image;
+          self.data[index].loaded = 1;
+        }
+      };
+      if (self.type !== 'dom') {
+        var nextIndex = idx + 2 > len - 1 ? (idx + 2) % len : idx + 2;
+        var prevIndex = idx - 2 < 0 ? len - 2 + idx : idx - 2;
+        loadImg(nextIndex);
+        loadImg(prevIndex);
+      }
+    },
+    /**
+     *  load extra imgs when renderHTML
+     */
+    _initLoadImg :function () {
+      var data = this.data;
+      var len = data.length;
+      var idx = this.initIndex;
+      var self = this;
+      if (this.type !== 'dom' && len > 3) {
+        var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
+        var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
+        data[idx].loaded = 1;
+        data[nextIndex].loaded = 1;
+        if (self.isLooping) {
+          data[prevIndex].loaded = 1;
+        }
+        setTimeout(function () {
+          self._preloadImg(idx);
+        }, 200);
+      }
+    },
+    _play:function(){
+      var self = this;
+      var duration = this.duration;
+      clearInterval(this.autoPlayTimer);
+      this.autoPlayTimer = setInterval(function () {
+        self._slideTo(self.slideIndex + 1);
+      }, duration);
+    },
+    _slideTo:function (dataIndex) {
+
+      
+
+
+      var data = this.data;
+      var els = this.els;
+      var idx = dataIndex;
+      var n = dataIndex - this.slideIndex;
+      if (Math.abs(n) > 1) {
+        var nextEls = n > 0 ? this.els[2] : this.els[0];
+        this._renderItem(nextEls, idx);
+      }
+      // preload when slide
+      this._preloadImg(idx);
+      // get right item of data
+      if (data[idx]) {
+        this.slideIndex = idx;
+      } else {
+        if (this.isLooping) {
+          this.slideIndex = n > 0 ? 0 : data.length - 1;
+        } else {
+          this.slideIndex = this.slideIndex;
+          n = 0;
+        }
+      }
+
+      console.log(this.data[this.slideIndex].description);
+      this.log('pic idx:' + this.slideIndex);
+
+      this.bottomTitle.innerText = this.data[this.slideIndex].title;
+      this.bottomInfo.innerText = this.data[this.slideIndex].description;
+      this.bottomPage.innerText = (this.slideIndex+1)+"/"+this.data.length;
+
+      // keep the right order of items
+      var sEle;
+      if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
+        if (n > 0) {
+          sEle = els.pop();
+          els.unshift(sEle);
+        } else if (n < 0) {
+          sEle = els.shift();
+          els.push(sEle);
+        }
+      } else {
+        if (n > 0) {
+          sEle = els.shift();
+          els.push(sEle);
+        } else if (n < 0) {
+          sEle = els.pop();
+          els.unshift(sEle);
+        }
+      }
+      // slidechange should render new item
+      // and change new item style to fit animation
+      if (n !== 0) {
+        if (Math.abs(n) > 1) {
+          this._renderItem(els[0], idx - 1);
+          this._renderItem(els[2], idx + 1);
+        } else if (Math.abs(n) === 1) {
+          this._renderItem(sEle, idx + n);
+        }
+        /*sEle.style.webkitTransition = 'none';
+        sEle.style.visibility = 'hidden';
+        setTimeout(function () {
+          sEle.style.visibility = 'visible';
+        }, 200);*/
+        // this.onslidechange && this.onslidechange(this.slideIndex);
+        // this.dotchange && this.dotchange();
+      }
+      // do the trick animation
+      for (var i = 0; i < 3; i++) {
+        if (els[i] !== sEle) {
+          els[i].style.webkitTransition = 'all .3s ease';
+        }
+        this._animateFunc(els[i], this.axis, this.scale, i, 0);
+      }
+
+
+
+      // stop playing when meet the end of data
+      if (this.isAutoplay && !this.isLooping && this.slideIndex === data.length - 1) {
+        this._pause();
+      }
+    },
+    _pause:function(){
+      clearInterval(this.autoPlayTimer); 
+    },
+    /**
+     * judge the device 
+     * @return {object} 时间
+     */
+    _device:function () {
+      var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+      var startEvt = hasTouch ? 'touchstart' : 'mousedown';
+      var moveEvt = hasTouch ? 'touchmove' : 'mousemove';
+      var endEvt = hasTouch ? 'touchend' : 'mouseup';
+      return {
+        hasTouch: hasTouch,
+        startEvt: startEvt,
+        moveEvt: moveEvt,
+        endEvt: endEvt
+      };
+    },
+    _bindHandler:function () {
+      var that = this;
+      var outer = this.outer;
+      var device = this._device();
+      if (!device.hasTouch) {
+        outer.style.cursor = 'pointer';
+        outer.ondragstart = function (evt) {
+          if (evt) {
+            return false;
+          }
+          return true;
+        };
+      }
+      console.log(this);
+
+      outer.addEventListener(device.startEvt, this);
+      outer.addEventListener(device.moveEvt, this);
+      outer.addEventListener(device.endEvt, this);
+      window.addEventListener('orientationchange', this);
+    },
+    handleEvent:function (evt) {
+      var device = this._device();
+      switch (evt.type) {
+      case device.startEvt:
+        this._startHandler(evt);
+        break;
+      case device.moveEvt:
+        this._moveHandler(evt);
+        break;
+      case device.endEvt:
+        this._endHandler(evt);
+        break;
+      case 'touchcancel':
+        this._endHandler(evt);
+        break;
+      case 'orientationchange':
+        this._orientationchangeHandler();
+        break;
+      case 'focus':
+        this.isAutoplay && this._play();
+        break;
+      case 'blur':
+        this._pause();
+        break;
+      }
+    },
+    _startHandler : function (evt) {
+      if (this.fixPage) {
+        evt.preventDefault();
+      }
+
+      var device = this._device();
+      console.log(device);
+      this.isMoving = true;
+      this._pause();
+      // this.onslidestart && this.onslidestart();
+      this.log('Event: beforeslide');
+      this.startTime = new Date().getTime();
+      this.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+      this.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+      // this._startHandler && this._startHandler(evt);
+    },
+    _moveHandler:function (evt) {
+      
+      if(this.isMoving) {
+
+        var device = this._device();
+        var len = this.data.length;
+        var axis = this.axis;
+        var reverseAxis = this.reverseAxis;
+        var offset = {
+          X: device.hasTouch ? evt.targetTouches[0].pageX - this.startX : evt.pageX - this.startX,
+          Y: device.hasTouch ? evt.targetTouches[0].pageY - this.startY : evt.pageY - this.startY
+        };
+        // var res = this._moveHandler ? this._moveHandler(evt) : false;
+        var res = false;
+        if (!res && Math.abs(offset[axis]) - Math.abs(offset[reverseAxis]) > 10) {
+          evt.preventDefault();
+          this.onslide && this.onslide(offset[axis]);
+          this.log('Event: onslide');
+          if (!this.isLooping) {
+            //未开启循环
+            if (offset[axis] > 0 && this.slideIndex === 0 || offset[axis] < 0 && this.slideIndex === len - 1) {
+              offset[axis] = this._damping(offset[axis]);
+            }
+          }
+          for (var i = 0; i < 3; i++) {
+            var item = this.els[i];
+            item.style.webkitTransition = 'all 0s';
+            this._animateFunc(item, axis, this.scale, i, offset[axis]);
+          }
+        }
+        this.offset = offset;
+      }
+    },
+    _endHandler:function (evt) {
+      this.isMoving = false;
+      var offset = this.offset;
+      var axis = this.axis;
+      var boundary = this.scale / 2;
+      var endTime = new Date().getTime();
+      // a quick slide time must under 300ms
+      // a quick slide should also slide at least 14 px
+      console.log("time:"+ (endTime - this.startTime));
+      console.log("X:"+offset[axis]);
+      boundary = endTime - this.startTime > 300 ? boundary : 14;
+      // var res = this._endHandler ? this._endHandler(evt) : false;
+      var res = false;
+      var absOffset = Math.abs(offset[axis]);
+      var absReverseOffset = Math.abs(offset[this.reverseAxis]);
+      if (!res && offset[axis] >= boundary && absReverseOffset < absOffset) {
+        this._slideTo(this.slideIndex - 1);
+      } else if (!res && offset[axis] < -boundary && absReverseOffset < absOffset) {
+        this._slideTo(this.slideIndex + 1);
+      } else if (!res) {
+        this._slideTo(this.slideIndex);
+        if(this.isMenuShow){
+          this._hideMenu();
+        }else{
+          this._showMenu();
+        }
+        
+      }
+      // create tap event if offset < 10
+      if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
+        this.tapEvt = document.createEvent('Event');
+        this.tapEvt.initEvent('tap', true, true);
+        if (!evt.target.dispatchEvent(this.tapEvt)) {
+          evt.preventDefault();
+        }
+      }
+      this.offset.X = this.offset.Y = 0;
+      this.isAutoplay && this._play();
+      // this.onslideend && this.onslideend(this.slideIndex);
+      this.log('Event: afterslide');
+    },
+    _destroy:function () {
+      var outer = this.outer;
+      var device = this._device();
+      outer.removeEventListener(device.startEvt, this);
+      outer.removeEventListener(device.moveEvt, this);
+      outer.removeEventListener(device.endEvt, this);
+      window.removeEventListener('orientationchange', this);
+      window.removeEventListener('focus', this);
+      window.removeEventListener('blur', this);
+      this.wrap.innerHTML = '';
+    },
+    _showMenu:function(){ 
+      this.topMenu.style.webkitTransform = "translate3d(0, 0, 0)";
+      this.bottomMenu.style.webkitTransform ="translate3d(0, 0, 0)";
+      this.isMenuShow = true;
+
+    },
+    _hideMenu:function(){
+
+      this.topMenu.style.webkitTransform = "translate3d(0, -40px, 0)";
+      this.bottomMenu.style.webkitTransform ="translate3d(0, 100px, 0)";
+      this.isMenuShow = false;
+    },
+    show:function(){
+
+      //this._slideTo(val);
+
+      this.mask.style.visibility = "visible";
+
+      if(!this.outer.innerHTML){
+        this._renderHTML();
+      }
+
+    },
+    hide:function(){
+      /*var $mask = $(this.wrap);
+      $mask.css({visibility:"hidden"});
+      $mask.find("*").css({visibility:"hidden"});*/
+      //this._destroy();
+      this.mask.style.visibility = "hidden";
+    }
+      
+
+
+   
 });})(Zepto)
 ;(function($){'use strict';
 /**
@@ -2261,8 +2900,6 @@ $.widget("blend.header", {
         var $leftItems = $el.find(options.leftSelector).find(options.itemSelector);
         var $rightItems = $el.find(options.rightSelector).find(options.itemSelector);
         var $titleItems = $el.find(options.titleSelector).find(options.itemSelector);
-
-        console.log($leftItems, $rightItems, $titleItems);
 
         uixTitle = blend.create("title", {
             text: $titleItems.text()
@@ -2314,30 +2951,31 @@ function __genItemIterator(cb) {
     };
 }
 })(Zepto)
-;(function($){/**
- * list 组件
- * Created by wanghongliang02 on 15-1-29.
+;(function($){/* globals NAMESPACE */
+/* globals Hammer */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file list 组件
+ * @author wanghongliang02
  */
 
-
-$.widget("blend.list", {
+$.widget('blend.list', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        delete: true,
+        del: true,
         animate: true,
         itemSelector: '.' + NAMESPACE + 'list-item',
         animateClass: NAMESPACE + 'list-animation',
         itemContentSelector: '.' + NAMESPACE + 'list-item-content',
         itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
-        // 禁止删除的class
         exceptionClass: false
     },
     /**
      * _create 创建组件时调用一次
      */
-    _create: function() {
+    _create: function () {
         // 保存上一个删除的dom，for revert
         this.$tempEl = null;
         this.tempIndex = null;
@@ -2347,15 +2985,16 @@ $.widget("blend.list", {
     /**
      * _init 初始化的时候调用
      */
-    _init: function() {
+    _init: function () {
         var list = this;
-        if (!list.options.delete) {
+        if (!list.options.del) {
             this._destroy();
             return;
         }
         if (list.options.animate) {
             list.element.addClass(list.options.animateClass);
-        } else {
+        }
+        else {
             list.element.removeClass(list.options.animateClass);
         }
         list._initEvent();
@@ -2364,10 +3003,10 @@ $.widget("blend.list", {
      * 绑定事件
      * @private
      */
-    _initEvent: function() {
+    _initEvent: function () {
         var list = this;
         var $items = list.element.find(list.options.itemSelector);
-        $items.each(function() {
+        $items.each(function () {
             var $this = $(this);
             var hammer = $this.data('hammer');
             if (!hammer) {
@@ -2377,7 +3016,7 @@ $.widget("blend.list", {
             if ($this.hasClass(list.options.exceptionClass)) {
                 return;
             }
-            hammer.on('swipeleft', function(ev) {
+            hammer.on('swipeleft', function (ev) {
                 if ($this.find('.' + list.deleteBtnClass).length === 0) {
                     $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
                 }
@@ -2387,19 +3026,19 @@ $.widget("blend.list", {
         });
         if (!list.eventInit) {
             list.eventInit = true;
-            list.element.on('click.list', '.' + list.deleteBtnClass, function(e) {
+            list.element.on('click.list', '.' + list.deleteBtnClass, function (e) {
                 var $parent = $(this).closest(list.options.itemSelector);
                 list.tempIndex = $parent.index();
                 $parent.data('height', $parent.height());
                 $parent.height(0);
-                setTimeout(function() {
+                setTimeout(function () {
                     list.$tempEl = $parent.detach();
                     list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
                     list.$tempEl.find(list.options.itemContentSelector).css('left', 0);
                 }, list.options.animate ? 500 : 0);
             });
             // 未点击删除时的恢复
-            list.element.on('touchstart.list', function(e) {
+            list.element.on('touchstart.list', function (e) {
                 var $target = $(e.target);
                 var className = list.deleteBtnClass;
                 if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
@@ -2418,10 +3057,10 @@ $.widget("blend.list", {
      * 取消一个列表的滑动删除效果
      * @private
      */
-    _destroy: function() {
+    _destroy: function () {
         var list = this;
         var $items = list.element.find(list.options.itemSelector);
-        $items.each(function() {
+        $items.each(function () {
             var hammer = $(this).data('hammer');
             if (hammer) {
                 hammer.off('swipeleft');
@@ -2434,13 +3073,13 @@ $.widget("blend.list", {
     /**
      * 刷新配置
      */
-    refresh: function() {
+    refresh: function () {
         this._init();
     },
     /**
      * 用于删除失败时的恢复
      */
-    revert: function() {
+    revert: function () {
         var list = this;
         if (list.tempIndex === null || list.tempIndex === -1) {
             return;
@@ -2449,7 +3088,8 @@ $.widget("blend.list", {
         var $lastItem = list.element.find(list.options.itemSelector).eq(list.tempIndex);
         if ($lastItem.length === 1) {
             list.$tempEl.insertBefore($lastItem).height(height);
-        } else {
+        }
+        else {
             list.$tempEl.appendTo(list.element).height(height);
         }
     }
@@ -2527,13 +3167,14 @@ $.widget("blend.loading", {
     	return this.$el;
     }
 });})(Zepto)
-;(function($){/**
- * nav 组件
- * Created by wanghongliang02 on 15-1-29.
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file nav 组件
+ * @author wanghongliang02
  */
 
-
-$.widget("blend.nav", {
+$.widget('blend.nav', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -2568,7 +3209,8 @@ $.widget("blend.nav", {
         var nav = this;
         if (nav.options.animate) {
             nav.element.addClass(nav.animateClass);
-        } else {
+        }
+        else {
             nav.element.removeClass(nav.animateClass);
         }
         nav._colunm();
@@ -2582,29 +3224,31 @@ $.widget("blend.nav", {
      *
      * @private
      */
-    _initEvent: function() {
+    _initEvent: function () {
         var nav = this;
-        nav.element.on('click.nav', '.' + nav.expandClass, function(e) {
+        nav.element.on('click.nav', '.' + nav.expandClass, function (e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
                 $this.removeClass(nav.expandedClass);
                 var max = nav.options.row * nav.options.column;
-                nav.$items.each(function(i) {
+                nav.$items.each(function (i) {
                     var $navItem = $(this);
-                    if (i >= max  - 1) {
+                    if (i >= max - 1) {
                         if (nav.options.animate) {
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $navItem.addClass(nav.hideClass);
                             }, nav.options.time);
-                        } else {
+                        }
+                        else {
                             $navItem.addClass(nav.hideClass);
                         }
                     }
                 });
                 $this.html(nav.options.expand);
-            } else {
+            }
+            else {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
                 height = nav.$items.eq(0).height() * row + 15;
@@ -2625,18 +3269,18 @@ $.widget("blend.nav", {
      */
     _colunm: function () {
         var nav = this;
-        var $el = this.element;
+        var $el = nav.element;
         /**
          * 处理column范围
          */
-        if (this.options.column && $.inArray(this.options.column, this.columnRange) == -1) {
-            this.options.column = 3;
+        if (nav.options.column && $.inArray(nav.options.column, nav.columnRange) === -1) {
+            nav.options.column = 3;
         }
         var columnClass = [];
-        for (var i = 0; i < this.columnRange.length; i++) {
-            columnClass.push(this.columnClassPre + this.columnRange[i]);
+        for (var i = 0; i < nav.columnRange.length; i++) {
+            columnClass.push(nav.columnClassPre + nav.columnRange[i]);
         }
-        $el.removeClass(columnClass.join(" ")).addClass(this.columnClassPre + this.options.column);
+        $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
 
     },
     /**
@@ -2645,32 +3289,31 @@ $.widget("blend.nav", {
      */
     _row: function () {
         var nav = this;
-        var $el = this.element;
-        var option = this.options;
+        var option = nav.options;
         if (option.row === false) {
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
-        option.row = parseInt(option.row);
+        option.row = parseInt(option.row, 10);
         if (option.row < 1) {
             option.row = false;
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
 
         var length = nav.$items.length;
         var max = option.column * option.row;
         if (max >= length) {
-            this._removeExpand();
+            nav._removeExpand();
             return;
         }
-        this._addExpand(max);
+        nav._addExpand(max);
     },
     /**
      * remove expand
      * @private
      */
-    _removeExpand: function() {
+    _removeExpand: function () {
         var nav = this;
         var $el = nav.element;
         var len = nav.$items.length;
@@ -2681,15 +3324,16 @@ $.widget("blend.nav", {
         nav.$items.removeClass(this.hideClass);
     },
     /**
-     * add expand
+     * @param {number} max 最大行数
      * @private
      */
-    _addExpand: function(max) {
+    _addExpand: function (max) {
         var nav = this;
-        nav.$items.each(function(i) {
+        nav.$items.each(function (i) {
             if (i >= max - 1) {
                 $(this).addClass(nav.hideClass);
-            } else {
+            }
+            else {
                 $(this).removeClass(nav.hideClass);
             }
         });
@@ -2697,7 +3341,8 @@ $.widget("blend.nav", {
         nav.element.css('height', 15 + height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
-        } else {
+        }
+        else {
             nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
     },
@@ -2705,7 +3350,7 @@ $.widget("blend.nav", {
      * 销毁对象
      * @private
      */
-    _destroy: function() {
+    _destroy: function () {
         var nav = this;
         nav.options.row = false;
         nav._removeExpand();
@@ -2715,14 +3360,14 @@ $.widget("blend.nav", {
      * 设置列数
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param num
+     * @param {number} num 列数
      * @return {undefined}
      */
-    column: function(num) {
-        if (arguments.length == 0) {
+    column: function (num) {
+        if (arguments.length === 0) {
             return this.options.column;
         }
-        if (num && $.inArray(num, this.columnRange) == -1) {
+        if (num && $.inArray(num, this.columnRange) === -1) {
             return;
         }
         this.options.column = num;
@@ -2733,11 +3378,11 @@ $.widget("blend.nav", {
      * 设置行数
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param num
+     * @param {number} num 行数
      * @return {undefined}
      */
-    row: function(num) {
-        if (arguments.length == 0) {
+    row: function (num) {
+        if (arguments.length === 0) {
             return this.options.row;
         }
         if (num === false) {
@@ -2745,7 +3390,7 @@ $.widget("blend.nav", {
             this._removeExpand();
             return;
         }
-        var row = parseInt(num);
+        var row = parseInt(num, 10);
         if (!row || row <= 0) {
             return;
         }
@@ -3115,13 +3760,14 @@ $.widget("blend.slider",{
     
 
 });})(Zepto)
-;(function($){/**
- * tab 组件
- * Created by wanghongliang02 on 15-1-29.
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file tab 组件
+ * @author wanghongliang02
  */
 
-
-$.widget("blend.tab", {
+$.widget('blend.tab', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
@@ -3133,7 +3779,7 @@ $.widget("blend.tab", {
     /**
      * _create 创建组件时调用一次
      */
-    _create: function() {
+    _create: function () {
         var tab = this;
         var $el = this.element;
         tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
@@ -3142,7 +3788,7 @@ $.widget("blend.tab", {
         tab.$headerItem = $el.find(tab.itemSelector);
         tab.$contentItem = $el.find(tab.itemContentSelector);
         tab.$activeEle = $el.find(tab.itemActiveSelector);
-        //计算active宽度和位置
+        // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
         tab.$activeEle.css('width', this.itemWidth * .7);
         tab.itemOffsetX = this.itemWidth * .15;
@@ -3152,7 +3798,7 @@ $.widget("blend.tab", {
     /**
      * _init 初始化的时候调用
      */
-    _init: function() {
+    _init: function () {
         var tab = this;
 
         tab._checkStart();
@@ -3163,23 +3809,25 @@ $.widget("blend.tab", {
         tab._switch(tab.options.start);
 
         if (tab.options.animate) {
-            //初始化的时候不出动画
-            setTimeout(function() {
+            // 初始化的时候不出动画
+            setTimeout(function () {
                 tab.element.addClass(tab.options.animateClass);
             }, 0);
-        } else {
+        }
+        else {
             tab.element.removeClass(tab.options.animateClass);
         }
+
 
     },
     /**
      * 验证初始化的start参数
      * @private
      */
-    _checkStart: function() {
+    _checkStart: function () {
         var tab = this;
         var lenth = tab.$headerItem.length;
-        tab.options.start = parseInt(tab.options.start);
+        tab.options.start = parseInt(tab.options.start, 10);
         if (tab.options.start < 0 || tab.options.start >= lenth) {
             tab.options.start = 0;
         }
@@ -3190,25 +3838,27 @@ $.widget("blend.tab", {
      *
      * @private
      */
-    _initEvent: function() {
+    _initEvent: function () {
         var tab = this;
-        tab.$headerItem.on('click.tab', function(e) {
+        tab.$headerItem.on('click.tab', function (e) {
             var index = $(this).index();
             tab._switch(index);
         });
     },
     /**
      * tab切换
-     * @param index
+     * @param {number} index 要切换到tab序号。
      * @private
      */
-    _switch: function(index) {
+    _switch: function (index) {
         var tab = this;
         if (arguments.length === 0) {
             tab.current = tab.options.start;
-        } else {
+        }
+        else {
             tab.current = index;
         }
+
         var left = tab.itemOffsetX + tab.current * tab.itemWidth;
         tab.$activeEle.css('left', left);
         tab.$contentItem.hide();
@@ -3218,16 +3868,17 @@ $.widget("blend.tab", {
      * 销毁tab对象
      * @private
      */
-    _destroy: function() {
+    _destroy: function () {
         var tab = this;
         tab.$headerItem.off('click.tab');
     },
 
     /**
      * 切换到某个tab,获取当前的tab
-     * @param index
+     * @param {number=} index 切换的tab序号
+     * @return {current|*|number} 当前tab序号或者不返回
      */
-    active: function(index) {
+    active: function (index) {
         var tab = this;
         if (arguments.length === 0) {
             return tab.current;
