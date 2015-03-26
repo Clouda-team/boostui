@@ -5,51 +5,91 @@
 //@button-warning:
 //@button-danger:
 //@button-default: @button-info;
+@button-font-size:                  @font-size-base;
+@button-font-weight:                normal;
+@button-line-height:                1.2;
+
+@button-default-color:              #333;
+@button-default-bg:                 #fff;
+@button-default-border:             #ccc;
+
+@button-primary-color:              #fff;
+@button-primary-bg:                 @brand-primary;
+@button-primary-border:             @button-primary-bg;
+
+@button-secondary-color:            #fff;
+@button-secondary-bg:               @brand-secondary;
+@button-secondary-border:           @button-secondary-bg;
+
+@button-success-color:              #fff;
+@button-success-bg:                 @brand-success;
+@button-success-border:             @button-success-bg;
+
+@button-info-color:                 #fff;
+@button-info-bg:                    @brand-info;
+@button-info-border:                @button-info-bg;
+
+@button-warning-color:              #fff;
+@button-warning-bg:                 @brand-warning;
+@button-warning-border:             @button-warning-bg;
+
+@button-danger-color:               #fff;
+@button-danger-bg:                  @brand-danger;
+@button-danger-border:              @button-danger-bg;
+
+@button-link-disabled-color:        @gray-light;
 
 .@{namespace}button {
     display: inline-block;
-    margin-bottom: 0; // For input.btn
-    font-weight: @btn-font-weight;
-    text-align: center;
+    margin-bottom: 0; // For input.button
+    padding: 0.625em 1em;
     vertical-align: middle;
-    touch-action: manipulation;
-    cursor: pointer;
-    background-image: none; // Reset unusual Firefox-on-Android default style; see https://github.com/necolas/normalize.css/issues/214
-    border: 1px solid transparent;
+    font-size: @button-font-size;
+    font-weight: @button-font-weight;
+    line-height: @button-line-height;
+    text-align: center;
     white-space: nowrap;
-    .button-size(@padding-base-vertical; @padding-base-horizontal; @font-size-base; @line-height-base; @border-radius-base);
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: @global-radius;
+    cursor: pointer;
+    outline: 0;
+    -webkit-appearance: none;
     .user-select(none);
+    //transition: background-color 300ms ease-out, border-color 300ms ease-out;
 
-    &,
-    &:active,
-    &.active {
-        &:focus,
-        &.focus {
-            .tab-focus();
-        }
+    &:focus {
+        .tab-focus();
     }
 
     &:hover,
-    &:focus,
-    &.focus {
-        color: @btn-default-color;
+    &:focus {
+        color: @button-default-color;
         text-decoration: none;
     }
 
     &:active,
-    &.active {
+    &.@{namespace}active {
         outline: 0;
         background-image: none;
         .box-shadow(inset 0 3px 5px rgba(0,0,0,.125));
     }
 
-    &.disabled,
+    &.@{namespace}disabled,
     &[disabled],
     fieldset[disabled] & {
         cursor: @cursor-disabled;
         pointer-events: none; // Future-proof disabling of clicks
         .opacity(.65);
         .box-shadow(none);
+    }
+
+    &.@{namespace}round {
+        border-radius: @global-rounded; 
+    }
+
+    &.@{namespace}radius {
+        border-radius: @radius-normal;
     }
 }
 
@@ -58,26 +98,29 @@
 // --------------------------------------------------
 
 .@{namespace}button-default {
-    .button-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+    .button-variant(@button-default-color; @button-default-bg; @button-default-border);
 }
 .@{namespace}button-primary {
-    .button-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+    .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
+}
+.@{namespace}button-secondary {
+    .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
 }
 // Success appears as green
 .@{namespace}button-success {
-    .button-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+    .button-variant(@button-success-color; @button-success-bg; @button-success-border);
 }
 // Info appears as blue-green
 .@{namespace}button-info {
-    .button-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+    .button-variant(@button-info-color; @button-info-bg; @button-info-border);
 }
 // Warning appears as orange
 .@{namespace}button-warning {
-    .button-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+    .button-variant(@button-warning-color; @button-warning-bg; @button-warning-border);
 }
 // Danger and error appear as red
 .@{namespace}button-danger {
-    .button-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
+    .button-variant(@button-danger-color; @button-danger-bg; @button-danger-border);
 }
 
 
@@ -114,7 +157,7 @@
     fieldset[disabled] & {
         &:hover,
         &:focus {
-            color: @btn-link-disabled-color;
+            color: @button-link-disabled-color;
             text-decoration: none;
         }
     }

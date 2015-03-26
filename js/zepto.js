@@ -899,8 +899,18 @@ var Zepto = (function() {
 })()
 
 // by zhangyuanwei
-// don't export global zepto variable 
-//// If `$` is not yet defined, point it to `Zepto`
-//window.Zepto = Zepto
-//window.$ === undefined && (window.$ = Zepto)
-window.blend = Zepto;
+var _Zepto = window.Zepto;
+var _$ = window.$;
+
+Zepto.noConflict = function(deep){
+    if(window.$ === Zepto){
+        window.$ = _$;
+    }
+
+    if(deep && window.Zepto === Zepto){
+        window.Zepto = _Zepto;
+    }
+    return Zepto;
+};
+
+window.Zepto = window.$ = Zepto;

@@ -133,8 +133,3 @@ $.widget("blend.counter", {
         }
     }
 });
-
-// 初始化
-$(function () {
-    $('[data-blend-widget="counter"]').counter();
-});
