@@ -909,29 +909,41 @@ input[type="button"].blend-button-block {
 .blend-fixedBar-bottom {
   bottom: 0;
 }
-.blend-header {
-  position: relative;
-  height: 44px;
-  background-color: #000000;
-  color: #ffffff;
-  line-height: 44px;
-  text-align: center;
-  font-size: 18px;
+.blend-boost .blend-header {
+  display: none;
 }
-.blend-header-back {
-  display: inline-block;
-  width: 17px;
-  height: 17px;
-  border-left: 3px solid #ffffff;
-  border-bottom: 3px solid #ffffff;
-  position: absolute;
-  left: 20px;
-  top: 13px;
-  -webkit-tap-highlight-color: transparent;
-  -ms-transform: rotate(45deg);
-  -o-transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
+.blend-header {
+  height: 44px;
+  text-align: center;
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  background-color: #00a3e7;
+  color: #ffffff;
+}
+.blend-header-left,
+.blend-header-title,
+.blend-header-right {
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+}
+.blend-header-left {
+  flex: 1;
+  order: 1;
+  justify-content: flex-start;
+}
+.blend-header-title {
+  order: 2;
+}
+.blend-header-right {
+  flex: 1;
+  order: 3;
+  justify-content: flex-end;
+}
+.blend-header-item {
+  margin: 0 5px;
+  color: #ffffff;
 }
 .blend-list {
   overflow: hidden;
