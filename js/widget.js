@@ -1,6 +1,7 @@
 ;
 (function ($) {
     'use strict';
+    var widgetMap = {};
     /**
      * widget 类工厂
      *
@@ -37,7 +38,7 @@
         }
 
         $[namespace] = $[namespace] || {};
-        constructor = $[namespace][name] = function (options, element) {
+        constructor = widgetMap[name] = $[namespace][name] = function (options, element) {
             // 检查是否是通过 new 调用的(instanceof)
             if (!this._createWidget) {
                 return new constructor(options, element);
@@ -94,6 +95,11 @@
 
         return constructor;
     };
+
+
+    $.widget.has = function(name){
+        return widgetMap.hasOwnProperty(name);
+    }
 
     var slice = Array.prototype.slice;
 

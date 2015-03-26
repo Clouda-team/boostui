@@ -1,5 +1,49 @@
-(function (window, undefined) {
-    var NAMESPACE = "blend-";
+(function(window, undefined) {
+    var NAMESPACE = "blend-" ;
+    var UIX_VERSION = (function() {
+    var ua = navigator.userAgent.toLowerCase();
+    var v = ua.match(/uix\/(\d+\.\d+\.\d+\.\d+)/);
+    return v ? v[1] : undefined;
+})();
+
+var IS_UIX = UIX_VERSION !== undefined;
+var UIX_ACTION_BACK = "back";
+var ACTION_BACK_CLASS = NAMESPACE + "action-" + UIX_ACTION_BACK;
+//TODO more action
+
+
+
+if (IS_UIX) {
+    (function() {
+        var htmlElem = document.getElementsByTagName("HTML")[0];
+        var className = htmlElem.className;
+        htmlElem.className = className + " " + NAMESPACE + "boost";
+    })();
+}
+
+function color2Hex(str) {
+
+    function toHex(n) {
+        n = Math.max(Math.min(Math.floor(n), 0xFF), 0) + 0x100;
+        return n.toString(16).substring(1);
+    }
+
+    function rgb(r, g, b) {
+        return "#ff" + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    function rgba(r, g, b, a) {
+        a = a * 0xFF;
+        return "#" + toHex(a) + toHex(r) + toHex(g) + toHex(b);
+    }
+
+    color2Hex = function(str) {
+        return (new Function("rgb", "rgba", "return " + str)).call(null, rgb, rgba);
+    };
+
+    return color2Hex(str);
+}
+
     //     Zepto.js
 //     (c) 2010-2015 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
@@ -1431,6 +1475,7 @@ window.blend = Zepto;
     ;
 (function ($) {
     'use strict';
+    var widgetMap = {};
     /**
      * widget 类工厂
      *
@@ -1467,7 +1512,7 @@ window.blend = Zepto;
         }
 
         $[namespace] = $[namespace] || {};
-        constructor = $[namespace][name] = function (options, element) {
+        constructor = widgetMap[name] = $[namespace][name] = function (options, element) {
             // 检查是否是通过 new 调用的(instanceof)
             if (!this._createWidget) {
                 return new constructor(options, element);
@@ -1524,6 +1569,11 @@ window.blend = Zepto;
 
         return constructor;
     };
+
+
+    $.widget.has = function(name){
+        return widgetMap.hasOwnProperty(name);
+    }
 
     var slice = Array.prototype.slice;
 
@@ -1964,11 +2014,6 @@ $.widget("blend.counter", {
         }
     }
 });
-
-// 初始化
-$(function () {
-    $('[data-blend-widget="counter"]').counter();
-});
 })(Zepto)
 ;(function($){/**
      * @function dialog
@@ -2178,6 +2223,97 @@ $.widget("blend.fixedBar", {
     },
     
 });})(Zepto)
+;(function($){'use strict';
+/**
+ * 定义一个组件
+ */
+
+
+$.widget("blend.header", {
+    options: {
+        leftSelector: "." + NAMESPACE + "header-left",
+        rightSelector: "." + NAMESPACE + "header-right",
+        titleSelector: "." + NAMESPACE + "header-title",
+        itemSelector: "." + NAMESPACE + "header-item"
+    },
+    _create: function() {
+        this._uix = null;
+    },
+    _init: function() {
+        var me = this;
+        if (IS_UIX) {
+            if (this._uix !== null) {
+                this._uix.destroy();
+            }
+            require(["blend"], function(blend) {
+                me._uix = me._initUIXComponent(blend);
+                me._uix.render();
+            });
+        }
+
+        //this._initUIXComponent();
+    },
+    _initUIXComponent: function(blend) {
+        var $el = this.element;
+        var options = this.options;
+        var uixTitle;
+
+        var $leftItems = $el.find(options.leftSelector).find(options.itemSelector);
+        var $rightItems = $el.find(options.rightSelector).find(options.itemSelector);
+        var $titleItems = $el.find(options.titleSelector).find(options.itemSelector);
+
+        console.log($leftItems, $rightItems, $titleItems);
+
+        uixTitle = blend.create("title", {
+            text: $titleItems.text()
+                //TODO 支持Image
+        });
+
+
+        uixTitle.setStyle({
+            backgroundColor: color2Hex($el.css("background-color")),
+            color: color2Hex($el.css("color"))
+        });
+
+
+        $leftItems.each(__genItemIterator(function(obj) {
+            uixTitle.addLeftItem(obj);
+        }));
+
+        $rightItems.each(__genItemIterator(function(obj) {
+            uixTitle.addRightItem(obj);
+        }));
+
+
+        return uixTitle;
+    }
+});
+
+
+function __genItemIterator(cb) {
+    return function(i, item) {
+        var $item = $(item);
+        var retObj = {};
+        var nodeName = item.nodeName;
+
+        if ($item.hasClass(ACTION_BACK_CLASS)) {
+            retObj.action = {
+                operator: "back"
+            };
+        } else if (nodeName && nodeName.toUpperCase() === "A") {
+            retObj.action = {
+                url: item.href
+            };
+        }
+
+        retObj.text = $item.text();
+
+        //TODO more event
+        //TODO style
+        cb(retObj);
+    };
+}
+})(Zepto)
 ;(function($){/**
  * list 组件
  * Created by wanghongliang02 on 15-1-29.
@@ -3186,4 +3322,26 @@ $.widget("blend.toast", {
     	return this.$el;
     }
 });})(Zepto)
+    ;(function($){
+    //TODO 判断UA环境,给body增加class
+    $(function(){
+        $("[data-blend-widget]").each(function(i, elem){
+            var $elem = $(elem);
+            var widgetAttr = $elem.data("blend-widget");
+            var widgetNames = widgetAttr.split(",");
+            var widgetNameLen = widgetNames.length;
+            var index;
+            var name;
+            for(index = 0; index < widgetNameLen; index++){
+                var name = widgetNames[index];
+                if($.widget.has(name)){
+                    $elem[name]();
+                }else{
+                    throw new Error("Unknow blend widget \"" + name + "\"");
+                }
+            }
+        });
+    });
+})(Zepto)
+
 })(window);
