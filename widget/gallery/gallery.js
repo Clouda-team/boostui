@@ -32,14 +32,38 @@ $.widget("blend.gallery",{
      * _init 初始化的时候调用
      */
     _init: function () {
-      
-      this._createMask();   //创建遮罩mask
+
+
+      var me = this;
+      if (IS_UIX){
+          // UIX
+          if(this._uix !== null) {
+            // (this._uix.destroy)&&(this._uix.destroy());
+          }
+          require(["blend"], function(blend) {
+              me._uix = me._initUIXGallery(blend);
+          });
+
+          return;
+
+      }else{
+        // web
+
+        this._createMask();   //创建遮罩mask
+        this._setting();      // 设置相关内部属性
+        this._renderHTML();
+        this._bindHandler(); 
+      }
         
-      this._setting();  // 设置相关内部属性
-      
-      this._renderHTML();
-      this._bindHandler();
-        
+    },
+    _initUIXGallery:function(blend){
+
+      var uixGallery = blend.create("gallery",{
+        images:this.options.data
+      });
+
+      return uixGallery;
+
     },
     _createMask:function(){
 
@@ -75,7 +99,7 @@ $.widget("blend.gallery",{
         this.duration = opts.duration || 2000;
         // 指定开始播放的图片index
         this.initIndex = opts.initIndex || 0;
-        if (this.initIndex > this.data.length - 1 || this.initIndex < 0) {
+        if(this.initIndex > this.data.length - 1 || this.initIndex < 0) {
           this.initIndex = 0;
         }
         // touchstart prevent default to fixPage 
@@ -119,18 +143,19 @@ $.widget("blend.gallery",{
           this.isOverspread = true;
         }
         // 自动播放模式
-        if (this.isAutoplay) {
+        if(this.isAutoplay) {
           this.show();
           this._play();
         }
-        if (this.useZoom) {
+
+        if(this.useZoom) {
           this.addZoomPlugin();
           this._initZoom(opts);
         }
         // debug mode
         this.log = opts.isDebug ? function (str) {
-          window.console.log(str);
-        } : function () {
+            window.console.log(str);
+          } : function () {
         };
         // set Damping function
         this._setUpDamping();
@@ -206,17 +231,17 @@ $.widget("blend.gallery",{
     _renderHTML : function () {
 
       this.outer && (this.outer.innerHTML = '');
-      // initail ul element
+      //initail ul element
       var outer = this.outer || document.createElement('ul');
       outer.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;margin:0;padding:0;list-style:none;';
-      // storage li elements, only store 3 elements to reduce memory usage
+      //storage li elements, only store 3 elements to reduce memory usage
       this.els = [];
       for (var i = 0; i < 3; i++) {
         var li = document.createElement('li');
         li.className = this.type === 'dom' ? NAMESPACE+'gallery-dom' : NAMESPACE+'gallery-pic';
         li.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;';
         this.els.push(li);
-        // prepare style animation
+        //prepare style animation
         this._animateFunc(li, this.axis, this.scale, i, 0);
 
         if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
@@ -227,7 +252,7 @@ $.widget("blend.gallery",{
         outer.appendChild(li);
       }
       this._initLoadImg();
-      // append ul to div#canvas
+      //append ul to div#canvas
       if (!this.outer) {
         this.outer = outer;
         this.wrap.appendChild(outer);
@@ -255,6 +280,7 @@ $.widget("blend.gallery",{
       topMenu.appendChild(topBack);
 
       topBack.addEventListener("click",(function(val){
+        
         var that = val;
 
         return function (e) {
@@ -609,20 +635,21 @@ $.widget("blend.gallery",{
     },
     show:function(){
 
-      //this._slideTo(val);
+      if(IS_UIX && this._uix){
+        this._uix.show();
+        return;
+
+      }
 
       this.mask.style.visibility = "visible";
 
-      if(!this.outer.innerHTML){
+      if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();
       }
 
     },
     hide:function(){
-      /*var $mask = $(this.wrap);
-      $mask.css({visibility:"hidden"});
-      $mask.find("*").css({visibility:"hidden"});*/
-      //this._destroy();
+      return;
       this.mask.style.visibility = "hidden";
     },
     extend:function (plugin, main) {

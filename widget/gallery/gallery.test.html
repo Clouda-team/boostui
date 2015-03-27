@@ -22,10 +22,14 @@
 <body>
 
 	<div id="gallery_wrapper"  class="blend-gallery" data-blend-gallery=''>
+    <div id="gallery_wrapper1"  class="blend-gallery" data-blend-gallery=''>
+
         
     </div>
 <!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
-    <button id="show">click to show</button>
+    <button id="show" class="show">click to show</button>
+    <button id="show1" class="show">click to show1</button>
+
 
 <!--     <script src="../../js/zepto.js"></script>
     <script src="../../js/event.js"></script>
@@ -40,14 +44,22 @@
         window.boost = $.noConflict(true);
     </script>
 
-    <script src="../../js/zepto.js"></script>
+    <script src="../../../BlendUI2/third_party/require.js"></script>
+
+    <!-- // <script src="../../js/zepto.js"></script> -->
     
     <script type="text/javascript">
 
     	// var $ = blend;
         
         ;(function(){
-            
+        
+
+            require.config({
+                baseUrl: "../../../BlendUI2/src/",
+                urlArgs: "_=" + +new Date()
+            });
+
 
         var list = [{
             // height: 414,
@@ -90,6 +102,44 @@
 
         var wrapper = boost("#gallery_wrapper").gallery({
             data:list,
+            duration:2000,
+            isLooping:true,
+            useZoom:true,
+            isAutoplay:false //是否自动播放
+        });
+
+
+
+
+        boost("#show").on("click",function(){
+            wrapper.gallery("show");
+            
+        });
+
+
+        var list1 = [{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/4.jpg",
+            description:"这是第4张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/5.jpg",
+            description:"这是第5张图片啊！！！！！",
+            title:"图片集"
+        },{
+            // height: 414,
+            // width: 300,
+            image: "http://be-fe.github.io/iSlider/demo/picture/imgs/long/6.jpg",
+            description:"这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！这是第6张图片啊！！！！！",
+            title:"图片集"
+        }];
+
+
+        /*var wrapper1 = boost("#gallery_wrapper1").gallery({
+            data:list1,
             // isDebug:true,
             duration:2000,
             isLooping:true,
@@ -98,18 +148,39 @@
         });
 
 
-        boost("#show").on("click",function(){
-            wrapper.gallery("show");
-            /*setTimeout(function(){
-                alert("show time is up!");
-                wrapper.gallery("hide");
-            },10000);*/
+        boost("#show1").on("click",function(){
+            wrapper1.gallery("show");
+            
+        });*/
+
+        
+
+
+
+        /*var wrapper2 = boost(".show").gallery({
+            data:list1,
+            // isDebug:true,
+            duration:2000,
+            isLooping:true,
+            useZoom:true,
+            isAutoplay:false //是否自动播放
         });
 
 
-        document.addEventListener("click",function(){
-            console.log(121212);
-        });
+
+
+        boost(".show").on("click",function(){
+            console.log(boost(this));
+             boost(this).gallery("show");
+            // setTimeout(function(){
+            //     alert("show time is up!");
+            //     wrapper.gallery("hide");
+            // },10000);
+        });*/
+
+            document.addEventListener("click",function(){
+                console.log(121212);
+            });
         })(); 
 
         

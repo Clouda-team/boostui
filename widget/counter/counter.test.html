@@ -16,9 +16,15 @@
         <div class="blend-counter-plus">+</div>
     </div>
 
+    <div data-blend-widget="counter" data-blend-counter='{"step":2,"maxValue":10}' class="blend-counter">
+        <div class="blend-counter-minus">-</div>
+        <input class="blend-counter-input" type="text">
+        <div class="blend-counter-plus">+</div>
+    </div>
+
     <script src="../../dist/boost.js"></script>
     <script>
-var $ = blend;
+// var $ = $.;
         $(function () {
             // 选择元素
             var $counter = $('[data-blend-widget="counter"]')
@@ -39,7 +45,7 @@ var $ = blend;
             var options = $counter.counter("option");
             console.log(options);
 
-
+console.log($counter);
             setTimeout(function () {
                 $counter.counter("destroy");
                 console.log("destroyed");

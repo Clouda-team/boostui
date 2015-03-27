@@ -2278,16 +2278,49 @@ $.widget("blend.gallery",{
      * _init 初始化的时候调用
      */
     _init: function () {
-      
-      this._createMask();   //创建遮罩mask
+
+
+      var me = this;
+      if (IS_UIX){
+          // UIX
+          if(this._uix !== null) {
+            // (this._uix.destroy)&&(this._uix.destroy());
+          }
+          require(["blend"], function(blend) {
+              me._uix = me._initUIXGallery(blend);
+          });
+
+          return;
+
+      }else{
+        // web
+
+        this._createMask();   //创建遮罩mask
         
-      this._setting();  // 设置相关内部属性
+        this._setting();  // 设置相关内部属性
+        
+        this._renderHTML();
+        this._bindHandler(); 
+
+      }
+
       
-      this._renderHTML();
-      this._bindHandler();
+      
         
     },
+    _initUIXGallery:function(blend){
+
+      var uixGallery = blend.create("gallery",{
+        images:this.options.data
+      });
+
+      return uixGallery;
+
+    },
     _createMask:function(){
+
+
+
 
       if(this.mask){
         //已经初始化过mask
@@ -2855,20 +2888,21 @@ $.widget("blend.gallery",{
     },
     show:function(){
 
-      //this._slideTo(val);
+      if(IS_UIX && this._uix){
+        this._uix.show();
+        return;
+
+      }
 
       this.mask.style.visibility = "visible";
 
-      if(!this.outer.innerHTML){
+      if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();
       }
 
     },
     hide:function(){
-      /*var $mask = $(this.wrap);
-      $mask.css({visibility:"hidden"});
-      $mask.find("*").css({visibility:"hidden"});*/
-      //this._destroy();
+      return;
       this.mask.style.visibility = "hidden";
     },
     extend:function (plugin, main) {
