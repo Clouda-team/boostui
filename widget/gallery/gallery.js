@@ -263,38 +263,39 @@ $.widget("blend.gallery",{
       }
       
     },
+    
+
     _renderTopAndBottom:function(){
 
-      var device = this._device();
-
-      var topMenu = this.topMenu || document.createElement('div');
-      var bottomMenu = this.bottomMenu || document.createElement('div');
+      var topMenu = this.topMenu || document.createElement('div');  
+      var topBack = this.topBack || document.createElement('span');
+      var topTitle = this.topTitle || document.createElement('div');
 
       topMenu.classList.add(NAMESPACE+"gallery-top");
-      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
-
-
-
-      var topBack = this.topBack || document.createElement('span');
       topBack.classList.add(NAMESPACE+"gallery-top-back");
+      topTitle.classList.add(NAMESPACE+"gallery-top-title");
+
       topMenu.appendChild(topBack);
+      topMenu.appendChild(this.topTitle = topTitle);
 
       topBack.addEventListener("click",(function(val){
         
         var that = val;
 
         return function (e) {
-          e.preventDefault();
           that.outer.innerHTML = "";
-          that.mask.style.visibility = "hidden";
+          // that.mask.style.visibility = "hidden";
+          that.mask.style.display = "none";
         }
       })(this));
 
 
+
+
+      var bottomMenu = this.bottomMenu || document.createElement('div');     
+      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
+
       //底部内容展示
-      var bottomTitle = this.bottomTitle || document.createElement("div");
-      bottomTitle.classList.add(NAMESPACE+"gallery-bottom-title");
-      bottomMenu.appendChild(this.bottomTitle = bottomTitle);
 
       var bottomInfoWrap = this.bottomInfoWrap || document.createElement("div");
       bottomInfoWrap.classList.add(NAMESPACE+"gallery-bottom-info-wrap");
@@ -307,9 +308,7 @@ $.widget("blend.gallery",{
       var bottomPage = this.bottomPage || document.createElement("span");
       bottomPage.classList.add(NAMESPACE+"gallery-bottom-page");
 
-      bottomMenu.appendChild(this.bottomPage = bottomPage);
-
-
+      bottomInfoWrap.appendChild(this.bottomPage = bottomPage);
       bottomInfoWrap.appendChild(this.bottomInfo = bottomInfo);
 
       bottomMenu.appendChild(bottomInfoWrap);
@@ -331,6 +330,7 @@ $.widget("blend.gallery",{
           var preloadImg = new Image();
           preloadImg.src = self.data[index].image;
           self.data[index].loaded = 1;
+          
         }
       };
       if (self.type !== 'dom') {
@@ -371,7 +371,7 @@ $.widget("blend.gallery",{
     },
     _slideTo:function (dataIndex) {
 
-      
+     
 
 
       var data = this.data;
@@ -395,11 +395,10 @@ $.widget("blend.gallery",{
           n = 0;
         }
       }
+     
 
-      console.log(this.data[this.slideIndex].description);
       this.log('pic idx:' + this.slideIndex);
-
-      this.bottomTitle.innerText = this.data[this.slideIndex].title;
+      this.topTitle.innerText = this.data[this.slideIndex].title;
       this.bottomInfo.innerText = this.data[this.slideIndex].description;
       this.bottomPage.innerText = (this.slideIndex+1)+"/"+this.data.length;
 
@@ -622,6 +621,7 @@ $.widget("blend.gallery",{
       this.wrap.innerHTML = '';
     },
     _showMenu:function(){ 
+
       this.topMenu.style.webkitTransform = "translate3d(0, 0, 0)";
       this.bottomMenu.style.webkitTransform ="translate3d(0, 0, 0)";
       this.isMenuShow = true;
@@ -629,8 +629,8 @@ $.widget("blend.gallery",{
     },
     _hideMenu:function(){
 
-      this.topMenu.style.webkitTransform = "translate3d(0, -40px, 0)";
-      this.bottomMenu.style.webkitTransform ="translate3d(0, 100px, 0)";
+      this.topMenu.style.webkitTransform = "translate3d(0, -44px, 0)";
+      this.bottomMenu.style.webkitTransform ="translate3d(0, 116px, 0)";
       this.isMenuShow = false;
     },
     show:function(){
@@ -642,6 +642,8 @@ $.widget("blend.gallery",{
       }
 
       this.mask.style.visibility = "visible";
+      this.mask.style.display = "block";
+        
 
       if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();

@@ -2296,16 +2296,10 @@ $.widget("blend.gallery",{
         // web
 
         this._createMask();   //创建遮罩mask
-        
-        this._setting();  // 设置相关内部属性
-        
+        this._setting();      // 设置相关内部属性
         this._renderHTML();
         this._bindHandler(); 
-
       }
-
-      
-      
         
     },
     _initUIXGallery:function(blend){
@@ -2318,9 +2312,6 @@ $.widget("blend.gallery",{
 
     },
     _createMask:function(){
-
-
-
 
       if(this.mask){
         //已经初始化过mask
@@ -2354,7 +2345,7 @@ $.widget("blend.gallery",{
         this.duration = opts.duration || 2000;
         // 指定开始播放的图片index
         this.initIndex = opts.initIndex || 0;
-        if (this.initIndex > this.data.length - 1 || this.initIndex < 0) {
+        if(this.initIndex > this.data.length - 1 || this.initIndex < 0) {
           this.initIndex = 0;
         }
         // touchstart prevent default to fixPage 
@@ -2398,18 +2389,19 @@ $.widget("blend.gallery",{
           this.isOverspread = true;
         }
         // 自动播放模式
-        if (this.isAutoplay) {
+        if(this.isAutoplay) {
           this.show();
           this._play();
         }
-        if (this.useZoom) {
+
+        if(this.useZoom) {
           this.addZoomPlugin();
           this._initZoom(opts);
         }
         // debug mode
         this.log = opts.isDebug ? function (str) {
-          window.console.log(str);
-        } : function () {
+            window.console.log(str);
+          } : function () {
         };
         // set Damping function
         this._setUpDamping();
@@ -2485,17 +2477,17 @@ $.widget("blend.gallery",{
     _renderHTML : function () {
 
       this.outer && (this.outer.innerHTML = '');
-      // initail ul element
+      //initail ul element
       var outer = this.outer || document.createElement('ul');
       outer.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;margin:0;padding:0;list-style:none;';
-      // storage li elements, only store 3 elements to reduce memory usage
+      //storage li elements, only store 3 elements to reduce memory usage
       this.els = [];
       for (var i = 0; i < 3; i++) {
         var li = document.createElement('li');
         li.className = this.type === 'dom' ? NAMESPACE+'gallery-dom' : NAMESPACE+'gallery-pic';
         li.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;';
         this.els.push(li);
-        // prepare style animation
+        //prepare style animation
         this._animateFunc(li, this.axis, this.scale, i, 0);
 
         if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
@@ -2506,7 +2498,7 @@ $.widget("blend.gallery",{
         outer.appendChild(li);
       }
       this._initLoadImg();
-      // append ul to div#canvas
+      //append ul to div#canvas
       if (!this.outer) {
         this.outer = outer;
         this.wrap.appendChild(outer);
@@ -2517,37 +2509,39 @@ $.widget("blend.gallery",{
       }
       
     },
+    
+
     _renderTopAndBottom:function(){
 
-      var device = this._device();
-
-      var topMenu = this.topMenu || document.createElement('div');
-      var bottomMenu = this.bottomMenu || document.createElement('div');
+      var topMenu = this.topMenu || document.createElement('div');  
+      var topBack = this.topBack || document.createElement('span');
+      var topTitle = this.topTitle || document.createElement('div');
 
       topMenu.classList.add(NAMESPACE+"gallery-top");
-      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
-
-
-
-      var topBack = this.topBack || document.createElement('span');
       topBack.classList.add(NAMESPACE+"gallery-top-back");
+      topTitle.classList.add(NAMESPACE+"gallery-top-title");
+
       topMenu.appendChild(topBack);
+      topMenu.appendChild(this.topTitle = topTitle);
 
       topBack.addEventListener("click",(function(val){
+        
         var that = val;
 
         return function (e) {
-          e.preventDefault();
           that.outer.innerHTML = "";
-          that.mask.style.visibility = "hidden";
+          // that.mask.style.visibility = "hidden";
+          that.mask.style.display = "none";
         }
       })(this));
 
 
+
+
+      var bottomMenu = this.bottomMenu || document.createElement('div');     
+      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
+
       //底部内容展示
-      var bottomTitle = this.bottomTitle || document.createElement("div");
-      bottomTitle.classList.add(NAMESPACE+"gallery-bottom-title");
-      bottomMenu.appendChild(this.bottomTitle = bottomTitle);
 
       var bottomInfoWrap = this.bottomInfoWrap || document.createElement("div");
       bottomInfoWrap.classList.add(NAMESPACE+"gallery-bottom-info-wrap");
@@ -2560,9 +2554,7 @@ $.widget("blend.gallery",{
       var bottomPage = this.bottomPage || document.createElement("span");
       bottomPage.classList.add(NAMESPACE+"gallery-bottom-page");
 
-      bottomMenu.appendChild(this.bottomPage = bottomPage);
-
-
+      bottomInfoWrap.appendChild(this.bottomPage = bottomPage);
       bottomInfoWrap.appendChild(this.bottomInfo = bottomInfo);
 
       bottomMenu.appendChild(bottomInfoWrap);
@@ -2584,6 +2576,9 @@ $.widget("blend.gallery",{
           var preloadImg = new Image();
           preloadImg.src = self.data[index].image;
           self.data[index].loaded = 1;
+          preloadImg.onload = function(){
+            self.data[index].done = 1;
+          }
         }
       };
       if (self.type !== 'dom') {
@@ -2624,7 +2619,7 @@ $.widget("blend.gallery",{
     },
     _slideTo:function (dataIndex) {
 
-      
+     
 
 
       var data = this.data;
@@ -2648,11 +2643,10 @@ $.widget("blend.gallery",{
           n = 0;
         }
       }
+      console.log("loaded----"+this.data[this.slideIndex].done);
 
-      console.log(this.data[this.slideIndex].description);
       this.log('pic idx:' + this.slideIndex);
-
-      this.bottomTitle.innerText = this.data[this.slideIndex].title;
+      this.topTitle.innerText = this.data[this.slideIndex].title;
       this.bottomInfo.innerText = this.data[this.slideIndex].description;
       this.bottomPage.innerText = (this.slideIndex+1)+"/"+this.data.length;
 
@@ -2875,6 +2869,7 @@ $.widget("blend.gallery",{
       this.wrap.innerHTML = '';
     },
     _showMenu:function(){ 
+
       this.topMenu.style.webkitTransform = "translate3d(0, 0, 0)";
       this.bottomMenu.style.webkitTransform ="translate3d(0, 0, 0)";
       this.isMenuShow = true;
@@ -2882,8 +2877,8 @@ $.widget("blend.gallery",{
     },
     _hideMenu:function(){
 
-      this.topMenu.style.webkitTransform = "translate3d(0, -40px, 0)";
-      this.bottomMenu.style.webkitTransform ="translate3d(0, 100px, 0)";
+      this.topMenu.style.webkitTransform = "translate3d(0, -44px, 0)";
+      this.bottomMenu.style.webkitTransform ="translate3d(0, 116px, 0)";
       this.isMenuShow = false;
     },
     show:function(){
@@ -2895,6 +2890,8 @@ $.widget("blend.gallery",{
       }
 
       this.mask.style.visibility = "visible";
+      this.mask.style.display = "block";
+        
 
       if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();

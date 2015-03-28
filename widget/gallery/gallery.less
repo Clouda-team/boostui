@@ -11,66 +11,75 @@
 
 .@{namespace}gallery-top {
     width:100%;
-    height:40px;
+    height:44px;
     position:absolute;
     top:0;
     color:#fff;
     background:rgba(0, 0,0,0.5);
-    -webkit-transform: translate3d(0px, -40px, 0px);
-    -webkit-transition:translate 0.5s;
+    -webkit-transform: translate3d(0px, -44px, 0px);
+    -webkit-transition:all 0.5s;
 }
 
 .@{namespace}gallery-top-back {
     display:block;
+    position:absolute;
+    top:0;
+    left:0;
     width:40px;
-    height:40px;
-    background:url(http://static.qyy.baidu.com/static/runtime/newlego/gallery/img/gallery-back2_adaa839.png) no-repeat 10px 10px;
-    background-size: auto 20px;
+    height:44px;
+    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAkCAYAAABmMXGeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NEI1MUFFRURENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NEI1MUFFRUVENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0QjUxQUVFQkQ1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0QjUxQUVFQ0Q1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCFbdwAAADVSURBVHjatNYxDsIwDAXQwgonQMhs5RycmoEBiTuwMJQFuIZxEBFVlVL75zfSXxrpKUlbx42qNpVpLZ3lZFmlZwzwqb9xSTATzOO4bLDRWs6WTWFui6xwP7JC/Z7tjg5GX5QLjKBu0IuGQA8aBqdQCPyHwuAYWgWW0GpwiFLAPkoDM0oFM9oxwZSp0qdQYXRsX5Dt0+HIJyUISoOR31QQtBquKX2CoDDMuE4EQcMw84oWBHXDc7Q9svjI3AbtinZ9N8vB8irMPeZoete1aIbv/fb8LcAAtTywoWaV7soAAAAASUVORK5CYII=) no-repeat 20px 7px;
+    background-size: auto 25px;
 }
+
+.@{namespace}gallery-top-title{
+    width:100%;
+    height:44px;
+    line-height:44px;
+    text-align:center;
+    overflow:hidden;
+    font-size:18px;
+    color:#fff;
+} 
 
 .@{namespace}gallery-bottom {
     width:100%;
-    height:100px;
+    height:116px;
     position:absolute;
     bottom:0;
-    color:"#fff";
+    color:#fff;
     background:rgba(0, 0,0,0.5);
-    -webkit-transform: translate3d(0px, 100px, 0px);
-    -webkit-transition:translate 0.5s;
+    -webkit-transform: translate3d(0px, 116px, 0px);
+    -webkit-transition:all 0.5s;
 }
 
-.@{namespace}gallery-bottom-title {
-    height: 30px;
-    line-height: 35px;
-    font-size: 16px;
-    font-weight: 700;
-    color:#fff;
-    margin-left:11px;
-}
 
 .@{namespace}gallery-bottom-info-wrap {
-    margin: 0 11px 5px;
-    height: 60px;
-    line-height: 20px;
+    position:relative;
+    margin: 12 15px;
+    height: 96px;
+    font-size:14px;
+    line-height: 24px;
     overflow: hidden;
-    overflow-y: scroll;
+    overflow-y: auto;
     word-break: break-all;
+    
 }
 
 .@{namespace}gallery-bottom-info {
     color:#fff;
     font-size:14px;
+    text-indent:50px;
 }
 
 
 .@{namespace}gallery-bottom-page {
     display:inline-block;
     position: absolute;
-    right: 11px;
-    top: 0;
+    left: 0px;
+    top: -7px;
     height: 35px;
     line-height: 35px;
-    font-size: 16px;
+    font-size: 22px;
     color:#fff;
 }
 
