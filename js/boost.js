@@ -2576,9 +2576,7 @@ $.widget("blend.gallery",{
           var preloadImg = new Image();
           preloadImg.src = self.data[index].image;
           self.data[index].loaded = 1;
-          preloadImg.onload = function(){
-            self.data[index].done = 1;
-          }
+          
         }
       };
       if (self.type !== 'dom') {
@@ -2643,7 +2641,7 @@ $.widget("blend.gallery",{
           n = 0;
         }
       }
-      console.log("loaded----"+this.data[this.slideIndex].done);
+     
 
       this.log('pic idx:' + this.slideIndex);
       this.topTitle.innerText = this.data[this.slideIndex].title;
