@@ -69,6 +69,13 @@
     color:#fff;
     font-size:14px;
     text-indent:50px;
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+.@{namespace}gallery-bottom-info::selection{
+    color:#fff;
+    background:transparent;
 }
 
 
@@ -84,7 +91,30 @@
 }
 
 
+.@{namespace}gallery-bottom-info-wrap::-webkit-scrollbar-track {
+    background-color: #111;
+    -webkit-border-radius: 0
+}
 
+
+.@{namespace}gallery-bottom-info-wrap::-webkit-scrollbar {
+    width: 8px
+}
+
+.@{namespace}gallery-bottom-info-wrap::-webkit-scrollbar-thumb {
+    height: 50px;
+    background-color: #999;
+    -webkit-border-radius: 4px;
+    outline: 2px solid #111;
+    outline-offset: -2px;
+    border: 2px solid #111;
+}
+
+.@{namespace}gallery-bottom-info-wrap::-webkit-scrollbar-thumb:hover {
+    height: 50px;
+    background-color: #9f9f9f;
+    -webkit-border-radius: 4px
+}
 
 
 /****************/
