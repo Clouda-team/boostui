@@ -2356,8 +2356,8 @@ $.widget("blend.gallery",{
         this.axis = 'X';
         this.reverseAxis = this.axis === 'Y' ? 'X' : 'Y';
 
-        this.width = this.wrap.clientWidth || document.body.clientWidth||document.body.offsetWidth;
-        this.height = this.wrap.clientHeight || document.body.clientHeight||document.body.offsetHeight;
+        this.width = this.width||this.wrap.clientWidth || document.body.clientWidth||document.body.offsetWidth;
+        this.height = this.height||this.wrap.clientHeight || document.body.clientHeight||document.body.offsetHeight;
 
         this.ratio = this.height / this.width;
         this.scale = this.width;
