@@ -5,6 +5,7 @@
     /*!read(js/event.js)*/
     /*!read(js/data.js)*/
     /*!read(js/touch.js)*/
+    /*!read(js/ajax.js)*/
     /*!read(js/widget.js)*/
     /*!widgets*/
     /*!read(js/init.js)*/
