@@ -44,17 +44,31 @@ $.widget("blend.checkbox",{
             // radio box
             console.log(this.options);
             this.$group.on("tap", function () {
-                var curElem = $(this);
-                that.$container.find("."+ NAMESPACE +"checkbox-checked").removeClass(NAMESPACE+"checkbox-checked");
-                curElem.addClass(NAMESPACE+"checkbox-checked");              
+                if (that._trigger("beforechecked", null, {})) {
+                    var eventData = {
+                        checked: 1
+                    };
+                    var curElem = $(this);
+                    that.$container.find("." + NAMESPACE + "checkbox-checked").removeClass(NAMESPACE + "checkbox-checked");
+                    curElem.addClass(NAMESPACE + "checkbox-checked");
+                    that._trigger("checked", null, eventData);
+                }
             });
         }else{
             this.$group.on("tap", function () {
-                var curElem = $(this);
-                if(curElem.hasClass(NAMESPACE+"checkbox-checked")){
-                    curElem.removeClass(NAMESPACE+"checkbox-checked");
-                }else{
-                    curElem.addClass(NAMESPACE+"checkbox-checked");              
+                if (that._trigger("beforechecked", null, {})) {
+                    var eventData = {
+                        checked: 1
+                    };
+                    var curElem = $(this);
+                    if (curElem.hasClass(NAMESPACE + "checkbox-checked")) {
+                        curElem.removeClass(NAMESPACE + "checkbox-checked");
+                        eventData.checked = 0;
+                    }
+                    else {
+                        curElem.addClass(NAMESPACE + "checkbox-checked");
+                    }
+                    that._trigger("checked", null, eventData);
                 }
             });
         }
