@@ -24,8 +24,6 @@
 
 ![](images/badge.png)
 
-
-
 ##按钮
 
 页面中使用的所有按钮样式
@@ -56,7 +54,9 @@
 
 ###效果示例
 
-![](images/button.png)##选择框
+![](images/button.png)
+
+##选择框
 
 页面中的选择框
 
@@ -139,7 +139,9 @@
 
 ###效果示例
 
-![](images/checkbox.png)##计数器
+![](images/checkbox.png)
+
+##计数器
 
 计数器，用作数量的加减
 
@@ -196,7 +198,9 @@
 
 ###效果示例
 
-![](images/counter.png)##对话框
+![](images/counter.png)
+
+##对话框
 
 用作提示的对话框
 
@@ -241,7 +245,9 @@
 
 ###效果示例
 
-![](images/dialog.png)##固定页眉页脚
+![](images/dialog.png)
+
+##固定页眉页脚
 
 可拉长的页眉页脚
 
@@ -268,7 +274,10 @@
 
 ###效果示例
 
-![](images/fixedBar.png)##图片集
+![](images/fixedBar.png)
+
+
+##图片集
 
 可以滑动展示的图片集
 
@@ -434,7 +443,9 @@
 
 ###效果示例
 
-![](images/gallery.png)##页头
+![](images/gallery.png)
+
+##页头
 
 页头的样式
 
@@ -497,7 +508,9 @@
 
 ###效果示例
 
-![](images/header.png)##列表
+![](images/header.png)
+
+##列表
 
 页面中用来展示数据的列表
 
@@ -562,7 +575,9 @@
 
 ###效果示例
 
-![](images/list.png)##加载界面
+![](images/list.png)
+
+##加载界面
 
 加载内容过程中的等待界面
 
@@ -596,7 +611,9 @@
 
 ###效果示例
 
-![](images/loading.png)##对话框
+![](images/loading.png)
+
+##对话框
 
 用作提示的对话框
 
@@ -641,7 +658,9 @@
 
 ###效果示例
 
-![](images/dialog.png)##内容面板
+![](images/dialog.png)
+
+##内容面板
 
 展示内容的面板
 
@@ -672,7 +691,9 @@
 
 ###效果示例
 
-![](images/panel.png)##图片样式
+![](images/panel.png)
+
+##图片样式
 
 不同的图片展示样式
 
@@ -708,7 +729,9 @@
 
 ![](images/picture1.png)
 ![](images/picture2.png)
-![](images/picture3.png)##滑动图片展示框
+![](images/picture3.png)
+
+##滑动图片展示框
 
 用作展示图片的滑动窗口
 
@@ -780,7 +803,9 @@
 
 ###效果示例
 
-![](images/slider.png)##标签
+![](images/slider.png)
+
+##标签
 
 切换容器内容的标签
 
@@ -827,7 +852,9 @@
 
 ###效果示例
 
-![](images/tab.png)##导航标签
+![](images/tab.png)
+
+##导航标签
 
 页面导航位置上，可以切换内容的标签
 
@@ -873,7 +900,9 @@
 
 ###效果示例
 
-![](images/tabnav.png)##闪现的提示内容
+![](images/tabnav.png)
+
+##闪现的提示内容
 
 在页面上淡出的提示内容
 
