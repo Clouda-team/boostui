@@ -5,9 +5,18 @@
 //@button-warning:
 //@button-danger:
 //@button-default: @button-info;
-@button-font-size:                  @font-size-base;
-@button-font-weight:                normal;
-@button-line-height:                1.2;
+
+/* button size */
+@button-normal-height: 30px;
+@button-normal-line-height: 28px;
+@button-normal-width: 61px; // 2个字按钮宽度
+@button-large-height: 40px;
+
+@button-font-size:                  @boost-font-size-nav;
+@button-large-font-size:            @boost-font-size-titlebar;
+@button-font-weight:                @boost-font-weight-normal;
+@button-line-height:                @button-normal-height;
+@button-large-line-height:          38px;
 
 @button-default-color:              #333;
 @button-default-bg:                 #fff;
@@ -42,11 +51,12 @@
 .@{namespace}button {
     display: inline-block;
     margin-bottom: 0; // For input.button
-    padding: 0.625em 1em;
+    padding: 0 1rem;
     vertical-align: middle;
     font-size: @button-font-size;
     font-weight: @button-font-weight;
-    line-height: @button-line-height;
+    line-height: @button-normal-line-height;
+  height: @button-normal-height;
     text-align: center;
     white-space: nowrap;
     background-image: none;
@@ -91,6 +101,19 @@
     &.@{namespace}radius {
         border-radius: @radius-normal;
     }
+
+  &.@{namespace}button-icon {
+    em{
+      font-style: normal;
+      width: 15px;
+      height: 15px;
+      display: inline-block;
+      background: url("../widget/button/images/btn-icon.png") no-repeat 0 0 transparent;
+      background-size: 15px;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+  }
 }
 
 
@@ -169,7 +192,11 @@
 
 .@{namespace}button-large {
     // line-height: ensure even-numbered height of button next to large input
-    .button-size(@padding-large-vertical; @padding-large-horizontal; @font-size-large; @line-height-large; @border-radius-large);
+    //.button-size(@padding-large-vertical; @padding-large-horizontal; @button-large-font-size; @button-large-line-height; @border-radius-large);
+  font-size: @button-large-font-size;
+  height: @button-large-height;
+  line-height: @button-large-line-height;
+  width: 100%;
 }
 .@{namespace}button-small {
     // line-height: ensure proper height of button next to small input

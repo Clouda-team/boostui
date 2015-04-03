@@ -14,7 +14,7 @@
 
 <body>
 
-    <div id="check1" data-blend-widget="checkbox" data-blend-checkbox= '{"type":"group","values":["1","22","333"]}'>
+    <div id="check1">
         <br><br>
         <span class="blend-checkbox blend-checkbox-default blend-checkbox-checked"></span>
         <span class="blend-checkbox blend-checkbox-default"></span>
@@ -49,7 +49,7 @@
 
         $(function () {
             // 选择元素
-            $('#check1').checkbox();
+            $('#check1').checkbox({"type":"group","values":["1","22","333"]});
 
             $('#check2').checkbox({
                 "itemSelector":".item",

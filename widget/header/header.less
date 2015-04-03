@@ -1,47 +1,48 @@
-@header-bg:     @brand-primary;
-@header-color:  #fff;
+@header-bg: @brand-primary;
+@header-color: #fff;
 
-.@{namespace}boost .@{namespace}header{
-    display:none;
+@font-size-header: @boost-font-size-titlebar;
+
+.@{namespace}boost .@{namespace}header {
+  display: none;
 }
 
-.@{namespace}header{
-    //position: fixed;
-    //width:100%;
-    height: 44px;
-    text-align: center;
-    display: flex;
-    flex-flow:row;
-    align-items:center;
-    //justify-content:space-between;
-    background-color: @header-bg;
-    color: @header-color;
+.@{namespace}header {
+  //position: fixed;
+  //width:100%;
+  height: 44px;
+  text-align: center;
+  -webkit-box-align: center;
+  display: -webkit-box;
+  background-color: @header-bg;
+  color: @header-color;
 }
 
 .@{namespace}header-left,
 .@{namespace}header-title,
-.@{namespace}header-right{
-    display:flex;
-    flex-flow:row;
-    align-items:center;
+.@{namespace}header-right {
+  display: block;
 }
 
+.@{namespace}header-left, .@{namespace}header-right {
+  -webkit-box-flex: 1;
+}
 .@{namespace}header-left {
-    flex:1;
-    order: 1;
-    justify-content:flex-start;
+  padding-left: 10px;
+  text-align: left;
 }
-.@{namespace}header-title{
-    order: 2;
+.@{namespace}header-title {
+  text-align: center;
 }
-.@{namespace}header-right{
-    flex:1;
-    order: 3;
-    justify-content:flex-end;
+
+.@{namespace}header-right {
+  padding-right: 10px;
+  text-align: right;
 }
-.@{namespace}header-item{
-    margin:0 5px;
-    color: @header-color;
+
+.@{namespace}header-item {
+  margin: 0 5px;
+  color: @header-color;
 }
 
 //.@{namespace}header {

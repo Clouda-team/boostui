@@ -2,9 +2,12 @@
 @tab-background-color: #fafafa;
 @active-border-color: #2eb6aa;
 
+@tab-nav-height: 42px;
+@tab-nav-font-size: @boost-font-size-nav;
+
 .@{namespace}tabnav {
   display: -webkit-box;
-  height: 40px;
+  height: @tab-nav-height;
   border-bottom: 1px solid @tab-bottom-color;
   background-color: @tab-background-color;
 }
@@ -35,8 +38,8 @@
 
 .@{namespace}tabnav-item-text {
   font-size: 14px;
-  line-height: 40px;
-  height: 40px;
+  line-height: @tab-nav-height;
+  height: @tab-nav-height;
   color: @font-color;
   display: block;
   text-align: center;

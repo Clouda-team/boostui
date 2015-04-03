@@ -1,6 +1,8 @@
 @tab-bottom-color: #d4d6d7;
 @tab-background-color: #fafafa;
 @active-border-color: #2eb6aa;
+@tab-nav-height: 42px;
+@tab-nav-font-size: @boost-font-size-nav;
 
 .@{namespace}tab {
 
@@ -13,10 +15,10 @@
 
 .@{namespace}tab-header {
   display: -webkit-box;
-  height: 40px;
+  height: @tab-nav-height;
   position: relative;
-  font-size: 14px;
-  line-height: 40px;
+  font-size: @tab-nav-font-size;
+  line-height: @tab-nav-height;
   color: @font-color;
   text-align: center;
   border-bottom: 1px solid @tab-bottom-color;
