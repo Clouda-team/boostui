@@ -1,3 +1,7 @@
+@slider-padding-width: 10px;
+@slider-font-size: @boost-font-size-nav;
+@slider-font-size-small: @boost-font-size-link;
+
 .@{namespace}slider{
 	position: relative;
 	overflow: hidden;
@@ -113,7 +117,7 @@
 	background-color: rgba(0,0,0,.6);
 	position: absolute;
 	bottom: 0;
-	padding: 8px 60px 8px 8px;
+	padding: 8px 60px 8px @slider-padding-width;
 	width: 100%;
 	color: #fff;
 	display: block;
@@ -133,6 +137,9 @@
 .@{namespace}slider-title ol li{
 	display: inline-block;
 	margin: 0 6px;
+  &:last-child {
+    margin-right: 10px;
+  }
 }
 
 .@{namespace}slider-title ol li a{

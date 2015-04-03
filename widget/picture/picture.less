@@ -3,7 +3,9 @@
 @calcWidth:~"100% - 6px";
 @radiusValue:10px;
 
-
+@picture-padding-width: 10px;
+@picture-font-size: @boost-font-size-nav;
+@picture-font-size-small: @boost-font-size-link;
 
 .@{namespace}picture img{
   width:100%;
@@ -37,7 +39,7 @@
 
 .@{namespace}picture-default .@{namespace}picture-title-default{
   text-align: center;
-  font-size: 14px;
+  font-size: @picture-font-size-small;
   margin-bottom: 15px;
   color: #333333;
 }
@@ -75,7 +77,7 @@
 
 .@{namespace}picture-full .@{namespace}picture-title-default{
   text-align: center;
-  font-size: 14px;
+  font-size: @picture-font-size;
   color: #333333;
 }
 
@@ -87,7 +89,7 @@
   line-height: 30px;
   position: absolute;
   text-align: left;
-  padding-left:10px;
+  padding-left: @picture-padding-width;
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
