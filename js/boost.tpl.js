@@ -1,6 +1,7 @@
 (function(window, undefined) {
     var NAMESPACE = /*!namespace*/ ;
     /*!read(js/uix.js)*/
+    /*!read(js/hammer.js)*/
     /*!read(js/zepto.js)*/
     /*!read(js/event.js)*/
     /*!read(js/data.js)*/
