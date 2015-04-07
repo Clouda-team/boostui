@@ -2073,47 +2073,87 @@ $.widget("blend.dialog", {
     /*配置项*/
     options: {
     	id: null,
-    	top: undefined,
+    	top: undefined,         // 自定义dialog距离顶部距离
         addCssClass: null,
-        title: null,
-        message: null,
-        cancelText: null,
-        cancelClass: null,
-        doneText: null,
-        doneClass: null,
-        cancelOnly: false,
+        title: "标题",          // dialog标题
+        content: "",            // dialog内容
+        cancelText: "取消",     // 取消按钮自定义文案
+        cancelClass: "",        
+        confirmText: "确认",    // 确认按钮自定义文案
+        confirmClass: "",
+        cancelOnly: false,      // 是否只有一个cancel按钮
         autoCloseDone: true,
-        maskTapClose: false,
+        maskTapClose: false,    // 点击mask，关闭dialog
+        useCustom:false,        // 使用自定义
+        renderType:0            // 渲染方式，0 是DOM渲染，1是js渲染
     },
     
     /* _create 创建组件时调用一次*/
     _create: function () {
     	var options = this.options;
-    	this.$el = this.element;
+    	
 		this.$body = $('body');
 		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
         this.addCssClass = options.addCssClass ? options.addCssClass : "";
-        this.title = options.title || "标题";
-        this.message = options.message || "";
-        this.cancelText = options.cancelText || "取消";
-        this.cancelClass = options.cancelClass || "";
-        this.doneText = options.doneText || "确认";
-        this.doneClass = options.doneClass || "";
-        this.cancelOnly = options.cancelOnly || false;
-        this.autoCloseDone = options.autoCloseDone !== undefined ? options.autoCloseDone : true;
-		this.maskTapClose = options.maskTapClose || false;
+
+        this.title = options.title;
+        this.content = options.content;
+        this.cancelText = options.cancelText ;
+        this.cancelClass = options.cancelClass;
+        this.confirmText = options.confirmText ;
+        this.confirmClass = options.confirmClass;
+        this.cancelOnly = options.cancelOnly;
+        this.autoCloseDone = options.autoCloseDone? options.autoCloseDone : true;
+		this.maskTapClose = options.maskTapClose;
 		this.top = options.top;
-		this.defaultDialogHtml = this.$el.length? '': this.getDefaultDialogHtml();
+        this.useCustom = options.useCustom;
+        this.renderType = options.renderType;
+
+
+        this.$el = this.element;
+        
     },
     
     /*初始化*/
     _init: function(){
-    	if(this.$el.length){
-    		this._bindEvent();
-    		this.show();
-    	}
+    	
+        /**
+         * UIX 环境的初始化
+         */
+        if(IS_UIX){
+
+            // todo
+            return;
+        }
+
+        /**
+         * 使用提供的默认方式
+         */
+        if(!this.useCustom){
+            this.$el = this._createDialog();
+            this._bindEvent();
+        }
     },
-    
+    _createDialog:function(){
+
+        //已经创建过dialog
+        if(this.jsRendered){ 
+            return this.$el;
+        }
+        
+        //根据传递的参数
+        var outerEle,curEle;
+        if(this.renderType == 0){
+            curEle = this.$el;
+            curEle.find("."+NAMESPACE+"dialog-footer a").addClass(NAMESPACE+"dialog-btn").addClass(NAMESPACE + 'button');
+            outerEle = curEle;
+        }else{
+            outerEle = this.getDialogHtml()
+        }
+
+        this.jsRendered = true;
+        return outerEle; 
+    },
     /*事件绑定*/
     _bindEvent: function(){
    		var self = this;
@@ -2137,31 +2177,38 @@ $.widget("blend.dialog", {
     },
     
     /*生成dialog html片段*/
-    getDefaultDialogHtml: function(){
-	    return '<div data-'+ NAMESPACE + 'widget="dialog" id="' + this.id + '" class="' + NAMESPACE + 'dialog ' + NAMESPACE + 'dialog-hidden'+ this.addCssClass + '">'
-	                  + '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
-	                  + '<div class="'+ NAMESPACE + 'dialog-body">' + this.message + '</div>'
-	                  + '<div class="'+ NAMESPACE + 'dialog-footer">'
-	                     +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
-	                     +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.doneClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button">' + this.doneText + '</a>')
-	                  + '</div>'
-	             +'</div>';
+    getDialogHtml: function(){
+
+        var dom = '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
+                      + '<div class="'+ NAMESPACE + 'dialog-body">' + this.content + '</div>'
+                      + '<div class="'+ NAMESPACE + 'dialog-footer">'
+                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
+                         +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>')
+                      + '</div>';
+        this.$el.append(dom);
+
+        return this.$el;
+
     },
     
     /*显示dialog*/
     show: function(){
+
     	var self = this;
     	if(this.lock){
     		return this.$el;
     	}
-    	if(!this.$el.length){
-    		(this.$el = $(this.defaultDialogHtml)).appendTo(this.$body);
-    		this._bindEvent();
-    	}
+    	
+
+        if(!this.hasRendered){
+            this.$el.appendTo(this.$body);
+            this.hasRendered = true;        //标记已经渲染
+        }
+
     	this.setPosition();
     	this.mask(0.5);
     	window.setTimeout(function(){
-    		self.$el.removeClass(NAMESPACE + 'dialog-hidden');
+    		self.$el.addClass(NAMESPACE + 'dialog-show');
     		self._trigger('show');
     		self.lock = false;
     	}, 50);
@@ -2178,16 +2225,15 @@ $.widget("blend.dialog", {
         window.setTimeout(function(){
     		self.unmask();
     		self.lock = false;
-    	}, 200);
+    	}, 150);
     	this._trigger('hide');
     	this.lock = true;
-        return this.$el.addClass(NAMESPACE + 'dialog-hidden');
+        return this.$el.removeClass(NAMESPACE + 'dialog-show');
     },
-    
     /*销毁dialog*/
     destroy: function(){
     	this.unmask();
-    	if(this.defaultDialogHtml){
+    	if(this.$el){
     		this.$el.remove();
     		this.$el = [];
     	}

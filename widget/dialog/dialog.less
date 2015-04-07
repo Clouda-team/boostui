@@ -1,30 +1,27 @@
 @dialog-zindexlarger: 95;
 @dialog-zindexsmall: 90;
-@dialog-width: 280px;
+@dialog-width: 250px;
 @dialog-duration: .2s;
-@dialog-radius: 5px;
 @dialog-padding: 10px;
 @dialog-body-margin: 8px;
-@dialog-fontlarger: 16px;
-@dialog-fontsmall: 14px;
+@dialog-fontlarger: 18px;
+@dialog-fontsmall: 16px;
+@dialog-color:#262626;
 
 .@{namespace}dialog {
     position: absolute;
     display: block;
     width: @dialog-width;
     border: solid 1px #72767b;
-    -webkit-border-radius: @dialog-radius;
-    border-radius: @dialog-radius;
-    padding: @dialog-padding;
-    transform:scale(1);
-    -webkit-transform: scale(1);
+    padding: 0;
+    transform:scale(0);
+    -webkit-transform: scale(0);
     -webkit-transition: all  @dialog-duration  ease-in-out;
     transition: all @dialog-duration  ease-in-out;
     z-index: @dialog-zindexlarger;
-    top: 50%;
-    left: 50%;
     background-color: @white;
-    color:@black;
+    color:@dialog-color;
+    visibility: hidden;
 }
 
 .@{namespace}dialog-mask {
@@ -38,25 +35,32 @@
     left:0;
 }
 
-.@{namespace}dialog-hidden {
-    opacity: 0;
-    -webkit-transform: scale(0);
-    top: 50%;
-    left: 50%;
-    margin: 0 auto;
+.@{namespace}dialog-show {
+    visibility:visible;
+    transform:scale(1);
+    -webkit-transform: scale(1);
 }
+
 .@{namespace}dialog-header{
-    font-weight:bold;
-    font-size:@dialog-fontlarger;
+    height:40px;
+    line-height:40px;
     margin:0;
     padding:0;
+    font-weight:bold;
+    font-size:@dialog-fontlarger;
+    text-align:center;
+    border-bottom:solid 1px #ddd;
+    
 }
 .@{namespace}dialog-body{
     font-size:@dialog-fontsmall;
-    margin:@dialog-body-margin;
+    padding:10px;
+    border-bottom:solid 1px #ddd;
 }
 .@{namespace}dialog-footer{
     width:100%;
+    height:40px;
+    line-height:40px;
     display:-webkit-box;
 }
 .@{namespace}dialog-cancel,
@@ -65,5 +69,12 @@
    -webkit-box-flex: 1; 
    display:block;
    text-align:center;
+   background-color:#fafafa;
+   font-size:18px;
+   color:#262626;
 }
 
+
+.@{namespace}dialog-btn:not(:first-child){
+    border-left:solid 1px #ddd;
+}
