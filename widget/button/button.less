@@ -103,15 +103,9 @@
     }
 
   &.@{namespace}button-icon {
-    em{
-      font-style: normal;
-      width: 15px;
-      height: 15px;
-      display: inline-block;
-      background: url("../widget/button/images/btn-icon.png") no-repeat 0 0 transparent;
-      background-size: 15px;
+    em:before{
+      .font(@font-check);
       margin-right: 4px;
-      vertical-align: middle;
     }
   }
 }
