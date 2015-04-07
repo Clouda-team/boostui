@@ -166,7 +166,23 @@ gulp.task("build:css", function () {
         }));
 });
 
-gulp.task("build", ["build:clean", "build:prepar", "build:js", "build:css"]);
+gulp.task("build:font", function () {
+    //return
+    gulp
+        .src(CONFIG.FONT_FILE)
+        .pipe(gulp.dest(CONFIG.DIST_DIR))
+        .pipe($.size({
+            showFiles: true,
+            title: 'source'
+        }))
+        .pipe($.size({
+            showFiles: true,
+            gzip: true,
+            title: 'gzipped'
+        }));
+});
+
+gulp.task("build", ["build:clean", "build:prepar", "build:js", "build:css", "build:font"]);
 //gulp.task("build", ["build:clean", "build:prepar", "build:css"]);
 gulp.task("default", ["build"]);
 
