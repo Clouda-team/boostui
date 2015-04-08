@@ -6,6 +6,8 @@
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <title>dialog</title>
     <link rel="stylesheet" href="../../dist/boost.css">
+    <script type="text/javascript" src="http://weinre123.duapp.com/target/target-script-min.js"></script>
+
 </head>
 	
 <body>
@@ -38,14 +40,15 @@
       </div>
       <div class="blend-dialog-footer">
         <a href="javascript:void(0);" class="blend-dialog-cancel">cancel</a>
-        <a href="javascript:void(0);" class="blend-dialog-done">ok</a>
+        <a href="javascript:void(0);" class="blend-dialog-confirm">ok</a>
       </div>
     </div>
 
     <div  id="jsInitDialog" class="blend-dialog"> 
     </div>
-
+    <script src="../../../BlendUI2/third_party/require.js"></script>
     <script src="../../dist/boost.js"></script>
+
     <script>
           
       /*  var dialog1 = $("#dialogWrapper").dialog({
@@ -62,70 +65,87 @@
           });
           // dialog1.dialog("show");
         });*/
+        ;(function(){
+
+
+           require.config({
+            baseUrl: "../../../BlendUI2/src/",
+            urlArgs: "_=" + +new Date()
+          });
+
+          //自定义dom渲染方式
+          var dialog1 = $("#customeDialog").dialog({
+            maskTapClose:true,
+            renderType:2
+          }).on('dialog:show',function(){
+            console.log("dialog1 show");
+            document.querySelector("#result").innerHTML = "dialog1 show";
+          }).on('dialog:hide',function(){
+            console.log("dialog1 hide");
+            document.querySelector("#result").innerHTML = "dialog1 hide";
+          });;
+
+
+          var dialog2 = $("#domInitDialog").dialog({
+            useCustom:false,
+            btn_status:2,
+            renderType:0 // 默认使用dom渲染
+          }).on('dialog:show',function(){
+            console.log("dialog2 show");
+            document.querySelector("#result").innerHTML = "dialog2 show";
+          }).on('dialog:hide',function(){
+            console.log("dialog2 hide");
+            document.querySelector("#result").innerHTML = "dialog2 hide";
+          }).on("dialog:confirm",function(){
+            alert("点击确认22222");
+          });
+
+          //Dom渲染方式
+          
+
+          var dialog3 = $("#jsInitDialog").dialog({
+            title:"这是title",
+            content: "这是通过js传参渲染的，<a href='http://www.baidu.com'>这是一个链接</a>",
+            // cancelOnly: 1,
+            confirmText:"确认",
+            cancelText: '取消',
+            btn_status:3,
+            renderType:1  //js渲染
+          }).on('dialog:show',function(){
+            console.log("dialog3 show");
+            document.querySelector("#result").innerHTML = "dialog3 show";
+          }).on('dialog:hide',function(){
+            console.log("dialog3 hide");
+            document.querySelector("#result").innerHTML = "dialog3 hide";
+          }).on("dialog:confirm",function(){
+            alert("监听confirm事件，3333333");
+          }).on("dialog:cancel",function(){
+            alert("监听cancel事件，888")
+          });
+
+
+          $("#custome").bind("click",function(){
+            
+            dialog1.dialog("show");
+
+          });
+
+          $("#domInit").bind("click",function(){
+            
+            dialog2.dialog("show");
+
+          });
+
+          $("#jsInit").bind("click",function(){
+            
+            dialog3.dialog("show");
+
+          });
+
+
+        })();
+
         
-
-        //自定义dom渲染方式
-        var dialog1 = $("#customeDialog").dialog({
-          maskTapClose:true,
-          useCustom:true,
-          useDOM:true
-        }).on('dialog:show',function(){
-          console.log("dialog1 show");
-          document.querySelector("#result").innerHTML = "dialog1 show";
-        }).on('dialog:hide',function(){
-          console.log("dialog1 hide");
-          document.querySelector("#result").innerHTML = "dialog1 hide";
-        });;
-
-
-        var dialog2 = $("#domInitDialog").dialog({
-          useCustom:false,
-          renderType:0 // 默认使用dom渲染
-        }).on('dialog:show',function(){
-          console.log("dialog2 show");
-          document.querySelector("#result").innerHTML = "dialog2 show";
-        }).on('dialog:hide',function(){
-          console.log("dialog2 hide");
-          document.querySelector("#result").innerHTML = "dialog2 hide";
-        });;
-
-        //Dom渲染方式
-        
-
-        var dialog3 = $("#jsInitDialog").dialog({
-          title:"这是title",
-          content: "这是通过js传参渲染的，<a href='http://www.baidu.com'>这是一个链接</a>",
-          // cancelOnly: 1,
-          confirmText:"确认",
-          cancelText: '取消',
-          cancelOnly:1,
-          renderType:1  //js渲染
-        }).on('dialog:show',function(){
-          console.log("dialog3 show");
-          document.querySelector("#result").innerHTML = "dialog3 show";
-        }).on('dialog:hide',function(){
-          console.log("dialog3 hide");
-          document.querySelector("#result").innerHTML = "dialog3 hide";
-        });
-
-
-        $("#custome").bind("click",function(){
-          
-          dialog1.dialog("show");
-
-        });
-
-        $("#domInit").bind("click",function(){
-          
-          dialog2.dialog("show");
-
-        });
-
-        $("#jsInit").bind("click",function(){
-          
-          dialog3.dialog("show");
-
-        });
 
 
 

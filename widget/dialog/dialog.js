@@ -11,13 +11,11 @@
      * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
      * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
      * @param {String} options.title (可选, 默认值: 标题) dialog 标题
-     * @param {String} options.message (可选, 默认值: \'\') dialog 内容
+     * @param {String} options.content (可选, 默认值: \'\') dialog 内容
      * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
      * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
      * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
      * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
-     * @param {String} options.cancelOnly (可选, 默认值: false) dialog 只显示一个按钮
-     * @param {String} options.autoCloseDone (可选, 默认值: true) dialog按钮点击后是否关闭dialog
      * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
      * 
      *
@@ -43,11 +41,9 @@ $.widget("blend.dialog", {
         cancelClass: "",        
         confirmText: "确认",    // 确认按钮自定义文案
         confirmClass: "",
-        cancelOnly: false,      // 是否只有一个cancel按钮
-        autoCloseDone: true,
         maskTapClose: false,    // 点击mask，关闭dialog
-        useCustom:false,        // 使用自定义
-        renderType:0            // 渲染方式，0 是DOM渲染，1是js渲染
+        renderType:0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
+        btn_status:3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
     
     /* _create 创建组件时调用一次*/
@@ -64,12 +60,13 @@ $.widget("blend.dialog", {
         this.cancelClass = options.cancelClass;
         this.confirmText = options.confirmText ;
         this.confirmClass = options.confirmClass;
-        this.cancelOnly = options.cancelOnly;
-        this.autoCloseDone = options.autoCloseDone? options.autoCloseDone : true;
+        this.autoCloseDone = true;
 		this.maskTapClose = options.maskTapClose;
 		this.top = options.top;
-        this.useCustom = options.useCustom;
+        
         this.renderType = options.renderType;
+        this.useCustom = (this.renderType == 2)?true:false;
+        this.btn_status = options.btn_status;
 
 
         this.$el = this.element;
@@ -79,12 +76,22 @@ $.widget("blend.dialog", {
     /*初始化*/
     _init: function(){
     	
+        var me = this;
         /**
          * UIX 环境的初始化
          */
         if(IS_UIX){
 
             // todo
+
+            if(this._uix !== null) {
+                //(this._uix.destroy)&&(this._uix.destroy());
+            }
+
+            require(["blend"], function(blend) {
+              me._uix = me._createUIXDialog(blend);
+            });
+
             return;
         }
 
@@ -92,11 +99,65 @@ $.widget("blend.dialog", {
          * 使用提供的默认方式
          */
         if(!this.useCustom){
-            this.$el = this._createDialog();
+            this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
     },
-    _createDialog:function(){
+    _createUIXDialog:function(blend){
+
+        if(this.useCustom){
+            console.log("UIX暂不支持自定义dialog");
+            return;
+        }
+
+        var $el = this.$el;
+
+        var title = $el.find('.' + NAMESPACE + 'dialog-header').text() || this.title;
+        var content = $el.find('.' + NAMESPACE + 'dialog-body').text() || this.content;
+        var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
+        var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
+
+        console.log(title+":"+content+":"+confirmText+":"+cancelText);
+
+        // create Dialog
+        var uix_dialog = blend.create("dialog",{
+            title:title,
+            description:content
+        });
+
+        
+        if((this.btn_status & 1) >0){
+            var confirmItem = uix_dialog.create({
+                text:confirmText
+            });
+            confirmItem.bind("ontap",(function(that){
+                return function(){
+                  that._trigger("confirm");
+                }
+            })(this));
+
+            uix_dialog.append(confirmItem); 
+        }
+
+        if((this.btn_status & 2) >0){
+            var cancel_item = uix_dialog.create({
+                text:cancelText
+            });
+            cancel_item.bind("ontap",(function(that){
+                return function(){
+                  that._trigger("cancel");
+                }
+            })(this));
+
+            uix_dialog.append(cancel_item); 
+        }
+
+
+        
+        this._uixDialog = uix_dialog;
+
+    },
+    _createHTMLDialog:function(){
 
         //已经创建过dialog
         if(this.jsRendered){ 
@@ -109,9 +170,23 @@ $.widget("blend.dialog", {
             curEle = this.$el;
             curEle.find("."+NAMESPACE+"dialog-footer a").addClass(NAMESPACE+"dialog-btn").addClass(NAMESPACE + 'button');
             outerEle = curEle;
-        }else{
-            outerEle = this.getDialogHtml()
+
+        }else if(this.renderType == 1){
+            outerEle = this.getDialogHtml();
         }
+
+        if(!this.btn_status){
+            outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
+        }else{
+          if((this.btn_status & 1) <= 0){
+              outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
+          }
+
+          if((this.btn_status & 2) <= 0){
+              outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
+          }
+        }
+
 
         this.jsRendered = true;
         return outerEle; 
@@ -125,8 +200,8 @@ $.widget("blend.dialog", {
         this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
         	self._trigger('cancel');
         	self.autoCloseDone && self.hide();
-        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-done'), function(){
-        	self._trigger('done');
+        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-confirm'), function(){
+        	self._trigger('confirm');
         	self.autoCloseDone && self.hide();
         }).on("dialog.close", function(){
         	self.hide();
@@ -145,7 +220,7 @@ $.widget("blend.dialog", {
                       + '<div class="'+ NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="'+ NAMESPACE + 'dialog-footer">'
                          +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>')
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-confirm '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
 
@@ -156,12 +231,17 @@ $.widget("blend.dialog", {
     /*显示dialog*/
     show: function(){
 
+
+        if(IS_UIX){
+            this._uixDialog.show();
+            return;
+        }
+
     	var self = this;
     	if(this.lock){
     		return this.$el;
     	}
     	
-
         if(!this.hasRendered){
             this.$el.appendTo(this.$body);
             this.hasRendered = true;        //标记已经渲染

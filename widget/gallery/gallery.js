@@ -1,5 +1,4 @@
 /**
- *
  * gallery 组件
  * Created by dingquan on 15-3-24.
  */
@@ -18,6 +17,7 @@ $.widget("blend.gallery",{
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
         var $el = this.element;
+        this.$el = $el;
         /**
          * 经过继承的 options
          */
@@ -135,7 +135,7 @@ $.widget("blend.gallery",{
           this.isAutoPlay = false;
         } else {
           this.isLooping = opts.isLooping || false;
-          this.isAutoplay = opts.isAutoplay || false;
+          this.isAutoplay = false;
         }
         // little trick set, when you chooce tear & vertical same time
         // iSlider overspread mode will be set true autometicly
@@ -286,6 +286,7 @@ $.widget("blend.gallery",{
           that.outer.innerHTML = "";
           // that.mask.style.visibility = "hidden";
           that.mask.style.display = "none";
+          that._hideMenu();
         }
       })(this));
 
@@ -446,8 +447,6 @@ $.widget("blend.gallery",{
         this._animateFunc(els[i], this.axis, this.scale, i, 0);
       }
 
-
-
       // stop playing when meet the end of data
       if (this.isAutoplay && !this.isLooping && this.slideIndex === data.length - 1) {
         this._pause();
@@ -485,7 +484,6 @@ $.widget("blend.gallery",{
           return true;
         };
       }
-      console.log(this);
 
       outer.addEventListener(device.startEvt, this);
       outer.addEventListener(device.moveEvt, this);
@@ -524,7 +522,7 @@ $.widget("blend.gallery",{
       }
 
       var device = this._device();
-      console.log(device);
+      // console.log(device);
       this.isMoving = true;
       this._pause();
       // this.onslidestart && this.onslidestart();
@@ -575,8 +573,7 @@ $.widget("blend.gallery",{
       var endTime = new Date().getTime();
       // a quick slide time must under 300ms
       // a quick slide should also slide at least 14 px
-      console.log("time:"+ (endTime - this.startTime));
-      console.log("X:"+offset[axis]);
+      
       boundary = endTime - this.startTime > 300 ? boundary : 14;
       var res = this.zoomEndHandler ? this.zoomEndHandler(evt) : false; // zoom  事件
       // var res = false;
@@ -589,12 +586,13 @@ $.widget("blend.gallery",{
         this._slideTo(this.slideIndex + 1);
       } else if (!res) {
         this._slideTo(this.slideIndex);
+
         if(this.isMenuShow){
           this._hideMenu();
         }else{
           this._showMenu();
         }
-        
+
       }
       // create tap event if offset < 10
       if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
@@ -638,20 +636,22 @@ $.widget("blend.gallery",{
       if(IS_UIX && this._uix){
         this._uix.show();
         return;
-
       }
 
+      this._slideTo(0);
       this.mask.style.visibility = "visible";
       this.mask.style.display = "block";
         
-
       if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();
       }
 
+      this._showMenu();
+
+
     },
     hide:function(){
-      return;
+      this.mask.style.display = "none";
       this.mask.style.visibility = "hidden";
     },
     extend:function (plugin, main) {
@@ -662,6 +662,9 @@ $.widget("blend.gallery",{
         Object.defineProperty(main, property, Object.getOwnPropertyDescriptor(plugin, property));
       });
     },
+    /**
+     * 增加图片的缩放功能
+     */
     addZoomPlugin:function(){
       var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
       var minScale = 1 / 2;
@@ -762,9 +765,8 @@ $.widget("blend.gallery",{
           this.currentScale = transform.scaleX;
           this.zoomNode = node;
           var pos = getPosition(node);
-          console.log(evt.targetTouches);
+          // console.log(evt.targetTouches);
           if (evt.targetTouches.length == 2) {
-            console.log('gesture');
             this.lastTouchStart = null;
             var touches = evt.touches;
             var touchCenter = getCenter({
@@ -829,7 +831,7 @@ $.widget("blend.gallery",{
         var result = 0;
         if (this.gesture === 2) {
           //双手指 todo
-          this._resetImage(evt);console.log("hehhehhehe");
+          this._resetImage(evt);
           result = 2;
         } else if (this.gesture == 1) {
           //放大拖拽 todo
