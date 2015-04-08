@@ -11,7 +11,10 @@ $.widget("blend.checkbox",{
      */
     options: {
 		itemSelector:'.'+ NAMESPACE +'checkbox',
+        itemLabel:'label',
         type:'group',
+        itemSelected:NAMESPACE + 'checkbox-checked',
+        itemSelectAll:NAMESPACE + 'checkbox-all',
     },
     _create:function(){
 
@@ -27,6 +30,7 @@ $.widget("blend.checkbox",{
 
 
         this.$group = $this.find(options.itemSelector); //
+        this.$label = $this.find(options.itemLabel);
         this.$container = $this;
         
         console.log(options.datas);
@@ -37,42 +41,84 @@ $.widget("blend.checkbox",{
     _init: function () {
         this._initEvent();
     },
+    _checkGroup:function (curElem){
+
+        var that = this;
+        var EventSelected = that.$container.find("." + that.options.itemSelected),
+            EventSelector = that.$container.find(that.options.itemSelector);
+
+        var eventData = {
+                checked: 1
+            };
+            
+        if (that.options.type=="radio") {
+            EventSelected.removeClass(that.options.itemSelected);
+            curElem.addClass(that.options.itemSelected);
+        }
+        else {
+            if (curElem.hasClass(that.options.itemSelectAll)) {
+                var checkedNum = 0;
+                //判断有无已勾选
+                EventSelector.each(function () {
+                    checkedNum = $(this).hasClass(that.options.itemSelected) ? ++checkedNum : checkedNum;
+                })
+                if (checkedNum < EventSelector.length) {
+                    EventSelector.each(function () {
+                        $(this).addClass(that.options.itemSelected);
+                    })
+                }
+                else {
+                    EventSelected.removeClass(that.options.itemSelected);
+                }
+            }
+            else {
+                if (curElem.hasClass(that.options.itemSelected)) {
+                    curElem.removeClass(that.options.itemSelected);
+                    eventData.checked = 0;
+                }
+                else {
+                    curElem.addClass(that.options.itemSelected);
+                }
+            }
+        }
+        that._trigger("checked", null, eventData);
+    },
     _initEvent:function(){
 
         var that = this;
+
         if(this.options.type=="radio"){
             // radio box
             console.log(this.options);
             this.$group.on("tap", function () {
                 if (that._trigger("beforechecked", null, {})) {
-                    var eventData = {
-                        checked: 1
-                    };
                     var curElem = $(this);
-                    that.$container.find("." + NAMESPACE + "checkbox-checked").removeClass(NAMESPACE + "checkbox-checked");
-                    curElem.addClass(NAMESPACE + "checkbox-checked");
-                    that._trigger("checked", null, eventData);
+                    that._checkGroup(curElem)
+                }
+            });
+            this.$label.on("tap", function () {
+                if (that._trigger("beforechecked", null, {})) {
+                    var curElem = that.$group.eq([that.$label.index($(this))]);
+                    that._checkGroup(curElem)
                 }
             });
         }else{
             this.$group.on("tap", function () {
                 if (that._trigger("beforechecked", null, {})) {
-                    var eventData = {
-                        checked: 1
-                    };
                     var curElem = $(this);
-                    if (curElem.hasClass(NAMESPACE + "checkbox-checked")) {
-                        curElem.removeClass(NAMESPACE + "checkbox-checked");
-                        eventData.checked = 0;
-                    }
-                    else {
-                        curElem.addClass(NAMESPACE + "checkbox-checked");
-                    }
-                    that._trigger("checked", null, eventData);
+                    that._checkGroup(curElem)
+                    
+                }
+            });
+            this.$label.on("tap", function () {
+                if (that._trigger("beforechecked", null, {})) {
+                    var curElem = that.$group.eq([that.$label.index($(this))]);
+                    that._checkGroup(curElem)
                 }
             });
         }
     },
+    
     /**
      *	
      * 	
@@ -82,7 +128,7 @@ $.widget("blend.checkbox",{
         var elems = this.$group;
         for(var i=0;i<elems.length;i++){
             $this = $(elems[i]);
-            if($this.hasClass(NAMESPACE+"checkbox-checked")){
+            if($this.hasClass(NAMESPACE+"checkbox-checked") && !$this.hasClass(NAMESPACE+"checkbox-all")){
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
