@@ -924,7 +924,7 @@ input[type="button"].blend-button-block {
   display: -webkit-box;
 }
 .blend-dialog-cancel,
-.blend-dialog-done {
+.blend-dialog-confirm {
   box-flex: 1;
   -webkit-box-flex: 1;
   display: block;
@@ -950,84 +950,11 @@ input[type="button"].blend-button-block {
 .blend-fixedBar-bottom {
   bottom: 0;
 }
-.blend-flexbox {
-  display: -webkit-box;
-}
-.blend-flexbox-item {
-  -webkit-box-flex: 1;
-  width: 0;
-}
-.blend-flexbox-item.blend-flexbox-ratio2 {
-  -webkit-box-flex: 2;
-}
-.blend-flexbox-item.blend-flexbox-ratio3 {
-  -webkit-box-flex: 3;
-}
-.blend-flexbox-item.blend-flexbox-ratio4 {
-  -webkit-box-flex: 4;
-}
-.blend-flexbox-item.blend-flexbox-ratio5 {
-  -webkit-box-flex: 5;
-}
-.blend-flexbox-item.blend-flexbox-ratio6 {
-  -webkit-box-flex: 6;
-}
-.blend-flexbox-item.blend-flexbox-ratio7 {
-  -webkit-box-flex: 7;
-}
-.blend-flexbox-item.blend-flexbox-ratio8 {
-  -webkit-box-flex: 8;
-}
-.blend-flexbox-item.blend-flexbox-ratio9 {
-  -webkit-box-flex: 9;
-}
-.blend-flexbox-item.blend-flexbox-ratio10 {
-  -webkit-box-flex: 10;
-}
-.blend-formgroup {
-  display: -webkit-box;
-}
-.blend-formgroup-label {
-  width: 50px;
-  display: block;
-}
-.blend-formgroup-input {
-  -webkit-box-flex: 1;
-  height: 35px;
-  font-size: 14px;
-  padding: 9px 10px;
-  line-height: 15px;
-  border: 1px solid #DDD;
-  display: block;
-  width: 0;
-  background-color: #FFFFFF;
-  -webkit-appearance: none;
-}
-.blend-formgroup-select {
-  height: 35px;
-  font-size: 14px;
-  padding: 9px 10px;
-  line-height: 15px;
-  /*background: url("../images/select.png") right center no-repeat #FFF;*/
-  border: 1px solid #DDD;
-  width: 0;
-  display: block;
-  -webkit-appearance: none;
-}
-.blend-formgroup-btn {
-  width: 20px;
-  height: 20px;
-  display: block;
-  margin: 0;
-}
-.blend-formgroup-input-error {
-  border-color: #FFF;
-}
 .blend-gallery-mask {
   visibility: hidden;
   width: 100%;
-  height: 100%;
-  position: absolute;
+  height: 101%;
+  position: fixed;
   overflow: hidden;
   background: #222222;
   top: 0;
@@ -1623,7 +1550,6 @@ input[type="button"].blend-button-block {
   position: absolute;
   padding: 0;
   line-height: 0;
-  z-index: 3;
 }
 .blend-slider ol li {
   display: inline-block;
@@ -1709,40 +1635,6 @@ input[type="button"].blend-button-block {
 }
 .blend-slider-title ol li a.blend-slider-active {
   background-color: #0066cc;
-}
-.blend-sug {
-  position: relative;
-}
-.blend-sug-search {
-  display: -webkit-box;
-}
-.blend-sug-search-input {
-  display: block;
-  -webkit-box-flex: 1;
-  height: 40px;
-}
-.blend-sug-search-button {
-  display: block;
-  width: 50px;
-  height: 40px;
-}
-.blend-sug-tip {
-  display: none;
-  width: 100%;
-  position: absolute;
-  background-color: #ffffff;
-  z-index: 10;
-}
-.blend-sug-tip-header {
-  height: 20px;
-}
-.blend-sug-tip-content-item {
-  display: block;
-  height: 20px;
-  line-height: 20px;
-}
-.blend-sug-tip-footer {
-  height: 20px;
 }
 .blend-tab-card {
   margin: 6px;

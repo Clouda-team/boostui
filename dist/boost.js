@@ -4892,13 +4892,11 @@ $.widget("blend.counter", {
      * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
      * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
      * @param {String} options.title (可选, 默认值: 标题) dialog 标题
-     * @param {String} options.message (可选, 默认值: \'\') dialog 内容
+     * @param {String} options.content (可选, 默认值: \'\') dialog 内容
      * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
      * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
      * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
      * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
-     * @param {String} options.cancelOnly (可选, 默认值: false) dialog 只显示一个按钮
-     * @param {String} options.autoCloseDone (可选, 默认值: true) dialog按钮点击后是否关闭dialog
      * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
      * 
      *
@@ -4924,11 +4922,9 @@ $.widget("blend.dialog", {
         cancelClass: "",        
         confirmText: "确认",    // 确认按钮自定义文案
         confirmClass: "",
-        cancelOnly: false,      // 是否只有一个cancel按钮
-        autoCloseDone: true,
         maskTapClose: false,    // 点击mask，关闭dialog
-        useCustom:false,        // 使用自定义
-        renderType:0            // 渲染方式，0 是DOM渲染，1是js渲染
+        renderType:0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
+        btn_status:3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
     
     /* _create 创建组件时调用一次*/
@@ -4945,12 +4941,13 @@ $.widget("blend.dialog", {
         this.cancelClass = options.cancelClass;
         this.confirmText = options.confirmText ;
         this.confirmClass = options.confirmClass;
-        this.cancelOnly = options.cancelOnly;
-        this.autoCloseDone = options.autoCloseDone? options.autoCloseDone : true;
+        this.autoCloseDone = true;
 		this.maskTapClose = options.maskTapClose;
 		this.top = options.top;
-        this.useCustom = options.useCustom;
+        
         this.renderType = options.renderType;
+        this.useCustom = (this.renderType == 2)?true:false;
+        this.btn_status = options.btn_status;
 
 
         this.$el = this.element;
@@ -4960,12 +4957,22 @@ $.widget("blend.dialog", {
     /*初始化*/
     _init: function(){
     	
+        var me = this;
         /**
          * UIX 环境的初始化
          */
         if(IS_UIX){
 
             // todo
+
+            if(this._uix !== null) {
+                //(this._uix.destroy)&&(this._uix.destroy());
+            }
+
+            require(["blend"], function(blend) {
+              me._uix = me._createUIXDialog(blend);
+            });
+
             return;
         }
 
@@ -4973,11 +4980,65 @@ $.widget("blend.dialog", {
          * 使用提供的默认方式
          */
         if(!this.useCustom){
-            this.$el = this._createDialog();
+            this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
     },
-    _createDialog:function(){
+    _createUIXDialog:function(blend){
+
+        if(this.useCustom){
+            console.log("UIX暂不支持自定义dialog");
+            return;
+        }
+
+        var $el = this.$el;
+
+        var title = $el.find('.' + NAMESPACE + 'dialog-header').text() || this.title;
+        var content = $el.find('.' + NAMESPACE + 'dialog-body').text() || this.content;
+        var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
+        var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
+
+        console.log(title+":"+content+":"+confirmText+":"+cancelText);
+
+        // create Dialog
+        var uix_dialog = blend.create("dialog",{
+            title:title,
+            description:content
+        });
+
+        
+        if((this.btn_status & 1) >0){
+            var confirmItem = uix_dialog.create({
+                text:confirmText
+            });
+            confirmItem.bind("ontap",(function(that){
+                return function(){
+                  that._trigger("confirm");
+                }
+            })(this));
+
+            uix_dialog.append(confirmItem); 
+        }
+
+        if((this.btn_status & 2) >0){
+            var cancel_item = uix_dialog.create({
+                text:cancelText
+            });
+            cancel_item.bind("ontap",(function(that){
+                return function(){
+                  that._trigger("cancel");
+                }
+            })(this));
+
+            uix_dialog.append(cancel_item); 
+        }
+
+
+        
+        this._uixDialog = uix_dialog;
+
+    },
+    _createHTMLDialog:function(){
 
         //已经创建过dialog
         if(this.jsRendered){ 
@@ -4990,9 +5051,23 @@ $.widget("blend.dialog", {
             curEle = this.$el;
             curEle.find("."+NAMESPACE+"dialog-footer a").addClass(NAMESPACE+"dialog-btn").addClass(NAMESPACE + 'button');
             outerEle = curEle;
-        }else{
-            outerEle = this.getDialogHtml()
+
+        }else if(this.renderType == 1){
+            outerEle = this.getDialogHtml();
         }
+
+        if(!this.btn_status){
+            outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
+        }else{
+          if((this.btn_status & 1) <= 0){
+              outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
+          }
+
+          if((this.btn_status & 2) <= 0){
+              outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
+          }
+        }
+
 
         this.jsRendered = true;
         return outerEle; 
@@ -5006,8 +5081,8 @@ $.widget("blend.dialog", {
         this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
         	self._trigger('cancel');
         	self.autoCloseDone && self.hide();
-        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-done'), function(){
-        	self._trigger('done');
+        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-confirm'), function(){
+        	self._trigger('confirm');
         	self.autoCloseDone && self.hide();
         }).on("dialog.close", function(){
         	self.hide();
@@ -5026,7 +5101,7 @@ $.widget("blend.dialog", {
                       + '<div class="'+ NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="'+ NAMESPACE + 'dialog-footer">'
                          +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  (this.cancelOnly? '': '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-done '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>')
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-confirm '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
 
@@ -5037,12 +5112,17 @@ $.widget("blend.dialog", {
     /*显示dialog*/
     show: function(){
 
+
+        if(IS_UIX){
+            this._uixDialog.show();
+            return;
+        }
+
     	var self = this;
     	if(this.lock){
     		return this.$el;
     	}
     	
-
         if(!this.hasRendered){
             this.$el.appendTo(this.$body);
             this.hasRendered = true;        //标记已经渲染
@@ -5133,138 +5213,7 @@ $.widget("blend.fixedBar", {
     },
     
 });})(Zepto)
-;(function($){/* globals NAMESPACE */
-/* eslint-disable fecs-camelcase */
-/**
- * @file formgroup 组件
- * @author wanghongliang02
- */
-
-$.widget('blend.formgroup', {
-    /**
-     * 组件的默认选项，可以由多重覆盖关系
-     */
-    options: {
-        itemClass: NAMESPACE + 'formgroup',
-        labelClass: NAMESPACE + 'formgroup-label',
-        inputClass: NAMESPACE + 'formgroup-input',
-        selectClass: NAMESPACE + 'formgroup-select',
-        btnClass: NAMESPACE + 'formgroup-btn',
-        validate: true,
-        ajax: false
-    },
-    /**
-     * _create 创建组件时调用一次
-     */
-    _create: function () {
-        var formgroup = this;
-        var $el = this.element;
-        formgroup.itemSelector = '.' + NAMESPACE + 'formgroup-header-item';
-        formgroup.itemContentSelector = '.' + NAMESPACE + 'formgroup-content-item';
-        formgroup.itemActiveSelector = '.' + NAMESPACE + 'formgroup-header-active';
-        formgroup.$headerItem = $el.find(formgroup.itemSelector);
-        formgroup.$contentItem = $el.find(formgroup.itemContentSelector);
-        formgroup.$activeEle = $el.find(formgroup.itemActiveSelector);
-        // 计算active宽度和位置
-        formgroup.itemWidth = this.$headerItem.eq(0).width();
-        formgroup.$activeEle.css('width', this.itemWidth * .7);
-        formgroup.itemOffsetX = this.itemWidth * .15;
-        formgroup.current = 0;
-
-    },
-    /**
-     * _init 初始化的时候调用
-     */
-    _init: function () {
-        var formgroup = this;
-
-        formgroup._checkStart();
-        if (!formgroup.inited) {
-            formgroup._initEvent();
-            formgroup.inited = true;
-        }
-        formgroup._switch(formgroup.options.start);
-
-        if (formgroup.options.animate) {
-            // 初始化的时候不出动画
-            setTimeout(function () {
-                formgroup.element.addClass(formgroup.options.animateClass);
-            }, 0);
-        }
-        else {
-            formgroup.element.removeClass(formgroup.options.animateClass);
-        }
-    },
-    /**
-     * 验证初始化的start参数
-     * @private
-     */
-    _checkStart: function () {
-        var formgroup = this;
-        var lenth = formgroup.$headerItem.length;
-        formgroup.options.start = parseInt(formgroup.options.start, 10);
-        if (formgroup.options.start < 0 || formgroup.options.start >= lenth) {
-            formgroup.options.start = 0;
-        }
-        formgroup.current = formgroup.options.start;
-    },
-
-    /**
-     *
-     * @private
-     */
-    _initEvent: function () {
-        var formgroup = this;
-        formgroup.$headerItem.on('click.formgroup', function (e) {
-            var index = $(this).index();
-            formgroup._switch(index);
-        });
-    },
-    /**
-     * formgroup切换
-     * @param {number} index 要切换到formgroup序号。
-     * @private
-     */
-    _switch: function (index) {
-        var formgroup = this;
-        if (arguments.length === 0) {
-            formgroup.current = formgroup.options.start;
-        }
-        else {
-            formgroup.current = index;
-        }
-
-        var left = formgroup.itemOffsetX + formgroup.current * formgroup.itemWidth;
-        formgroup.$activeEle.css('left', left);
-        formgroup.$contentItem.hide();
-        formgroup.$contentItem.eq(formgroup.current).show();
-    },
-    /**
-     * 销毁formgroup对象
-     * @private
-     */
-    _destroy: function () {
-        var formgroup = this;
-        formgroup.$headerItem.off('click.formgroup');
-    },
-
-    /**
-     * 切换到某个formgroup,获取当前的formgroup
-     * @param {number=} index 切换的formgroup序号
-     * @return {current|*|number} 当前formgroup序号或者不返回
-     */
-    active: function (index) {
-        var formgroup = this;
-        if (arguments.length === 0) {
-            return formgroup.current;
-        }
-        this._switch(index);
-    }
-
-});
-})(Zepto)
 ;(function($){/**
- *
  * gallery 组件
  * Created by dingquan on 15-3-24.
  */
@@ -5283,6 +5232,7 @@ $.widget("blend.gallery",{
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
         var $el = this.element;
+        this.$el = $el;
         /**
          * 经过继承的 options
          */
@@ -5400,7 +5350,7 @@ $.widget("blend.gallery",{
           this.isAutoPlay = false;
         } else {
           this.isLooping = opts.isLooping || false;
-          this.isAutoplay = opts.isAutoplay || false;
+          this.isAutoplay = false;
         }
         // little trick set, when you chooce tear & vertical same time
         // iSlider overspread mode will be set true autometicly
@@ -5551,6 +5501,7 @@ $.widget("blend.gallery",{
           that.outer.innerHTML = "";
           // that.mask.style.visibility = "hidden";
           that.mask.style.display = "none";
+          that._hideMenu();
         }
       })(this));
 
@@ -5711,8 +5662,6 @@ $.widget("blend.gallery",{
         this._animateFunc(els[i], this.axis, this.scale, i, 0);
       }
 
-
-
       // stop playing when meet the end of data
       if (this.isAutoplay && !this.isLooping && this.slideIndex === data.length - 1) {
         this._pause();
@@ -5750,7 +5699,6 @@ $.widget("blend.gallery",{
           return true;
         };
       }
-      console.log(this);
 
       outer.addEventListener(device.startEvt, this);
       outer.addEventListener(device.moveEvt, this);
@@ -5789,7 +5737,7 @@ $.widget("blend.gallery",{
       }
 
       var device = this._device();
-      console.log(device);
+      // console.log(device);
       this.isMoving = true;
       this._pause();
       // this.onslidestart && this.onslidestart();
@@ -5840,8 +5788,7 @@ $.widget("blend.gallery",{
       var endTime = new Date().getTime();
       // a quick slide time must under 300ms
       // a quick slide should also slide at least 14 px
-      console.log("time:"+ (endTime - this.startTime));
-      console.log("X:"+offset[axis]);
+      
       boundary = endTime - this.startTime > 300 ? boundary : 14;
       var res = this.zoomEndHandler ? this.zoomEndHandler(evt) : false; // zoom  事件
       // var res = false;
@@ -5854,12 +5801,13 @@ $.widget("blend.gallery",{
         this._slideTo(this.slideIndex + 1);
       } else if (!res) {
         this._slideTo(this.slideIndex);
+
         if(this.isMenuShow){
           this._hideMenu();
         }else{
           this._showMenu();
         }
-        
+
       }
       // create tap event if offset < 10
       if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
@@ -5903,20 +5851,22 @@ $.widget("blend.gallery",{
       if(IS_UIX && this._uix){
         this._uix.show();
         return;
-
       }
 
+      this._slideTo(0);
       this.mask.style.visibility = "visible";
       this.mask.style.display = "block";
         
-
       if(!this.outer||!this.outer.innerHTML){
         this._renderHTML();
       }
 
+      this._showMenu();
+
+
     },
     hide:function(){
-      return;
+      this.mask.style.display = "none";
       this.mask.style.visibility = "hidden";
     },
     extend:function (plugin, main) {
@@ -5927,6 +5877,9 @@ $.widget("blend.gallery",{
         Object.defineProperty(main, property, Object.getOwnPropertyDescriptor(plugin, property));
       });
     },
+    /**
+     * 增加图片的缩放功能
+     */
     addZoomPlugin:function(){
       var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
       var minScale = 1 / 2;
@@ -6027,9 +5980,8 @@ $.widget("blend.gallery",{
           this.currentScale = transform.scaleX;
           this.zoomNode = node;
           var pos = getPosition(node);
-          console.log(evt.targetTouches);
+          // console.log(evt.targetTouches);
           if (evt.targetTouches.length == 2) {
-            console.log('gesture');
             this.lastTouchStart = null;
             var touches = evt.touches;
             var touchCenter = getCenter({
@@ -6094,7 +6046,7 @@ $.widget("blend.gallery",{
         var result = 0;
         if (this.gesture === 2) {
           //双手指 todo
-          this._resetImage(evt);console.log("hehhehhehe");
+          this._resetImage(evt);
           result = 2;
         } else if (this.gesture == 1) {
           //放大拖拽 todo
@@ -7157,186 +7109,6 @@ $.widget("blend.slider",{
     
 
 });})(Zepto)
-;(function($){/* globals NAMESPACE */
-/* eslint-disable fecs-camelcase */
-/**
- * @file sug 组件
- * @author wanghongliang02
- */
-
-$.widget('blend.sug', {
-    /**
-     * 组件的默认选项，可以由多重覆盖关系
-     */
-    options: {
-        itemClass: NAMESPACE + 'sug-tip-content-item',
-        inputClass: NAMESPACE + 'sug-search-input',
-        buttonClass: NAMESPACE + 'sug-search-button',
-        history: true, // 搜索历史记录开关
-        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
-        historyData: undefined, // 历史记录数据 [1, 2]
-        // 读取联想词列表数据的key
-        list: 'list',
-        createEle: undefined,
-        callback: function (key) {
-        }, // 事件
-        // todo 预留
-        suggest: false
-    },
-    /**
-     * _create 创建组件时调用一次
-     */
-    _create: function () {
-        var sug = this;
-        var $el = sug.element;
-        sug.$input = $el.find('.' + sug.options.inputClass);
-        sug.$button = $el.find('.' + sug.options.buttonClass);
-        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
-        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
-        sug._initEvent();
-    },
-    /**
-     * _init 初始化的时候调用
-     */
-    _init: function () {
-    },
-    /**
-     *
-     * @private
-     */
-    _initEvent: function () {
-        var sug = this;
-        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
-            var $item = $(this);
-            var key = $item.data('key');
-            if (sug.options.callback && $.isFunction(sug.options.callback)) {
-                if (sug.options.callback(key) === false) {
-                    return;
-                }
-            }
-            sug.$input.val(key);
-            sug.$button.trigger('click tap');
-            sug._hide();
-        });
-        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
-            if (!sug.options.history) {
-                return;
-            }
-            // todo 定位
-            if (sug.options.historyAjax) {
-                $.getJSON(sug.options.historyAjax, function (res) {
-                    sug._createEle(res);
-                });
-            }
-            else {
-                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
-                    sug._show();
-                    return;
-                }
-                var local = {
-                    errno: 0,
-                    data: []
-                };
-                local.data[sug.options.list] = sug.options.historyData || [];
-                sug._createEle(local);
-            }
-
-        });
-    },
-    /**
-     * 销毁对象
-     * @private
-     */
-    _destroy: function () {
-        var sug = this;
-        sug.element.off('click.sug', '.' + sug.options.itemClass);
-        sug.element.off('focus.sug', '.' + sug.options.inputClass);
-        sug.element.find('.' + sug.options.itemClass).remove();
-        sug._hide();
-    },
-    /**
-     * 隐藏提示框
-     * @private
-     */
-    _hide: function () {
-        var sug = this;
-        sug.$tip.hide();
-    },
-    /**
-     * 显示提示框
-     * @private
-     */
-    _show: function () {
-        var sug = this;
-        sug.$tip.show();
-    },
-    /**
-     * 创建提示项
-     * @param {Object} res 返回数据
-     * @private
-     */
-    _createEle: function (res) {
-        var sug = this;
-        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
-            sug.options.createEle(res, sug.$tipContent);
-        }
-        else {
-            if (res.errno !== 0) {
-                return;
-            }
-            var list = res.data[sug.options.list];
-            if (!list || !list.length) {
-                return;
-            }
-            var len = list.length;
-            sug.$tipContent.empty();
-            for (var i = 0; i < len; i++) {
-                sug.$tipContent.append('<li data-key="' + list[i] +
-                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
-            }
-        }
-        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
-            sug._show();
-        }
-    },
-    /**
-     * todo 预留
-     * 搜索关键词提示
-     * @private
-     */
-    _suggest: function () {
-    },
-    /**
-     * 清除历史记录
-     */
-    clear: function () {
-        var sug = this;
-        if (!sug.options.history) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug._hide();
-        if (!sug.options.historyAjax) {
-            sug.options.historyData = undefined;
-        }
-        if (sug.options.clear && $.isFunction(sug.options.clear)) {
-            sug.options.clear();
-        }
-    },
-    /**
-     * 更新历史数据
-     * @param {Array} historyData 历史记录数据
-     */
-    refreshHistoryData: function (historyData) {
-        var sug = this;
-        if (!$.isArray(historyData)) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug.options.historyData = historyData;
-    }
-});
-})(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
