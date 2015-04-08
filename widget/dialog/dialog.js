@@ -1,95 +1,89 @@
 /**
-     * @function dialog
-     * @name dialog
-     * @author wangzhonghua
-     * @date 2015.02.05
-     * @memberof $.fn or $.blend
-     * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
-     * @desc 页面级dialog
-     * @param {Object} options 组件配置（以下参数为配置项）
-     * @param {String} options.id (可选, 默认值: 随机数) dialog id
-     * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
-     * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
-     * @param {String} options.title (可选, 默认值: 标题) dialog 标题
-     * @param {String} options.content (可选, 默认值: \'\') dialog 内容
-     * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
-     * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
-     * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
-     * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
-     * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
-     * 
-     *
-     * @example 
-     * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
-     * 	2、var dialog = $.blend.dialog({
-     * 						title: 'my title',
-     * 						message: 'my message',
-     * 					}); 
-     * 		  dialog.show();
-     */
-    
+ * @function dialog
+ * @name dialog
+ * @author wangzhonghua
+ * @file dialog.js
+ * @date 2015.02.05
+ * @memberof $.fn or $.blend
+ * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
+ * @desc 页面级dialog
+ * @param {Object} options 组件配置（以下参数为配置项）
+ * @param {String} options.id (可选, 默认值: 随机数) dialog id
+ * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
+ * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
+ * @param {String} options.title (可选, 默认值: 标题) dialog 标题
+ * @param {String} options.content (可选, 默认值: \'\') dialog 内容
+ * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
+ * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
+ * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
+ * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
+ * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
+ *
+ * @example
+ * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
+ * 	2、var dialog = $.blend.dialog({
+ * 						title: 'my title',
+ * 						message: 'my message',
+ * 					});
+ * 		  dialog.show();
+ */
+
 'use strict';
-$.widget("blend.dialog", {
+$.widget('blend.dialog', {
     /*配置项*/
     options: {
-    	id: null,
-    	top: undefined,         // 自定义dialog距离顶部距离
+        id: null,
+        top: undefined,         // 自定义dialog距离顶部距离
         addCssClass: null,
-        title: "标题",          // dialog标题
-        content: "",            // dialog内容
-        cancelText: "取消",     // 取消按钮自定义文案
-        cancelClass: "",        
-        confirmText: "确认",    // 确认按钮自定义文案
-        confirmClass: "",
+        title: '标题',          // dialog标题
+        content: '',            // dialog内容
+        cancelText: '取消',     // 取消按钮自定义文案
+        cancelClass: '',
+        confirmText: '确认',    // 确认按钮自定义文案
+        confirmClass: '',
         maskTapClose: false,    // 点击mask，关闭dialog
-        renderType:0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
-        btn_status:3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        renderType: 0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
+        btn_status: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
-    
+
     /* _create 创建组件时调用一次*/
     _create: function () {
-    	var options = this.options;
-    	
-		this.$body = $('body');
-		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
-        this.addCssClass = options.addCssClass ? options.addCssClass : "";
+        var options = this.options;
+
+        this.$body = $('body');
+        this.id = options.id || 'dialog-' + (((1 + Math.random()) * 0x1000) | 0).toString(16);
+        this.addCssClass = options.addCssClass ? options.addCssClass : '';
 
         this.title = options.title;
         this.content = options.content;
-        this.cancelText = options.cancelText ;
+        this.cancelText = options.cancelText;
         this.cancelClass = options.cancelClass;
-        this.confirmText = options.confirmText ;
+        this.confirmText = options.confirmText;
         this.confirmClass = options.confirmClass;
         this.autoCloseDone = true;
-		this.maskTapClose = options.maskTapClose;
-		this.top = options.top;
-        
+        this.maskTapClose = options.maskTapClose;
+        this.top = options.top;
         this.renderType = options.renderType;
-        this.useCustom = (this.renderType == 2)?true:false;
+        this.useCustom = (this.renderType === 2) ? true : false;
         this.btn_status = options.btn_status;
-
-
         this.$el = this.element;
-        
     },
-    
-    /*初始化*/
-    _init: function(){
-    	
+    /**
+     * 初始化
+     */
+    _init: function () {
         var me = this;
         /**
          * UIX 环境的初始化
          */
-        if(IS_UIX){
-
+        if (IS_UIX) {
             // todo
-
-            if(this._uix !== null) {
-                //(this._uix.destroy)&&(this._uix.destroy());
+            if (this._uix !== null) {
+                // (this._uix.destroy)&&(this._uix.destroy());
             }
 
-            require(["blend"], function(blend) {
-              me._uix = me._createUIXDialog(blend);
+            require(['blend'], function (blend) {
+                me._uix = me._createUIXDialog(blend);
             });
 
             return;
@@ -98,15 +92,15 @@ $.widget("blend.dialog", {
         /**
          * 使用提供的默认方式
          */
-        if(!this.useCustom){
+        if (!this.useCustom) {
             this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
     },
-    _createUIXDialog:function(blend){
+    _createUIXDialog: function (blend) {
 
-        if(this.useCustom){
-            console.log("UIX暂不支持自定义dialog");
+        if (this.useCustom) {
+            console.error('UIX暂不支持自定义dialog');
             return;
         }
 
@@ -117,196 +111,195 @@ $.widget("blend.dialog", {
         var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
         var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
 
-        console.log(title+":"+content+":"+confirmText+":"+cancelText);
+        // console.log(title + ":" + content + ":" + confirmText + ":" + cancelText);
 
         // create Dialog
-        var uix_dialog = blend.create("dialog",{
-            title:title,
-            description:content
+        var uix_dialog = blend.create('dialog', {
+            title: title,
+            description: content
         });
 
-        
-        if((this.btn_status & 1) >0){
+        if ((this.btn_status & 1) > 0) {
             var confirmItem = uix_dialog.create({
-                text:confirmText
+                text: confirmText
             });
-            confirmItem.bind("ontap",(function(that){
-                return function(){
-                  that._trigger("confirm");
-                }
+            confirmItem.bind('ontap', (function (that) {
+                return function () {
+                    that._trigger('confirm');
+                };
             })(this));
 
-            uix_dialog.append(confirmItem); 
+            uix_dialog.append(confirmItem);
         }
 
-        if((this.btn_status & 2) >0){
+        if ((this.btn_status & 2) > 0) {
             var cancel_item = uix_dialog.create({
-                text:cancelText
+                text: cancelText
             });
-            cancel_item.bind("ontap",(function(that){
-                return function(){
-                  that._trigger("cancel");
-                }
+            cancel_item.bind('ontap', (function (that) {
+                return function () {
+                    that._trigger('cancel');
+                };
             })(this));
 
-            uix_dialog.append(cancel_item); 
+            uix_dialog.append(cancel_item);
         }
 
-
-        
         this._uixDialog = uix_dialog;
-
     },
-    _createHTMLDialog:function(){
+    _createHTMLDialog: function () {
 
-        //已经创建过dialog
-        if(this.jsRendered){ 
+        // 已经创建过dialog
+        if (this.jsRendered) {
             return this.$el;
         }
-        
-        //根据传递的参数
-        var outerEle,curEle;
-        if(this.renderType == 0){
+
+        // 根据传递的参数
+        var outerEle;
+        var curEle;
+        if (this.renderType === 0) {
             curEle = this.$el;
-            curEle.find("."+NAMESPACE+"dialog-footer a").addClass(NAMESPACE+"dialog-btn").addClass(NAMESPACE + 'button');
+            curEle.find('.' + NAMESPACE + 'dialog-footer a')
+            .addClass(NAMESPACE + 'dialog-btn')
+            .addClass(NAMESPACE + 'button');
             outerEle = curEle;
-
-        }else if(this.renderType == 1){
-            outerEle = this.getDialogHtml();
+        }
+        else if (this.renderType === 1) {
+            outerEle = this._getDialogHtml();
         }
 
-        if(!this.btn_status){
+        if (!this.btn_status) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
-        }else{
-          if((this.btn_status & 1) <= 0){
-              outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
-          }
-
-          if((this.btn_status & 2) <= 0){
-              outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
-          }
         }
-
+        else {
+            if ((this.btn_status & 1) <= 0) {
+                outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
+            }
+            if ((this.btn_status & 2) <= 0) {
+                outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
+            }
+        }
 
         this.jsRendered = true;
         return outerEle; 
     },
     /*事件绑定*/
-    _bindEvent: function(){
-   		var self = this;
-   		$(window).on("orientationchange resize", function () {
+    _bindEvent: function () {
+        var self = this;
+        $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
-        	self._trigger('cancel');
-        	self.autoCloseDone && self.hide();
-        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-confirm'), function(){
-        	self._trigger('confirm');
-        	self.autoCloseDone && self.hide();
-        }).on("dialog.close", function(){
-        	self.hide();
+        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+            self._trigger('cancel');
+            self.autoCloseDone && self.hide();
+        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+            self._trigger('confirm');
+            self.autoCloseDone && self.hide();
+        }).on('dialog.close', function () {
+            self.hide();
         });	
     },
-    
     /*定义事件派发*/
-    _trigger: function(event){
-    	this.$el.trigger('dialog:' + event);
+    _trigger: function (event) {
+        this.$el.trigger('dialog:' + event);
     },
-    
     /*生成dialog html片段*/
-    getDialogHtml: function(){
+    _getDialogHtml: function () {
 
-        var dom = '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
-                      + '<div class="'+ NAMESPACE + 'dialog-body">' + this.content + '</div>'
-                      + '<div class="'+ NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-confirm '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>'
+        var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
+                      + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
+                      + '<div class="' + NAMESPACE + 'dialog-footer">'
+                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'button">' + this.cancelText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'button ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
-
         return this.$el;
-
     },
-    
-    /*显示dialog*/
-    show: function(){
+    /**
+     * 显示dialog
+     * @return {Object}
+     */
+    show: function () {
 
-
-        if(IS_UIX){
+        if (IS_UIX) {
             this._uixDialog.show();
-            return;
+            return null;
         }
 
-    	var self = this;
-    	if(this.lock){
-    		return this.$el;
-    	}
-    	
-        if(!this.hasRendered){
+        var self = this;
+        if (this.lock) {
+            return this.$el;
+        }
+        if (!this.hasRendered) {
             this.$el.appendTo(this.$body);
-            this.hasRendered = true;        //标记已经渲染
+            this.hasRendered = true;        // 标记已经渲染
         }
 
-    	this.setPosition();
-    	this.mask(0.5);
-    	window.setTimeout(function(){
-    		self.$el.addClass(NAMESPACE + 'dialog-show');
-    		self._trigger('show');
-    		self.lock = false;
-    	}, 50);
-    	this.lock = true;
-    	return this.$el;
+        this.setPosition();
+        this.mask(0.5);
+        window.setTimeout(function () {
+            self.$el.addClass(NAMESPACE + 'dialog-show');
+            self._trigger('show');
+            self.lock = false;
+        }, 50);
+        this.lock = true;
+        return this.$el;
     },
-    
     /*关闭dialog*/
     hide: function () {
-    	var self = this;
-    	if(this.lock){
-    		return this.$el;
-    	}
-        window.setTimeout(function(){
-    		self.unmask();
-    		self.lock = false;
-    	}, 150);
-    	this._trigger('hide');
-    	this.lock = true;
+        var self = this;
+        if (this.lock) {
+            return this.$el;
+        }
+        window.setTimeout(function () {
+            self.unmask();
+            self.lock = false;
+        }, 150);
+        this._trigger('hide');
+        this.lock = true;
         return this.$el.removeClass(NAMESPACE + 'dialog-show');
     },
-    /*销毁dialog*/
-    destroy: function(){
-    	this.unmask();
-    	if(this.$el){
-    		this.$el.remove();
-    		this.$el = [];
-    	}
-    	return this.$el;
+    /**
+     * 销毁dialog
+     * @return {Object}
+     */
+    destroy: function () {
+        this.unmask();
+        if (this.$el) {
+            this.$el.remove();
+            this.$el = [];
+        }
+        return this.$el;
     },
-    
     /*显示mask*/
     mask: function (opacity) {
-    	var self = this;
-        opacity = opacity ? " style='opacity:" + opacity + ";'" : "";
-        (this.maskDom = $('<div class="'+ NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
-        this.maskDom.on('tap', function(e){
-        	e.preventDefault();
-        	self.maskTapClose && self.hide();
-        }).on('touchmove', function(e){
-        	e.preventDefault();
+        var self = this;
+        opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
+        (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.on('tap', function (e) {
+            e.preventDefault();
+            self.maskTapClose && self.hide();
+        }).on('touchmove', function (e) {
+            e.preventDefault();
         });
     },
-    
-    /*关闭mask*/
-	unmask: function (){
-		this.maskDom.off('touchstart touchmove').remove();
-	},
-	
-	/*设置dialog位置*/
-	setPosition: function () {
-        var top = typeof this.top == 'undefined'?((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2): parseInt(this.top);
+    /**
+     * 关闭mask
+     */
+    unmask: function () {
+        this.maskDom.off('touchstart touchmove').remove();
+    },
+    /**
+     * 设置dialog位置
+     * @return {Object}
+     */
+    setPosition: function () {
+        var top = typeof this.top === 'undefined' ?
+        ((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
-        	top: top + "px",
-        	left: left + "px"
+            top: top + 'px',
+            left: left + 'px'
         });
-   }
+    }
 });
