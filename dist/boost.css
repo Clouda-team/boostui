@@ -1916,6 +1916,66 @@ input[type="button"].blend-button-block {
   color: #ffffff;
   font-size: 24px;
 }
+.blend-imglist {
+  width: 100%;
+}
+.blend-imglist-wrapper {
+  list-style-type: none;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+.blend-imglist-title {
+  padding-left: 20px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 16px;
+  margin-bottom: -16px;
+}
+.blend-imglist-wrapper:after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.blend-imglist-item {
+  list-style-type: none;
+  float: left;
+  padding: 0px;
+}
+.blend-imglist-column-2 {
+  padding: 10px 12px;
+}
+.blend-imglist-column-2 > li {
+  width: 50%;
+  padding: 10px 8px;
+}
+.blend-imglist-column-2 > li:nth-of-type(2n+1) {
+  padding-left: 0;
+  clear: both;
+}
+.blend-imglist-column-3 {
+  padding: 10px 11px;
+}
+.blend-imglist-column-3 > li {
+  width: 33.333333%;
+  padding: 10px 9px;
+}
+.blend-imglist-column-3 > li:nth-of-type(3n+1) {
+  clear: both;
+}
+.blend-imglist-column-4 {
+  padding: 10px 14px;
+}
+.blend-imglist-column-4 > li {
+  width: 25%;
+  padding: 10px 6px;
+}
+.blend-imglist-column-4 > li:nth-of-type(4n+1) {
+  clear: both;
+}
+.blend-imglist-item img {
+  width: 100%;
+}
 .blend-list {
   overflow: hidden;
 }
