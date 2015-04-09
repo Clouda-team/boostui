@@ -48,37 +48,56 @@ $.widget("blend.checkbox",{
             EventSelector = that.$container.find(that.options.itemSelector);
 
         var eventData = {
-                checked: 1
-            };
+            checked: 0
+        };
             
         if (that.options.type=="radio") {
             EventSelected.removeClass(that.options.itemSelected);
             curElem.addClass(that.options.itemSelected);
+            eventData.checked++;
         }
         else {
+            
+            //判断有无已勾选
+            EventSelector.each(function () {
+                eventData.checked = $(this).hasClass(that.options.itemSelected) ? ++eventData.checked : eventData.checked;
+            })
+            if (that.$container.find("." + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
+                eventData.checked--;
+            }
+
             if (curElem.hasClass(that.options.itemSelectAll)) {
-                var checkedNum = 0;
-                //判断有无已勾选
-                EventSelector.each(function () {
-                    checkedNum = $(this).hasClass(that.options.itemSelected) ? ++checkedNum : checkedNum;
-                })
-                if (checkedNum < EventSelector.length) {
+
+
+                if (eventData.checked < EventSelector.length - 1) {
                     EventSelector.each(function () {
                         $(this).addClass(that.options.itemSelected);
+                        eventData.checked = EventSelector.length - 1;
                     })
                 }
                 else {
                     EventSelected.removeClass(that.options.itemSelected);
+                    eventData.checked = 0;
                 }
+
             }
             else {
+                
                 if (curElem.hasClass(that.options.itemSelected)) {
                     curElem.removeClass(that.options.itemSelected);
-                    eventData.checked = 0;
+                    eventData.checked--;
                 }
                 else {
                     curElem.addClass(that.options.itemSelected);
+                    eventData.checked++;
                 }
+
+            }
+            if (eventData.checked < EventSelector.length - 1) {
+                that.$container.find("." + that.options.itemSelectAll).removeClass(that.options.itemSelected);
+            }
+            else {
+                that.$container.find("." + that.options.itemSelectAll).addClass(that.options.itemSelected);
             }
         }
         that._trigger("checked", null, eventData);
