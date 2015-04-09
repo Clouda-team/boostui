@@ -21,30 +21,51 @@
 @button-default-color:              #333;
 @button-default-bg:                 #fff;
 @button-default-border:             #ccc;
+@button-default-disabled-color:     darken(@button-default-color, 20%);
+@button-default-disabled-bg:        darken(@button-default-bg, 20%);
+@button-default-disabled-border:    darken(@button-default-border, 20%);
 
 @button-primary-color:              #fff;
 @button-primary-bg:                 @brand-primary;
 @button-primary-border:             @button-primary-bg;
+@button-primary-disabled-color:     darken(@button-primary-color, 20%);
+@button-primary-disabled-bg:        darken(@button-primary-bg, 20%);
+@button-primary-disabled-border:    darken(@button-primary-border, 20%);
 
 @button-secondary-color:            #fff;
 @button-secondary-bg:               @brand-secondary;
 @button-secondary-border:           @button-secondary-bg;
+@button-secondary-disabled-color:     darken(@button-secondary-color, 20%);
+@button-secondary-disabled-bg:        darken(@button-secondary-bg, 20%);
+@button-secondary-disabled-border:    darken(@button-secondary-border, 20%);
 
 @button-success-color:              #fff;
 @button-success-bg:                 @brand-success;
 @button-success-border:             @button-success-bg;
+@button-success-disabled-color:     darken(@button-success-color, 20%);
+@button-success-disabled-bg:        darken(@button-success-bg, 20%);
+@button-success-disabled-border:    darken(@button-success-border, 20%);
 
 @button-info-color:                 #fff;
 @button-info-bg:                    @brand-info;
 @button-info-border:                @button-info-bg;
+@button-info-disabled-color:     darken(@button-info-color, 20%);
+@button-info-disabled-bg:        darken(@button-info-bg, 20%);
+@button-info-disabled-border:    darken(@button-info-border, 20%);
 
 @button-warning-color:              #fff;
 @button-warning-bg:                 @brand-warning;
 @button-warning-border:             @button-warning-bg;
+@button-warning-disabled-color:     darken(@button-warning-color, 20%);
+@button-warning-disabled-bg:        darken(@button-warning-bg, 20%);
+@button-warning-disabled-border:    darken(@button-warning-border, 20%);
 
 @button-danger-color:               #fff;
 @button-danger-bg:                  @brand-danger;
 @button-danger-border:              @button-danger-bg;
+@button-danger-disabled-color:     darken(@button-danger-color, 20%);
+@button-danger-disabled-bg:        darken(@button-danger-bg, 20%);
+@button-danger-disabled-border:    darken(@button-danger-border, 20%);
 
 @button-link-disabled-color:        @gray-light;
 
@@ -90,8 +111,8 @@
     fieldset[disabled] & {
         cursor: @cursor-disabled;
         pointer-events: none; // Future-proof disabling of clicks
-        .opacity(.65);
-        .box-shadow(none);
+        //.opacity(.65);
+        //.box-shadow(none);
     }
 
     &.@{namespace}round {
@@ -116,28 +137,64 @@
 
 .@{namespace}button-default {
     .button-variant(@button-default-color; @button-default-bg; @button-default-border);
+
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+    }
 }
 .@{namespace}button-primary {
     .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-primary-disabled-color; @button-primary-disabled-bg; @button-primary-disabled-border);
+    }
 }
 .@{namespace}button-secondary {
     .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-secondary-disabled-color; @button-secondary-disabled-bg; @button-secondary-disabled-border);
+    }
 }
 // Success appears as green
 .@{namespace}button-success {
     .button-variant(@button-success-color; @button-success-bg; @button-success-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-success-disabled-color; @button-success-disabled-bg; @button-success-disabled-border);
+    }
 }
 // Info appears as blue-green
 .@{namespace}button-info {
     .button-variant(@button-info-color; @button-info-bg; @button-info-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-info-disabled-color; @button-info-disabled-bg; @button-info-disabled-border);
+    }
 }
 // Warning appears as orange
 .@{namespace}button-warning {
     .button-variant(@button-warning-color; @button-warning-bg; @button-warning-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-warning-disabled-color; @button-warning-disabled-bg; @button-warning-disabled-border);
+    }
 }
 // Danger and error appear as red
 .@{namespace}button-danger {
     .button-variant(@button-danger-color; @button-danger-bg; @button-danger-border);
+    &.@{namespace}disabled,
+    &[disabled],
+    fieldset[disabled] & {
+        .button-variant(@button-danger-disabled-color; @button-danger-disabled-bg; @button-danger-disabled-border);
+    }
 }
 
 
