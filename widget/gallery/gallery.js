@@ -632,19 +632,32 @@ $.widget('blend.gallery', {
         this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
         this.isMenuShow = false;
     },
-    show: function () {
+    show: function (val) {
 
         if (IS_UIX && this._uix) {
             this._uix.show();
             return;
         }
 
-        this._slideTo(0);
+        if (val < 0 || isNaN(parseInt(val,10))) {
+            val = 0;
+        }
+        else if (val >= this.data.length) {
+            val = this.data.length - 1;
+        }
+
+        this.initIndex = this.slideIndex = val;
+
+        this._renderHTML();
+
+        this._slideTo(val);
         this.mask.style.visibility = 'visible';
         this.mask.style.display = 'block';
-        if (!this.outer || !this.outer.innerHTML) {
+
+
+        /* if (!this.outer || !this.outer.innerHTML) {
             this._renderHTML();
-        }
+        }*/
 
         this._showMenu();
     },
