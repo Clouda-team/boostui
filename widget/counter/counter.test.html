@@ -11,15 +11,15 @@
 <body>
 
     <div data-blend-widget="counter" data-blend-counter='{"step":2,"maxValue":10}' class="blend-counter">
-        <div class="blend-counter-minus">-</div>
+        <div class="blend-counter-minus"></div>
         <input class="blend-counter-input" type="text">
-        <div class="blend-counter-plus">+</div>
+        <div class="blend-counter-plus"></div>
     </div>
 
-    <div data-blend-widget="counter" data-blend-counter='{"step":2,"maxValue":10}' class="blend-counter">
-        <div class="blend-counter-minus">-</div>
+    <div data-blend-widget="counter" data-blend-counter='{"step":2,"maxValue":10}' class="blend-counter" style="margin-top: 10px;">
+        <div class="blend-counter-minus"></div>
         <input class="blend-counter-input" type="text">
-        <div class="blend-counter-plus">+</div>
+        <div class="blend-counter-plus"></div>
     </div>
 
     <script src="../../dist/boost.js"></script>
@@ -40,7 +40,7 @@
             })
 
             // 函数调用
-            .counter("value", 100);
+            .counter("value", 1);
 
             var options = $counter.counter("option");
             console.log(options);

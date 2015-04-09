@@ -1,34 +1,39 @@
-<!DOCTYPE>
+<!DOCTYPE HTML>
 
-<html>
+<html lang="en">
 <head>
-	<title>gallery测试页面</title>
+	
 	<meta charset="UTF-8">
+    <title>gallery测试页面</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+    
 
-
-    <!-- <link rel="stylesheet" type="text/css" href="fullSlider.css"> -->
     <link rel="stylesheet" href="../../dist/boost.css">
-    <script type="text/javascript" src="http://weinre123.duapp.com/target/target-script-min.js"></script>
     <style type="text/css">
     body{
         margin: 0;
         padding: 0;
     }
-
     </style>
 </head>
 
 <body>
 
-	<div id="gallery_wrapper"  class="blend-gallery" data-blend-gallery=''>
-    <div id="gallery_wrapper1"  class="blend-gallery" data-blend-gallery=''>
-
-        
+	<div id="gallery-wrapper"  class="blend-gallery" data-blend-gallery="">
     </div>
-<!-- <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br> -->
-    <button id="show" class="show">click to show</button>
+    <div id="gallery-wrapper1"  class="blend-gallery" data-blend-gallery="">
+    </div>
+    <input type="button"  id="show" class="show" value="click to show"/>
     <!-- <button id="show1" class="show">click to show1</button> -->
+
+    <div>
+        让页面撑满！！！！<br>
+        让页面撑满！！！！<br>
+        让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>让页面撑满！！！！<br>
+        让页面撑满！！！！<br>
+
+    </div>
 
 
 <!--     <script src="../../js/zepto.js"></script>
@@ -40,17 +45,17 @@
     <!-- // <script src="../../js/zepto.js"></script> -->
 
     <script src="../../dist/boost.js"></script>
-    <script type="text/javascript">
+    <script>
         window.boost = $.noConflict(true);
     </script>
 
     <script src="../../../BlendUI2/third_party/require.js"></script>
+    <script  src="http://weinre123.duapp.com/target/target-script-min.js"></script>
+
 
     <!-- // <script src="../../js/zepto.js"></script> -->
     
-    <script type="text/javascript">
-
-    	// var $ = blend;
+    <script>
         
         ;(function(){
         
@@ -100,7 +105,7 @@
         }];
 
 
-        var wrapper = boost("#gallery_wrapper").gallery({
+        var wrapper = boost("#gallery-wrapper").gallery({
             data:list,
             duration:2000,
             isLooping:true,
@@ -149,7 +154,7 @@
         }];
 
 
-        /*var wrapper1 = boost("#gallery_wrapper1").gallery({
+        /*var wrapper1 = boost("#gallery-wrapper1").gallery({
             data:list1,
             // isDebug:true,
             duration:2000,

@@ -1,0 +1,20 @@
+@font-face {
+  font-family: "boostfont";
+  src: url('boostfont.ttf') format('truetype');
+}
+
+@font-left: "\e600";
+@font-right: "\e604";
+@font-check: "\e601";
+@font-plus: "\e602";
+@font-minus: "\e603";
+
+
+.font(@style) {
+  font-family: "boostfont";
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  content: @style;
+}
+
