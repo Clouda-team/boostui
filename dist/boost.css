@@ -388,10 +388,6 @@ hr {
 fieldset[disabled] .blend-button {
   cursor: not-allowed;
   pointer-events: none;
-  opacity: 0.65;
-  filter: alpha(opacity=65);
-  -webkit-box-shadow: none;
-  box-shadow: none;
 }
 .blend-button.blend-round {
   border-radius: 1000px;
@@ -452,6 +448,109 @@ fieldset[disabled] .blend-button-default.active {
   color: #ffffff;
   background-color: #333333;
 }
+.blend-button-default.blend-disabled,
+.blend-button-default[disabled],
+fieldset[disabled] .blend-button-default {
+  color: #000000;
+  background-color: #cccccc;
+  border-color: #999999;
+}
+.blend-button-default.blend-disabled:hover,
+.blend-button-default[disabled]:hover,
+fieldset[disabled] .blend-button-default:hover,
+.blend-button-default.blend-disabled:focus,
+.blend-button-default[disabled]:focus,
+fieldset[disabled] .blend-button-default:focus,
+.blend-button-default.blend-disabled.focus,
+.blend-button-default[disabled].focus,
+fieldset[disabled] .blend-button-default.focus,
+.blend-button-default.blend-disabled:active,
+.blend-button-default[disabled]:active,
+fieldset[disabled] .blend-button-default:active,
+.blend-button-default.blend-disabled.active,
+.blend-button-default[disabled].active,
+fieldset[disabled] .blend-button-default.active,
+.open > .dropdown-toggle.blend-button-default.blend-disabled,
+.open > .dropdown-toggle.blend-button-default[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-default {
+  color: #000000;
+  background-color: #b3b3b3;
+  border-color: #7a7a7a;
+}
+.blend-button-default.blend-disabled:active,
+.blend-button-default[disabled]:active,
+fieldset[disabled] .blend-button-default:active,
+.blend-button-default.blend-disabled.active,
+.blend-button-default[disabled].active,
+fieldset[disabled] .blend-button-default.active,
+.open > .dropdown-toggle.blend-button-default.blend-disabled,
+.open > .dropdown-toggle.blend-button-default[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-default {
+  background-image: none;
+}
+.blend-button-default.blend-disabled.disabled,
+.blend-button-default[disabled].disabled,
+fieldset[disabled] .blend-button-default.disabled,
+.blend-button-default.blend-disabled[disabled],
+.blend-button-default[disabled][disabled],
+fieldset[disabled] .blend-button-default[disabled],
+fieldset[disabled] .blend-button-default.blend-disabled,
+fieldset[disabled] .blend-button-default[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-default,
+.blend-button-default.blend-disabled.disabled:hover,
+.blend-button-default[disabled].disabled:hover,
+fieldset[disabled] .blend-button-default.disabled:hover,
+.blend-button-default.blend-disabled[disabled]:hover,
+.blend-button-default[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-default[disabled]:hover,
+fieldset[disabled] .blend-button-default.blend-disabled:hover,
+fieldset[disabled] .blend-button-default[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-default:hover,
+.blend-button-default.blend-disabled.disabled:focus,
+.blend-button-default[disabled].disabled:focus,
+fieldset[disabled] .blend-button-default.disabled:focus,
+.blend-button-default.blend-disabled[disabled]:focus,
+.blend-button-default[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-default[disabled]:focus,
+fieldset[disabled] .blend-button-default.blend-disabled:focus,
+fieldset[disabled] .blend-button-default[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-default:focus,
+.blend-button-default.blend-disabled.disabled.focus,
+.blend-button-default[disabled].disabled.focus,
+fieldset[disabled] .blend-button-default.disabled.focus,
+.blend-button-default.blend-disabled[disabled].focus,
+.blend-button-default[disabled][disabled].focus,
+fieldset[disabled] .blend-button-default[disabled].focus,
+fieldset[disabled] .blend-button-default.blend-disabled.focus,
+fieldset[disabled] .blend-button-default[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-default.focus,
+.blend-button-default.blend-disabled.disabled:active,
+.blend-button-default[disabled].disabled:active,
+fieldset[disabled] .blend-button-default.disabled:active,
+.blend-button-default.blend-disabled[disabled]:active,
+.blend-button-default[disabled][disabled]:active,
+fieldset[disabled] .blend-button-default[disabled]:active,
+fieldset[disabled] .blend-button-default.blend-disabled:active,
+fieldset[disabled] .blend-button-default[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-default:active,
+.blend-button-default.blend-disabled.disabled.active,
+.blend-button-default[disabled].disabled.active,
+fieldset[disabled] .blend-button-default.disabled.active,
+.blend-button-default.blend-disabled[disabled].active,
+.blend-button-default[disabled][disabled].active,
+fieldset[disabled] .blend-button-default[disabled].active,
+fieldset[disabled] .blend-button-default.blend-disabled.active,
+fieldset[disabled] .blend-button-default[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-default.active {
+  background-color: #cccccc;
+  border-color: #999999;
+}
+.blend-button-default.blend-disabled .badge,
+.blend-button-default[disabled] .badge,
+fieldset[disabled] .blend-button-default .badge {
+  color: #cccccc;
+  background-color: #000000;
+}
 .blend-button-primary {
   color: #ffffff;
   background-color: #00a3e7;
@@ -496,6 +595,109 @@ fieldset[disabled] .blend-button-primary.active {
 .blend-button-primary .badge {
   color: #00a3e7;
   background-color: #ffffff;
+}
+.blend-button-primary.blend-disabled,
+.blend-button-primary[disabled],
+fieldset[disabled] .blend-button-primary {
+  color: #cccccc;
+  background-color: #005b81;
+  border-color: #005b81;
+}
+.blend-button-primary.blend-disabled:hover,
+.blend-button-primary[disabled]:hover,
+fieldset[disabled] .blend-button-primary:hover,
+.blend-button-primary.blend-disabled:focus,
+.blend-button-primary[disabled]:focus,
+fieldset[disabled] .blend-button-primary:focus,
+.blend-button-primary.blend-disabled.focus,
+.blend-button-primary[disabled].focus,
+fieldset[disabled] .blend-button-primary.focus,
+.blend-button-primary.blend-disabled:active,
+.blend-button-primary[disabled]:active,
+fieldset[disabled] .blend-button-primary:active,
+.blend-button-primary.blend-disabled.active,
+.blend-button-primary[disabled].active,
+fieldset[disabled] .blend-button-primary.active,
+.open > .dropdown-toggle.blend-button-primary.blend-disabled,
+.open > .dropdown-toggle.blend-button-primary[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-primary {
+  color: #cccccc;
+  background-color: #00374e;
+  border-color: #003044;
+}
+.blend-button-primary.blend-disabled:active,
+.blend-button-primary[disabled]:active,
+fieldset[disabled] .blend-button-primary:active,
+.blend-button-primary.blend-disabled.active,
+.blend-button-primary[disabled].active,
+fieldset[disabled] .blend-button-primary.active,
+.open > .dropdown-toggle.blend-button-primary.blend-disabled,
+.open > .dropdown-toggle.blend-button-primary[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-primary {
+  background-image: none;
+}
+.blend-button-primary.blend-disabled.disabled,
+.blend-button-primary[disabled].disabled,
+fieldset[disabled] .blend-button-primary.disabled,
+.blend-button-primary.blend-disabled[disabled],
+.blend-button-primary[disabled][disabled],
+fieldset[disabled] .blend-button-primary[disabled],
+fieldset[disabled] .blend-button-primary.blend-disabled,
+fieldset[disabled] .blend-button-primary[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-primary,
+.blend-button-primary.blend-disabled.disabled:hover,
+.blend-button-primary[disabled].disabled:hover,
+fieldset[disabled] .blend-button-primary.disabled:hover,
+.blend-button-primary.blend-disabled[disabled]:hover,
+.blend-button-primary[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-primary[disabled]:hover,
+fieldset[disabled] .blend-button-primary.blend-disabled:hover,
+fieldset[disabled] .blend-button-primary[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-primary:hover,
+.blend-button-primary.blend-disabled.disabled:focus,
+.blend-button-primary[disabled].disabled:focus,
+fieldset[disabled] .blend-button-primary.disabled:focus,
+.blend-button-primary.blend-disabled[disabled]:focus,
+.blend-button-primary[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-primary[disabled]:focus,
+fieldset[disabled] .blend-button-primary.blend-disabled:focus,
+fieldset[disabled] .blend-button-primary[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-primary:focus,
+.blend-button-primary.blend-disabled.disabled.focus,
+.blend-button-primary[disabled].disabled.focus,
+fieldset[disabled] .blend-button-primary.disabled.focus,
+.blend-button-primary.blend-disabled[disabled].focus,
+.blend-button-primary[disabled][disabled].focus,
+fieldset[disabled] .blend-button-primary[disabled].focus,
+fieldset[disabled] .blend-button-primary.blend-disabled.focus,
+fieldset[disabled] .blend-button-primary[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-primary.focus,
+.blend-button-primary.blend-disabled.disabled:active,
+.blend-button-primary[disabled].disabled:active,
+fieldset[disabled] .blend-button-primary.disabled:active,
+.blend-button-primary.blend-disabled[disabled]:active,
+.blend-button-primary[disabled][disabled]:active,
+fieldset[disabled] .blend-button-primary[disabled]:active,
+fieldset[disabled] .blend-button-primary.blend-disabled:active,
+fieldset[disabled] .blend-button-primary[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-primary:active,
+.blend-button-primary.blend-disabled.disabled.active,
+.blend-button-primary[disabled].disabled.active,
+fieldset[disabled] .blend-button-primary.disabled.active,
+.blend-button-primary.blend-disabled[disabled].active,
+.blend-button-primary[disabled][disabled].active,
+fieldset[disabled] .blend-button-primary[disabled].active,
+fieldset[disabled] .blend-button-primary.blend-disabled.active,
+fieldset[disabled] .blend-button-primary[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-primary.active {
+  background-color: #005b81;
+  border-color: #005b81;
+}
+.blend-button-primary.blend-disabled .badge,
+.blend-button-primary[disabled] .badge,
+fieldset[disabled] .blend-button-primary .badge {
+  color: #005b81;
+  background-color: #cccccc;
 }
 .blend-button-secondary {
   color: #ffffff;
@@ -542,6 +744,109 @@ fieldset[disabled] .blend-button-secondary.active {
   color: #62c9f4;
   background-color: #ffffff;
 }
+.blend-button-secondary.blend-disabled,
+.blend-button-secondary[disabled],
+fieldset[disabled] .blend-button-secondary {
+  color: #cccccc;
+  background-color: #10a3e0;
+  border-color: #10a3e0;
+}
+.blend-button-secondary.blend-disabled:hover,
+.blend-button-secondary[disabled]:hover,
+fieldset[disabled] .blend-button-secondary:hover,
+.blend-button-secondary.blend-disabled:focus,
+.blend-button-secondary[disabled]:focus,
+fieldset[disabled] .blend-button-secondary:focus,
+.blend-button-secondary.blend-disabled.focus,
+.blend-button-secondary[disabled].focus,
+fieldset[disabled] .blend-button-secondary.focus,
+.blend-button-secondary.blend-disabled:active,
+.blend-button-secondary[disabled]:active,
+fieldset[disabled] .blend-button-secondary:active,
+.blend-button-secondary.blend-disabled.active,
+.blend-button-secondary[disabled].active,
+fieldset[disabled] .blend-button-secondary.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-disabled,
+.open > .dropdown-toggle.blend-button-secondary[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-secondary {
+  color: #cccccc;
+  background-color: #0c80b1;
+  border-color: #0c79a7;
+}
+.blend-button-secondary.blend-disabled:active,
+.blend-button-secondary[disabled]:active,
+fieldset[disabled] .blend-button-secondary:active,
+.blend-button-secondary.blend-disabled.active,
+.blend-button-secondary[disabled].active,
+fieldset[disabled] .blend-button-secondary.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-disabled,
+.open > .dropdown-toggle.blend-button-secondary[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-secondary {
+  background-image: none;
+}
+.blend-button-secondary.blend-disabled.disabled,
+.blend-button-secondary[disabled].disabled,
+fieldset[disabled] .blend-button-secondary.disabled,
+.blend-button-secondary.blend-disabled[disabled],
+.blend-button-secondary[disabled][disabled],
+fieldset[disabled] .blend-button-secondary[disabled],
+fieldset[disabled] .blend-button-secondary.blend-disabled,
+fieldset[disabled] .blend-button-secondary[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-secondary,
+.blend-button-secondary.blend-disabled.disabled:hover,
+.blend-button-secondary[disabled].disabled:hover,
+fieldset[disabled] .blend-button-secondary.disabled:hover,
+.blend-button-secondary.blend-disabled[disabled]:hover,
+.blend-button-secondary[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-secondary[disabled]:hover,
+fieldset[disabled] .blend-button-secondary.blend-disabled:hover,
+fieldset[disabled] .blend-button-secondary[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-secondary:hover,
+.blend-button-secondary.blend-disabled.disabled:focus,
+.blend-button-secondary[disabled].disabled:focus,
+fieldset[disabled] .blend-button-secondary.disabled:focus,
+.blend-button-secondary.blend-disabled[disabled]:focus,
+.blend-button-secondary[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-secondary[disabled]:focus,
+fieldset[disabled] .blend-button-secondary.blend-disabled:focus,
+fieldset[disabled] .blend-button-secondary[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-secondary:focus,
+.blend-button-secondary.blend-disabled.disabled.focus,
+.blend-button-secondary[disabled].disabled.focus,
+fieldset[disabled] .blend-button-secondary.disabled.focus,
+.blend-button-secondary.blend-disabled[disabled].focus,
+.blend-button-secondary[disabled][disabled].focus,
+fieldset[disabled] .blend-button-secondary[disabled].focus,
+fieldset[disabled] .blend-button-secondary.blend-disabled.focus,
+fieldset[disabled] .blend-button-secondary[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-secondary.focus,
+.blend-button-secondary.blend-disabled.disabled:active,
+.blend-button-secondary[disabled].disabled:active,
+fieldset[disabled] .blend-button-secondary.disabled:active,
+.blend-button-secondary.blend-disabled[disabled]:active,
+.blend-button-secondary[disabled][disabled]:active,
+fieldset[disabled] .blend-button-secondary[disabled]:active,
+fieldset[disabled] .blend-button-secondary.blend-disabled:active,
+fieldset[disabled] .blend-button-secondary[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-secondary:active,
+.blend-button-secondary.blend-disabled.disabled.active,
+.blend-button-secondary[disabled].disabled.active,
+fieldset[disabled] .blend-button-secondary.disabled.active,
+.blend-button-secondary.blend-disabled[disabled].active,
+.blend-button-secondary[disabled][disabled].active,
+fieldset[disabled] .blend-button-secondary[disabled].active,
+fieldset[disabled] .blend-button-secondary.blend-disabled.active,
+fieldset[disabled] .blend-button-secondary[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-secondary.active {
+  background-color: #10a3e0;
+  border-color: #10a3e0;
+}
+.blend-button-secondary.blend-disabled .badge,
+.blend-button-secondary[disabled] .badge,
+fieldset[disabled] .blend-button-secondary .badge {
+  color: #10a3e0;
+  background-color: #cccccc;
+}
 .blend-button-success {
   color: #ffffff;
   background-color: #ff00ff;
@@ -586,6 +891,109 @@ fieldset[disabled] .blend-button-success.active {
 .blend-button-success .badge {
   color: #ff00ff;
   background-color: #ffffff;
+}
+.blend-button-success.blend-disabled,
+.blend-button-success[disabled],
+fieldset[disabled] .blend-button-success {
+  color: #cccccc;
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-success.blend-disabled:hover,
+.blend-button-success[disabled]:hover,
+fieldset[disabled] .blend-button-success:hover,
+.blend-button-success.blend-disabled:focus,
+.blend-button-success[disabled]:focus,
+fieldset[disabled] .blend-button-success:focus,
+.blend-button-success.blend-disabled.focus,
+.blend-button-success[disabled].focus,
+fieldset[disabled] .blend-button-success.focus,
+.blend-button-success.blend-disabled:active,
+.blend-button-success[disabled]:active,
+fieldset[disabled] .blend-button-success:active,
+.blend-button-success.blend-disabled.active,
+.blend-button-success[disabled].active,
+fieldset[disabled] .blend-button-success.active,
+.open > .dropdown-toggle.blend-button-success.blend-disabled,
+.open > .dropdown-toggle.blend-button-success[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-success {
+  color: #cccccc;
+  background-color: #660066;
+  border-color: #5c005c;
+}
+.blend-button-success.blend-disabled:active,
+.blend-button-success[disabled]:active,
+fieldset[disabled] .blend-button-success:active,
+.blend-button-success.blend-disabled.active,
+.blend-button-success[disabled].active,
+fieldset[disabled] .blend-button-success.active,
+.open > .dropdown-toggle.blend-button-success.blend-disabled,
+.open > .dropdown-toggle.blend-button-success[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-success {
+  background-image: none;
+}
+.blend-button-success.blend-disabled.disabled,
+.blend-button-success[disabled].disabled,
+fieldset[disabled] .blend-button-success.disabled,
+.blend-button-success.blend-disabled[disabled],
+.blend-button-success[disabled][disabled],
+fieldset[disabled] .blend-button-success[disabled],
+fieldset[disabled] .blend-button-success.blend-disabled,
+fieldset[disabled] .blend-button-success[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-success,
+.blend-button-success.blend-disabled.disabled:hover,
+.blend-button-success[disabled].disabled:hover,
+fieldset[disabled] .blend-button-success.disabled:hover,
+.blend-button-success.blend-disabled[disabled]:hover,
+.blend-button-success[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-success[disabled]:hover,
+fieldset[disabled] .blend-button-success.blend-disabled:hover,
+fieldset[disabled] .blend-button-success[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-success:hover,
+.blend-button-success.blend-disabled.disabled:focus,
+.blend-button-success[disabled].disabled:focus,
+fieldset[disabled] .blend-button-success.disabled:focus,
+.blend-button-success.blend-disabled[disabled]:focus,
+.blend-button-success[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-success[disabled]:focus,
+fieldset[disabled] .blend-button-success.blend-disabled:focus,
+fieldset[disabled] .blend-button-success[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-success:focus,
+.blend-button-success.blend-disabled.disabled.focus,
+.blend-button-success[disabled].disabled.focus,
+fieldset[disabled] .blend-button-success.disabled.focus,
+.blend-button-success.blend-disabled[disabled].focus,
+.blend-button-success[disabled][disabled].focus,
+fieldset[disabled] .blend-button-success[disabled].focus,
+fieldset[disabled] .blend-button-success.blend-disabled.focus,
+fieldset[disabled] .blend-button-success[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-success.focus,
+.blend-button-success.blend-disabled.disabled:active,
+.blend-button-success[disabled].disabled:active,
+fieldset[disabled] .blend-button-success.disabled:active,
+.blend-button-success.blend-disabled[disabled]:active,
+.blend-button-success[disabled][disabled]:active,
+fieldset[disabled] .blend-button-success[disabled]:active,
+fieldset[disabled] .blend-button-success.blend-disabled:active,
+fieldset[disabled] .blend-button-success[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-success:active,
+.blend-button-success.blend-disabled.disabled.active,
+.blend-button-success[disabled].disabled.active,
+fieldset[disabled] .blend-button-success.disabled.active,
+.blend-button-success.blend-disabled[disabled].active,
+.blend-button-success[disabled][disabled].active,
+fieldset[disabled] .blend-button-success[disabled].active,
+fieldset[disabled] .blend-button-success.blend-disabled.active,
+fieldset[disabled] .blend-button-success[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-success.active {
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-success.blend-disabled .badge,
+.blend-button-success[disabled] .badge,
+fieldset[disabled] .blend-button-success .badge {
+  color: #990099;
+  background-color: #cccccc;
 }
 .blend-button-info {
   color: #ffffff;
@@ -632,6 +1040,109 @@ fieldset[disabled] .blend-button-info.active {
   color: #ef5d0a;
   background-color: #ffffff;
 }
+.blend-button-info.blend-disabled,
+.blend-button-info[disabled],
+fieldset[disabled] .blend-button-info {
+  color: #cccccc;
+  background-color: #8d3706;
+  border-color: #8d3706;
+}
+.blend-button-info.blend-disabled:hover,
+.blend-button-info[disabled]:hover,
+fieldset[disabled] .blend-button-info:hover,
+.blend-button-info.blend-disabled:focus,
+.blend-button-info[disabled]:focus,
+fieldset[disabled] .blend-button-info:focus,
+.blend-button-info.blend-disabled.focus,
+.blend-button-info[disabled].focus,
+fieldset[disabled] .blend-button-info.focus,
+.blend-button-info.blend-disabled:active,
+.blend-button-info[disabled]:active,
+fieldset[disabled] .blend-button-info:active,
+.blend-button-info.blend-disabled.active,
+.blend-button-info[disabled].active,
+fieldset[disabled] .blend-button-info.active,
+.open > .dropdown-toggle.blend-button-info.blend-disabled,
+.open > .dropdown-toggle.blend-button-info[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-info {
+  color: #cccccc;
+  background-color: #5c2404;
+  border-color: #522003;
+}
+.blend-button-info.blend-disabled:active,
+.blend-button-info[disabled]:active,
+fieldset[disabled] .blend-button-info:active,
+.blend-button-info.blend-disabled.active,
+.blend-button-info[disabled].active,
+fieldset[disabled] .blend-button-info.active,
+.open > .dropdown-toggle.blend-button-info.blend-disabled,
+.open > .dropdown-toggle.blend-button-info[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-info {
+  background-image: none;
+}
+.blend-button-info.blend-disabled.disabled,
+.blend-button-info[disabled].disabled,
+fieldset[disabled] .blend-button-info.disabled,
+.blend-button-info.blend-disabled[disabled],
+.blend-button-info[disabled][disabled],
+fieldset[disabled] .blend-button-info[disabled],
+fieldset[disabled] .blend-button-info.blend-disabled,
+fieldset[disabled] .blend-button-info[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-info,
+.blend-button-info.blend-disabled.disabled:hover,
+.blend-button-info[disabled].disabled:hover,
+fieldset[disabled] .blend-button-info.disabled:hover,
+.blend-button-info.blend-disabled[disabled]:hover,
+.blend-button-info[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-info[disabled]:hover,
+fieldset[disabled] .blend-button-info.blend-disabled:hover,
+fieldset[disabled] .blend-button-info[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-info:hover,
+.blend-button-info.blend-disabled.disabled:focus,
+.blend-button-info[disabled].disabled:focus,
+fieldset[disabled] .blend-button-info.disabled:focus,
+.blend-button-info.blend-disabled[disabled]:focus,
+.blend-button-info[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-info[disabled]:focus,
+fieldset[disabled] .blend-button-info.blend-disabled:focus,
+fieldset[disabled] .blend-button-info[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-info:focus,
+.blend-button-info.blend-disabled.disabled.focus,
+.blend-button-info[disabled].disabled.focus,
+fieldset[disabled] .blend-button-info.disabled.focus,
+.blend-button-info.blend-disabled[disabled].focus,
+.blend-button-info[disabled][disabled].focus,
+fieldset[disabled] .blend-button-info[disabled].focus,
+fieldset[disabled] .blend-button-info.blend-disabled.focus,
+fieldset[disabled] .blend-button-info[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-info.focus,
+.blend-button-info.blend-disabled.disabled:active,
+.blend-button-info[disabled].disabled:active,
+fieldset[disabled] .blend-button-info.disabled:active,
+.blend-button-info.blend-disabled[disabled]:active,
+.blend-button-info[disabled][disabled]:active,
+fieldset[disabled] .blend-button-info[disabled]:active,
+fieldset[disabled] .blend-button-info.blend-disabled:active,
+fieldset[disabled] .blend-button-info[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-info:active,
+.blend-button-info.blend-disabled.disabled.active,
+.blend-button-info[disabled].disabled.active,
+fieldset[disabled] .blend-button-info.disabled.active,
+.blend-button-info.blend-disabled[disabled].active,
+.blend-button-info[disabled][disabled].active,
+fieldset[disabled] .blend-button-info[disabled].active,
+fieldset[disabled] .blend-button-info.blend-disabled.active,
+fieldset[disabled] .blend-button-info[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-info.active {
+  background-color: #8d3706;
+  border-color: #8d3706;
+}
+.blend-button-info.blend-disabled .badge,
+.blend-button-info[disabled] .badge,
+fieldset[disabled] .blend-button-info .badge {
+  color: #8d3706;
+  background-color: #cccccc;
+}
 .blend-button-warning {
   color: #ffffff;
   background-color: #ff00ff;
@@ -677,6 +1188,109 @@ fieldset[disabled] .blend-button-warning.active {
   color: #ff00ff;
   background-color: #ffffff;
 }
+.blend-button-warning.blend-disabled,
+.blend-button-warning[disabled],
+fieldset[disabled] .blend-button-warning {
+  color: #cccccc;
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-warning.blend-disabled:hover,
+.blend-button-warning[disabled]:hover,
+fieldset[disabled] .blend-button-warning:hover,
+.blend-button-warning.blend-disabled:focus,
+.blend-button-warning[disabled]:focus,
+fieldset[disabled] .blend-button-warning:focus,
+.blend-button-warning.blend-disabled.focus,
+.blend-button-warning[disabled].focus,
+fieldset[disabled] .blend-button-warning.focus,
+.blend-button-warning.blend-disabled:active,
+.blend-button-warning[disabled]:active,
+fieldset[disabled] .blend-button-warning:active,
+.blend-button-warning.blend-disabled.active,
+.blend-button-warning[disabled].active,
+fieldset[disabled] .blend-button-warning.active,
+.open > .dropdown-toggle.blend-button-warning.blend-disabled,
+.open > .dropdown-toggle.blend-button-warning[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-warning {
+  color: #cccccc;
+  background-color: #660066;
+  border-color: #5c005c;
+}
+.blend-button-warning.blend-disabled:active,
+.blend-button-warning[disabled]:active,
+fieldset[disabled] .blend-button-warning:active,
+.blend-button-warning.blend-disabled.active,
+.blend-button-warning[disabled].active,
+fieldset[disabled] .blend-button-warning.active,
+.open > .dropdown-toggle.blend-button-warning.blend-disabled,
+.open > .dropdown-toggle.blend-button-warning[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-warning {
+  background-image: none;
+}
+.blend-button-warning.blend-disabled.disabled,
+.blend-button-warning[disabled].disabled,
+fieldset[disabled] .blend-button-warning.disabled,
+.blend-button-warning.blend-disabled[disabled],
+.blend-button-warning[disabled][disabled],
+fieldset[disabled] .blend-button-warning[disabled],
+fieldset[disabled] .blend-button-warning.blend-disabled,
+fieldset[disabled] .blend-button-warning[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-warning,
+.blend-button-warning.blend-disabled.disabled:hover,
+.blend-button-warning[disabled].disabled:hover,
+fieldset[disabled] .blend-button-warning.disabled:hover,
+.blend-button-warning.blend-disabled[disabled]:hover,
+.blend-button-warning[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-warning[disabled]:hover,
+fieldset[disabled] .blend-button-warning.blend-disabled:hover,
+fieldset[disabled] .blend-button-warning[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-warning:hover,
+.blend-button-warning.blend-disabled.disabled:focus,
+.blend-button-warning[disabled].disabled:focus,
+fieldset[disabled] .blend-button-warning.disabled:focus,
+.blend-button-warning.blend-disabled[disabled]:focus,
+.blend-button-warning[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-warning[disabled]:focus,
+fieldset[disabled] .blend-button-warning.blend-disabled:focus,
+fieldset[disabled] .blend-button-warning[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-warning:focus,
+.blend-button-warning.blend-disabled.disabled.focus,
+.blend-button-warning[disabled].disabled.focus,
+fieldset[disabled] .blend-button-warning.disabled.focus,
+.blend-button-warning.blend-disabled[disabled].focus,
+.blend-button-warning[disabled][disabled].focus,
+fieldset[disabled] .blend-button-warning[disabled].focus,
+fieldset[disabled] .blend-button-warning.blend-disabled.focus,
+fieldset[disabled] .blend-button-warning[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-warning.focus,
+.blend-button-warning.blend-disabled.disabled:active,
+.blend-button-warning[disabled].disabled:active,
+fieldset[disabled] .blend-button-warning.disabled:active,
+.blend-button-warning.blend-disabled[disabled]:active,
+.blend-button-warning[disabled][disabled]:active,
+fieldset[disabled] .blend-button-warning[disabled]:active,
+fieldset[disabled] .blend-button-warning.blend-disabled:active,
+fieldset[disabled] .blend-button-warning[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-warning:active,
+.blend-button-warning.blend-disabled.disabled.active,
+.blend-button-warning[disabled].disabled.active,
+fieldset[disabled] .blend-button-warning.disabled.active,
+.blend-button-warning.blend-disabled[disabled].active,
+.blend-button-warning[disabled][disabled].active,
+fieldset[disabled] .blend-button-warning[disabled].active,
+fieldset[disabled] .blend-button-warning.blend-disabled.active,
+fieldset[disabled] .blend-button-warning[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-warning.active {
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-warning.blend-disabled .badge,
+.blend-button-warning[disabled] .badge,
+fieldset[disabled] .blend-button-warning .badge {
+  color: #990099;
+  background-color: #cccccc;
+}
 .blend-button-danger {
   color: #ffffff;
   background-color: #ff00ff;
@@ -721,6 +1335,109 @@ fieldset[disabled] .blend-button-danger.active {
 .blend-button-danger .badge {
   color: #ff00ff;
   background-color: #ffffff;
+}
+.blend-button-danger.blend-disabled,
+.blend-button-danger[disabled],
+fieldset[disabled] .blend-button-danger {
+  color: #cccccc;
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-danger.blend-disabled:hover,
+.blend-button-danger[disabled]:hover,
+fieldset[disabled] .blend-button-danger:hover,
+.blend-button-danger.blend-disabled:focus,
+.blend-button-danger[disabled]:focus,
+fieldset[disabled] .blend-button-danger:focus,
+.blend-button-danger.blend-disabled.focus,
+.blend-button-danger[disabled].focus,
+fieldset[disabled] .blend-button-danger.focus,
+.blend-button-danger.blend-disabled:active,
+.blend-button-danger[disabled]:active,
+fieldset[disabled] .blend-button-danger:active,
+.blend-button-danger.blend-disabled.active,
+.blend-button-danger[disabled].active,
+fieldset[disabled] .blend-button-danger.active,
+.open > .dropdown-toggle.blend-button-danger.blend-disabled,
+.open > .dropdown-toggle.blend-button-danger[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-danger {
+  color: #cccccc;
+  background-color: #660066;
+  border-color: #5c005c;
+}
+.blend-button-danger.blend-disabled:active,
+.blend-button-danger[disabled]:active,
+fieldset[disabled] .blend-button-danger:active,
+.blend-button-danger.blend-disabled.active,
+.blend-button-danger[disabled].active,
+fieldset[disabled] .blend-button-danger.active,
+.open > .dropdown-toggle.blend-button-danger.blend-disabled,
+.open > .dropdown-toggle.blend-button-danger[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-danger {
+  background-image: none;
+}
+.blend-button-danger.blend-disabled.disabled,
+.blend-button-danger[disabled].disabled,
+fieldset[disabled] .blend-button-danger.disabled,
+.blend-button-danger.blend-disabled[disabled],
+.blend-button-danger[disabled][disabled],
+fieldset[disabled] .blend-button-danger[disabled],
+fieldset[disabled] .blend-button-danger.blend-disabled,
+fieldset[disabled] .blend-button-danger[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-danger,
+.blend-button-danger.blend-disabled.disabled:hover,
+.blend-button-danger[disabled].disabled:hover,
+fieldset[disabled] .blend-button-danger.disabled:hover,
+.blend-button-danger.blend-disabled[disabled]:hover,
+.blend-button-danger[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-danger[disabled]:hover,
+fieldset[disabled] .blend-button-danger.blend-disabled:hover,
+fieldset[disabled] .blend-button-danger[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-danger:hover,
+.blend-button-danger.blend-disabled.disabled:focus,
+.blend-button-danger[disabled].disabled:focus,
+fieldset[disabled] .blend-button-danger.disabled:focus,
+.blend-button-danger.blend-disabled[disabled]:focus,
+.blend-button-danger[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-danger[disabled]:focus,
+fieldset[disabled] .blend-button-danger.blend-disabled:focus,
+fieldset[disabled] .blend-button-danger[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-danger:focus,
+.blend-button-danger.blend-disabled.disabled.focus,
+.blend-button-danger[disabled].disabled.focus,
+fieldset[disabled] .blend-button-danger.disabled.focus,
+.blend-button-danger.blend-disabled[disabled].focus,
+.blend-button-danger[disabled][disabled].focus,
+fieldset[disabled] .blend-button-danger[disabled].focus,
+fieldset[disabled] .blend-button-danger.blend-disabled.focus,
+fieldset[disabled] .blend-button-danger[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-danger.focus,
+.blend-button-danger.blend-disabled.disabled:active,
+.blend-button-danger[disabled].disabled:active,
+fieldset[disabled] .blend-button-danger.disabled:active,
+.blend-button-danger.blend-disabled[disabled]:active,
+.blend-button-danger[disabled][disabled]:active,
+fieldset[disabled] .blend-button-danger[disabled]:active,
+fieldset[disabled] .blend-button-danger.blend-disabled:active,
+fieldset[disabled] .blend-button-danger[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-danger:active,
+.blend-button-danger.blend-disabled.disabled.active,
+.blend-button-danger[disabled].disabled.active,
+fieldset[disabled] .blend-button-danger.disabled.active,
+.blend-button-danger.blend-disabled[disabled].active,
+.blend-button-danger[disabled][disabled].active,
+fieldset[disabled] .blend-button-danger[disabled].active,
+fieldset[disabled] .blend-button-danger.blend-disabled.active,
+fieldset[disabled] .blend-button-danger[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-danger.active {
+  background-color: #990099;
+  border-color: #990099;
+}
+.blend-button-danger.blend-disabled .badge,
+.blend-button-danger[disabled] .badge,
+fieldset[disabled] .blend-button-danger .badge {
+  color: #990099;
+  background-color: #cccccc;
 }
 .blend-button-link {
   color: #00a3e7;
@@ -785,6 +1502,13 @@ input[type="button"].blend-button-block {
   font-family: BoostFont;
   border: solid 1px #d4d4d4;
   background-color: #fff;
+}
+.blend-checkbox-label {
+  display: inline-block;
+  font-family: BoostFont;
+  vertical-align: top;
+  line-height: 20px;
+  padding-left: 5px;
 }
 .blend-checkbox-checked {
   border: none;
@@ -949,6 +1673,17 @@ input[type="button"].blend-button-block {
 }
 .blend-fixedBar-bottom {
   bottom: 0;
+}
+.blend-body-fixed {
+  zoom: 1;
+}
+.blend-fullcolumn {
+  width: 100%;
+  overflow: hidden;
+}
+.blend-card {
+  margin: 0 16px;
+  border: 1px solid #2eb6aa;
 }
 .blend-gallery-mask {
   visibility: hidden;

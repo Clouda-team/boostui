@@ -4659,7 +4659,10 @@ $.widget("blend.checkbox",{
      */
     options: {
 		itemSelector:'.'+ NAMESPACE +'checkbox',
+        itemLabel:'label',
         type:'group',
+        itemSelected:NAMESPACE + 'checkbox-checked',
+        itemSelectAll:NAMESPACE + 'checkbox-all',
     },
     _create:function(){
 
@@ -4675,6 +4678,7 @@ $.widget("blend.checkbox",{
 
 
         this.$group = $this.find(options.itemSelector); //
+        this.$label = $this.find(options.itemLabel);
         this.$container = $this;
         
         console.log(options.datas);
@@ -4685,42 +4689,103 @@ $.widget("blend.checkbox",{
     _init: function () {
         this._initEvent();
     },
+    _checkGroup:function (curElem){
+
+        var that = this;
+        var EventSelected = that.$container.find("." + that.options.itemSelected),
+            EventSelector = that.$container.find(that.options.itemSelector);
+
+        var eventData = {
+            checked: 0
+        };
+            
+        if (that.options.type=="radio") {
+            EventSelected.removeClass(that.options.itemSelected);
+            curElem.addClass(that.options.itemSelected);
+            eventData.checked++;
+        }
+        else {
+            
+            //判断有无已勾选
+            EventSelector.each(function () {
+                eventData.checked = $(this).hasClass(that.options.itemSelected) ? ++eventData.checked : eventData.checked;
+            })
+            if (that.$container.find("." + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
+                eventData.checked--;
+            }
+
+            if (curElem.hasClass(that.options.itemSelectAll)) {
+
+
+                if (eventData.checked < EventSelector.length - 1) {
+                    EventSelector.each(function () {
+                        $(this).addClass(that.options.itemSelected);
+                        eventData.checked = EventSelector.length - 1;
+                    })
+                }
+                else {
+                    EventSelected.removeClass(that.options.itemSelected);
+                    eventData.checked = 0;
+                }
+
+            }
+            else {
+                
+                if (curElem.hasClass(that.options.itemSelected)) {
+                    curElem.removeClass(that.options.itemSelected);
+                    eventData.checked--;
+                }
+                else {
+                    curElem.addClass(that.options.itemSelected);
+                    eventData.checked++;
+                }
+
+            }
+            if (eventData.checked < EventSelector.length - 1) {
+                that.$container.find("." + that.options.itemSelectAll).removeClass(that.options.itemSelected);
+            }
+            else {
+                that.$container.find("." + that.options.itemSelectAll).addClass(that.options.itemSelected);
+            }
+        }
+        that._trigger("checked", null, eventData);
+    },
     _initEvent:function(){
 
         var that = this;
+
         if(this.options.type=="radio"){
             // radio box
             console.log(this.options);
             this.$group.on("tap", function () {
                 if (that._trigger("beforechecked", null, {})) {
-                    var eventData = {
-                        checked: 1
-                    };
                     var curElem = $(this);
-                    that.$container.find("." + NAMESPACE + "checkbox-checked").removeClass(NAMESPACE + "checkbox-checked");
-                    curElem.addClass(NAMESPACE + "checkbox-checked");
-                    that._trigger("checked", null, eventData);
+                    that._checkGroup(curElem)
+                }
+            });
+            this.$label.on("tap", function () {
+                if (that._trigger("beforechecked", null, {})) {
+                    var curElem = that.$group.eq([that.$label.index($(this))]);
+                    that._checkGroup(curElem)
                 }
             });
         }else{
             this.$group.on("tap", function () {
                 if (that._trigger("beforechecked", null, {})) {
-                    var eventData = {
-                        checked: 1
-                    };
                     var curElem = $(this);
-                    if (curElem.hasClass(NAMESPACE + "checkbox-checked")) {
-                        curElem.removeClass(NAMESPACE + "checkbox-checked");
-                        eventData.checked = 0;
-                    }
-                    else {
-                        curElem.addClass(NAMESPACE + "checkbox-checked");
-                    }
-                    that._trigger("checked", null, eventData);
+                    that._checkGroup(curElem)
+                    
+                }
+            });
+            this.$label.on("tap", function () {
+                if (that._trigger("beforechecked", null, {})) {
+                    var curElem = that.$group.eq([that.$label.index($(this))]);
+                    that._checkGroup(curElem)
                 }
             });
         }
     },
+    
     /**
      *	
      * 	
@@ -4730,7 +4795,7 @@ $.widget("blend.checkbox",{
         var elems = this.$group;
         for(var i=0;i<elems.length;i++){
             $this = $(elems[i]);
-            if($this.hasClass(NAMESPACE+"checkbox-checked")){
+            if($this.hasClass(NAMESPACE+"checkbox-checked") && !$this.hasClass(NAMESPACE+"checkbox-all")){
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
@@ -4880,97 +4945,91 @@ $.widget("blend.counter", {
 });
 })(Zepto)
 ;(function($){/**
-     * @function dialog
-     * @name dialog
-     * @author wangzhonghua
-     * @date 2015.02.05
-     * @memberof $.fn or $.blend
-     * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
-     * @desc 页面级dialog
-     * @param {Object} options 组件配置（以下参数为配置项）
-     * @param {String} options.id (可选, 默认值: 随机数) dialog id
-     * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
-     * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
-     * @param {String} options.title (可选, 默认值: 标题) dialog 标题
-     * @param {String} options.content (可选, 默认值: \'\') dialog 内容
-     * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
-     * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
-     * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
-     * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
-     * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
-     * 
-     *
-     * @example 
-     * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
-     * 	2、var dialog = $.blend.dialog({
-     * 						title: 'my title',
-     * 						message: 'my message',
-     * 					}); 
-     * 		  dialog.show();
-     */
-    
+ * @function dialog
+ * @name dialog
+ * @author wangzhonghua
+ * @file dialog.js
+ * @date 2015.02.05
+ * @memberof $.fn or $.blend
+ * @grammar  $('.test').dialog().show(),$.blend.dialog().show()
+ * @desc 页面级dialog
+ * @param {Object} options 组件配置（以下参数为配置项）
+ * @param {String} options.id (可选, 默认值: 随机数) dialog id
+ * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
+ * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
+ * @param {String} options.title (可选, 默认值: 标题) dialog 标题
+ * @param {String} options.content (可选, 默认值: \'\') dialog 内容
+ * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
+ * @param {String} options.cancelClass (可选, 默认值: \'\') dialog 取消按钮的自定义class
+ * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
+ * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
+ * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
+ *
+ * @example
+ * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
+ * 	2、var dialog = $.blend.dialog({
+ * 						title: 'my title',
+ * 						message: 'my message',
+ * 					});
+ * 		  dialog.show();
+ */
+
 'use strict';
-$.widget("blend.dialog", {
+$.widget('blend.dialog', {
     /*配置项*/
     options: {
-    	id: null,
-    	top: undefined,         // 自定义dialog距离顶部距离
+        id: null,
+        top: undefined,         // 自定义dialog距离顶部距离
         addCssClass: null,
-        title: "标题",          // dialog标题
-        content: "",            // dialog内容
-        cancelText: "取消",     // 取消按钮自定义文案
-        cancelClass: "",        
-        confirmText: "确认",    // 确认按钮自定义文案
-        confirmClass: "",
+        title: '标题',          // dialog标题
+        content: '',            // dialog内容
+        cancelText: '取消',     // 取消按钮自定义文案
+        cancelClass: '',
+        confirmText: '确认',    // 确认按钮自定义文案
+        confirmClass: '',
         maskTapClose: false,    // 点击mask，关闭dialog
-        renderType:0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
-        btn_status:3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        renderType: 0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
+        btn_status: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
-    
+
     /* _create 创建组件时调用一次*/
     _create: function () {
-    	var options = this.options;
-    	
-		this.$body = $('body');
-		this.id = options.id || 'dialog-' + (((1+Math.random())*0x1000)|0).toString(16),
-        this.addCssClass = options.addCssClass ? options.addCssClass : "";
+        var options = this.options;
+
+        this.$body = $('body');
+        this.id = options.id || 'dialog-' + (((1 + Math.random()) * 0x1000) | 0).toString(16);
+        this.addCssClass = options.addCssClass ? options.addCssClass : '';
 
         this.title = options.title;
         this.content = options.content;
-        this.cancelText = options.cancelText ;
+        this.cancelText = options.cancelText;
         this.cancelClass = options.cancelClass;
-        this.confirmText = options.confirmText ;
+        this.confirmText = options.confirmText;
         this.confirmClass = options.confirmClass;
         this.autoCloseDone = true;
-		this.maskTapClose = options.maskTapClose;
-		this.top = options.top;
-        
+        this.maskTapClose = options.maskTapClose;
+        this.top = options.top;
         this.renderType = options.renderType;
-        this.useCustom = (this.renderType == 2)?true:false;
+        this.useCustom = (this.renderType === 2) ? true : false;
         this.btn_status = options.btn_status;
-
-
         this.$el = this.element;
-        
     },
-    
-    /*初始化*/
-    _init: function(){
-    	
+    /**
+     * 初始化
+     */
+    _init: function () {
         var me = this;
         /**
          * UIX 环境的初始化
          */
-        if(IS_UIX){
-
+        if (IS_UIX) {
             // todo
-
-            if(this._uix !== null) {
-                //(this._uix.destroy)&&(this._uix.destroy());
+            if (this._uix !== null) {
+                // (this._uix.destroy)&&(this._uix.destroy());
             }
 
-            require(["blend"], function(blend) {
-              me._uix = me._createUIXDialog(blend);
+            require(['blend'], function (blend) {
+                me._uix = me._createUIXDialog(blend);
             });
 
             return;
@@ -4979,15 +5038,15 @@ $.widget("blend.dialog", {
         /**
          * 使用提供的默认方式
          */
-        if(!this.useCustom){
+        if (!this.useCustom) {
             this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
     },
-    _createUIXDialog:function(blend){
+    _createUIXDialog: function (blend) {
 
-        if(this.useCustom){
-            console.log("UIX暂不支持自定义dialog");
+        if (this.useCustom) {
+            console.error('UIX暂不支持自定义dialog');
             return;
         }
 
@@ -4998,198 +5057,197 @@ $.widget("blend.dialog", {
         var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
         var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
 
-        console.log(title+":"+content+":"+confirmText+":"+cancelText);
+        // console.log(title + ":" + content + ":" + confirmText + ":" + cancelText);
 
         // create Dialog
-        var uix_dialog = blend.create("dialog",{
-            title:title,
-            description:content
+        var uix_dialog = blend.create('dialog', {
+            title: title,
+            description: content
         });
 
-        
-        if((this.btn_status & 1) >0){
+        if ((this.btn_status & 1) > 0) {
             var confirmItem = uix_dialog.create({
-                text:confirmText
+                text: confirmText
             });
-            confirmItem.bind("ontap",(function(that){
-                return function(){
-                  that._trigger("confirm");
-                }
+            confirmItem.bind('ontap', (function (that) {
+                return function () {
+                    that._trigger('confirm');
+                };
             })(this));
 
-            uix_dialog.append(confirmItem); 
+            uix_dialog.append(confirmItem);
         }
 
-        if((this.btn_status & 2) >0){
+        if ((this.btn_status & 2) > 0) {
             var cancel_item = uix_dialog.create({
-                text:cancelText
+                text: cancelText
             });
-            cancel_item.bind("ontap",(function(that){
-                return function(){
-                  that._trigger("cancel");
-                }
+            cancel_item.bind('ontap', (function (that) {
+                return function () {
+                    that._trigger('cancel');
+                };
             })(this));
 
-            uix_dialog.append(cancel_item); 
+            uix_dialog.append(cancel_item);
         }
 
-
-        
         this._uixDialog = uix_dialog;
-
     },
-    _createHTMLDialog:function(){
+    _createHTMLDialog: function () {
 
-        //已经创建过dialog
-        if(this.jsRendered){ 
+        // 已经创建过dialog
+        if (this.jsRendered) {
             return this.$el;
         }
-        
-        //根据传递的参数
-        var outerEle,curEle;
-        if(this.renderType == 0){
+
+        // 根据传递的参数
+        var outerEle;
+        var curEle;
+        if (this.renderType === 0) {
             curEle = this.$el;
-            curEle.find("."+NAMESPACE+"dialog-footer a").addClass(NAMESPACE+"dialog-btn").addClass(NAMESPACE + 'button');
+            curEle.find('.' + NAMESPACE + 'dialog-footer a')
+            .addClass(NAMESPACE + 'dialog-btn')
+            .addClass(NAMESPACE + 'button');
             outerEle = curEle;
-
-        }else if(this.renderType == 1){
-            outerEle = this.getDialogHtml();
+        }
+        else if (this.renderType === 1) {
+            outerEle = this._getDialogHtml();
         }
 
-        if(!this.btn_status){
+        if (!this.btn_status) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
-        }else{
-          if((this.btn_status & 1) <= 0){
-              outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
-          }
-
-          if((this.btn_status & 2) <= 0){
-              outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
-          }
         }
-
+        else {
+            if ((this.btn_status & 1) <= 0) {
+                outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
+            }
+            if ((this.btn_status & 2) <= 0) {
+                outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
+            }
+        }
 
         this.jsRendered = true;
         return outerEle; 
     },
     /*事件绑定*/
-    _bindEvent: function(){
-   		var self = this;
-   		$(window).on("orientationchange resize", function () {
+    _bindEvent: function () {
+        var self = this;
+        $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on("tap", "." + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function(){
-        	self._trigger('cancel');
-        	self.autoCloseDone && self.hide();
-        }).on("tap", "." + (this.doneClass || NAMESPACE + 'dialog-confirm'), function(){
-        	self._trigger('confirm');
-        	self.autoCloseDone && self.hide();
-        }).on("dialog.close", function(){
-        	self.hide();
+        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+            self._trigger('cancel');
+            self.autoCloseDone && self.hide();
+        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+            self._trigger('confirm');
+            self.autoCloseDone && self.hide();
+        }).on('dialog.close', function () {
+            self.hide();
         });	
     },
-    
     /*定义事件派发*/
-    _trigger: function(event){
-    	this.$el.trigger('dialog:' + event);
+    _trigger: function (event) {
+        this.$el.trigger('dialog:' + event);
     },
-    
     /*生成dialog html片段*/
-    getDialogHtml: function(){
+    _getDialogHtml: function () {
 
-        var dom = '<div class="'+ NAMESPACE + 'dialog-header">' + this.title + '</div>'
-                      + '<div class="'+ NAMESPACE + 'dialog-body">' + this.content + '</div>'
-                      + '<div class="'+ NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' '+ NAMESPACE + 'dialog-cancel '+ NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + '  '+ NAMESPACE + 'dialog-confirm '+ NAMESPACE + 'button '+ NAMESPACE+'dialog-btn">' + this.confirmText + '</a>'
+        var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
+                      + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
+                      + '<div class="' + NAMESPACE + 'dialog-footer">'
+                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'button">' + this.cancelText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'button ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
-
         return this.$el;
-
     },
-    
-    /*显示dialog*/
-    show: function(){
+    /**
+     * 显示dialog
+     * @return {Object}
+     */
+    show: function () {
 
-
-        if(IS_UIX){
+        if (IS_UIX) {
             this._uixDialog.show();
-            return;
+            return null;
         }
 
-    	var self = this;
-    	if(this.lock){
-    		return this.$el;
-    	}
-    	
-        if(!this.hasRendered){
+        var self = this;
+        if (this.lock) {
+            return this.$el;
+        }
+        if (!this.hasRendered) {
             this.$el.appendTo(this.$body);
-            this.hasRendered = true;        //标记已经渲染
+            this.hasRendered = true;        // 标记已经渲染
         }
 
-    	this.setPosition();
-    	this.mask(0.5);
-    	window.setTimeout(function(){
-    		self.$el.addClass(NAMESPACE + 'dialog-show');
-    		self._trigger('show');
-    		self.lock = false;
-    	}, 50);
-    	this.lock = true;
-    	return this.$el;
+        this.setPosition();
+        this.mask(0.5);
+        window.setTimeout(function () {
+            self.$el.addClass(NAMESPACE + 'dialog-show');
+            self._trigger('show');
+            self.lock = false;
+        }, 50);
+        this.lock = true;
+        return this.$el;
     },
-    
     /*关闭dialog*/
     hide: function () {
-    	var self = this;
-    	if(this.lock){
-    		return this.$el;
-    	}
-        window.setTimeout(function(){
-    		self.unmask();
-    		self.lock = false;
-    	}, 150);
-    	this._trigger('hide');
-    	this.lock = true;
+        var self = this;
+        if (this.lock) {
+            return this.$el;
+        }
+        window.setTimeout(function () {
+            self.unmask();
+            self.lock = false;
+        }, 150);
+        this._trigger('hide');
+        this.lock = true;
         return this.$el.removeClass(NAMESPACE + 'dialog-show');
     },
-    /*销毁dialog*/
-    destroy: function(){
-    	this.unmask();
-    	if(this.$el){
-    		this.$el.remove();
-    		this.$el = [];
-    	}
-    	return this.$el;
+    /**
+     * 销毁dialog
+     * @return {Object}
+     */
+    destroy: function () {
+        this.unmask();
+        if (this.$el) {
+            this.$el.remove();
+            this.$el = [];
+        }
+        return this.$el;
     },
-    
     /*显示mask*/
     mask: function (opacity) {
-    	var self = this;
-        opacity = opacity ? " style='opacity:" + opacity + ";'" : "";
-        (this.maskDom = $('<div class="'+ NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
-        this.maskDom.on('tap', function(e){
-        	e.preventDefault();
-        	self.maskTapClose && self.hide();
-        }).on('touchmove', function(e){
-        	e.preventDefault();
+        var self = this;
+        opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
+        (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.on('tap', function (e) {
+            e.preventDefault();
+            self.maskTapClose && self.hide();
+        }).on('touchmove', function (e) {
+            e.preventDefault();
         });
     },
-    
-    /*关闭mask*/
-	unmask: function (){
-		this.maskDom.off('touchstart touchmove').remove();
-	},
-	
-	/*设置dialog位置*/
-	setPosition: function () {
-        var top = typeof this.top == 'undefined'?((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2): parseInt(this.top);
+    /**
+     * 关闭mask
+     */
+    unmask: function () {
+        this.maskDom.off('touchstart touchmove').remove();
+    },
+    /**
+     * 设置dialog位置
+     * @return {Object}
+     */
+    setPosition: function () {
+        var top = typeof this.top === 'undefined' ?
+        ((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
-        	top: top + "px",
-        	left: left + "px"
+            top: top + 'px',
+            left: left + 'px'
         });
-   }
+    }
 });
 })(Zepto)
 ;(function($){/**
@@ -5214,20 +5272,47 @@ $.widget("blend.fixedBar", {
     
 });})(Zepto)
 ;(function($){/**
+     * @function fullcolumn
+     * @name fullcolumn
+     * @author cuixuecheng
+     * @date 2015.04.07
+     * @memberof $.fn or $.blend
+     * @example 
+     * 	$.boost.fullcolumn()
+     */
+    
+'use strict';
+$.widget("blend.fullcolumn", {
+	
+    _init: function () {
+    	//此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fullcolumn不能落底的问题。
+		$(window).on('resize orientationchange', function(){
+			 window.scrollBy(0,0);
+		});
+    },
+
+    /**
+     *  
+     *  
+     */
+});})(Zepto)
+;(function($){/**
  * gallery 组件
  * Created by dingquan on 15-3-24.
+ *
+ * @file gallery.js
+ * @author dingquan
  */
 
 'use strict';
 // var NAMESPACE = "blend-";
-$.widget("blend.gallery",{
+$.widget('blend.gallery', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-       
     },
-    _create:function(){
+    _create: function () {
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
@@ -5237,72 +5322,69 @@ $.widget("blend.gallery",{
          * 经过继承的 options
          */
         var options = this.options;
-        
-        if(!options.data || !options.data.length){
-            throw new Error("data can not be empty");
-        } 
-        
+
+        if (!options.data || !options.data.length) {
+            throw new Error('data can not be empty');
+        }
     },
     /**
      * _init 初始化的时候调用
      */
     _init: function () {
 
+        var me = this;
 
-      var me = this;
-      if (IS_UIX){
-          // UIX
-          if(this._uix !== null) {
-            // (this._uix.destroy)&&(this._uix.destroy());
-          }
-          require(["blend"], function(blend) {
-              me._uix = me._initUIXGallery(blend);
-          });
+        if (IS_UIX) {
+            // UIX
+            if (this._uix !== null) {
+              // (this._uix.destroy)&&(this._uix.destroy());
+            }
+            require(['blend'], function (blend) {
+                me._uix = me._initUIXGallery(blend);
+            });
 
-          return;
-
-      }else{
-        // web
-
-        this._createMask();   //创建遮罩mask
-        this._setting();      // 设置相关内部属性
-        this._renderHTML();
-        this._bindHandler(); 
-      }
-        
+        }
+        else {
+            /**
+             * web gallery 初始化
+             */
+            this._createMask();   // 创建遮罩mask
+            this._setting();    // 设置相关内部属性
+            this._renderHTML();
+            this._bindHandler();
+        }
     },
-    _initUIXGallery:function(blend){
+    _initUIXGallery: function (blend) {
 
-      var uixGallery = blend.create("gallery",{
-        images:this.options.data
-      });
+        var uixGallery = blend.create('gallery', {
+            images: this.options.data
+        });
 
-      return uixGallery;
+        return uixGallery;
 
     },
-    _createMask:function(){
+    _createMask: function () {
 
-      if(this.mask){
-        //已经初始化过mask
-        return;
-      }
+        if (this.mask) {
+            // 已经初始化过mask
+            return;
+        }
 
-      var mask = document.createElement("div");
-      mask.classList.add(NAMESPACE+"gallery-mask");
-      document.querySelector("body").appendChild(this.mask = mask);
+        var mask = document.createElement('div');
+        mask.classList.add(NAMESPACE + 'gallery-mask');
+        document.querySelector('body').appendChild(this.mask = mask);
 
     },
     /**
      * 根据传入options 设置内部变量
-     * 
-     * @return {[type]} [description]
+     *
      */
-    _setting:function(){
+    _setting: function () {
 
         var opts = this.options;
         // 幻灯片外层容器
-        this.wrap = this.mask;  
-        // 幻灯片 内容list 
+        this.wrap = this.mask;
+        // 幻灯片 内容list
         this.data = opts.data;
         // 内容类型 dom or pic
         this.type = 'pic';
@@ -5314,19 +5396,18 @@ $.widget("blend.gallery",{
         this.duration = opts.duration || 2000;
         // 指定开始播放的图片index
         this.initIndex = opts.initIndex || 0;
-        if(this.initIndex > this.data.length - 1 || this.initIndex < 0) {
-          this.initIndex = 0;
+        if (this.initIndex > this.data.length - 1 || this.initIndex < 0) {
+            this.initIndex = 0;
         }
-        // touchstart prevent default to fixPage 
+        // touchstart prevent default to fixPage
         this.fixPage = true;
-        
         this.slideIndex = this.slideIndex || this.initIndex || 0;
 
         this.axis = 'X';
         this.reverseAxis = this.axis === 'Y' ? 'X' : 'Y';
 
-        this.width = this.width||this.wrap.clientWidth || document.body.clientWidth||document.body.offsetWidth;
-        this.height = this.height||this.wrap.clientHeight || document.body.clientHeight||document.body.offsetHeight;
+        this.width = this.width || this.wrap.clientWidth || document.body.clientWidth || document.body.offsetWidth;
+        this.height = this.height || this.wrap.clientHeight || document.body.clientHeight || document.body.offsetHeight;
 
         this.ratio = this.height / this.width;
         this.scale = this.width;
@@ -5340,877 +5421,903 @@ $.widget("blend.gallery",{
         this.onslidechange = opts.onslidechange;
 
         this.offset = this.offset || {
-          X: 0,
-          Y: 0
+            X: 0,
+            Y: 0
         };
         this.useZoom = opts.useZoom || false;
         // looping logic adjust
         if (this.data.length < 2) {
-          this.isLooping = false;
-          this.isAutoPlay = false;
-        } else {
-          this.isLooping = opts.isLooping || false;
-          this.isAutoplay = false;
+            this.isLooping = false;
+            this.isAutoPlay = false;
+        }
+        else {
+            this.isLooping = opts.isLooping || false;
+            this.isAutoplay = false;
         }
         // little trick set, when you chooce tear & vertical same time
         // iSlider overspread mode will be set true autometicly
         if (opts.animateType === 'card' && this.isVertical) {
-          this.isOverspread = true;
+            this.isOverspread = true;
         }
         // 自动播放模式
-        if(this.isAutoplay) {
-          this.show();
-          this._play();
+        if (this.isAutoplay) {
+            this.show();
+            this._play();
         }
 
-        if(this.useZoom) {
-          this.addZoomPlugin();
-          this._initZoom(opts);
+        if (this.useZoom) {
+            this.addZoomPlugin();
+            this._initZoom(opts);
         }
         // debug mode
         this.log = opts.isDebug ? function (str) {
-            window.console.log(str);
-          } : function () {
-        };
+                window.console.log(str);
+            } : function () {
+            };
         // set Damping function
         this._setUpDamping();
         // stop autoplay when window blur
-    //    this._setPlayWhenFocus();
+        // this._setPlayWhenFocus();
         // set animate Function
-        this._animateFunc = opts.animateType in this._animateFuncs ? this._animateFuncs[opts.animateType] : this._animateFuncs['default'];
-       
+        this._animateFunc =
+        opts.animateType in this._animateFuncs ? this._animateFuncs[opts.animateType] : this._animateFuncs['default'];
     },
-    _animateFuncs : {
+    _animateFuncs: {
         'default': function (dom, axis, scale, i, offset) {
             dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
         }
     },
-    _setUpDamping:function(){
-      var oneIn2 = this.scale >> 1;
-      var oneIn4 = oneIn2 >> 1;
-      var oneIn16 = oneIn4 >> 2;
-      this._damping = function (distance) {
-        var dis = Math.abs(distance);
-        var result;
-        if (dis < oneIn2) {
-          result = dis >> 1;
-        } else if (dis < oneIn2 + oneIn4) {
-          result = oneIn4 + (dis - oneIn2 >> 2);
-        } else {
-          result = oneIn4 + oneIn16 + (dis - oneIn2 - oneIn4 >> 3);
-        }
-        return distance > 0 ? result : -result;
-      };
+    _setUpDamping: function () {
+        var oneIn2 = this.scale >> 1;
+        var oneIn4 = oneIn2 >> 1;
+        var oneIn16 = oneIn4 >> 2;
+        this._damping = function (distance) {
+            var dis = Math.abs(distance);
+            var result;
+            if (dis < oneIn2) {
+                result = dis >> 1;
+            }
+            else if (dis < oneIn2 + oneIn4) {
+                result = oneIn4 + (dis - oneIn2 >> 2);
+            }
+            else {
+                result = oneIn4 + oneIn16 + (dis - oneIn2 - oneIn4 >> 3);
+            }
+            return distance > 0 ? result : -result;
+        };
     },
     /**
     * render single item html by idx
     * @param {element} el ..
     * @param {number}  i  ..
     */
-    _renderItem :function (el, i) {
-      var item;
-      var html;
-      var len = this.data.length;
-      // get the right item of data
-      if (!this.isLooping) {
-        item = this.data[i] || { empty: true };
-      } else {
-        if (i < 0) {
-          item = this.data[len + i];
-        } else if (i > len - 1) {
-          item = this.data[i - len];
-        } else {
-          item = this.data[i];
+    _renderItem: function (el, i) {
+        var item;
+        var html;
+        var len = this.data.length;
+        // get the right item of data
+        if (!this.isLooping) {
+            item = this.data[i] || {empty: true};
         }
-      }
-      if (item.empty) {
-        el.innerHTML = '';
-        el.style.background = '';
-        return;
-      }
-      if (this.type === 'pic') {
-        if (!this.isOverspread) {
-          html = item.height / item.width > this.ratio ? '<img  height="' + this.height + '" src="' + item.image + '">' : '<img width="' + this.width + '" src="' + item.image + '">';
-        } else {
-          el.style.background = 'url(' + item.image + ') 50% 50% no-repeat';
-          el.style.backgroundSize = 'cover';
+        else {
+            if (i < 0) {
+                item = this.data[len + i];
+            }
+            else if (i > len - 1) {
+                item = this.data[i - len];
+            }
+            else {
+                item = this.data[i];
+            }
         }
-      } else if (this.type === 'dom') {
-        html = item.image;
-      }
-      html && (el.innerHTML = html);
+        if (item.empty) {
+            el.innerHTML = '';
+            el.style.background = '';
+            return;
+        }
+        if (this.type === 'pic') {
+            if (!this.isOverspread) {
+                html = item.height / item.width > this.ratio ?
+                '<img  height="' + this.height + '" src="' + item.image + '">' : '<img width="' + this.width + '" src="' + item.image + '">';
+            }
+            else {
+                el.style.background = 'url(' + item.image + ') 50% 50% no-repeat';
+                el.style.backgroundSize = 'cover';
+            }
+        }
+        else if (this.type === 'dom') {
+            html = item.image;
+        }
+        html && (el.innerHTML = html);
     },
     /**
      * render list html
      */
-    _renderHTML : function () {
+    _renderHTML: function () {
 
-      this.outer && (this.outer.innerHTML = '');
-      //initail ul element
-      var outer = this.outer || document.createElement('ul');
-      outer.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;margin:0;padding:0;list-style:none;';
-      //storage li elements, only store 3 elements to reduce memory usage
-      this.els = [];
-      for (var i = 0; i < 3; i++) {
-        var li = document.createElement('li');
-        li.className = this.type === 'dom' ? NAMESPACE+'gallery-dom' : NAMESPACE+'gallery-pic';
-        li.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;';
-        this.els.push(li);
-        //prepare style animation
-        this._animateFunc(li, this.axis, this.scale, i, 0);
+        this.outer && (this.outer.innerHTML = '');
+        // initail ul element
+        var outer = this.outer || document.createElement('ul');
+        outer.style.cssText =
+        'height:' + this.height + 'px;width:' + this.width + 'px;margin:0;padding:0;list-style:none;';
+        // storage li elements, only store 3 elements to reduce memory usage
+        this.els = [];
+        for (var i = 0; i < 3; i++) {
+            var li = document.createElement('li');
+            li.className = this.type === 'dom' ? NAMESPACE + 'gallery-dom' : NAMESPACE + 'gallery-pic';
+            li.style.cssText = 'height:' + this.height + 'px;width:' + this.width + 'px;';
+            this.els.push(li);
+            // prepare style animation
+            this._animateFunc(li, this.axis, this.scale, i, 0);
 
-        if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
-          this._renderItem(li, 1 - i + this.slideIndex);
-        } else {
-          this._renderItem(li, i - 1 + this.slideIndex);
+            if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
+                this._renderItem(li, 1 - i + this.slideIndex);
+            }
+            else {
+                this._renderItem(li, i - 1 + this.slideIndex);
+            }
+            outer.appendChild(li);
         }
-        outer.appendChild(li);
-      }
-      this._initLoadImg();
-      //append ul to div#canvas
-      if (!this.outer) {
-        this.outer = outer;
-        this.wrap.appendChild(outer);
-      }
+        this._initLoadImg();
+        // append ul to div#canvas
+        if (!this.outer) {
+            this.outer = outer;
+            this.wrap.appendChild(outer);
+        }
 
-      if(!this.topMenu){
-        this._renderTopAndBottom();
-      }
-      
+        if (!this.topMenu) {
+            this._renderTopAndBottom();
+        }
     },
-    
+    _renderTopAndBottom: function () {
 
-    _renderTopAndBottom:function(){
+        var topMenu = this.topMenu || document.createElement('div');
+        var topBack = this.topBack || document.createElement('span');
+        var topTitle = this.topTitle || document.createElement('div');
 
-      var topMenu = this.topMenu || document.createElement('div');  
-      var topBack = this.topBack || document.createElement('span');
-      var topTitle = this.topTitle || document.createElement('div');
+        topMenu.classList.add(NAMESPACE + 'gallery-top');
+        topBack.classList.add(NAMESPACE + 'gallery-top-back');
+        topTitle.classList.add(NAMESPACE + 'gallery-top-title');
 
-      topMenu.classList.add(NAMESPACE+"gallery-top");
-      topBack.classList.add(NAMESPACE+"gallery-top-back");
-      topTitle.classList.add(NAMESPACE+"gallery-top-title");
+        topMenu.appendChild(topBack);
+        topMenu.appendChild(this.topTitle = topTitle);
 
-      topMenu.appendChild(topBack);
-      topMenu.appendChild(this.topTitle = topTitle);
+        topBack.addEventListener('click', (function (val) {
+            var that = val;
 
-      topBack.addEventListener("click",(function(val){
-        
-        var that = val;
+            return function (e) {
+                that.outer.innerHTML = '';
+                // that.mask.style.visibility = "hidden";
+                that.mask.style.display = 'none';
+                that._hideMenu();
+            };
+        })(this));
 
-        return function (e) {
-          that.outer.innerHTML = "";
-          // that.mask.style.visibility = "hidden";
-          that.mask.style.display = "none";
-          that._hideMenu();
-        }
-      })(this));
+        var bottomMenu = this.bottomMenu || document.createElement('div');
+        bottomMenu.classList.add(NAMESPACE + 'gallery-bottom');
 
+        // 底部内容展示
 
-
-
-      var bottomMenu = this.bottomMenu || document.createElement('div');     
-      bottomMenu.classList.add(NAMESPACE+"gallery-bottom");
-
-      //底部内容展示
-
-      var bottomInfoWrap = this.bottomInfoWrap || document.createElement("div");
-      bottomInfoWrap.classList.add(NAMESPACE+"gallery-bottom-info-wrap");
+        var bottomInfoWrap = this.bottomInfoWrap || document.createElement('div');
+        bottomInfoWrap.classList.add(NAMESPACE + 'gallery-bottom-info-wrap');
 
 
-      var bottomInfo = this.bottomInfo || document.createElement("div");
-      bottomInfo.classList.add(NAMESPACE+"gallery-bottom-info");
+        var bottomInfo = this.bottomInfo || document.createElement('div');
+        bottomInfo.classList.add(NAMESPACE + 'gallery-bottom-info');
 
 
-      var bottomPage = this.bottomPage || document.createElement("span");
-      bottomPage.classList.add(NAMESPACE+"gallery-bottom-page");
+        var bottomPage = this.bottomPage || document.createElement('span');
+        bottomPage.classList.add(NAMESPACE + 'gallery-bottom-page');
 
-      bottomInfoWrap.appendChild(this.bottomPage = bottomPage);
-      bottomInfoWrap.appendChild(this.bottomInfo = bottomInfo);
+        bottomInfoWrap.appendChild(this.bottomPage = bottomPage);
+        bottomInfoWrap.appendChild(this.bottomInfo = bottomInfo);
 
-      bottomMenu.appendChild(bottomInfoWrap);
+        bottomMenu.appendChild(bottomInfoWrap);
 
-      this.wrap.appendChild(this.topMenu = topMenu);
-      this.wrap.appendChild(this.bottomMenu = bottomMenu);
-
+        this.wrap.appendChild(this.topMenu = topMenu);
+        this.wrap.appendChild(this.bottomMenu = bottomMenu);
     },
     /**
      *  preload img when slideChange
      *  @param {number} dataIndex means which image will be load
      */
-    _preloadImg : function (dataIndex) {
-      var len = this.data.length;
-      var idx = dataIndex;
-      var self = this;
-      var loadImg = function (index) {
-        if (!self.data[index].loaded) {
-          var preloadImg = new Image();
-          preloadImg.src = self.data[index].image;
-          self.data[index].loaded = 1;
-          
+    _preloadImg: function (dataIndex) {
+        var len = this.data.length;
+        var idx = dataIndex;
+        var self = this;
+        var loadImg = function (index) {
+            if (!self.data[index].loaded) {
+                var preloadImg = new Image();
+                preloadImg.src = self.data[index].image;
+                self.data[index].loaded = 1;
+            }
+        };
+        if (self.type !== 'dom') {
+            var nextIndex = idx + 2 > len - 1 ? (idx + 2) % len : idx + 2;
+            var prevIndex = idx - 2 < 0 ? len - 2 + idx : idx - 2;
+            loadImg(nextIndex);
+            loadImg(prevIndex);
         }
-      };
-      if (self.type !== 'dom') {
-        var nextIndex = idx + 2 > len - 1 ? (idx + 2) % len : idx + 2;
-        var prevIndex = idx - 2 < 0 ? len - 2 + idx : idx - 2;
-        loadImg(nextIndex);
-        loadImg(prevIndex);
-      }
     },
     /**
      *  load extra imgs when renderHTML
      */
-    _initLoadImg :function () {
-      var data = this.data;
-      var len = data.length;
-      var idx = this.initIndex;
-      var self = this;
-      if (this.type !== 'dom' && len > 3) {
-        var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
-        var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
-        data[idx].loaded = 1;
-        data[nextIndex].loaded = 1;
-        if (self.isLooping) {
-          data[prevIndex].loaded = 1;
+    _initLoadImg: function () {
+        var data = this.data;
+        var len = data.length;
+        var idx = this.initIndex;
+        var self = this;
+        if (this.type !== 'dom' && len > 3) {
+            var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
+            var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
+            data[idx].loaded = 1;
+            data[nextIndex].loaded = 1;
+            if (self.isLooping) {
+                data[prevIndex].loaded = 1;
+            }
+            setTimeout(function () {
+                self._preloadImg(idx);
+            }, 200);
         }
-        setTimeout(function () {
-          self._preloadImg(idx);
-        }, 200);
-      }
     },
-    _play:function(){
-      var self = this;
-      var duration = this.duration;
-      clearInterval(this.autoPlayTimer);
-      this.autoPlayTimer = setInterval(function () {
-        self._slideTo(self.slideIndex + 1);
-      }, duration);
+    _play: function () {
+        var self = this;
+        var duration = this.duration;
+        clearInterval(this.autoPlayTimer);
+        this.autoPlayTimer = setInterval(function () {
+            self._slideTo(self.slideIndex + 1);
+        }, duration);
     },
-    _slideTo:function (dataIndex) {
+    _slideTo: function (dataIndex) {
 
-     
-
-
-      var data = this.data;
-      var els = this.els;
-      var idx = dataIndex;
-      var n = dataIndex - this.slideIndex;
-      if (Math.abs(n) > 1) {
-        var nextEls = n > 0 ? this.els[2] : this.els[0];
-        this._renderItem(nextEls, idx);
-      }
-      // preload when slide
-      this._preloadImg(idx);
-      // get right item of data
-      if (data[idx]) {
-        this.slideIndex = idx;
-      } else {
-        if (this.isLooping) {
-          this.slideIndex = n > 0 ? 0 : data.length - 1;
-        } else {
-          this.slideIndex = this.slideIndex;
-          n = 0;
-        }
-      }
-     
-
-      this.log('pic idx:' + this.slideIndex);
-      this.topTitle.innerText = this.data[this.slideIndex].title;
-      this.bottomInfo.innerText = this.data[this.slideIndex].description;
-      this.bottomPage.innerText = (this.slideIndex+1)+"/"+this.data.length;
-
-      // keep the right order of items
-      var sEle;
-      if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
-        if (n > 0) {
-          sEle = els.pop();
-          els.unshift(sEle);
-        } else if (n < 0) {
-          sEle = els.shift();
-          els.push(sEle);
-        }
-      } else {
-        if (n > 0) {
-          sEle = els.shift();
-          els.push(sEle);
-        } else if (n < 0) {
-          sEle = els.pop();
-          els.unshift(sEle);
-        }
-      }
-      // slidechange should render new item
-      // and change new item style to fit animation
-      if (n !== 0) {
+        var data = this.data;
+        var els = this.els;
+        var idx = dataIndex;
+        var n = dataIndex - this.slideIndex;
         if (Math.abs(n) > 1) {
-          this._renderItem(els[0], idx - 1);
-          this._renderItem(els[2], idx + 1);
-        } else if (Math.abs(n) === 1) {
-          this._renderItem(sEle, idx + n);
+            var nextEls = n > 0 ? this.els[2] : this.els[0];
+            this._renderItem(nextEls, idx);
         }
-        sEle.style.webkitTransition = 'none';
-        sEle.style.visibility = 'hidden';
-        setTimeout(function () {
-          sEle.style.visibility = 'visible';
-        }, 200);
-        // this.onslidechange && this.onslidechange(this.slideIndex);
-        // this.dotchange && this.dotchange();
-      }
-      // do the trick animation
-      for (var i = 0; i < 3; i++) {
-        if (els[i] !== sEle) {
-          els[i].style.webkitTransition = 'all .3s ease';
+        // preload when slide
+        this._preloadImg(idx);
+        // get right item of data
+        if (data[idx]) {
+            this.slideIndex = idx;
         }
-        this._animateFunc(els[i], this.axis, this.scale, i, 0);
-      }
+        else {
+            if (this.isLooping) {
+                this.slideIndex = n > 0 ? 0 : data.length - 1;
+            }
+            else {
+                this.slideIndex = this.slideIndex;
+                n = 0;
+            }
+        }
 
-      // stop playing when meet the end of data
-      if (this.isAutoplay && !this.isLooping && this.slideIndex === data.length - 1) {
-        this._pause();
-      }
+        this.log('pic idx:' + this.slideIndex);
+        this.topTitle.innerText = this.data[this.slideIndex].title;
+        this.bottomInfo.innerText = this.data[this.slideIndex].description;
+        this.bottomPage.innerText = (this.slideIndex + 1) + '/' + this.data.length;
+
+        // keep the right order of items
+        var sEle;
+        if (this.isVertical && (this._opts.animateType === 'rotate' || this._opts.animateType === 'flip')) {
+            if (n > 0) {
+                sEle = els.pop();
+                els.unshift(sEle);
+            }
+            else if (n < 0) {
+                sEle = els.shift();
+                els.push(sEle);
+            }
+        }
+        else {
+            if (n > 0) {
+                sEle = els.shift();
+                els.push(sEle);
+            }
+            else if (n < 0) {
+                sEle = els.pop();
+                els.unshift(sEle);
+            }
+        }
+        // slidechange should render new item
+        // and change new item style to fit animation
+        if (n !== 0) {
+            if (Math.abs(n) > 1) {
+                this._renderItem(els[0], idx - 1);
+                this._renderItem(els[2], idx + 1);
+            }
+            else if (Math.abs(n) === 1) {
+                this._renderItem(sEle, idx + n);
+            }
+            sEle.style.webkitTransition = 'none';
+            sEle.style.visibility = 'hidden';
+            setTimeout(function () {
+                sEle.style.visibility = 'visible';
+            }, 200);
+            // this.onslidechange && this.onslidechange(this.slideIndex);
+            // this.dotchange && this.dotchange();
+        }
+        // do the trick animation
+        for (var i = 0; i < 3; i++) {
+            if (els[i] !== sEle) {
+                els[i].style.webkitTransition = 'all .3s ease';
+            }
+            this._animateFunc(els[i], this.axis, this.scale, i, 0);
+        }
+
+        // stop playing when meet the end of data
+        if (this.isAutoplay && !this.isLooping && this.slideIndex === data.length - 1) {
+            this._pause();
+        }
     },
-    _pause:function(){
-      clearInterval(this.autoPlayTimer); 
+    _pause: function () {
+        clearInterval(this.autoPlayTimer);
     },
     /**
-     * judge the device 
-     * @return {object} 时间
+     * judge the device
+     * @return {Object} 时间
      */
-    _device:function () {
-      var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
-      var startEvt = hasTouch ? 'touchstart' : 'mousedown';
-      var moveEvt = hasTouch ? 'touchmove' : 'mousemove';
-      var endEvt = hasTouch ? 'touchend' : 'mouseup';
-      return {
-        hasTouch: hasTouch,
-        startEvt: startEvt,
-        moveEvt: moveEvt,
-        endEvt: endEvt
-      };
-    },
-    _bindHandler:function () {
-      var that = this;
-      var outer = this.outer;
-      var device = this._device();
-      if (!device.hasTouch) {
-        outer.style.cursor = 'pointer';
-        outer.ondragstart = function (evt) {
-          if (evt) {
-            return false;
-          }
-          return true;
+    _device: function () {
+        var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+        var startEvt = hasTouch ? 'touchstart' : 'mousedown';
+        var moveEvt = hasTouch ? 'touchmove' : 'mousemove';
+        var endEvt = hasTouch ? 'touchend' : 'mouseup';
+        return {
+            hasTouch: hasTouch,
+            startEvt: startEvt,
+            moveEvt: moveEvt,
+            endEvt: endEvt
         };
-      }
+    },
+    _bindHandler: function () {
 
-      outer.addEventListener(device.startEvt, this);
-      outer.addEventListener(device.moveEvt, this);
-      outer.addEventListener(device.endEvt, this);
-      window.addEventListener('orientationchange', this);
-    },
-    handleEvent:function (evt) {
-      var device = this._device();
-      switch (evt.type) {
-      case device.startEvt:
-        this._startHandler(evt);
-        break;
-      case device.moveEvt:
-        this._moveHandler(evt);
-        break;
-      case device.endEvt:
-        this._endHandler(evt);
-        break;
-      case 'touchcancel':
-        this._endHandler(evt);
-        break;
-      case 'orientationchange':
-        this._orientationchangeHandler();
-        break;
-      case 'focus':
-        this.isAutoplay && this._play();
-        break;
-      case 'blur':
-        this._pause();
-        break;
-      }
-    },
-    _startHandler : function (evt) {
-      if (this.fixPage) {
-        evt.preventDefault();
-      }
+        var outer = this.outer;
+        var device = this._device();
+        if (!device.hasTouch) {
+            outer.style.cursor = 'pointer';
+            outer.ondragstart = function (evt) {
+                if (evt) {
+                    return false;
+                }
+                return true;
+            };
+        }
 
-      var device = this._device();
-      // console.log(device);
-      this.isMoving = true;
-      this._pause();
-      // this.onslidestart && this.onslidestart();
-      this.log('Event: beforeslide');
-      this.startTime = new Date().getTime();
-      this.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
-      this.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
-      this.zoomStartHandler && this.zoomStartHandler(evt);  // zoom 事件
+        outer.addEventListener(device.startEvt, this);
+        outer.addEventListener(device.moveEvt, this);
+        outer.addEventListener(device.endEvt, this);
+        window.addEventListener('orientationchange', this);
     },
-    _moveHandler:function (evt) {
-      
-      if(this.isMoving) {
+    handleEvent: function (evt) {
+        var device = this._device();
+        switch (evt.type) {
+            case device.startEvt:
+                this._startHandler(evt);
+                break;
+            case device.moveEvt:
+                this._moveHandler(evt);
+                break;
+            case device.endEvt:
+                this._endHandler(evt);
+                break;
+            case 'touchcancel':
+                this._endHandler(evt);
+                break;
+            case 'orientationchange':
+                this._orientationchangeHandler();
+                break;
+            case 'focus':
+                this.isAutoplay && this._play();
+                break;
+            case 'blur':
+                this._pause();
+                break;
+        }
+    },
+    _startHandler: function (evt) {
+        if (this.fixPage) {
+            evt.preventDefault();
+        }
 
         var device = this._device();
-        var len = this.data.length;
-        var axis = this.axis;
-        var reverseAxis = this.reverseAxis;
-        var offset = {
-          X: device.hasTouch ? evt.targetTouches[0].pageX - this.startX : evt.pageX - this.startX,
-          Y: device.hasTouch ? evt.targetTouches[0].pageY - this.startY : evt.pageY - this.startY
-        };
-        var res = this.zoomMoveHandler ? this.zoomMoveHandler(evt) : false;  // zoom  事件
-        // var res = false;
-        if (!res && Math.abs(offset[axis]) - Math.abs(offset[reverseAxis]) > 10) {
-          evt.preventDefault();
-          this.onslide && this.onslide(offset[axis]);
-          this.log('Event: onslide');
-          if (!this.isLooping) {
-            //未开启循环
-            if (offset[axis] > 0 && this.slideIndex === 0 || offset[axis] < 0 && this.slideIndex === len - 1) {
-              offset[axis] = this._damping(offset[axis]);
+        // console.log(device);
+        this.isMoving = true;
+        this._pause();
+        // this.onslidestart && this.onslidestart();
+        this.log('Event: beforeslide');
+        this.startTime = new Date().getTime();
+        this.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+        this.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+        this.zoomStartHandler && this.zoomStartHandler(evt);  // zoom 事件
+    },
+    _moveHandler: function (evt) {
+        if (this.isMoving) {
+
+            var device = this._device();
+            var len = this.data.length;
+            var axis = this.axis;
+            var reverseAxis = this.reverseAxis;
+            var offset = {
+                X: device.hasTouch ? evt.targetTouches[0].pageX - this.startX : evt.pageX - this.startX,
+                Y: device.hasTouch ? evt.targetTouches[0].pageY - this.startY : evt.pageY - this.startY
+            };
+            var res = this.zoomMoveHandler ? this.zoomMoveHandler(evt) : false;  // zoom  事件
+            // var res = false;
+            if (!res && Math.abs(offset[axis]) - Math.abs(offset[reverseAxis]) > 10) {
+                evt.preventDefault();
+                this.onslide && this.onslide(offset[axis]);
+                this.log('Event: onslide');
+                if (!this.isLooping) {
+                    // 未开启循环
+                    if (offset[axis] > 0 && this.slideIndex === 0 || offset[axis] < 0 && this.slideIndex === len - 1) {
+                        offset[axis] = this._damping(offset[axis]);
+                    }
+                }
+                for (var i = 0; i < 3; i++) {
+                    var item = this.els[i];
+                    item.style.webkitTransition = 'all 0s';
+                    this._animateFunc(item, axis, this.scale, i, offset[axis]);
+                }
             }
-          }
-          for (var i = 0; i < 3; i++) {
-            var item = this.els[i];
-            item.style.webkitTransition = 'all 0s';
-            this._animateFunc(item, axis, this.scale, i, offset[axis]);
-          }
+            this.offset = offset;
         }
-        this.offset = offset;
-      }
     },
-    _endHandler:function (evt) {
-      this.isMoving = false;
-      var offset = this.offset;
-      var axis = this.axis;
-      var boundary = this.scale / 2;
-      var endTime = new Date().getTime();
-      // a quick slide time must under 300ms
-      // a quick slide should also slide at least 14 px
-      
-      boundary = endTime - this.startTime > 300 ? boundary : 14;
-      var res = this.zoomEndHandler ? this.zoomEndHandler(evt) : false; // zoom  事件
-      // var res = false;
+    _endHandler: function (evt) {
+        this.isMoving = false;
+        var offset = this.offset;
+        var axis = this.axis;
+        var boundary = this.scale / 2;
+        var endTime = new Date().getTime();
+        // a quick slide time must under 300ms
+        // a quick slide should also slide at least 14 px
+        boundary = endTime - this.startTime > 300 ? boundary : 14;
+        var res = this.zoomEndHandler ? this.zoomEndHandler(evt) : false; // zoom  事件
+        // var res = false;
 
-      var absOffset = Math.abs(offset[axis]);
-      var absReverseOffset = Math.abs(offset[this.reverseAxis]);
-      if (!res && offset[axis] >= boundary && absReverseOffset < absOffset) {
-        this._slideTo(this.slideIndex - 1);
-      } else if (!res && offset[axis] < -boundary && absReverseOffset < absOffset) {
-        this._slideTo(this.slideIndex + 1);
-      } else if (!res) {
-        this._slideTo(this.slideIndex);
+        var absOffset = Math.abs(offset[axis]);
+        var absReverseOffset = Math.abs(offset[this.reverseAxis]);
+        if (!res && offset[axis] >= boundary && absReverseOffset < absOffset) {
+            this._slideTo(this.slideIndex - 1);
+        }
+        else if (!res && offset[axis] < -boundary && absReverseOffset < absOffset) {
+            this._slideTo(this.slideIndex + 1);
+        }
+        else if (!res) {
+            this._slideTo(this.slideIndex);
 
-        if(this.isMenuShow){
-          this._hideMenu();
-        }else{
-          this._showMenu();
+            if (this.isMenuShow) {
+                this._hideMenu();
+            }
+            else {
+                this._showMenu();
+            }
+        }
+        // create tap event if offset < 10
+        if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
+            this.tapEvt = document.createEvent('Event');
+            this.tapEvt.initEvent('tap', true, true);
+            if (!evt.target.dispatchEvent(this.tapEvt)) {
+                evt.preventDefault();
+            }
+        }
+        this.offset.X = this.offset.Y = 0;
+        this.isAutoplay && this._play();
+        // this.onslideend && this.onslideend(this.slideIndex);
+        this.log('Event: afterslide');
+    },
+    _destroy: function () {
+        var outer = this.outer;
+        var device = this._device();
+        outer.removeEventListener(device.startEvt, this);
+        outer.removeEventListener(device.moveEvt, this);
+        outer.removeEventListener(device.endEvt, this);
+        window.removeEventListener('orientationchange', this);
+        window.removeEventListener('focus', this);
+        window.removeEventListener('blur', this);
+        this.wrap.innerHTML = '';
+    },
+    _showMenu: function () {
+
+        this.topMenu.style.webkitTransform = 'translate3d(0, 0, 0)';
+        this.bottomMenu.style.webkitTransform = 'translate3d(0, 0, 0)';
+        this.isMenuShow = true;
+    },
+    _hideMenu: function () {
+
+        this.topMenu.style.webkitTransform = 'translate3d(0, -44px, 0)';
+        this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
+        this.isMenuShow = false;
+    },
+    show: function () {
+
+        if (IS_UIX && this._uix) {
+            this._uix.show();
+            return;
         }
 
-      }
-      // create tap event if offset < 10
-      if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
-        this.tapEvt = document.createEvent('Event');
-        this.tapEvt.initEvent('tap', true, true);
-        if (!evt.target.dispatchEvent(this.tapEvt)) {
-          evt.preventDefault();
+        this._slideTo(0);
+        this.mask.style.visibility = 'visible';
+        this.mask.style.display = 'block';
+        if (!this.outer || !this.outer.innerHTML) {
+            this._renderHTML();
         }
-      }
-      this.offset.X = this.offset.Y = 0;
-      this.isAutoplay && this._play();
-      // this.onslideend && this.onslideend(this.slideIndex);
-      this.log('Event: afterslide');
+
+        this._showMenu();
     },
-    _destroy:function () {
-      var outer = this.outer;
-      var device = this._device();
-      outer.removeEventListener(device.startEvt, this);
-      outer.removeEventListener(device.moveEvt, this);
-      outer.removeEventListener(device.endEvt, this);
-      window.removeEventListener('orientationchange', this);
-      window.removeEventListener('focus', this);
-      window.removeEventListener('blur', this);
-      this.wrap.innerHTML = '';
+    hide: function () {
+        this.mask.style.display = 'none';
+        this.mask.style.visibility = 'hidden';
     },
-    _showMenu:function(){ 
-
-      this.topMenu.style.webkitTransform = "translate3d(0, 0, 0)";
-      this.bottomMenu.style.webkitTransform ="translate3d(0, 0, 0)";
-      this.isMenuShow = true;
-
-    },
-    _hideMenu:function(){
-
-      this.topMenu.style.webkitTransform = "translate3d(0, -44px, 0)";
-      this.bottomMenu.style.webkitTransform ="translate3d(0, 116px, 0)";
-      this.isMenuShow = false;
-    },
-    show:function(){
-
-      if(IS_UIX && this._uix){
-        this._uix.show();
-        return;
-      }
-
-      this._slideTo(0);
-      this.mask.style.visibility = "visible";
-      this.mask.style.display = "block";
-        
-      if(!this.outer||!this.outer.innerHTML){
-        this._renderHTML();
-      }
-
-      this._showMenu();
-
-
-    },
-    hide:function(){
-      this.mask.style.display = "none";
-      this.mask.style.visibility = "hidden";
-    },
-    extend:function (plugin, main) {
-      if (!main) {
-        main = this;
-      }
-      Object.keys(plugin).forEach(function (property) {
-        Object.defineProperty(main, property, Object.getOwnPropertyDescriptor(plugin, property));
-      });
+    extend: function (plugin, main) {
+        if (!main) {
+            main = this;
+        }
+        Object.keys(plugin).forEach(function (property) {
+            Object.defineProperty(main, property, Object.getOwnPropertyDescriptor(plugin, property));
+        });
     },
     /**
      * 增加图片的缩放功能
      */
-    addZoomPlugin:function(){
-      var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
-      var minScale = 1 / 2;
-      var viewScope = {};
-      function generateTranslate(x, y, z, scale) {
-        return 'translate' + (has3d ? '3d(' : '(') + x + 'px,' + y + (has3d ? 'px,' + z + 'px)' : 'px)') + 'scale(' + scale + ')';
-      }
-      function getDistance(a, b) {
-        var x, y;
-        x = a.left - b.left;
-        y = a.top - b.top;
-        return Math.sqrt(x * x + y * y);
-      }
-      function generateTransformOrigin(x, y) {
-        return x + 'px ' + y + 'px';
-      }
-      function getTouches(touches) {
-        return Array.prototype.slice.call(touches).map(function (touch) {
-          return {
-            left: touch.pageX,
-            top: touch.pageY
-          };
-        });
-      }
-      function calculateScale(start, end) {
-        var startDistance = getDistance(start[0], start[1]);
-        var endDistance = getDistance(end[0], end[1]);
-        return endDistance / startDistance;
-      }
-      function getComputedTranslate(obj) {
-        var result = {
-          translateX: 0,
-          translateY: 0,
-          translateZ: 0,
-          scaleX: 1,
-          scaleY: 1,
-          offsetX: 0,
-          offsetY: 0
-        };
-        var offsetX = 0, offsetY = 0;
-        if (!window.getComputedStyle || !obj)
-          return result;
-        var style = window.getComputedStyle(obj), transform, origin;
-        transform = style.webkitTransform || style.mozTransform;
-        origin = style.webkitTransformOrigin || style.mozTransformOrigin;
-        var par = origin.match(/(.*)px\s+(.*)px/);
-        if (par.length > 1) {
-          offsetX = par[1] - 0;
-          offsetY = par[2] - 0;
+    addZoomPlugin: function () {
+        var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
+        var minScale = 1 / 2;
+        var viewScope = {};
+        function generateTranslate(x, y, z, scale) {
+            return 'translate' + (has3d ? '3d(' : '(') + x
+            + 'px,' + y + (has3d ? 'px,' + z + 'px)' : 'px)') + 'scale(' + scale + ')';
         }
-        if (transform == 'none')
-          return result;
-        var mat3d = transform.match(/^matrix3d\((.+)\)$/);
-        var mat2d = transform.match(/^matrix\((.+)\)$/);
-        if (mat3d) {
-          var str = mat3d[1].split(', ');
-          result = {
-            translateX: str[12] - 0,
-            translateY: str[13] - 0,
-            translateZ: str[14] - 0,
-            offsetX: offsetX - 0,
-            offsetY: offsetY - 0,
-            scaleX: str[0] - 0,
-            scaleY: str[5] - 0,
-            scaleZ: str[10] - 0
-          };
-        } else if (mat2d) {
-          var str = mat2d[1].split(', ');
-          result = {
-            translateX: str[4] - 0,
-            translateY: str[5] - 0,
-            offsetX: offsetX - 0,
-            offsetY: offsetY - 0,
-            scaleX: str[0] - 0,
-            scaleY: str[3] - 0
-          };
+        function getDistance(a, b) {
+            var x;
+            var y;
+            x = a.left - b.left;
+            y = a.top - b.top;
+            return Math.sqrt(x * x + y * y);
         }
-        return result;
-      }
-      function getCenter(a, b) {
-        return {
-          x: (a.x + b.x) / 2,
-          y: (a.y + b.y) / 2
-        };
-      }
-      //初始化缩放参数等
-      function initZoom(opts) {
-        this.currentScale = 1;
-        this.zoomFactor = opts.zoomFactor || 2;
-      }
-      function startHandler(evt) {
-        if (this.useZoom) {
-          var node = this.els[1].querySelector('img');
-          var transform = getComputedTranslate(node);
-          this.startTouches = getTouches(evt.targetTouches);
-          this._startX = transform.translateX - 0;
-          this._startY = transform.translateY - 0;
-          this.currentScale = transform.scaleX;
-          this.zoomNode = node;
-          var pos = getPosition(node);
-          // console.log(evt.targetTouches);
-          if (evt.targetTouches.length == 2) {
-            this.lastTouchStart = null;
-            var touches = evt.touches;
-            var touchCenter = getCenter({
-              x: touches[0].pageX,
-              y: touches[0].pageY
-            }, {
-              x: touches[1].pageX,
-              y: touches[1].pageY
+        function generateTransformOrigin(x, y) {
+            return x + 'px ' + y + 'px';
+        }
+        function getTouches(touches) {
+            return Array.prototype.slice.call(touches).map(function (touch) {
+                return {
+                    left: touch.pageX,
+                    top: touch.pageY
+                };
             });
-            node.style.webkitTransformOrigin = generateTransformOrigin(touchCenter.x - pos.left, touchCenter.y - pos.top);
-          } else if (evt.targetTouches.length === 1) {
-            var time = new Date().getTime();
-            this.gesture = 0;
-            if (time - this.lastTouchStart < 300) {
-              evt.preventDefault();
-              this.gesture = 3;
+        }
+        function calculateScale(start, end) {
+            var startDistance = getDistance(start[0], start[1]);
+            var endDistance = getDistance(end[0], end[1]);
+            return endDistance / startDistance;
+        }
+        function getComputedTranslate(obj) {
+            var result = {
+                translateX: 0,
+                translateY: 0,
+                translateZ: 0,
+                scaleX: 1,
+                scaleY: 1,
+                offsetX: 0,
+                offsetY: 0
+            };
+            var offsetX = 0;
+            var offsetY = 0;
+            if (!window.getComputedStyle || !obj) {
+                return result;
             }
-            this.lastTouchStart = time;
-          }
+            var style = window.getComputedStyle(obj), transform, origin;
+            transform = style.webkitTransform || style.mozTransform;
+            origin = style.webkitTransformOrigin || style.mozTransformOrigin;
+            var par = origin.match(/(.*)px\s+(.*)px/);
+            if (par.length > 1) {
+                offsetX = par[1] - 0;
+                offsetY = par[2] - 0;
+            }
+            if (transform === 'none') {
+                return result;
+            }
+            var mat3d = transform.match(/^matrix3d\((.+)\)$/);
+            var mat2d = transform.match(/^matrix\((.+)\)$/);
+            var str;
+            if (mat3d) {
+                str = mat3d[1].split(', ');
+                result = {
+                    translateX: str[12] - 0,
+                    translateY: str[13] - 0,
+                    translateZ: str[14] - 0,
+                    offsetX: offsetX - 0,
+                    offsetY: offsetY - 0,
+                    scaleX: str[0] - 0,
+                    scaleY: str[5] - 0,
+                    scaleZ: str[10] - 0
+                };
+            }
+            else if (mat2d) {
+                str = mat2d[1].split(', ');
+                result = {
+                    translateX: str[4] - 0,
+                    translateY: str[5] - 0,
+                    offsetX: offsetX - 0,
+                    offsetY: offsetY - 0,
+                    scaleX: str[0] - 0,
+                    scaleY: str[3] - 0
+                };
+            }
+            return result;
         }
-      }
-      function moveHandler(evt) {
-        var result = 0, node = this.zoomNode;
-        var device = this._device();
-        if (device.hasTouch) {
-          if (evt.targetTouches.length === 2 && this.useZoom) {
-            node.style.webkitTransitionDuration = '0';
-            evt.preventDefault();
-            this._scaleImage(evt);
-            result = 2;
-          } else if (evt.targetTouches.length == 1 && this.useZoom && this.currentScale > 1) {
-            node.style.webkitTransitionDuration = '0';
-            evt.preventDefault();
-            this._moveImage(evt);
-            result = 1;
-          }
-          this.gesture = result;
-          return result;
+        function getCenter(a, b) {
+            return {
+                x: (a.x + b.x) / 2,
+                y: (a.y + b.y) / 2
+            };
         }
-      }
-      function handleDoubleTap(evt) {
-        var zoomFactor = this.zoomFactor || 2;
-        var node = this.zoomNode;
-        var pos = getPosition(node);
-        this.currentScale = this.currentScale == 1 ? zoomFactor : 1;
-        node.style.webkitTransform = generateTranslate(0, 0, 0, this.currentScale);
-        if (this.currentScale != 1)
-          node.style.webkitTransformOrigin = generateTransformOrigin(evt.touches[0].pageX - pos.left, evt.touches[0].pageY - pos.top);
-      }
-      //缩放图片
-      function scaleImage(evt) {
-        var moveTouces = getTouches(evt.targetTouches);
-        var scale = calculateScale(this.startTouches, moveTouces);
-        //Object.defineProperty(evt,"scale",{"writable":true});
-        var tmpscale = evt.scale|| scale;
-        // evt.scale = evt.scale || scale;
-        var node = this.zoomNode;
-        scale = this.currentScale *tmpscale < minScale ? minScale : this.currentScale * tmpscale;
-        node.style.webkitTransform = generateTranslate(0, 0, 0, scale);
-      }
-      function endHandler(evt) {
-        var result = 0;
-        if (this.gesture === 2) {
-          //双手指 todo
-          this._resetImage(evt);
-          result = 2;
-        } else if (this.gesture == 1) {
-          //放大拖拽 todo
-          this._resetImage(evt);
-          result = 1;
-        } else if (this.gesture === 3) {
-          //双击
-          this._handleDoubleTap(evt);
-          this._resetImage(evt);
+        // 初始化缩放参数等
+        function initZoom(opts) {
+            this.currentScale = 1;
+            this.zoomFactor = opts.zoomFactor || 2;
         }
-        return result;
-      }
-      //拖拽图片
-      function moveImage(evt) {
-        var node = this.zoomNode;
-        var device = this._device();
-        var offset = {
-          X: device.hasTouch ? evt.targetTouches[0].pageX - this.startX : evt.pageX - this.startX,
-          Y: device.hasTouch ? evt.targetTouches[0].pageY - this.startY : evt.pageY - this.startY
-        };
-        this.moveOffset = {
-          x: this._startX + offset.X - 0,
-          y: this._startY + offset.Y - 0
-        };
-        node.style.webkitTransform = generateTranslate(this.moveOffset.x, this.moveOffset.y, 0, this.currentScale);
-      }
-      function getPosition(element) {
-        var pos = {
-          'left': 0,
-          'top': 0
-        };
-        do {
-          pos.top += element.offsetTop || 0;
-          pos.left += element.offsetLeft || 0;
-          element = element.offsetParent;
-        } while (element);
-        return pos;
-      }
-      function valueInViewScope(node, value, tag) {
-        var min, max;
-        var pos = getPosition(node);
-        viewScope = {
-          start: {
-            left: pos.left,
-            top: pos.top
-          },
-          end: {
-            left: pos.left + node.clientWidth,
-            top: pos.top + node.clientHeight
-          }
-        };
-        var str = tag == 1 ? 'left' : 'top';
-        min = viewScope.start[str];
-        max = viewScope.end[str];
-        return value >= min && value <= max;
-      }
-      function overFlow(node, obj1) {
-        var result = 0;
-        var isX1In = valueInViewScope(node, obj1.start.left, 1);
-        var isX2In = valueInViewScope(node, obj1.end.left, 1);
-        var isY1In = valueInViewScope(node, obj1.start.top, 0);
-        var isY2In = valueInViewScope(node, obj1.end.top, 0);
-        if (isX1In != isX2In && isY1In != isY2In) {
-          if (isX1In && isY2In) {
-            result = 1;
-          } else if (isX1In && isY1In) {
-            result = 2;
-          } else if (isX2In && isY2In) {
-            result = 3;
-          } else {
-            result = 4;
-          }
-        } else if (isX1In == isX2In) {
-          if (!isY1In && isY2In) {
-            result = 5;
-          } else if (!isY2In && isY1In) {
-            result = 6;
-          }
-        } else if (isY1In == isY2In) {
-          if (!isX1In && isX2In) {
-            result = 7;
-          } else if (isX1In && !isX2In) {
-            result = 8;
-          }
-        } else if (isY1In == isY2In == isX1In == isX2In) {
-          result = 9;
+        function startHandler(evt) {
+            if (this.useZoom) {
+                var node = this.els[1].querySelector('img');
+                var transform = getComputedTranslate(node);
+                this.startTouches = getTouches(evt.targetTouches);
+                this._startX = transform.translateX - 0;
+                this._startY = transform.translateY - 0;
+                this.currentScale = transform.scaleX;
+                this.zoomNode = node;
+                var pos = getPosition(node);
+                // console.log(evt.targetTouches);
+                if (evt.targetTouches.length === 2) {
+                    this.lastTouchStart = null;
+                    var touches = evt.touches;
+                    var touchCenter = getCenter({
+                        x: touches[0].pageX,
+                        y: touches[0].pageY
+                    }, {
+                        x: touches[1].pageX,
+                        y: touches[1].pageY
+                    });
+                    node.style.webkitTransformOrigin =
+                    generateTransformOrigin(touchCenter.x - pos.left, touchCenter.y - pos.top);
+                }
+                else if (evt.targetTouches.length === 1) {
+                    var time = new Date().getTime();
+                    this.gesture = 0;
+                    if (time - this.lastTouchStart < 300) {
+                        evt.preventDefault();
+                        this.gesture = 3;
+                    }
+                    this.lastTouchStart = time;
+                }
+            }
         }
-        return result;
-      }
-      function resetImage(evt) {
-        if (this.currentScale == 1)
-          return;
-        var node = this.zoomNode, left, top, trans, w, h, pos, start, end, parent, flowTag;
-        trans = getComputedTranslate(node);
-        parent = node.parentNode;
-        w = node.clientWidth * trans.scaleX;
-        h = node.clientHeight * trans.scaleX;
-        pos = getPosition(node);
-        start = {
-          left: (1 - trans.scaleX) * trans.offsetX + pos.left + trans.translateX,
-          top: (1 - trans.scaleX) * trans.offsetY + pos.top + trans.translateY
-        };
-        end = {
-          left: start.left + w,
-          top: start.top + h
-        };
-        left = start.left;
-        top = start.top;
-        flowTag = overFlow(parent, {
-          start: start,
-          end: end
+        function moveHandler(evt) {
+            var result = 0;
+            var node = this.zoomNode;
+            var device = this._device();
+            if (device.hasTouch) {
+                if (evt.targetTouches.length === 2 && this.useZoom) {
+                    node.style.webkitTransitionDuration = '0';
+                    evt.preventDefault();
+                    this._scaleImage(evt);
+                    result = 2;
+                }
+                else if (evt.targetTouches.length === 1 && this.useZoom && this.currentScale > 1) {
+                    node.style.webkitTransitionDuration = '0';
+                    evt.preventDefault();
+                    this._moveImage(evt);
+                    result = 1;
+                }
+                this.gesture = result;
+                return result;
+            }
+        }
+        function handleDoubleTap(evt) {
+            var zoomFactor = this.zoomFactor || 2;
+            var node = this.zoomNode;
+            var pos = getPosition(node);
+            this.currentScale = this.currentScale === 1 ? zoomFactor : 1;
+            node.style.webkitTransform = generateTranslate(0, 0, 0, this.currentScale);
+            if (this.currentScale !== 1) {
+                node.style.webkitTransformOrigin =
+                generateTransformOrigin(evt.touches[0].pageX - pos.left, evt.touches[0].pageY - pos.top);
+            }
+        }
+        // 缩放图片
+        function scaleImage(evt) {
+            var moveTouces = getTouches(evt.targetTouches);
+            var scale = calculateScale(this.startTouches, moveTouces);
+            // Object.defineProperty(evt,"scale",{"writable":true});
+            var tmpscale = evt.scale || scale;
+            // evt.scale = evt.scale || scale;
+            var node = this.zoomNode;
+            scale = this.currentScale * tmpscale < minScale ? minScale : this.currentScale * tmpscale;
+            node.style.webkitTransform = generateTranslate(0, 0, 0, scale);
+        }
+        function endHandler(evt) {
+            var result = 0;
+            if (this.gesture === 2) {
+                // 双手指 todo
+                this._resetImage(evt);
+                result = 2;
+            }
+            else if (this.gesture === 1) {
+                // 放大拖拽 todo
+                this._resetImage(evt);
+                result = 1;
+            }
+            else if (this.gesture === 3) {
+                // 双击
+                this._handleDoubleTap(evt);
+                this._resetImage(evt);
+            }
+            return result;
+        }
+        // 拖拽图片
+        function moveImage(evt) {
+            var node = this.zoomNode;
+            var device = this._device();
+            var offset = {
+                X: device.hasTouch ? evt.targetTouches[0].pageX - this.startX : evt.pageX - this.startX,
+                Y: device.hasTouch ? evt.targetTouches[0].pageY - this.startY : evt.pageY - this.startY
+            };
+            this.moveOffset = {
+                x: this._startX + offset.X - 0,
+                y: this._startY + offset.Y - 0
+            };
+            node.style.webkitTransform = generateTranslate(this.moveOffset.x, this.moveOffset.y, 0, this.currentScale);
+        }
+        function getPosition(element) {
+            var pos = {
+                left: 0,
+                top: 0
+            };
+            do {
+                pos.top += element.offsetTop || 0;
+                pos.left += element.offsetLeft || 0;
+                element = element.offsetParent;
+            } while (element);
+            return pos;
+        }
+        function valueInViewScope(node, value, tag) {
+            var min, max;
+            var pos = getPosition(node);
+            viewScope = {
+                start: {
+                    left: pos.left,
+                    top: pos.top
+                },
+                end: {
+                    left: pos.left + node.clientWidth,
+                    top: pos.top + node.clientHeight
+                }
+            };
+            var str = tag === 1 ? 'left' : 'top';
+            min = viewScope.start[str];
+            max = viewScope.end[str];
+            return value >= min && value <= max;
+        }
+        function overFlow(node, obj1) {
+            var result = 0;
+            var isX1In = valueInViewScope(node, obj1.start.left, 1);
+            var isX2In = valueInViewScope(node, obj1.end.left, 1);
+            var isY1In = valueInViewScope(node, obj1.start.top, 0);
+            var isY2In = valueInViewScope(node, obj1.end.top, 0);
+            if (isX1In !== isX2In && isY1In !== isY2In) {
+                if (isX1In && isY2In) {
+                    result = 1;
+                }
+                else if (isX1In && isY1In) {
+                    result = 2;
+                }
+                else if (isX2In && isY2In) {
+                    result = 3;
+                }
+                else {
+                    result = 4;
+                }
+            }
+            else if (isX1In === isX2In) {
+                if (!isY1In && isY2In) {
+                    result = 5;
+                }
+                else if (!isY2In && isY1In) {
+                    result = 6;
+                }
+            }
+            else if (isY1In === isY2In) {
+                if (!isX1In && isX2In) {
+                    result = 7;
+                }
+                else if (isX1In && !isX2In) {
+                    result = 8;
+                }
+            }
+            else if (isY1In === isY2In === isX1In === isX2In) {
+                result = 9;
+            }
+            return result;
+        }
+        function resetImage(evt) {
+            if (this.currentScale === 1) {
+                return;
+            }
+            var node = this.zoomNode, left, top, trans, w, h, pos, start, end, parent, flowTag;
+            trans = getComputedTranslate(node);
+            parent = node.parentNode;
+            w = node.clientWidth * trans.scaleX;
+            h = node.clientHeight * trans.scaleX;
+            pos = getPosition(node);
+            start = {
+                left: (1 - trans.scaleX) * trans.offsetX + pos.left + trans.translateX,
+                top: (1 - trans.scaleX) * trans.offsetY + pos.top + trans.translateY
+            };
+            end = {
+                left: start.left + w,
+                top: start.top + h
+            };
+            left = start.left;
+            top = start.top;
+            flowTag = overFlow(parent, {
+                start: start,
+                end: end
+            });
+            switch (flowTag) {
+                case 1:
+                    left = viewScope.start.left;
+                    top = viewScope.end.top - h;
+                    break;
+                case 2:
+                    left = viewScope.start.left;
+                    top = viewScope.start.top;
+                    break;
+                case 3:
+                    left = viewScope.end.left - w;
+                    top = viewScope.end.top - h;
+                    break;
+                case 4:
+                    left = viewScope.end.left - w;
+                    top = viewScope.start.top;
+                    break;
+                case 5:
+                    top = viewScope.end.top - h;
+                    break;
+                case 6:
+                    top = viewScope.start.top;
+                    break;
+                case 7:
+                    left = viewScope.end.left - w;
+                    break;
+                case 8:
+                    left = viewScope.start.left;
+                    break;
+            }
+            if (w < parent.clientWidth) {
+                left = pos.left - (trans.scaleX - 1) * node.clientWidth / 2;
+            }
+            if (h < parent.clientHeight) {
+                top = pos.top - (trans.scaleX - 1) * node.clientHeight / 2;
+            }
+            node.style.webkitTransitionDuration = '100ms';
+            node.style.webkitTransform =
+            generateTranslate(trans.translateX + left - start.left, trans.translateY + top - start.top, 0, trans.scaleX);
+        }
+        this.extend({
+            _initZoom: initZoom,
+            _scaleImage: scaleImage,
+            _moveImage: moveImage,
+            _resetImage: resetImage,
+            _handleDoubleTap: handleDoubleTap,
+            zoomMoveHandler: moveHandler,
+            zoomEndHandler: endHandler,
+            zoomStartHandler: startHandler
         });
-        switch (flowTag) {
-        case 1:
-          left = viewScope.start.left;
-          top = viewScope.end.top - h;
-          break;
-        case 2:
-          left = viewScope.start.left;
-          top = viewScope.start.top;
-          break;
-        case 3:
-          left = viewScope.end.left - w;
-          top = viewScope.end.top - h;
-          break;
-        case 4:
-          left = viewScope.end.left - w;
-          top = viewScope.start.top;
-          break;
-        case 5:
-          top = viewScope.end.top - h;
-          break;
-        case 6:
-          top = viewScope.start.top;
-          break;
-        case 7:
-          left = viewScope.end.left - w;
-          break;
-        case 8:
-          left = viewScope.start.left;
-          break;
-        }
-        if (w < parent.clientWidth) {
-          left = pos.left - (trans.scaleX - 1) * node.clientWidth / 2;
-        }
-        if (h < parent.clientHeight) {
-          top = pos.top - (trans.scaleX - 1) * node.clientHeight / 2;
-        }
-        node.style.webkitTransitionDuration = '100ms';
-        node.style.webkitTransform = generateTranslate(trans.translateX + left - start.left, trans.translateY + top - start.top, 0, trans.scaleX);
-      }
-      this.extend({
-        _initZoom: initZoom,
-        _scaleImage: scaleImage,
-        _moveImage: moveImage,
-        _resetImage: resetImage,
-        _handleDoubleTap: handleDoubleTap,
-        zoomMoveHandler: moveHandler,
-        zoomEndHandler: endHandler,
-        zoomStartHandler: startHandler
-      });
     }
-   
-});})(Zepto)
+
+});
+})(Zepto)
 ;(function($){'use strict';
 /**
  * 定义一个组件
@@ -7337,7 +7444,9 @@ $.widget("blend.toast", {
                 if($.widget.has(name)){
                     $elem[name]();
                 }else{
-                    throw new Error("Unknow blend widget \"" + name + "\"");
+                    //TODO error report
+                    //throw new Error("Unknow blend widget \"" + name + "\"");
+                    console.error("Unknow blend widget \"" + name + "\"");
                 }
             }
         });
