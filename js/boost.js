@@ -5647,6 +5647,10 @@ $.widget('blend.gallery', {
         var len = data.length;
         var idx = this.initIndex;
         var self = this;
+        if (idx >= len - 1) {
+            // fix bug
+            return;
+        }
         if (this.type !== 'dom' && len > 3) {
             var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
             var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
@@ -5930,19 +5934,31 @@ $.widget('blend.gallery', {
         this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
         this.isMenuShow = false;
     },
-    show: function () {
+    show: function (val) {
 
         if (IS_UIX && this._uix) {
             this._uix.show();
             return;
         }
 
-        this._slideTo(0);
+        if (val < 0 || isNaN(parseInt(val,10))) {
+            val = 0;
+        }
+        else if (val >= this.data.length) {
+            val = this.data.length -2;
+        }
+
+        this.initIndex = val;
+        this._renderHTML();
+
+        this._slideTo(val);
         this.mask.style.visibility = 'visible';
         this.mask.style.display = 'block';
-        if (!this.outer || !this.outer.innerHTML) {
+
+
+        /* if (!this.outer || !this.outer.innerHTML) {
             this._renderHTML();
-        }
+        }*/
 
         this._showMenu();
     },
@@ -6406,6 +6422,29 @@ function __genItemIterator(cb) {
         cb(retObj);
     };
 }
+})(Zepto)
+;(function($){'use strict';
+/**
+ * 定义一个组件
+ */
+
+$.widget("blend.imglist", {
+    options: {
+       
+    },
+    _create: function() {
+        // this._uix = null;
+    },
+    _init: function() {
+       
+        var options = this.options;
+        //this._initUIXComponent();
+    }
+    
+});
+
+
+
 })(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* globals Hammer */

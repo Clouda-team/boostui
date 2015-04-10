@@ -1,0 +1,78 @@
+@formgroup-bottom-color: #dddddd;
+@formgroup-background-color: #FFFFFF;
+@formgroup-placeholder-color: #999999;
+@active-border-color: #2eb6aa;
+@error-border-color: #2eb6aa;
+@formgroup-label-width: 78px;
+@formgroup-label-padding-left: 10px;
+@formgroup-label-font: @boost-font-size-link;
+@formgroup-height: 45px;
+@formgroup-line-height: 44px;
+@formgroup-btn: @boost-font-size-nav;
+
+
+
+.@{namespace}form{
+  border: 1px solid @formgroup-bottom-color;
+  .@{namespace}formgroup {
+    border-bottom: 1px solid @formgroup-bottom-color;
+    &:last-child {
+      border-bottom-color: transparent;
+    }
+  }
+}
+
+.@{namespace}formgroup {
+  display: -webkit-box;
+  background-color: @formgroup-background-color;
+}
+
+.@{namespace}formgroup-label {
+  width: @formgroup-label-width;
+  display: block;
+  padding-left: @formgroup-label-padding-left;
+  height: @formgroup-height;
+  font-size: @formgroup-label-font;
+  line-height: @formgroup-line-height;
+  border: none;
+}
+
+.@{namespace}formgroup-input {
+  -webkit-box-flex: 1;
+  height: @formgroup-height;
+  font-size: @formgroup-label-font;
+  padding: 9px 10px;
+  line-height: 15px;
+  display: block;
+  width: 0;
+  border: none;
+  -webkit-appearance: none;
+  &::-webkit-input-placeholder {
+    color: @formgroup-placeholder-color;
+  }
+}
+
+
+.@{namespace}formgroup-select {
+  -webkit-box-flex: 1;
+  height: @formgroup-height;
+  font-size: @formgroup-label-font;
+  padding: 9px 10px;
+  line-height: 15px;
+  /*background: url("../images/select.png") right center no-repeat #FFF;*/
+  border: none;
+  width: 0;
+  display: block;
+  -webkit-appearance: none;
+}
+
+.@{namespace}formgroup-btn {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: 0;
+}
+
+.@{namespace}formgroup-input-error {
+  border-color: #FFF;
+}

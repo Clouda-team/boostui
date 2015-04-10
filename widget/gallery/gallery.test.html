@@ -110,6 +110,7 @@
             duration:2000,
             isLooping:true,
             useZoom:true,
+            initIndex:5,
             isAutoplay:false //是否自动播放
         });
 
@@ -120,7 +121,10 @@
             wrapper.gallery("show");
             
         });
-
+	
+	setTimeout(function(){
+		wrapper.gallery("show",5);
+	},3000);
 
        /* var s = boost.blend.gallery({
             data:list,
