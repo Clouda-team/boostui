@@ -13,7 +13,9 @@
                 if($.widget.has(name)){
                     $elem[name]();
                 }else{
-                    throw new Error("Unknow blend widget \"" + name + "\"");
+                    //TODO error report
+                    //throw new Error("Unknow blend widget \"" + name + "\"");
+                    console.error("Unknow blend widget \"" + name + "\"");
                 }
             }
         });
