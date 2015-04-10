@@ -168,6 +168,9 @@ $.widget('blend.dialog', {
             outerEle = this._getDialogHtml();
         }
 
+        this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
+        this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
+
         if (!this.btn_status) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
         }
@@ -189,10 +192,10 @@ $.widget('blend.dialog', {
         $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+        this.$el.on('tap, click', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
             self._trigger('cancel');
             self.autoCloseDone && self.hide();
-        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+        }).on('tap, click', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
@@ -219,7 +222,7 @@ $.widget('blend.dialog', {
      * 显示dialog
      * @return {Object}
      */
-    show: function () {
+    show: function (content) {
 
         if (IS_UIX) {
             this._uixDialog.show();
@@ -237,12 +240,16 @@ $.widget('blend.dialog', {
 
         this.setPosition();
         this.mask(0.5);
-        window.setTimeout(function () {
+        (content) && this.$content.html(content);
+        /*window.setTimeout(function () {
             self.$el.addClass(NAMESPACE + 'dialog-show');
             self._trigger('show');
             self.lock = false;
-        }, 50);
+        }, 50);*/
         this.lock = true;
+        self.$el.addClass(NAMESPACE + 'dialog-show');
+        self._trigger('show');
+        this.lock = false;
         return this.$el;
     },
     /*关闭dialog*/
@@ -275,7 +282,9 @@ $.widget('blend.dialog', {
     mask: function (opacity) {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
+        var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.css('height',bodyHeight);
         this.maskDom.on('tap', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();

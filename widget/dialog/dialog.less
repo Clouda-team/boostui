@@ -9,10 +9,9 @@
 @dialog-color:#262626;
 
 .@{namespace}dialog {
-    position: absolute;
+    position: fixed;
     display: block;
     width: @dialog-width;
-    border: solid 1px #72767b;
     padding: 0;
     transform:scale(0);
     -webkit-transform: scale(0);
@@ -52,6 +51,7 @@
     border-bottom:solid 1px #ddd;
     
 }
+
 .@{namespace}dialog-body{
     font-size:@dialog-fontsmall;
     padding:10px;
@@ -74,6 +74,10 @@
    color:#262626;
 }
 
+.@{namespace}dialog-btn{
+   height:40px;
+   line-height:40px;    
+}
 
 .@{namespace}dialog-btn:not(:first-child){
     border-left:solid 1px #ddd;

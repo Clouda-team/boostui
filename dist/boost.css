@@ -1597,10 +1597,9 @@ input[type="button"].blend-button-block {
   text-align: center;
 }
 .blend-dialog {
-  position: absolute;
+  position: fixed;
   display: block;
   width: 250px;
-  border: solid 1px #72767b;
   padding: 0;
   transform: scale(0);
   -webkit-transform: scale(0);
@@ -1657,6 +1656,10 @@ input[type="button"].blend-button-block {
   font-size: 18px;
   color: #262626;
 }
+.blend-dialog-btn {
+  height: 40px;
+  line-height: 40px;
+}
 .blend-dialog-btn:not(:first-child) {
   border-left: solid 1px #ddd;
 }
@@ -1673,6 +1676,63 @@ input[type="button"].blend-button-block {
 }
 .blend-fixedBar-bottom {
   bottom: 0;
+}
+.blend-form {
+  border: 1px solid #dddddd;
+}
+.blend-form .blend-formgroup {
+  border-bottom: 1px solid #dddddd;
+}
+.blend-form .blend-formgroup:last-child {
+  border-bottom-color: transparent;
+}
+.blend-formgroup {
+  display: -webkit-box;
+  background-color: #ffffff;
+}
+.blend-formgroup-label {
+  width: 78px;
+  display: block;
+  padding-left: 10px;
+  height: 45px;
+  font-size: 14px;
+  line-height: 44px;
+  border: none;
+}
+.blend-formgroup-input {
+  -webkit-box-flex: 1;
+  height: 45px;
+  font-size: 14px;
+  padding: 9px 10px;
+  line-height: 15px;
+  display: block;
+  width: 0;
+  border: none;
+  -webkit-appearance: none;
+}
+.blend-formgroup-input::-webkit-input-placeholder {
+  color: #999999;
+}
+.blend-formgroup-select {
+  -webkit-box-flex: 1;
+  height: 45px;
+  font-size: 14px;
+  padding: 9px 10px;
+  line-height: 15px;
+  /*background: url("../images/select.png") right center no-repeat #FFF;*/
+  border: none;
+  width: 0;
+  display: block;
+  -webkit-appearance: none;
+}
+.blend-formgroup-btn {
+  width: 20px;
+  height: 20px;
+  display: block;
+  margin: 0;
+}
+.blend-formgroup-input-error {
+  border-color: #FFF;
 }
 .blend-body-fixed {
   zoom: 1;
@@ -2548,9 +2608,6 @@ input[type="button"].blend-button-block {
   display: inline-block;
   line-height: 22px;
 }
-.row:after {
-  clear: both;
-}
 [class*="col-"] {
   padding-top: 15px;
   padding-bottom: 15px;
@@ -2613,11 +2670,11 @@ input[type="button"].blend-button-block {
   padding: 0;
 }
 .blend-imglist-title {
-  padding-left: 20px;
+  padding-left: 10px;
   height: 24px;
   line-height: 24px;
   font-size: 16px;
-  margin-bottom: -16px;
+  margin-bottom: -10px;
 }
 .blend-imglist-wrapper:after {
   content: "";
@@ -2630,32 +2687,34 @@ input[type="button"].blend-button-block {
   padding: 0px;
 }
 .blend-imglist-column-2 {
-  padding: 10px 12px;
+  padding: 5px 6px;
 }
 .blend-imglist-column-2 > li {
   width: 50%;
-  padding: 10px 8px;
+  padding: 5px 4px;
 }
 .blend-imglist-column-2 > li:nth-of-type(2n+1) {
-  padding-left: 0;
   clear: both;
 }
 .blend-imglist-column-3 {
-  padding: 10px 11px;
+  padding: 5px 5px;
 }
 .blend-imglist-column-3 > li {
   width: 33.333333%;
-  padding: 10px 9px;
+  padding: 5px 4px 5px 5px;
 }
 .blend-imglist-column-3 > li:nth-of-type(3n+1) {
   clear: both;
 }
+.blend-imglist-column-3 > li:nth-of-type(3n) {
+  padding-right: 4px;
+}
 .blend-imglist-column-4 {
-  padding: 10px 14px;
+  padding: 5px 7px;
 }
 .blend-imglist-column-4 > li {
   width: 25%;
-  padding: 10px 6px;
+  padding: 5x 3px;
 }
 .blend-imglist-column-4 > li:nth-of-type(4n+1) {
   clear: both;

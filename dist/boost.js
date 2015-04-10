@@ -5114,6 +5114,9 @@ $.widget('blend.dialog', {
             outerEle = this._getDialogHtml();
         }
 
+        this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
+        this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
+
         if (!this.btn_status) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
         }
@@ -5135,10 +5138,10 @@ $.widget('blend.dialog', {
         $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+        this.$el.on('tap, click', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
             self._trigger('cancel');
             self.autoCloseDone && self.hide();
-        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+        }).on('tap, click', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
@@ -5165,7 +5168,7 @@ $.widget('blend.dialog', {
      * 显示dialog
      * @return {Object}
      */
-    show: function () {
+    show: function (content) {
 
         if (IS_UIX) {
             this._uixDialog.show();
@@ -5183,12 +5186,16 @@ $.widget('blend.dialog', {
 
         this.setPosition();
         this.mask(0.5);
-        window.setTimeout(function () {
+        (content) && this.$content.html(content);
+        /*window.setTimeout(function () {
             self.$el.addClass(NAMESPACE + 'dialog-show');
             self._trigger('show');
             self.lock = false;
-        }, 50);
+        }, 50);*/
         this.lock = true;
+        self.$el.addClass(NAMESPACE + 'dialog-show');
+        self._trigger('show');
+        this.lock = false;
         return this.$el;
     },
     /*关闭dialog*/
@@ -5221,7 +5228,9 @@ $.widget('blend.dialog', {
     mask: function (opacity) {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
+        var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this.maskDom.css('height',bodyHeight);
         this.maskDom.on('tap', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
@@ -5271,6 +5280,145 @@ $.widget("blend.fixedBar", {
     },
     
 });})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file formgroup 组件
+ * @author wanghongliang02
+ */
+
+$.widget('blend.formgroup', {
+    /**
+     * 组件的默认选项
+     */
+    options: {
+        labelClass: NAMESPACE + 'formgroup-label',
+        inputClass: NAMESPACE + 'formgroup-input',
+        // selectClass: NAMESPACE + 'formgroup-select',
+        btnClass: NAMESPACE + 'formgroup-btn',
+        errorClass: NAMESPACE + 'formgroup-error',
+        validate: false,  //false/blur/true
+        validateFunction: function(value, $ele, cb) {},
+        asyn: false  // true/false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var formgroup = this;
+        var validate = formgroup.options.validate;
+        var events = false;
+        // 预留其他事件接口(input/paste...)
+        switch (validate) {
+            case true:
+                events = 'blur';
+                break;
+            case 'blur':
+                events = 'blur';
+                break;
+            default :
+                validate = false;
+        }
+        formgroup.events = events;
+        if (!$.isFunction(formgroup.options.validateFunction)) {
+            formgroup.options.validateFunction = function() {};
+        }
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+        var formgroup = this;
+        var $el = formgroup.element;
+        formgroup.$inputItem = $el.find('.' + formgroup.options.inputClass);
+        if (formgroup.options.validate && formgroup.events) {
+            formgroup._initEvent();
+        }
+    },
+    /**
+     * 初始化事件
+     * @private
+     */
+    _initEvent: function () {
+        var formgroup = this;
+        formgroup.$inputItem.on('focus.formgroup', function (e) {
+            var $me = $(this);
+            var value = $me.val();
+            formgroup._removeError();
+        });
+        formgroup.$inputItem.on(formgroup.events + '.formgroup', function (e) {
+            var $me = $(this);
+            var value = $me.val();
+            if (formgroup.options.validate) {
+                formgroup._validate(value, $me);
+            }
+        });
+    },
+    _removeError: function() {
+        var formgroup = this;
+        formgroup.element.removeClass(formgroup.options.errorClass);
+    },
+    _showError: function(msg) {
+        var formgroup = this;
+        formgroup.element.addClass(formgroup.options.errorClass);
+        // TODO error tip
+        var toast = $[NAMESPACE.substr(0, NAMESPACE.length - 1)].toast();
+        toast.show(msg, 1000);
+    },
+    _asynValidate: function (ret) {
+        var formgroup = this;
+        if (ret && typeof ret === 'string') {
+            formgroup._showError(ret);
+        }
+    },
+    _validate: function (value, $ele) {
+        var formgroup = this;
+        if (formgroup.options.asyn === true) {
+            formgroup.options.validateFunction(value, $ele, function(ret) {
+                formgroup._asynValidate(ret);
+            });
+        } else {
+            var ret = formgroup.options.validateFunction(value, $ele);
+            if (ret && typeof ret === 'string') {
+                formgroup._showError(ret);
+            }
+        }
+    },
+    /**
+     * 更新或者获取当前表单项的值
+     * @param {string} value 欲更新或者获取当前表单项的值
+     * @private
+     */
+    _value: function (value) {
+        var formgroup = this;
+        if (typeof value === 'undefined') {
+            return formgroup.$inputItem.val();
+        } else {
+            formgroup.$inputItem.val(value);
+        }
+    },
+    /**
+     * 销毁formgroup对象
+     * @private
+     */
+    _destroy: function () {
+        var formgroup = this;
+        if (formgroup.options.validate && formgroup.events) {
+            formgroup.$inputItem.off(formgroup.events + '.formgroup');
+            formgroup.$inputItem.off('focus.formgroup');
+        }
+    },
+    /**
+     * 更新或者获取当前表单项的值
+     * @param {string} value 欲更新或者获取当前表单项的值
+     * @private
+     */
+    value: function (value) {
+        return this._value(value);
+    }
+
+});
+})(Zepto)
 ;(function($){/**
      * @function fullcolumn
      * @name fullcolumn

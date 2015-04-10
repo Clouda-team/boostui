@@ -46,6 +46,17 @@
 
     <div  id="jsInitDialog" class="blend-dialog"> 
     </div>
+
+    <br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br>
+    
     <script src="../../dist/boost.js"></script>
     <script src="../../../BlendUI2/third_party/require.js"></script>
     <script src="http://weinre123.duapp.com/target/target-script-min.js"></script>
@@ -104,7 +115,7 @@
           //Dom渲染方式
           
 
-          var dialog3 = $("#jsInitDialog").dialog({
+          /*var dialog3 = $("#jsInitDialog").dialog({
             title:"这是title",
             content: "这是通过js传参渲染的，<a href='http://www.baidu.com'>这是一个链接</a>",
             // cancelOnly: 1,
@@ -122,7 +133,7 @@
             alert("监听confirm事件，3333333");
           }).on("dialog:cancel",function(){
             alert("监听cancel事件，888")
-          });
+          });*/
 
 
           $("#custome").bind("click",function(){
@@ -133,13 +144,21 @@
 
           $("#domInit").bind("click",function(){
             
-            dialog2.dialog("show");
+            // dialog2.dialog("show");
+            dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
+            /*dialog2.dialog("show",{
+              title:"title~"+ new
+            });*/
 
           });
 
           $("#jsInit").bind("click",function(){
             
-            dialog3.dialog("show");
+            // dialog3.dialog("show");
+
+            if(dialog2) 
+            dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
+
 
           });
 
