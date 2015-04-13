@@ -15,8 +15,17 @@ $.widget('blend.formgroup', {
         // selectClass: NAMESPACE + 'formgroup-select',
         btnClass: NAMESPACE + 'formgroup-btn',
         errorClass: NAMESPACE + 'formgroup-error',
-        validate: false,  //false/blur/true
-        validateFunction: function(value, $ele, cb) {},
+        validate: false,  // false/blur/true,
+        /**
+         * custon validate function
+         * @param {string} msg error msg
+         * @param {Object} $ele element
+         * @param {Function} cb callback function
+         * @return {boolean|string}
+         */
+        validateFunction: function (msg, $ele, cb) {
+            return true;
+        },
         asyn: false  // true/false
     },
     /**
@@ -39,7 +48,8 @@ $.widget('blend.formgroup', {
         }
         formgroup.events = events;
         if (!$.isFunction(formgroup.options.validateFunction)) {
-            formgroup.options.validateFunction = function() {};
+            formgroup.options.validateFunction = function () {
+            };
         }
     },
     /**
@@ -61,7 +71,6 @@ $.widget('blend.formgroup', {
         var formgroup = this;
         formgroup.$inputItem.on('focus.formgroup', function (e) {
             var $me = $(this);
-            var value = $me.val();
             formgroup._removeError();
         });
         formgroup.$inputItem.on(formgroup.events + '.formgroup', function (e) {
@@ -72,30 +81,42 @@ $.widget('blend.formgroup', {
             }
         });
     },
-    _removeError: function() {
+    /**
+     * remove error class
+     * @private
+     */
+    _removeError: function () {
         var formgroup = this;
         formgroup.element.removeClass(formgroup.options.errorClass);
     },
-    _showError: function(msg) {
+    /**
+     * show error
+     * @param {string} msg error tips
+     * @private
+     */
+    _showError: function (msg) {
         var formgroup = this;
         formgroup.element.addClass(formgroup.options.errorClass);
         // TODO error tip
         var toast = $[NAMESPACE.substr(0, NAMESPACE.length - 1)].toast();
         toast.show(msg, 1000);
     },
-    _asynValidate: function (ret) {
-        var formgroup = this;
-        if (ret && typeof ret === 'string') {
-            formgroup._showError(ret);
-        }
-    },
+    /**
+     *
+     * @param {string} value input value
+     * @param {Object} $ele element
+     * @private
+     */
     _validate: function (value, $ele) {
         var formgroup = this;
         if (formgroup.options.asyn === true) {
-            formgroup.options.validateFunction(value, $ele, function(ret) {
-                formgroup._asynValidate(ret);
+            formgroup.options.validateFunction(value, $ele, function (ret) {
+                if (ret && typeof ret === 'string') {
+                    formgroup._showError(ret);
+                }
             });
-        } else {
+        }
+        else {
             var ret = formgroup.options.validateFunction(value, $ele);
             if (ret && typeof ret === 'string') {
                 formgroup._showError(ret);
@@ -105,15 +126,15 @@ $.widget('blend.formgroup', {
     /**
      * 更新或者获取当前表单项的值
      * @param {string} value 欲更新或者获取当前表单项的值
+     * @return {mix}
      * @private
      */
     _value: function (value) {
         var formgroup = this;
         if (typeof value === 'undefined') {
             return formgroup.$inputItem.val();
-        } else {
-            formgroup.$inputItem.val(value);
         }
+        formgroup.$inputItem.val(value);
     },
     /**
      * 销毁formgroup对象
@@ -129,6 +150,7 @@ $.widget('blend.formgroup', {
     /**
      * 更新或者获取当前表单项的值
      * @param {string} value 欲更新或者获取当前表单项的值
+     * @return {mix}
      * @private
      */
     value: function (value) {

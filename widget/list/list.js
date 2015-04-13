@@ -17,7 +17,7 @@ $.widget('blend.list', {
         animateClass: NAMESPACE + 'list-animation',
         itemContentSelector: '.' + NAMESPACE + 'list-item-content',
         itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
-        exceptionClass: false
+        exceptionClass: false // 不删除的元素
     },
     /**
      * _create 创建组件时调用一次
@@ -88,7 +88,8 @@ $.widget('blend.list', {
             list.element.on('touchstart.list', function (e) {
                 var $target = $(e.target);
                 var className = list.deleteBtnClass;
-                if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
+                if (!$target.hasClass(className) &&
+                    list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
                     var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
                     if ($el.length === 1) {
                         $el.removeClass(list.options.itemDeleteActiveClass);

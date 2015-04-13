@@ -174,7 +174,8 @@ $.widget('blend.nav', {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
         }
         else {
-            nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+            nav.element.append('<span class="' +
+                nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
     },
     /**
