@@ -20,27 +20,23 @@
 
 <body>
 
-    <div id="slider1" data-blend-widget="slider" class="blend-slider" data-blend-slider='{"theme":"d2"}'>
+    <div id="slider1" class="blend-slider">
         <ul class="blend-slides">
             <li>
-        	    <img src="http://img5.imgtn.bdimg.com/it/u=2144620322,1877482059&fm=23&gp=0.jpg"/>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
                 <div class="blend-slider-title">这是图片1的标题</div>
-        	</li>
+            </li>
             <li>
-                <img src="http://b.hiphotos.baidu.com/image/pic/item/95eef01f3a292df5b933a51fbe315c6035a873c3.jpg"/>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
                 <div class="blend-slider-title">这是图片2的标题</div>
             </li>
             <li>
-                <a href="http://www.baidu.com" target="_blank">
-                    <img src="http://a.hiphotos.baidu.com/image/pic/item/c83d70cf3bc79f3dc8225e37b8a1cd11738b29f1.jpg"/>
-                </a>
-                <div class="blend-slider-title">这是图片3的标题</div>  
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
             </li>
             <li>
-                <a href="http://www.baidu.com" target="_blank">
-                    <img src="http://g.hiphotos.baidu.com/image/pic/item/50da81cb39dbb6fd2ca88b260b24ab18972b373a.jpg"/>
-                </a>
-                <div class="blend-slider-title">这是图片4的标题</div>   
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
             </li>
          
         </ul>
@@ -54,16 +50,27 @@
 
 
 
-    <!--
-    <script src="../../js/zepto.js"></script>
-    <script src="../../js/event.js"></script>
-    <script src="../../js/touch.js"></script>
-    <script src="../../js/data.js"></script>
-    <script src="../../js/widget.js"></script> 
-    -->
-    <script src="../../js/hammer.min.js"></script>
+    <div id="slider2" class="blend-slider">
+        <ul class="blend-slides">
+            <li>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片1的标题</div>
+            </li>
+            <li>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片2的标题</div>
+            </li>
+            <li>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
+            </li>
+            <li>
+                <img src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
+            </li>
 
-    <!-- // <script src="slider.js"></script> -->
+        </ul>
+    </div>
 
     <script src="../../dist/boost.js"></script>
 
@@ -71,8 +78,9 @@
     <script>
 
     ;(function(){
-        $("#slider1").slider();
-        
+         $("#slider1").slider({"speed": 2000, "ratio": "small"});
+         $("#slider2").slider();
+
         $("#next").on('click',function(){
             $("#slider1").slider('next');
         });

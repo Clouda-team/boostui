@@ -1,0 +1,44 @@
+
+.flex(@num) {
+  -webkit-box-flex: @num;
+  width: 0;
+}
+
+.@{namespace}flexbox {
+  display: -webkit-box;
+}
+
+.@{namespace}flexbox-item {
+  display: block;
+  &.@{namespace}flexbox-ratio {
+    .flex(1);
+  }
+  &.@{namespace}flexbox-ratio2 {
+    .flex(2);
+  }
+  &.@{namespace}flexbox-ratio3 {
+    .flex(3);
+  }
+  &.@{namespace}flexbox-ratio4 {
+    .flex(4);
+  }
+  &.@{namespace}flexbox-ratio5 {
+    .flex(5);
+  }
+  &.@{namespace}flexbox-ratio6 {
+    .flex(6);
+  }
+  &.@{namespace}flexbox-ratio7 {
+    .flex(7);
+  }
+  &.@{namespace}flexbox-ratio8 {
+    .flex(8);
+  }
+  &.@{namespace}flexbox-ratio9 {
+    .flex(9);
+  }
+  &.@{namespace}flexbox-ratio10 {
+    .flex(10);
+  }
+}
+

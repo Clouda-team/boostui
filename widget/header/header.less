@@ -2,6 +2,7 @@
 @header-color: #fff;
 
 @font-size-header: @boost-font-size-titlebar;
+@font-size-header-lr: @boost-font-size-link;
 
 .@{namespace}boost .@{namespace}header {
   display: none;
@@ -26,6 +27,8 @@
 
 .@{namespace}header-left, .@{namespace}header-right {
   -webkit-box-flex: 1;
+  width: 0;
+  font-size: @font-size-header-lr;
 }
 .@{namespace}header-left {
   padding-left: 10px;
@@ -43,6 +46,10 @@
 .@{namespace}header-item {
   /*margin: 0 5px;*/
   color: @header-color;
+}
+
+.@{namespace}header-title .@{namespace}header-item {
+  font-size: @font-size-header;
 }
 
 .@{namespace}action-back-icon:before {

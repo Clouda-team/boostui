@@ -28,8 +28,8 @@ $.widget('blend.tab', {
         tab.$activeEle = $el.find(tab.itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
-        tab.$activeEle.css('width', this.itemWidth * .7);
-        tab.itemOffsetX = this.itemWidth * .15;
+        tab.$activeEle.css('width', this.itemWidth);
+        tab.itemOffsetX = 0;
         tab.current = 0;
 
     },
