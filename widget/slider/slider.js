@@ -1,26 +1,29 @@
 /**
- *
- * Slider  组件
- * Created by dingquan on 15-2-3.
+ * Slider 组件
+ * Created by dingquan on 15-02-03
+ * @file slider.js
+ * @author dingquan
  */
-
 'use strict';
-
-$.widget("blend.slider", {
+$.widget('blend.slider', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        autoSwipe: true,         // 自动滚动,默认开启
-        continuousScroll: true,  // 连续滚动
-        axisX: true,             // 滚动方向,默认x轴滚动
-        transitionType: 'ease',// 过渡类型
+        autoSwipe: true,            // 自动滚动,默认开启
+        continuousScroll: true,     // 连续滚动
+        axisX: true,                // 滚动方向,默认x轴滚动
+        transitionType: 'ease',     // 过渡类型
         duration: 0.6,
-        speed: 2000,             // 切换的时间间隔
+        speed: 2000,                // 切换的时间间隔
         theme: "d2",
         needDirection: false,    // 是否需要左右切换的按钮
         ratio: "normal"     // normal/wide/square/small
     },
+    /**
+     * 创建组件调用一次
+     * @private
+     */
     _create: function () {
 
         /**
@@ -56,28 +59,29 @@ $.widget("blend.slider", {
         this.liHeight = this.$li.height();
         this.liLength = this.$li.length;
 
-        this.autoScroll = null;     //自动播放interval对象
-        this._index = 0;            //当前幻灯片位置
-
+        this.autoScroll = null;     // 自动播放interval对象
+        this._index = 0;            // 当前幻灯片位置
 
         if (typeof options.theme !== 'string') {
             options.theme = 'default';
         }
 
         this._addComponents(options.theme);
-
     },
     /**
      * _init 初始化的时候调用
+     * @private
      */
     _init: function () {
 
         var opts = this.options;
         var that = this;
-        var $ul = this.$ul,
-            $li = this.$li;
+        var $ul = this.$ul;
+        var $li = this.$li;
 
-        // 连续滚动，需要复制dom
+        /**
+         * 连续滚动，需要复制dom
+         */
         if (opts.continuousScroll) {
             $ul.prepend($li.last().clone()).append($li.first().clone());
             if (opts.axisX) {
@@ -90,7 +94,9 @@ $.widget("blend.slider", {
             }
         }
 
-        // 给初始图片定位
+        /**
+         * 给初始图片定位
+         */
         if (opts.axisX) {
             $li.each(function (i) {
                 that._fnTranslate($(this), that.liWidth * i);
@@ -102,46 +108,42 @@ $.widget("blend.slider", {
             });
         }
 
-        that._fnAutoSwipe()
-
+        that._fnAutoSwipe();
         this._initEvent();
-        //this._initView();
+        // this._initView();
     },
+    /**
+     * 初始化事件绑定
+     * @private
+     */
     _initEvent: function () {
         var that = this;
-
         // 绑定触摸
-
         var hammer = new Hammer(this.$container[0]);
 
         hammer.on('panstart', function (e) {
-            console.log('begin');
-            console.log(e.center);
 
-
-            that.start_x = e.center.x;
-            that.start_y = e.center.y;
+            that.startX = e.center.x;
+            that.startY = e.center.y;
         });
 
-
         hammer.on('panmove', function (e) {
-
 
             if (that.options.autoSwipe) {
                 clearInterval(that.autoScroll);
             }
 
-            var cur_x = that.cur_x = e.center.x;
-            var cur_y = that.cur_y = e.center.y;
+            that.curX = e.center.x;
+            that.curY = e.center.y;
 
-            that.move_x = that.cur_x - that.start_x;
-            that.move_y = that.cur_y - that.start_y;
+            that.moveX = that.curX - that.startX;
+            that.moveY = that.curY - that.startY;
 
             that._fnTransition(that.$ul, 0);
 
             if (that.options.axisX) {
-                console.log(-(that.liWidth * (parseInt(that._index)) - that.move_x));
-                that._fnTranslate(that.$ul, -(that.liWidth * (parseInt(that._index)) - that.move_x));
+                // console.log(-(that.liWidth * (parseInt(that._index)) - that.moveX));
+                that._fnTranslate(that.$ul, -(that.liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
 
         });
@@ -152,23 +154,23 @@ $.widget("blend.slider", {
             var _touchDistance = 50;
 
             if (opts.axisX) {
-                that.moveDistance = that.move_x;
+                that.moveDistance = that.moveX;
             }
             else {
-                that.moveDistance = that.move_y;
+                that.moveDistance = that.moveY;
             }
 
             // 距离小
             if (Math.abs(that.moveDistance) <= _touchDistance) {
                 that._fnScroll(.3);
-                // 距离大
             }
             else {
+                // 距离大
                 // 手指触摸上一屏滚动
                 if (that.moveDistance > _touchDistance) {
                     that._fnMovePrev();
                     that._fnAutoSwipe();
-                    // 手指触摸下一屏滚动
+                // 手指触摸下一屏滚动
                 }
                 else if (that.moveDistance < -_touchDistance) {
                     that._fnMoveNext();
@@ -176,64 +178,72 @@ $.widget("blend.slider", {
                 }
             }
 
-            that.move_x = 0;
-            that.move_y = 0;
-
+            that.moveX = 0;
+            that.moveY = 0;
         });
-
     },
+    /**
+     * 根据不同的theme添加组件和初始化样式
+     * @private
+     * @param {string} theme 幻灯片主题,目前支持有限的几个
+     */
     _addComponents: function (theme) {
+
         var $el = this.$container;
 
-        if (theme == "a1") {
-            $el.addClass(NAMESPACE + "slider-a1");
-
+        if (theme === 'a1') {
+            $el.addClass(NAMESPACE + 'slider-a1');
             this._initControl();
         }
-
-        if (theme == "a2") {
-            $el.addClass(NAMESPACE + "slider-a2");
-
+        if (theme === 'a2') {
+            $el.addClass(NAMESPACE + 'slider-a2');
             this._initControl();
         }
-
-        if (theme == "d1") {
-            $el.addClass(NAMESPACE + "slider-title");
+        if (theme === 'd1') {
+            $el.addClass(NAMESPACE + 'slider-title');
         }
-
-        if (theme == "d2") {
-            $el.addClass(NAMESPACE + "slider-title");
+        if (theme === 'd2') {
+            $el.addClass(NAMESPACE + 'slider-title');
             this._initControl();
-
         }
-
-
     },
+    /**
+     * 初始化control控件
+     * @private
+     */
     _initControl: function () {
+
         var $el = this.$container;
         var liLength = this.liLength;
 
-        var html = "";
+        var html = '';
         for (var i = 0; i < liLength; i++) {
-            html += (i == 0) ? "<li><a class='" + NAMESPACE + "slider-active'></a></li>" : "<li><a></a></li>";
+            html += (i === 0) ? '<li><a class="' + NAMESPACE + 'slider-active"></a></li>' : '<li><a></a></li>';
         }
 
-        var $ol = $("<ol class='" + NAMESPACE + "slider-control-nav'>" + html + "</ol>");
+        var $ol = $('<ol class="' + NAMESPACE + 'slider-control-nav">' + html + '</ol>');
 
         $el.append($ol);
 
         this.$controlOl = $ol;
-
     },
+    /**
+     * 初始化title
+     * @private
+     */
     _initTitle: function () {
+        // to do
         // var $el = this.$container;
     },
     /*
-     *  css 过渡
+     * css 过渡
+     * @private
+     * @param {Object} dom  zepto object
+     * @param {number} num - transition number
      */
     _fnTransition: function (dom, num) {
-        var opts = this.options;
 
+        var opts = this.options;
         dom.css({
             '-webkit-transition': 'all ' + num + 's ' + opts.transitionType,
             'transition': 'all ' + num + 's ' + opts.transitionType
@@ -241,16 +251,13 @@ $.widget("blend.slider", {
     },
     /**
      * css 滚动
-     * @param  {[type]} dom    [description]
-     * @param  {[type]} result [description]
-     * @return null
-     *
+     * @private
+     * @param  {Object} dom    zepto object
+     * @param  {number} result translate number
      */
     _fnTranslate: function (dom, result) {
 
         var opts = this.options;
-        // console.log(dom);
-        // console.log(+new Date());
 
         if (opts.axisX) {
             dom.css({
@@ -265,37 +272,45 @@ $.widget("blend.slider", {
             });
         }
     },
-    // 下一屏滚动
+    /**
+     * 下一屏滚动
+     * @private
+     */
     _fnMoveNext: function () {
-
-        this._index++;
+        this._index ++;
         this._fnMove();
         /*if(opts.lazyLoad){
-         if(opts.continuousScroll){
-         fnLazyLoad(_index+2);
-         }else{
-         fnLazyLoad(_index+1);
-         }
-         }*/
+            if(opts.continuousScroll){
+                fnLazyLoad(_index+2);
+            }else{
+                fnLazyLoad(_index+1);
+            }
+        }*/
     },
-    // 上一屏滚动
+    /**
+     * 上一屏滚动
+     * @private
+     */
     _fnMovePrev: function () {
-        this._index--;
+        this._index --;
         this._fnMove();
-
         // 第一次往右滚动懒加载图片
         /*if(firstMovePrev && opts.lazyLoad){
-         var i = _liLength-1;
-         for(i; i <= (_liLength+1); i++){
-         fnLazyLoad(i);
-         }
-         firstMovePrev = false;
-         return;
-         }
-         if(!firstMovePrev && opts.lazyLoad){
-         fnLazyLoad(_index);
-         }*/
+            var i = _liLength-1;
+            for(i; i <= (_liLength+1); i++){
+                fnLazyLoad(i);
+            }
+            firstMovePrev = false;
+            return;
+        }
+        if(!firstMovePrev && opts.lazyLoad){
+            fnLazyLoad(_index);
+        }*/
     },
+    /**
+     * 自动滑动
+     * @private
+     */
     _fnAutoSwipe: function () {
         var that = this;
         var opts = this.options;
@@ -306,15 +321,18 @@ $.widget("blend.slider", {
             }, opts.speed);
         }
     },
+    /**
+     * [_fnMove description]
+     * @private
+     */
     _fnMove: function () {
         var that = this;
         var opts = this.options;
-        var _vars = this._vars;
-        var _liLength = this.liLength;
+        // var _vars = this._vars;
+        // var _liLength = this.liLength;
 
         if (opts.continuousScroll) {
             if (that._index >= that.liLength) {
-                console.log("333");
                 that._fnScroll(.3);
                 that._index = 0;
                 setTimeout(function () {
@@ -344,8 +362,13 @@ $.widget("blend.slider", {
 
         that._setDotActive();
 
-        //callback(_index);
+        // callback(_index);
     },
+    /**
+     * 滑动
+     * @private
+     * @param  {number} num num
+     */
     _fnScroll: function (num) {
         var $ul = this.$ul;
         var _index = this._index;
@@ -361,22 +384,37 @@ $.widget("blend.slider", {
             this._fnTranslate($ul, -_index * _liHeight);
         }
     },
+    /**
+     * 设置圆点的状态
+     * @private
+     */
     _setDotActive: function () {
         this.$controlOl.find('li a').removeClass(NAMESPACE + 'slider-active');
         this.$controlOl.find('li').eq(this._index).find('a').addClass(NAMESPACE + 'slider-active');
     },
-    //下一张幻灯片
+    /**
+     * 下一张幻灯片
+     * @return {Object} 当前Zepto对象
+     */
     next: function () {
         this._fnMoveNext();
+        return this.$container;
     },
-    //上一张幻灯片
+    /**
+     * 上一张幻灯片
+     * @return {Object} 当前Zepto对象
+     */
     prev: function () {
         this._fnMovePrev();
+        return this.$container;
     },
-
+    /**
+     * 暂停
+     * @return {Object} 当前Zepto对象
+     */
     paused: function () {
         clearInterval(this.autoScroll);
+        return this.$container;
     }
-
 
 });

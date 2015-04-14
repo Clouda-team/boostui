@@ -18,7 +18,6 @@
  * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
  * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
  * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
- *
  * @example
  * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
  * 	2、var dialog = $.blend.dialog({
@@ -27,7 +26,6 @@
  * 					});
  * 		  dialog.show();
  */
-
 'use strict';
 $.widget('blend.dialog', {
     /*配置项*/
@@ -43,17 +41,18 @@ $.widget('blend.dialog', {
         confirmClass: '',
         maskTapClose: false,    // 点击mask，关闭dialog
         renderType: 0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
-        btn_status: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        btnStatus: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
-
-    /* _create 创建组件时调用一次*/
+    /**
+     * _create 创建组件时调用一次
+     * @private
+     */
     _create: function () {
         var options = this.options;
 
         this.$body = $('body');
         this.id = options.id || 'dialog-' + (((1 + Math.random()) * 0x1000) | 0).toString(16);
         this.addCssClass = options.addCssClass ? options.addCssClass : '';
-
         this.title = options.title;
         this.content = options.content;
         this.cancelText = options.cancelText;
@@ -64,12 +63,13 @@ $.widget('blend.dialog', {
         this.maskTapClose = options.maskTapClose;
         this.top = options.top;
         this.renderType = options.renderType;
-        this.useCustom = (this.renderType === 2) ? true : false;
-        this.btn_status = options.btn_status;
+        this.useCustom = (this.renderType === 2) ? true : false;    // renderType为2表示使用自定义dom
+        this.btnStatus = options.btnStatus;
         this.$el = this.element;
     },
     /**
      * 初始化
+     * @private
      */
     _init: function () {
         var me = this;
@@ -77,7 +77,6 @@ $.widget('blend.dialog', {
          * UIX 环境的初始化
          */
         if (IS_UIX) {
-            // todo
             if (this._uix !== null) {
                 // (this._uix.destroy)&&(this._uix.destroy());
             }
@@ -88,7 +87,6 @@ $.widget('blend.dialog', {
 
             return;
         }
-
         /**
          * 使用提供的默认方式
          */
@@ -97,10 +95,15 @@ $.widget('blend.dialog', {
             this._bindEvent();
         }
     },
+    /**
+     * 创建UIX的Dialog
+     * @param {Object} blend 通过blend2 require的变量
+     * @private
+     */
     _createUIXDialog: function (blend) {
 
         if (this.useCustom) {
-            console.error('UIX暂不支持自定义dialog');
+            // console.error('UIX暂不支持自定义dialog');
             return;
         }
 
@@ -111,16 +114,14 @@ $.widget('blend.dialog', {
         var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
         var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
 
-        // console.log(title + ":" + content + ":" + confirmText + ":" + cancelText);
-
         // create Dialog
-        var uix_dialog = blend.create('dialog', {
+        var uixDialog = blend.create('dialog', {
             title: title,
             description: content
         });
 
-        if ((this.btn_status & 1) > 0) {
-            var confirmItem = uix_dialog.create({
+        if ((this.btnStatus & 1) > 0) {
+            var confirmItem = uixDialog.create({
                 text: confirmText
             });
             confirmItem.bind('ontap', (function (that) {
@@ -129,24 +130,29 @@ $.widget('blend.dialog', {
                 };
             })(this));
 
-            uix_dialog.append(confirmItem);
+            uixDialog.append(confirmItem);
         }
 
-        if ((this.btn_status & 2) > 0) {
-            var cancel_item = uix_dialog.create({
+        if ((this.btnStatus & 2) > 0) {
+            var cancelItem = uixDialog.create({
                 text: cancelText
             });
-            cancel_item.bind('ontap', (function (that) {
+            cancelItem.bind('ontap', (function (that) {
                 return function () {
                     that._trigger('cancel');
                 };
             })(this));
 
-            uix_dialog.append(cancel_item);
+            uixDialog.append(cancelItem);
         }
 
-        this._uixDialog = uix_dialog;
+        this._uixDialog = uixDialog;
     },
+    /**
+     * 创建web的dialog
+     * @private
+     * @return {HTMLElement}
+     */
     _createHTMLDialog: function () {
 
         // 已经创建过dialog
@@ -171,22 +177,25 @@ $.widget('blend.dialog', {
         this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
         this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
 
-        if (!this.btn_status) {
+        if (!this.btnStatus) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
         }
         else {
-            if ((this.btn_status & 1) <= 0) {
+            if ((this.btnStatus & 1) <= 0) {
                 outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
             }
-            if ((this.btn_status & 2) <= 0) {
+            if ((this.btnStatus & 2) <= 0) {
                 outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
             }
         }
 
         this.jsRendered = true;
-        return outerEle; 
+        return outerEle;
     },
-    /*事件绑定*/
+    /**
+     * 为dialog相关元素添加事件
+     * @private
+     */
     _bindEvent: function () {
         var self = this;
         $(window).on('orientationchange resize', function () {
@@ -200,13 +209,21 @@ $.widget('blend.dialog', {
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
             self.hide();
-        });	
+        });
     },
-    /*定义事件派发*/
+    /**
+     * 定义事件派发
+     * @param {Object} event 事件对象
+     * @private
+     */
     _trigger: function (event) {
         this.$el.trigger('dialog:' + event);
     },
-    /*生成dialog html片段*/
+    /**
+     * 生成dialog html片段
+     * @private
+     * @return {HTMLElement}
+     */
     _getDialogHtml: function () {
 
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
@@ -220,6 +237,7 @@ $.widget('blend.dialog', {
     },
     /**
      * 显示dialog
+     * @param {string} content 指定show方法要展示的body内容
      * @return {Object}
      */
     show: function (content) {
@@ -237,22 +255,21 @@ $.widget('blend.dialog', {
             this.$el.appendTo(this.$body);
             this.hasRendered = true;        // 标记已经渲染
         }
-
         this.setPosition();
         this.mask(0.5);
         (content) && this.$content.html(content);
-        /*window.setTimeout(function () {
+        window.setTimeout(function () {
             self.$el.addClass(NAMESPACE + 'dialog-show');
             self._trigger('show');
             self.lock = false;
-        }, 50);*/
+        }, 50);
         this.lock = true;
-        self.$el.addClass(NAMESPACE + 'dialog-show');
-        self._trigger('show');
-        this.lock = false;
         return this.$el;
     },
-    /*关闭dialog*/
+    /**
+     * 关闭dialog
+     * @return {Object}
+     */
     hide: function () {
         var self = this;
         if (this.lock) {
@@ -261,7 +278,7 @@ $.widget('blend.dialog', {
         window.setTimeout(function () {
             self.unmask();
             self.lock = false;
-        }, 150);
+        }, 50);
         this._trigger('hide');
         this.lock = true;
         return this.$el.removeClass(NAMESPACE + 'dialog-show');
@@ -278,14 +295,17 @@ $.widget('blend.dialog', {
         }
         return this.$el;
     },
-    /*显示mask*/
+    /**
+     * 显示mask
+     * @param {number} opacity 透明度
+     */
     mask: function (opacity) {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
         var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
-        this.maskDom.css('height',bodyHeight);
-        this.maskDom.on('tap', function (e) {
+        this.maskDom.css('height', bodyHeight);
+        this.maskDom.on('click', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
         }).on('touchmove', function (e) {
@@ -304,7 +324,7 @@ $.widget('blend.dialog', {
      */
     setPosition: function () {
         var top = typeof this.top === 'undefined' ?
-        ((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
+        (window.innerHeight / 2) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
             top: top + 'px',

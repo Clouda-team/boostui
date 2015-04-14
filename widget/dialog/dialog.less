@@ -13,10 +13,6 @@
     display: block;
     width: @dialog-width;
     padding: 0;
-    transform:scale(0);
-    -webkit-transform: scale(0);
-    -webkit-transition: all  @dialog-duration  ease-in-out;
-    transition: all @dialog-duration  ease-in-out;
     z-index: @dialog-zindexlarger;
     background-color: @white;
     color:@dialog-color;
@@ -36,8 +32,12 @@
 
 .@{namespace}dialog-show {
     visibility:visible;
+    /*
     transform:scale(1);
     -webkit-transform: scale(1);
+    */
+    -webkit-transition: all  @dialog-duration  ease-in-out;
+    transition: all @dialog-duration  ease-in-out;
 }
 
 .@{namespace}dialog-header{
