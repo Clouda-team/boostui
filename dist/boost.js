@@ -4806,25 +4806,28 @@ $.widget('blend.checkbox', {
     }
 });
 })(Zepto)
-;(function($){'use strict';
-/**
- * 定义一个组件
+;(function($){/**
+ * counter 组件
+ * @file counter.js
+ * @author zhangyuanwei
  */
-$.widget("blend.counter", {
+'use strict';
+$.widget('blend.counter', {
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
     options: {
-        minusSelector: "." + NAMESPACE + "counter-minus",
-        plusSelector: "." + NAMESPACE + "counter-plus",
-        inputSelector: "." + NAMESPACE + "counter-input",
+        minusSelector: '.' + NAMESPACE + 'counter-minus',
+        plusSelector: '.' + NAMESPACE + 'counter-plus',
+        inputSelector: '.' + NAMESPACE + 'counter-input',
         minValue: 0,
         maxValue: Infinity,
-        disableClass: NAMESPACE + "disabled",
+        disableClass: NAMESPACE + 'disabled',
         step: 1
     },
     /**
      * _create 创建组件时调用一次
+     * @private
      */
     _create: function () {
         /**
@@ -4852,6 +4855,7 @@ $.widget("blend.counter", {
     },
     /**
      * _init 初始化的时候调用
+     * @private
      */
     _init: function () {
         var options = this.options;
@@ -4867,23 +4871,28 @@ $.widget("blend.counter", {
     /**
      * _initValue 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
+     * @private
      */
     _initValue: function () {
-        //var initValue = Number(this.$input.val());
-        //this._value = isNaN(initValue) ? 0 : initValue;
+        // var initValue = Number(this.$input.val());
+        // this._value = isNaN(initValue) ? 0 : initValue;
         this.value(Number(this.$input.val()));
     },
+    /**
+     * 初始化控件事件
+     * @private
+     */
     _initEvent: function () {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on("tap", function () {
+        this.$plus.on('tap', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on("tap", function () {
+        this.$minus.on('tap', function () {
             thisObj.value(thisObj._value - step);
         });
-        this.$input.on("blur", function () {
+        this.$input.on('blur', function () {
             thisObj._initValue();
         });
     },
@@ -4892,7 +4901,7 @@ $.widget("blend.counter", {
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
      *
-     * @param n
+     * @param {number} n 设置value值
      * @return {undefined}
      */
     value: function (n) {
@@ -4925,18 +4934,19 @@ $.widget("blend.counter", {
              * this._trigger 派发自定义事件
              * 使用 jQuery/Zepto 的事件机制
              * 监听时需要加上模块名
-             * eg: $("xx").navbar().on("navbar:xxx", function(){
+             * eg: $('xx').navbar().on('navbar:xxx', function(){
              *    // 可以通过 return false 影响程序执行
              *    return false;
              * });
              */
-            if (this._trigger("beforeupdate", null, eventData)) {
+            if (this._trigger('beforeupdate', null, eventData)) {
 
                 this.$input.val(value);
                 this._value = value;
-                this._trigger("update", null, eventData);
+                this._trigger('update', null, eventData);
             }
-        } else {
+        }
+        else {
             return this._value;
         }
     }
@@ -6618,11 +6628,6 @@ function __genItemIterator(cb) {
         cb(retObj);
     };
 }
-})(Zepto)
-;(function($){
-
-
-
 })(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* globals Hammer */
