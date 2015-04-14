@@ -13,7 +13,8 @@ $.widget("blend.counter", {
         minValue: 0,
         maxValue: Infinity,
         disableClass: NAMESPACE + "disabled",
-        step: 1
+        step: 1,
+        asyn: false  // true/false
     },
     /**
      * _create 创建组件时调用一次
@@ -113,21 +114,35 @@ $.widget("blend.counter", {
                 newValue: value
             };
 
-            /**
-             * this._trigger 派发自定义事件
-             * 使用 jQuery/Zepto 的事件机制
-             * 监听时需要加上模块名
-             * eg: $("xx").navbar().on("navbar:xxx", function(){
+            if (this.options.asyn) {
+                var counter = this;
+                eventData.callback = function () {
+                    counter.$input.val(value);
+                    counter._value = value;
+                    delete eventData.callback;
+                    counter._trigger("update", null, eventData);
+                };
+                this._trigger("beforeupdate", null, eventData);
+            }
+            else {
+                /**
+                 * this._trigger 派发自定义事件
+                 * 使用 jQuery/Zepto 的事件机制
+                 * 监听时需要加上模块名
+                 * eg: $("xx").navbar().on("navbar:xxx", function(){
              *    // 可以通过 return false 影响程序执行
              *    return false;
              * });
-             */
-            if (this._trigger("beforeupdate", null, eventData)) {
+                 */
+                if (this._trigger("beforeupdate", null, eventData)) {
 
-                this.$input.val(value);
-                this._value = value;
-                this._trigger("update", null, eventData);
+                    this.$input.val(value);
+                    this._value = value;
+                    this._trigger("update", null, eventData);
+                }
             }
+
+
         } else {
             return this._value;
         }
