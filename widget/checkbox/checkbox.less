@@ -1,22 +1,27 @@
+
 .@{namespace}checkbox {
   display: inline-block;
   position: relative;
   font-family: BoostFont;
   border: solid 1px #d4d4d4;
   background-color: #fff;
+  vertical-align: middle;
 }
+
 .@{namespace}checkbox-label {
   display: inline-block;
-  font-family: BoostFont;
-  vertical-align: top;
   line-height: 20px;
-  padding-left: 5px;
+  color: #262626;
+  font-size: 14px;
+  vertical-align: middle;
+  margin-left: 5px;
+  margin-right: 10px;
 }
+
 
 .@{namespace}checkbox-checked {
   border: none;
   background-color: #2eb6aa;
-  border: solid 1px #2eb6aa;
 }
 
 .@{namespace}checkbox-checked:before {
@@ -34,7 +39,7 @@
 }
 
 .@{namespace}checkbox-default:before {
-  top: 0;
+  top: 1px;
   left: 2px;
 }
 
@@ -49,3 +54,28 @@
 }
 
 
+.@{namespace}checkbox-group {
+  display: -webkit-box;
+  padding: 0 16px;
+  border-bottom: 1px solid #edebeb;
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .@{namespace}checkbox {
+    display: block;
+    margin-top: 12px;
+  }
+
+  .@{namespace}checkbox-label {
+    display: block;
+    line-height: 45px;
+    height: 45px;
+    -webkit-box-flex: 1;
+    margin: 0;
+  }
+
+  .@{namespace}checkbox-checked {
+    background-color: #00a2eb;
+  }
+}

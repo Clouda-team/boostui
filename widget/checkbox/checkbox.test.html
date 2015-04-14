@@ -3,90 +3,89 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-    <title>checkbox~~~</title>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>checkbox</title>
     <link rel="stylesheet" href="../../dist/boost.css">
+    <style type="text/css">
+        #checkgroup {
+            border-bottom: 1px solid #edebeb;
+            border-top: 1px solid #edebeb;
+        }
 
-    <!-- <link rel="stylesheet" href="checkbox.css"> -->
-   
-  
+        #checkall {
+            margin: 0 20px;
+        }
+
+        #checkall > div {
+            margin-bottom: 10px;
+        }
+
+        #check {
+            margin: 0 20px;
+        }
+
+        #radio {
+            margin: 0 20px;
+        }
+
+        h2 {
+            margin-top: 20px;
+        }
+    </style>
 </head>
-
 <body>
+<h2>group</h2>
 
-    <div id="check1">
-        <br><br>
-        <span class="blend-checkbox blend-checkbox-default blend-checkbox-checked"></span><label class="blend-checkbox-label">aaa</label>
-        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">aaa</label>
-        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">aaa</label>
-        <br><br>
-        <span class="blend-checkbox blend-checkbox-square blend-checkbox-all"></span><label class="blend-checkbox-label">全选</label>
+<div id="checkgroup" data-blend-widget="checkbox"
+     data-blend-checkbox="{&quot;type&quot;:&quot;radio&quot;,&quot;values&quot;:[&quot;radio1&quot;,&quot;radio2&quot;,&quot;radio3&quot;]}">
+    <div class="blend-checkbox-group">
+        <label class="blend-checkbox-label">就是这个原因了</label>
+        <span class="blend-checkbox blend-checkbox-default blend-checkbox-checked"></span>
+    </div>
+    <div class="blend-checkbox-group">
+        <label class="blend-checkbox-label">不是因为这个</label>
+        <span class="blend-checkbox blend-checkbox-default"></span>
+    </div>
+    <div class="blend-checkbox-group">
+        <label class="blend-checkbox-label">让我再想一想</label>
+        <span class="blend-checkbox blend-checkbox-default"></span>
+    </div>
+</div>
+
+<h2>带全选checkbox</h2>
+
+<div id="checkall" data-blend-widget="checkbox" data-blend-checkbox="{&quot;type&quot;:&quot;group&quot;}">
+    <div>
+        <span class="blend-checkbox blend-checkbox-square blend-checkbox-all"></span><label
+            class="blend-checkbox-label">全选</label>
+    </div>
+    <div>
+        <span class="blend-checkbox blend-checkbox-default blend-checkbox-checked"></span><label
+            class="blend-checkbox-label">A</label>
+        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">B</label>
+        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">C</label>
     </div>
 
-    <div id="check2" data-blend-widget="checkbox" >
-        <br><br>
-        <span class="item blend-checkbox blend-checkbox-square blend-checkbox-checked"></span><label class="blend-checkbox-label">aaa</label>
-        <span class="item blend-checkbox blend-checkbox-square"></span><label class="blend-checkbox-label">aaa</label>
-    </div>
+</div>
 
-     <div id="check3" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["radio1","radio2","radio3"]}'>
-        <br><br>
-        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">aaa</label>
-        <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">aaa</label>
-    </div>
-<br><br>
-    <button id="getData1" >获取第一组值</button>
-    <button id="getData2" >获取第二组值</button>
-    <button id="getData3" >获取第三组值</button>
-    <br>
-    <textarea id="rs"></textarea>
+<h2>方形checkbox</h2>
 
-    <!-- <script type="text/javascript" src="checkbox.js"></script> -->
-  <script src="../../dist/boost.js"></script>
-  <script>
+<div id="check" data-blend-widget="checkbox" data-blend-checkbox="{&quot;type&quot;:&quot;group&quot;}">
+    <span class="item blend-checkbox blend-checkbox-square blend-checkbox-checked"></span><label
+        class="blend-checkbox-label">A</label>
+    <span class="item blend-checkbox blend-checkbox-square"></span><label class="blend-checkbox-label">B</label>
+</div>
 
-            
+<h2>radio</h2>
 
-        $(function () {
-            // 选择元素
-            $('#check1').checkbox({"type":"group","values":["1","22","333"]});
+<div id="radio" data-blend-widget="checkbox"
+     data-blend-checkbox="{&quot;type&quot;:&quot;radio&quot;,&quot;values&quot;:[&quot;radio1&quot;,&quot;radio2&quot;]}">
+    <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">AA</label>
+    <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">BB</label>
+</div>
 
-            $('#check2').checkbox({
-                "itemSelector":".item",
-                "type":"radio",
-                "values":["aa","b","ccc"] 
-            });
-
-
-            $('#check3').checkbox();
-
-
-
-            /*$('[data-blend-widget="checkbox"]').on("checkbox:statusChange",function(data){
-                console.log(data);
-            });*/
-
-            $("#getData1").on('click',function(s){
-                var a = $('#check1').checkbox("getValues");
-                $("#rs").val(JSON.stringify(a));
-
-            });
-
-            $("#getData2").on('click',function(s){
-                var a = $('#check2').checkbox("getValues");
-                $("#rs").val(a);
-
-            });
-
-
-            $("#getData3").on('click',function(s){
-                var a = $('#check3').checkbox("getValues");
-                $("#rs").val(JSON.stringify(a));
-
-            });
-
-        });
-    </script>
+<script src="../../dist/boost.js"></script>
 </body>
 
 </html>

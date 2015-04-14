@@ -32,7 +32,7 @@ $.widget('blend.checkbox', {
 
 
         this.$group = $this.find(options.itemSelector); //
-        this.$label = $this.find(options.itemLabel);
+        this.$label = $this.find('.' + options.itemLabel);
         this.$container = $this;
 
     },
