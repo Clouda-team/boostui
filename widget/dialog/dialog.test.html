@@ -12,10 +12,10 @@
 	
 <body>
 
-	<!-- <button onclick="dialog2.show()">两个按钮dialog</button>
-	<br/><br/><br/><br/><br/><br/>
-	<button onclick="dialog1.show()">一个按钮dialog</button> -->
-  <hr>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    
 
   <button id="custome">自定义dialog</button>
 
@@ -49,13 +49,11 @@
 
     <br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     <br><br><br><br><br><br><br>
+   
     
     <script src="../../dist/boost.js"></script>
     <script src="../../../BlendUI2/third_party/require.js"></script>
@@ -63,20 +61,6 @@
 
     <script>
           
-      /*  var dialog1 = $("#dialogWrapper").dialog({
-          message: "hello world!!!",
-          cancelOnly: 1,
-          cancelText: '确定'
-        });*/
-
-       /* $("#haha").bind("click",function(){
-          var dialog1 = $("#dialogWrapper").dialog({
-            message: "hello world!!!",
-            cancelOnly: 1,
-            cancelText: '确定'
-          });
-          // dialog1.dialog("show");
-        });*/
         ;(function(){
 
 
@@ -100,7 +84,7 @@
 
           var dialog2 = $("#domInitDialog").dialog({
             useCustom:false,
-            btn_status:2,
+            btnStatus:2,
             renderType:0 // 默认使用dom渲染
           }).on('dialog:show',function(){
             console.log("dialog2 show");
@@ -115,13 +99,13 @@
           //Dom渲染方式
           
 
-          /*var dialog3 = $("#jsInitDialog").dialog({
+          var dialog3 = $("#jsInitDialog").dialog({
             title:"这是title",
             content: "这是通过js传参渲染的，<a href='http://www.baidu.com'>这是一个链接</a>",
             // cancelOnly: 1,
             confirmText:"确认",
             cancelText: '取消',
-            btn_status:3,
+            btnStatus:3,
             renderType:1  //js渲染
           }).on('dialog:show',function(){
             console.log("dialog3 show");
@@ -133,7 +117,7 @@
             alert("监听confirm事件，3333333");
           }).on("dialog:cancel",function(){
             alert("监听cancel事件，888")
-          });*/
+          });
 
 
           $("#custome").bind("click",function(){
@@ -154,42 +138,15 @@
 
           $("#jsInit").bind("click",function(){
             
-            // dialog3.dialog("show");
-
-            if(dialog2) 
-            dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
+            dialog3.dialog("show");
+            /*if(dialog2) 
+            dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());*/
 
 
           });
 
 
         })();
-
-        
-
-
-
-        // var boost = $;
-
-       /* var dialog1 = $.blend.dialog({
-          message: "hello world!!!",
-          cancelOnly: 1,
-          cancelText: '确定'
-        });
-        var dialog2 = $.blend.dialog({
-          message: "hello world!!!",
-          maskTapClose: true
-        });
-
-        $('.j_test_dialog').dialog().on('dialog:show', function(){
-          console.log("---show---");
-        }); 
-
-        $('.j_test_dialog').dialog().on('dialog:hide', function(){
-          console.log("---hide---");
-        });  */
-      
-
         
     </script>
 </body>
