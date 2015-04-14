@@ -10,7 +10,7 @@
 
 <body>
 
-<div id="validate" class="blend-form" style="margin: 8px;">
+<div id="validate" class="blend-form" style="margin: 8px 0;">
     <div class="blend-formgroup">
         <label class="blend-formgroup-label">姓名</label>
         <input type="text" class="blend-formgroup-input" placeholder="姓名"/>
@@ -26,11 +26,12 @@
 
 </div>
 
-<div id="asyn" class="blend-form" style="margin-top: 20px;">
+<h2 style="margin-top: 20px;">异步校验</h2>
+<div id="asyn" class="blend-form">
     <div class="blend-formgroup">
-        <label class="blend-formgroup-label">手机号</label>
-        <input type="text" class="blend-formgroup-input" placeholder="请输入手机号码"/>
-        <button class="blend-formgroup-button">发送验证码</button>
+        <label class="blend-formgroup-label">数字</label>
+        <input type="text" class="blend-formgroup-input" placeholder="请输入数字"/>
+        <!--<button class="blend-formgroup-button">发送验证码</button>-->
     </div>
 </div>
 
@@ -67,7 +68,7 @@
                 dataType: 'jsonp',
                 success: function (ret) {
                     if (ret.errno == 0) {
-
+                        // your code
                     }
                     else {
                         cb(ret.errMsg);

@@ -1,19 +1,21 @@
 @formgroup-bottom-color: #DDDDDD;
 @formgroup-background-color: #FFFFFF;
+@formgroup-font-color: #262626;
 @formgroup-placeholder-color: #999999;
 @active-border-color: #2eb6aa;
 @error-border-color: #2eb6aa;
-@formgroup-label-width: 78px;
-@formgroup-label-padding-left: 10px;
+@formgroup-label-width: 85px;
+@formgroup-label-padding-left: 15px;
 @formgroup-label-font: @boost-font-size-link;
-@formgroup-height: 45px;
-@formgroup-line-height: 44px;
+@formgroup-height: 40px;
+@formgroup-line-height: 40px;
 @formgroup-btn: @boost-font-size-nav;
 
 
 
 .@{namespace}form{
-  border: 1px solid @formgroup-bottom-color;
+  border-top: 1px solid @formgroup-bottom-color;
+  border-bottom: 1px solid @formgroup-bottom-color;
   .@{namespace}formgroup {
     border-bottom: 1px solid @formgroup-bottom-color;
     &:last-child {
@@ -28,6 +30,7 @@
 }
 
 .@{namespace}formgroup-label {
+  color: @formgroup-font-color;
   width: @formgroup-label-width;
   display: block;
   padding-left: @formgroup-label-padding-left;
@@ -47,6 +50,7 @@
   width: 0;
   border: none;
   -webkit-appearance: none;
+  color: @formgroup-font-color;
   &::-webkit-input-placeholder {
     color: @formgroup-placeholder-color;
   }
