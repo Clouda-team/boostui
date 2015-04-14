@@ -4,98 +4,34 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
-    <title></title>
-    <link rel="stylesheet" href="../../dist/boost.css" />
-    <script src="../../dist/boost.js"></script>
-    <script src="../../../BlendUI2/third_party/require.js"></script>
+    <title>测试一</title>
+    <link rel="stylesheet" href="../../dist/boost.css"/>
+    <style>
+        body {
+            background-color: #eeeeee;
+        }
+
+        .blend-header-item.blend-button-default {
+            color: #FFFFFF;
+        }
+    </style>
 </head>
 
 <body>
 
-    <header data-blend-widget="header" class="blend-header">
+<header data-blend-widget="header" class="blend-header">
         <span class="blend-header-left">
             <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();"></a>
         </span>
         <span class="blend-header-title">
-            <span class="blend-header-item">第一个页面</span>
+            <span class="blend-header-item">测试一标题</span>
         </span>
-        <!--
-        第一个页面
-        -->
         <span class="blend-header-right">
-            <a class="blend-header-item" href="http://www.baidu.com">百度</a>
-            <a class="blend-header-item blend-button blend-button-info" href="header.test2.html">测试2</a>
+            <a class="blend-header-item blend-button blend-button-default" href="header.test2.html">测试2</a>
         </span>
-    </header>
+</header>
 
-    <a class="blend-header-item blend-button blend-button-primary" href="header.test2.html">测试2</a>
-
-    <script>
-        require.config({
-            baseUrl: "../../../BlendUI2/src/",
-            urlArgs: "_=" + +new Date()
-        });
-
-        //require(['blend'], function (blend) {
-        //    var header = blend.create("title", {
-        //        text:"header"
-        //    });
-
-        //    header.setStyle({
-        //        backgroundColor:"#ff0000",
-        //        color:"#cccccc"
-        //    });
-
-        //    header.addLeftItem({
-        //        text: "返回",
-        //        action: {
-        //            operator: 'back'
-        //        }
-        //    });
-
-        //    header.addRightItem({
-        //        text:"菜单",
-        //        action:{
-        //            url: "http://www.baidu.com"
-        //        }
-        //    });
-        //});
-    </script>
-
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
-    我是为了撑长页面而存在的<br />
+<script src="../../dist/boost.js"></script>
 </body>
 
 </html>
