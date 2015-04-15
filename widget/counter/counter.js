@@ -5,6 +5,7 @@
  */
 'use strict';
 $.widget('blend.counter', {
+
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
@@ -14,15 +15,18 @@ $.widget('blend.counter', {
         inputSelector: '.' + NAMESPACE + 'counter-input',
         minValue: 0,
         maxValue: Infinity,
-        disableClass: NAMESPACE + "disabled",
+        disableClass: NAMESPACE + 'disabled',
         step: 1,
-        asyn: false  // true/false
+        asyn: false // true/false
+
     },
+
     /**
      * _create 创建组件时调用一次
      * @private
      */
     _create: function () {
+
         /**
          * this 对象为一个 组件 实例
          * 不是 Zepto/jQuery 对象
@@ -46,6 +50,7 @@ $.widget('blend.counter', {
         this.$plus = $el.find(options.plusSelector);
         this.$input = $el.find(options.inputSelector);
     },
+
     /**
      * _init 初始化的时候调用
      * @private
@@ -61,6 +66,7 @@ $.widget('blend.counter', {
         this._initValue();
         this._initEvent();
     },
+
     /**
      * _initValue 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
@@ -71,6 +77,7 @@ $.widget('blend.counter', {
         // this._value = isNaN(initValue) ? 0 : initValue;
         this.value(Number(this.$input.val()));
     },
+
     /**
      * 初始化控件事件
      * @private
@@ -89,6 +96,7 @@ $.widget('blend.counter', {
             thisObj._initValue();
         });
     },
+
     /**
      * value 自定义的成员方法,
      * 没有返回值或者返回值为 undefined 时会保持调用链，
@@ -103,7 +111,6 @@ $.widget('blend.counter', {
         var eventData;
 
         if (arguments.length > 0) {
-
             value = Number(n);
             if (isNaN(value)) {
                 return;
@@ -121,6 +128,7 @@ $.widget('blend.counter', {
             eventData = {
                 oldValue: oldValue,
                 newValue: value
+
             };
 
             if (this.options.asyn) {
@@ -129,32 +137,32 @@ $.widget('blend.counter', {
                     counter.$input.val(value);
                     counter._value = value;
                     delete eventData.callback;
-                    counter._trigger("update", null, eventData);
+                    counter._trigger('update', null, eventData);
                 };
-                this._trigger("beforeupdate", null, eventData);
+                this._trigger('beforeupdate', null, eventData);
             }
             else {
+
                 /**
                  * this._trigger 派发自定义事件
                  * 使用 jQuery/Zepto 的事件机制
                  * 监听时需要加上模块名
                  * eg: $("xx").navbar().on("navbar:xxx", function(){
-             *    // 可以通过 return false 影响程序执行
-             *    return false;
-             * });
+                 *    // 可以通过 return false 影响程序执行
+                 *    return false;
+                 * });
                  */
-                if (this._trigger("beforeupdate", null, eventData)) {
-
+                if (this._trigger('beforeupdate', null, eventData)) {
                     this.$input.val(value);
                     this._value = value;
-                    this._trigger("update", null, eventData);
+                    this._trigger('update', null, eventData);
                 }
             }
 
-
-        } else {
-
+        }
+        else {
             return this._value;
         }
     }
+
 });

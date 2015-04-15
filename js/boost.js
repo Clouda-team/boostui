@@ -1,23 +1,28 @@
 (function(window, undefined) {
     var NAMESPACE = "blend-" ;
-    var UIX_VERSION = (function() {
+    /**
+ * @file uix.js
+ * @author zhangyuanwei
+ */
+/*
+获取UIX版本信息
+ */
+var UIX_VERSION = (function () {
     var ua = navigator.userAgent.toLowerCase();
     var v = ua.match(/uix\/(\d+\.\d+\.\d+\.\d+)/);
     return v ? v[1] : undefined;
 })();
 
 var IS_UIX = UIX_VERSION !== undefined;
-var UIX_ACTION_BACK = "back";
-var ACTION_BACK_CLASS = NAMESPACE + "action-" + UIX_ACTION_BACK;
-//TODO more action
-
-
+var UIX_ACTION_BACK = 'back';
+var ACTION_BACK_CLASS = NAMESPACE + 'action-' + UIX_ACTION_BACK;
+// TODO more action
 
 if (IS_UIX) {
-    (function() {
-        var htmlElem = document.getElementsByTagName("HTML")[0];
+    (function () {
+        var htmlElem = document.getElementsByTagName('HTML')[0];
         var className = htmlElem.className;
-        htmlElem.className = className + " " + NAMESPACE + "boost";
+        htmlElem.className = className + ' ' + NAMESPACE + 'boost';
     })();
 }
 
@@ -29,16 +34,16 @@ function color2Hex(str) {
     }
 
     function rgb(r, g, b) {
-        return "#ff" + toHex(r) + toHex(g) + toHex(b);
+        return '#ff' + toHex(r) + toHex(g) + toHex(b);
     }
 
     function rgba(r, g, b, a) {
         a = a * 0xFF;
-        return "#" + toHex(a) + toHex(r) + toHex(g) + toHex(b);
+        return '#' + toHex(a) + toHex(r) + toHex(g) + toHex(b);
     }
 
-    color2Hex = function(str) {
-        return (new Function("rgb", "rgba", "return " + str)).call(null, rgb, rgba);
+    color2Hex = function (str) {
+        return (new Function('rgb', 'rgba', 'return ' + str)).call(null, rgb, rgba);
     };
 
     return color2Hex(str);
@@ -4322,17 +4327,21 @@ window.Zepto = window.$ = Zepto;
   }
 })(Zepto)
 
-    ;
-(function ($) {
+    /**
+ * 组件 类工厂
+ * @file widget.js
+ * @author zhangyuanwei
+ */
+;(function ($) {
     'use strict';
     var widgetMap = {};
     /**
      * widget 类工厂
      *
-     * @param name {string} widget名
-     * @param base {function} 父类
-     * @param prototype {object} 原型
-     * @return {function} 类构造函数
+     * @param {string} name  widget名
+     * @param {Function} base 父类
+     * @param {Object} prototype 原型
+     * @return {Function} 类构造函数
      */
     $.widget = function (name, base, prototype) {
         /**
@@ -4351,10 +4360,10 @@ window.Zepto = window.$ = Zepto;
          * 用于实现 this._super 调用
          */
         var proxiedPrototype = {};
-        var namespace = name.split(".")[0];
+        var namespace = name.split('.')[0];
 
-        name = name.split(".")[1];
-        fullName = namespace + "-" + name;
+        name = name.split('.')[1];
+        fullName = namespace + '-' + name;
 
         if (!prototype) {
             prototype = base;
@@ -4368,7 +4377,7 @@ window.Zepto = window.$ = Zepto;
                 return new constructor(options, element);
             }
 
-            //没有参数的时候用于继承时候构造原型
+            // 没有参数的时候用于继承时候构造原型
             if (arguments.length) {
                 this._createWidget(options, element);
             }
@@ -4379,12 +4388,14 @@ window.Zepto = window.$ = Zepto;
 
         // 将原型复制到代理对象上，提供 this._super 和 this._superApply 支持
         $.each(prototype, function (prop, value) {
+
             var _super;
             var _superApply;
 
             if (!$.isFunction(value)) {
                 proxiedPrototype[prop] = value;
-            } else {
+            }
+            else {
                 _super = function () {
                     return base.prototype[prop].apply(this, arguments);
                 };
@@ -4398,7 +4409,8 @@ window.Zepto = window.$ = Zepto;
 
                     try {
                         returnValue = value.apply(this, arguments);
-                    } finally {
+                    }
+                    finally {
                         this._super = __super;
                         this.__superApply = __superApply;
                     }
@@ -4421,16 +4433,16 @@ window.Zepto = window.$ = Zepto;
     };
 
 
-    $.widget.has = function(name){
+    $.widget.has = function (name) {
         return widgetMap.hasOwnProperty(name);
-    }
+    };
 
     var slice = Array.prototype.slice;
 
     /**
      * extend 复制对象属性到 target 上
      *
-     * @param target
+     * @param {Object} target 要复制到的对象
      * @return {undefined}
      */
     $.widget.extend = function (target) {
@@ -4449,7 +4461,8 @@ window.Zepto = window.$ = Zepto;
                         target[key] = $.isPlainObject(target[key]) ?
                             $.widget.extend({}, target[key], value) :
                             $.widget.extend({}, value);
-                    } else {
+                    }
+                    else {
                         // Copy everything else by reference
                         target[key] = value;
                     }
@@ -4461,36 +4474,35 @@ window.Zepto = window.$ = Zepto;
     };
 
 
-    var widget_magic = "__iqzll3wmdjthuxr_";
+    var widgetMagic = '__iqzll3wmdjthuxr_';
     /**
      * bridge 扩展Zepto.fn
      *
-     * @param name
-     * @param object
-     * @return {undefined}
+     * @param {string} name name
+     * @param {Object} constructor constructor
      */
     $.widget.bridge = function (name, constructor) {
         var fullName = constructor.prototype.widgetFullName || name;
-        var dataKey = widget_magic + fullName;
+        var dataKey = widgetMagic + fullName;
 
         $.fn[name] = function (options) {
-            var isMethodCall = typeof options === "string";
+            var isMethodCall = typeof options === 'string';
             var args = slice.call(arguments, 1);
             var returnValue = this;
 
             if (isMethodCall) {
-                //函数调用
+                // 函数调用
                 this.each(function () {
                     var $this = $(this);
                     var instance = $this.data(dataKey);
                     var methodValue;
 
-                    if (options === "instance") {
+                    if (options === 'instance') {
                         returnValue = instance;
                         return false;
                     }
 
-                    if (options === "destroy") {
+                    if (options === 'destroy') {
                         if (instance.destroy) {
                             instance.destroy();
                         }
@@ -4499,14 +4511,14 @@ window.Zepto = window.$ = Zepto;
                     }
 
                     if (!instance) {
-                        //TODO Error
-                        throw new Error("cannot call methods on " + name + " prior to initialization; " +
-                            "attempted to call method '" + options + "'");
+                        // TODO Error
+                        throw new Error('cannot call methods on ' + name + ' prior to initialization; ' +
+                            'attempted to call method "' + options + '"');
                     }
 
-                    if (!$.isFunction(instance[options]) || options.charAt(0) === "_") {
-                        //TODO Error
-                        throw new Error("no such method '" + options + "' for " + name + " widget instance");
+                    if (!$.isFunction(instance[options]) || options.charAt(0) === '_') {
+                        // TODO Error
+                        throw new Error('no such method "' + options + '" for ' + name + ' widget instance');
                     }
 
                     methodValue = instance[options].apply(instance, args);
@@ -4515,9 +4527,10 @@ window.Zepto = window.$ = Zepto;
                         return false;
                     }
                 });
-            } else {
-                //初始化
-                //支持多个初始化参数
+            }
+            else {
+                // 初始化
+                // 支持多个初始化参数
                 if (args.length) {
                     options = $.widget.extend.apply(null, [{}, options].concat(args));
                 }
@@ -4526,12 +4539,13 @@ window.Zepto = window.$ = Zepto;
                     var $this = $(this);
                     var instance = $this.data(dataKey);
                     if (instance) {
-                        //已经初始化过
+                        // 已经初始化过
                         instance.option(options || {});
                         if (instance._init) {
                             instance._init();
                         }
-                    } else {
+                    }
+                    else {
                         $this.data(dataKey, new constructor(options, this));
                     }
                 });
@@ -4546,14 +4560,17 @@ window.Zepto = window.$ = Zepto;
     /**
      * $.Widget 父类
      *
-     * @param  options
-     * @param element
-     * @class $.Widget
      */
-    $.Widget = function ( /* options, element */ ) {};
+    $.Widget = function (/* options, element */) {};
 
     $.Widget.prototype = {
         options: {},
+        /**
+         * 创建组件
+         * @private
+         * @param  {Object} options 配置
+         * @param  {HTMLElement} element DOM元素
+         */
         _createWidget: function (options, element) {
             this.element = $(element);
             this.options = $.widget.extend({},
@@ -4562,35 +4579,58 @@ window.Zepto = window.$ = Zepto;
                 options);
 
             this._create();
-            this._trigger("create", null, this._getCreateEventData());
+            this._trigger('create', null, this._getCreateEventData());
             this._init();
         },
+        /**
+         * @private
+         * @return {Object}
+         */
         _getCreateOptions: function () {
             return this.element.data(this.widgetFullName);
         },
+        /**
+         * @private
+         */
         _getCreateEventData: noop,
+        /**
+         * @private
+         */
         _create: noop,
+        /**
+         * @private
+         */
         _init: noop,
-
         destroy: function () {
             this._destroy();
-            //TODO 批量删除事件绑定好像不大好做 -_-!!
-            //    var $this = this.element;
-            //    $this.off(this.widgetName);
+            // TODO 批量删除事件绑定好像不大好做 -_-!!
+            // var $this = this.element;
+            // $this.off(this.widgetName);
         },
+        /**
+         * @private
+         */
         _destroy: noop,
-
+        /**
+         * 派发事件
+         * @private
+         * @param  {string} type 事件类型
+         * @param  {string} originalEvent 原始事件
+         * @param  {Object} data 传递的数据
+         * @return {[type]}
+         */
         _trigger: function (type, originalEvent, data) {
             var event;
             var callback = this.options[type];
 
-            type = this.widgetName + ":" + type;
+            type = this.widgetName + ':' + type;
             data = data || {};
             event = $.Event(type, {
                 originalEvent: originalEvent
             });
             this.element.trigger(event, data);
-            return !($.isFunction(callback) && callback.apply(this.element[0], [event].concat(data)) === false || event.isDefaultPrevented());
+            return !($.isFunction(callback) &&
+                callback.apply(this.element[0], [event].concat(data)) === false || event.isDefaultPrevented());
         },
         option: function (key, value) {
             var options = key;
@@ -4599,13 +4639,13 @@ window.Zepto = window.$ = Zepto;
             var i;
 
             if (arguments.length === 0) {
-                //得到所有的 options 值
+                // 得到所有的 options 值
                 return $.widget.extend({}, this.options);
             }
 
-            if (typeof key === "string") {
+            if (typeof key === 'string') {
                 options = {};
-                parts = key.split(".");
+                parts = key.split('.');
                 key = parts.shift();
                 if (parts.length) {
                     // key = "a.b.c.d"
@@ -4620,7 +4660,8 @@ window.Zepto = window.$ = Zepto;
                         return currentOpt[key] === undefined ? null : currentOpt[key];
                     }
                     currentOpt[key] = value;
-                } else {
+                }
+                else {
                     if (arguments.length === 1) {
                         return this.options[key] === undefined ? null : this.options[key];
                     }
@@ -4631,6 +4672,12 @@ window.Zepto = window.$ = Zepto;
             this._setOptions(options);
             return this;
         },
+        /**
+         * 设置options
+         * @private
+         * @param {Object} options 传入的options
+         * @return {Object} 当前对象
+         */
         _setOptions: function (options) {
             var key;
             for (key in options) {
@@ -4639,6 +4686,13 @@ window.Zepto = window.$ = Zepto;
 
             return this;
         },
+        /**
+         * 设置option
+         * @private
+         * @param {string} key key
+         * @param {Object|string|number|Function|boolean} value value
+         * @return {Object} 当前对象
+         */
         _setOption: function (key, value) {
             this.options[key] = value;
             return this;
@@ -4646,25 +4700,27 @@ window.Zepto = window.$ = Zepto;
     };
 })(Zepto);
 
-    ;(function($){/**
- * checkbox  组件
- * Created by dingquan on 15-2-1.
+    ;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file checkbox 组件
+ * @author dingquan
  */
 
 'use strict';
 
-$.widget("blend.checkbox",{
-	/**
+$.widget('blend.checkbox', {
+    /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-		itemSelector:'.'+ NAMESPACE +'checkbox',
-        itemLabel:'label',
-        type:'group',
-        itemSelected:NAMESPACE + 'checkbox-checked',
-        itemSelectAll:NAMESPACE + 'checkbox-all',
+        itemSelector: '.' + NAMESPACE + 'checkbox',
+        itemLabel: NAMESPACE + 'checkbox-label',
+        type: 'group',
+        itemSelected: NAMESPACE + 'checkbox-checked',
+        itemSelectAll: NAMESPACE + 'checkbox-all'
     },
-    _create:function(){
+    _create: function () {
 
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
@@ -4678,10 +4734,9 @@ $.widget("blend.checkbox",{
 
 
         this.$group = $this.find(options.itemSelector); //
-        this.$label = $this.find(options.itemLabel);
+        this.$label = $this.find('.' + options.itemLabel);
         this.$container = $this;
-        
-        console.log(options.datas);
+
     },
     /**
      * _init 初始化的时候调用
@@ -4689,48 +4744,46 @@ $.widget("blend.checkbox",{
     _init: function () {
         this._initEvent();
     },
-    _checkGroup:function (curElem){
+    _checkGroup: function (curElem) {
 
         var that = this;
-        var EventSelected = that.$container.find("." + that.options.itemSelected),
-            EventSelector = that.$container.find(that.options.itemSelector);
+        var EventSelected = that.$container.find('.' + that.options.itemSelected);
+        var EventSelector = that.$container.find(that.options.itemSelector);
 
         var eventData = {
             checked: 0
         };
-            
-        if (that.options.type=="radio") {
+
+        if (that.options.type === 'radio') {
             EventSelected.removeClass(that.options.itemSelected);
             curElem.addClass(that.options.itemSelected);
             eventData.checked++;
         }
         else {
-            
-            //判断有无已勾选
+
+            // 判断有无已勾选
             EventSelector.each(function () {
-                eventData.checked = $(this).hasClass(that.options.itemSelected) ? ++eventData.checked : eventData.checked;
-            })
-            if (that.$container.find("." + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
+                eventData.checked = $(this).hasClass(that.options.itemSelected)
+                    ? ++eventData.checked : eventData.checked;
+            });
+            if (that.$container.find('.' + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
                 eventData.checked--;
             }
 
             if (curElem.hasClass(that.options.itemSelectAll)) {
-
-
                 if (eventData.checked < EventSelector.length - 1) {
                     EventSelector.each(function () {
                         $(this).addClass(that.options.itemSelected);
                         eventData.checked = EventSelector.length - 1;
-                    })
+                    });
                 }
                 else {
                     EventSelected.removeClass(that.options.itemSelected);
                     eventData.checked = 0;
                 }
-
             }
             else {
-                
+
                 if (curElem.hasClass(that.options.itemSelected)) {
                     curElem.removeClass(that.options.itemSelected);
                     eventData.checked--;
@@ -4742,93 +4795,100 @@ $.widget("blend.checkbox",{
 
             }
             if (eventData.checked < EventSelector.length - 1) {
-                that.$container.find("." + that.options.itemSelectAll).removeClass(that.options.itemSelected);
+                that.$container.find('.' + that.options.itemSelectAll).removeClass(that.options.itemSelected);
             }
             else {
-                that.$container.find("." + that.options.itemSelectAll).addClass(that.options.itemSelected);
+                that.$container.find('.' + that.options.itemSelectAll).addClass(that.options.itemSelected);
             }
         }
-        that._trigger("checked", null, eventData);
+        that._trigger('checked', null, eventData);
     },
-    _initEvent:function(){
+    _initEvent: function () {
 
         var that = this;
 
-        if(this.options.type=="radio"){
+        if (this.options.type === 'radio') {
             // radio box
-            console.log(this.options);
-            this.$group.on("tap", function () {
-                if (that._trigger("beforechecked", null, {})) {
+            this.$group.on('tap', function () {
+                if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
-                    that._checkGroup(curElem)
+                    that._checkGroup(curElem);
                 }
             });
-            this.$label.on("tap", function () {
-                if (that._trigger("beforechecked", null, {})) {
+            this.$label.on('tap', function () {
+                if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem)
+                    that._checkGroup(curElem);
                 }
             });
-        }else{
-            this.$group.on("tap", function () {
-                if (that._trigger("beforechecked", null, {})) {
+        }
+        else {
+            this.$group.on('tap', function () {
+                if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
-                    that._checkGroup(curElem)
-                    
+                    that._checkGroup(curElem);
                 }
             });
-            this.$label.on("tap", function () {
-                if (that._trigger("beforechecked", null, {})) {
+            this.$label.on('tap', function () {
+                if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem)
+                    that._checkGroup(curElem);
                 }
             });
         }
     },
-    
     /**
-     *	
-     * 	
+     *
+     * @return {*}
      */
-    getValues:function(){
-        var $this, valArr = [],val;
+    getValues: function () {
+        var $this;
+        var valArr = [];
+        var val;
         var elems = this.$group;
-        for(var i=0;i<elems.length;i++){
+        for (var i = 0; i < elems.length; i++) {
             $this = $(elems[i]);
-            if($this.hasClass(NAMESPACE+"checkbox-checked") && !$this.hasClass(NAMESPACE+"checkbox-all")){
+            if ($this.hasClass(NAMESPACE + 'checkbox-checked') && !$this.hasClass(NAMESPACE + 'checkbox-all')) {
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
         }
-        if(this.options.type=="radio"){
-            return val; 
-        }else {
-            return valArr;  
+        if (this.options.type === 'radio') {
+            return val;
         }
+        return valArr;
     }
-
-});})(Zepto)
-;(function($){'use strict';
-/**
- * 定义一个组件
+});
+})(Zepto)
+;(function($){/**
+ * counter 组件
+ * @file counter.js
+ * @author zhangyuanwei
  */
-$.widget("blend.counter", {
+'use strict';
+$.widget('blend.counter', {
+
     /**
      * 组件的默认选项，可以由多从覆盖关系
      */
     options: {
-        minusSelector: "." + NAMESPACE + "counter-minus",
-        plusSelector: "." + NAMESPACE + "counter-plus",
-        inputSelector: "." + NAMESPACE + "counter-input",
+        minusSelector: '.' + NAMESPACE + 'counter-minus',
+        plusSelector: '.' + NAMESPACE + 'counter-plus',
+        inputSelector: '.' + NAMESPACE + 'counter-input',
         minValue: 0,
         maxValue: Infinity,
-        disableClass: NAMESPACE + "disabled",
-        step: 1
+        disableClass: NAMESPACE + 'disabled',
+        step: 1,
+        asyn: false // true/false
+
     },
+
     /**
      * _create 创建组件时调用一次
+     * @private
      */
     _create: function () {
+
         /**
          * this 对象为一个 组件 实例
          * 不是 Zepto/jQuery 对象
@@ -4852,8 +4912,10 @@ $.widget("blend.counter", {
         this.$plus = $el.find(options.plusSelector);
         this.$input = $el.find(options.inputSelector);
     },
+
     /**
      * _init 初始化的时候调用
+     * @private
      */
     _init: function () {
         var options = this.options;
@@ -4866,35 +4928,43 @@ $.widget("blend.counter", {
         this._initValue();
         this._initEvent();
     },
+
     /**
      * _initValue 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
+     * @private
      */
     _initValue: function () {
-        //var initValue = Number(this.$input.val());
-        //this._value = isNaN(initValue) ? 0 : initValue;
+        // var initValue = Number(this.$input.val());
+        // this._value = isNaN(initValue) ? 0 : initValue;
         this.value(Number(this.$input.val()));
     },
+
+    /**
+     * 初始化控件事件
+     * @private
+     */
     _initEvent: function () {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on("tap", function () {
+        this.$plus.on('tap', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on("tap", function () {
+        this.$minus.on('tap', function () {
             thisObj.value(thisObj._value - step);
         });
-        this.$input.on("blur", function () {
+        this.$input.on('blur', function () {
             thisObj._initValue();
         });
     },
+
     /**
      * value 自定义的成员方法,
      * 没有返回值或者返回值为 undefined 时会保持调用链，
      * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
      *
-     * @param n
+     * @param {number} n 设置value值
      * @return {undefined}
      */
     value: function (n) {
@@ -4903,7 +4973,6 @@ $.widget("blend.counter", {
         var eventData;
 
         if (arguments.length > 0) {
-
             value = Number(n);
             if (isNaN(value)) {
                 return;
@@ -4921,27 +4990,43 @@ $.widget("blend.counter", {
             eventData = {
                 oldValue: oldValue,
                 newValue: value
+
             };
 
-            /**
-             * this._trigger 派发自定义事件
-             * 使用 jQuery/Zepto 的事件机制
-             * 监听时需要加上模块名
-             * eg: $("xx").navbar().on("navbar:xxx", function(){
-             *    // 可以通过 return false 影响程序执行
-             *    return false;
-             * });
-             */
-            if (this._trigger("beforeupdate", null, eventData)) {
-
-                this.$input.val(value);
-                this._value = value;
-                this._trigger("update", null, eventData);
+            if (this.options.asyn) {
+                var counter = this;
+                eventData.callback = function () {
+                    counter.$input.val(value);
+                    counter._value = value;
+                    delete eventData.callback;
+                    counter._trigger('update', null, eventData);
+                };
+                this._trigger('beforeupdate', null, eventData);
             }
-        } else {
+            else {
+
+                /**
+                 * this._trigger 派发自定义事件
+                 * 使用 jQuery/Zepto 的事件机制
+                 * 监听时需要加上模块名
+                 * eg: $("xx").navbar().on("navbar:xxx", function(){
+                 *    // 可以通过 return false 影响程序执行
+                 *    return false;
+                 * });
+                 */
+                if (this._trigger('beforeupdate', null, eventData)) {
+                    this.$input.val(value);
+                    this._value = value;
+                    this._trigger('update', null, eventData);
+                }
+            }
+
+        }
+        else {
             return this._value;
         }
     }
+
 });
 })(Zepto)
 ;(function($){/**
@@ -4964,7 +5049,6 @@ $.widget("blend.counter", {
  * @param {String} options.doneText (可选, 默认值: 确认) dialog 确认按钮的文案
  * @param {String} options.doneClass (可选, 默认值: \'\') dialog 确认按钮的自定义class
  * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
- *
  * @example
  * 	1、$('.dialog').dialog(), $('.dialog')为dialog自定义节点,并不是dialog的容器,切记
  * 	2、var dialog = $.blend.dialog({
@@ -4973,7 +5057,6 @@ $.widget("blend.counter", {
  * 					});
  * 		  dialog.show();
  */
-
 'use strict';
 $.widget('blend.dialog', {
     /*配置项*/
@@ -4989,17 +5072,18 @@ $.widget('blend.dialog', {
         confirmClass: '',
         maskTapClose: false,    // 点击mask，关闭dialog
         renderType: 0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
-        btn_status: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        btnStatus: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
     },
-
-    /* _create 创建组件时调用一次*/
+    /**
+     * _create 创建组件时调用一次
+     * @private
+     */
     _create: function () {
         var options = this.options;
 
         this.$body = $('body');
         this.id = options.id || 'dialog-' + (((1 + Math.random()) * 0x1000) | 0).toString(16);
         this.addCssClass = options.addCssClass ? options.addCssClass : '';
-
         this.title = options.title;
         this.content = options.content;
         this.cancelText = options.cancelText;
@@ -5010,12 +5094,13 @@ $.widget('blend.dialog', {
         this.maskTapClose = options.maskTapClose;
         this.top = options.top;
         this.renderType = options.renderType;
-        this.useCustom = (this.renderType === 2) ? true : false;
-        this.btn_status = options.btn_status;
+        this.useCustom = (this.renderType === 2) ? true : false;    // renderType为2表示使用自定义dom
+        this.btnStatus = options.btnStatus;
         this.$el = this.element;
     },
     /**
      * 初始化
+     * @private
      */
     _init: function () {
         var me = this;
@@ -5023,7 +5108,6 @@ $.widget('blend.dialog', {
          * UIX 环境的初始化
          */
         if (IS_UIX) {
-            // todo
             if (this._uix !== null) {
                 // (this._uix.destroy)&&(this._uix.destroy());
             }
@@ -5034,7 +5118,6 @@ $.widget('blend.dialog', {
 
             return;
         }
-
         /**
          * 使用提供的默认方式
          */
@@ -5043,10 +5126,15 @@ $.widget('blend.dialog', {
             this._bindEvent();
         }
     },
+    /**
+     * 创建UIX的Dialog
+     * @param {Object} blend 通过blend2 require的变量
+     * @private
+     */
     _createUIXDialog: function (blend) {
 
         if (this.useCustom) {
-            console.error('UIX暂不支持自定义dialog');
+            // console.error('UIX暂不支持自定义dialog');
             return;
         }
 
@@ -5057,16 +5145,14 @@ $.widget('blend.dialog', {
         var confirmText = $el.find('.' + NAMESPACE + 'dialog-confirm').text() || this.confirmText;
         var cancelText = $el.find('.' + NAMESPACE + 'dialog-cancel').text() || this.cancelText;
 
-        // console.log(title + ":" + content + ":" + confirmText + ":" + cancelText);
-
         // create Dialog
-        var uix_dialog = blend.create('dialog', {
+        var uixDialog = blend.create('dialog', {
             title: title,
             description: content
         });
 
-        if ((this.btn_status & 1) > 0) {
-            var confirmItem = uix_dialog.create({
+        if ((this.btnStatus & 1) > 0) {
+            var confirmItem = uixDialog.create({
                 text: confirmText
             });
             confirmItem.bind('ontap', (function (that) {
@@ -5075,24 +5161,29 @@ $.widget('blend.dialog', {
                 };
             })(this));
 
-            uix_dialog.append(confirmItem);
+            uixDialog.append(confirmItem);
         }
 
-        if ((this.btn_status & 2) > 0) {
-            var cancel_item = uix_dialog.create({
+        if ((this.btnStatus & 2) > 0) {
+            var cancelItem = uixDialog.create({
                 text: cancelText
             });
-            cancel_item.bind('ontap', (function (that) {
+            cancelItem.bind('ontap', (function (that) {
                 return function () {
                     that._trigger('cancel');
                 };
             })(this));
 
-            uix_dialog.append(cancel_item);
+            uixDialog.append(cancelItem);
         }
 
-        this._uixDialog = uix_dialog;
+        this._uixDialog = uixDialog;
     },
+    /**
+     * 创建web的dialog
+     * @private
+     * @return {HTMLElement}
+     */
     _createHTMLDialog: function () {
 
         // 已经创建过dialog
@@ -5117,22 +5208,25 @@ $.widget('blend.dialog', {
         this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
         this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
 
-        if (!this.btn_status) {
+        if (!this.btnStatus) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
         }
         else {
-            if ((this.btn_status & 1) <= 0) {
+            if ((this.btnStatus & 1) <= 0) {
                 outerEle.find('.' + NAMESPACE + 'dialog-confirm').remove();
             }
-            if ((this.btn_status & 2) <= 0) {
+            if ((this.btnStatus & 2) <= 0) {
                 outerEle.find('.' + NAMESPACE + 'dialog-cancel').remove();
             }
         }
 
         this.jsRendered = true;
-        return outerEle; 
+        return outerEle;
     },
-    /*事件绑定*/
+    /**
+     * 为dialog相关元素添加事件
+     * @private
+     */
     _bindEvent: function () {
         var self = this;
         $(window).on('orientationchange resize', function () {
@@ -5146,13 +5240,21 @@ $.widget('blend.dialog', {
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
             self.hide();
-        });	
+        });
     },
-    /*定义事件派发*/
+    /**
+     * 定义事件派发
+     * @param {Object} event 事件对象
+     * @private
+     */
     _trigger: function (event) {
         this.$el.trigger('dialog:' + event);
     },
-    /*生成dialog html片段*/
+    /**
+     * 生成dialog html片段
+     * @private
+     * @return {HTMLElement}
+     */
     _getDialogHtml: function () {
 
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
@@ -5166,6 +5268,7 @@ $.widget('blend.dialog', {
     },
     /**
      * 显示dialog
+     * @param {string} content 指定show方法要展示的body内容
      * @return {Object}
      */
     show: function (content) {
@@ -5183,22 +5286,21 @@ $.widget('blend.dialog', {
             this.$el.appendTo(this.$body);
             this.hasRendered = true;        // 标记已经渲染
         }
-
         this.setPosition();
         this.mask(0.5);
         (content) && this.$content.html(content);
-        /*window.setTimeout(function () {
+        window.setTimeout(function () {
             self.$el.addClass(NAMESPACE + 'dialog-show');
             self._trigger('show');
             self.lock = false;
-        }, 50);*/
+        }, 50);
         this.lock = true;
-        self.$el.addClass(NAMESPACE + 'dialog-show');
-        self._trigger('show');
-        this.lock = false;
         return this.$el;
     },
-    /*关闭dialog*/
+    /**
+     * 关闭dialog
+     * @return {Object}
+     */
     hide: function () {
         var self = this;
         if (this.lock) {
@@ -5207,7 +5309,7 @@ $.widget('blend.dialog', {
         window.setTimeout(function () {
             self.unmask();
             self.lock = false;
-        }, 150);
+        }, 50);
         this._trigger('hide');
         this.lock = true;
         return this.$el.removeClass(NAMESPACE + 'dialog-show');
@@ -5224,14 +5326,17 @@ $.widget('blend.dialog', {
         }
         return this.$el;
     },
-    /*显示mask*/
+    /**
+     * 显示mask
+     * @param {number} opacity 透明度
+     */
     mask: function (opacity) {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
         var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
-        this.maskDom.css('height',bodyHeight);
-        this.maskDom.on('tap', function (e) {
+        this.maskDom.css('height', bodyHeight);
+        this.maskDom.on('click', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
         }).on('touchmove', function (e) {
@@ -5250,7 +5355,7 @@ $.widget('blend.dialog', {
      */
     setPosition: function () {
         var top = typeof this.top === 'undefined' ?
-        ((window.innerHeight / 2) + window.pageYOffset) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
+        (window.innerHeight / 2) - (this.$el[0].clientHeight / 2) : parseInt(this.top, 10);
         var left = (window.innerWidth / 2) - (this.$el[0].clientWidth / 2);
         return this.$el.css({
             top: top + 'px',
@@ -5260,25 +5365,25 @@ $.widget('blend.dialog', {
 });
 })(Zepto)
 ;(function($){/**
-     * @function fixedBar
-     * @name fixedBar
-     * @author wangzhonghua
-     * @date 2015.02.05
-     * @memberof $.fn or $.blend
-     * @example 
-     * 	$.boost.fixedBar()
-     */
-    
+ * fixedBar
+ * @file fixedBar.js
+ * @author wangzhonghua
+ * @date 2015.02.05
+ * @memberof $.fn or $.blend
+ * 	$.boost.fixedBar()
+ */
 'use strict';
-$.widget("blend.fixedBar", {
-	
+$.widget('blend.fixedBar', {
+    /**
+     * 初始化组件
+     * @private
+     */
     _init: function () {
-    	//此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fixedBar不能落底的问题。
-		$(window).on('resize orientationchange', function(){
-			 window.scrollBy(0,0);
-		});
-    },
-    
+        // 此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fixedBar不能落底的问题。
+        $(window).on('resize orientationchange', function () {
+            window.scrollBy(0, 0);
+        });
+    }
 });})(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
@@ -5297,8 +5402,17 @@ $.widget('blend.formgroup', {
         // selectClass: NAMESPACE + 'formgroup-select',
         btnClass: NAMESPACE + 'formgroup-btn',
         errorClass: NAMESPACE + 'formgroup-error',
-        validate: false,  //false/blur/true
-        validateFunction: function(value, $ele, cb) {},
+        validate: false,  // false/blur/true,
+        /**
+         * custon validate function
+         * @param {string} msg error msg
+         * @param {Object} $ele element
+         * @param {Function} cb callback function
+         * @return {boolean|string}
+         */
+        validateFunction: function (msg, $ele, cb) {
+            return true;
+        },
         asyn: false  // true/false
     },
     /**
@@ -5321,7 +5435,8 @@ $.widget('blend.formgroup', {
         }
         formgroup.events = events;
         if (!$.isFunction(formgroup.options.validateFunction)) {
-            formgroup.options.validateFunction = function() {};
+            formgroup.options.validateFunction = function () {
+            };
         }
     },
     /**
@@ -5343,7 +5458,6 @@ $.widget('blend.formgroup', {
         var formgroup = this;
         formgroup.$inputItem.on('focus.formgroup', function (e) {
             var $me = $(this);
-            var value = $me.val();
             formgroup._removeError();
         });
         formgroup.$inputItem.on(formgroup.events + '.formgroup', function (e) {
@@ -5354,30 +5468,42 @@ $.widget('blend.formgroup', {
             }
         });
     },
-    _removeError: function() {
+    /**
+     * remove error class
+     * @private
+     */
+    _removeError: function () {
         var formgroup = this;
         formgroup.element.removeClass(formgroup.options.errorClass);
     },
-    _showError: function(msg) {
+    /**
+     * show error
+     * @param {string} msg error tips
+     * @private
+     */
+    _showError: function (msg) {
         var formgroup = this;
         formgroup.element.addClass(formgroup.options.errorClass);
         // TODO error tip
         var toast = $[NAMESPACE.substr(0, NAMESPACE.length - 1)].toast();
         toast.show(msg, 1000);
     },
-    _asynValidate: function (ret) {
-        var formgroup = this;
-        if (ret && typeof ret === 'string') {
-            formgroup._showError(ret);
-        }
-    },
+    /**
+     *
+     * @param {string} value input value
+     * @param {Object} $ele element
+     * @private
+     */
     _validate: function (value, $ele) {
         var formgroup = this;
         if (formgroup.options.asyn === true) {
-            formgroup.options.validateFunction(value, $ele, function(ret) {
-                formgroup._asynValidate(ret);
+            formgroup.options.validateFunction(value, $ele, function (ret) {
+                if (ret && typeof ret === 'string') {
+                    formgroup._showError(ret);
+                }
             });
-        } else {
+        }
+        else {
             var ret = formgroup.options.validateFunction(value, $ele);
             if (ret && typeof ret === 'string') {
                 formgroup._showError(ret);
@@ -5387,15 +5513,15 @@ $.widget('blend.formgroup', {
     /**
      * 更新或者获取当前表单项的值
      * @param {string} value 欲更新或者获取当前表单项的值
+     * @return {mix}
      * @private
      */
     _value: function (value) {
         var formgroup = this;
         if (typeof value === 'undefined') {
             return formgroup.$inputItem.val();
-        } else {
-            formgroup.$inputItem.val(value);
         }
+        formgroup.$inputItem.val(value);
     },
     /**
      * 销毁formgroup对象
@@ -5411,6 +5537,7 @@ $.widget('blend.formgroup', {
     /**
      * 更新或者获取当前表单项的值
      * @param {string} value 欲更新或者获取当前表单项的值
+     * @return {mix}
      * @private
      */
     value: function (value) {
@@ -5419,31 +5546,6 @@ $.widget('blend.formgroup', {
 
 });
 })(Zepto)
-;(function($){/**
-     * @function fullcolumn
-     * @name fullcolumn
-     * @author cuixuecheng
-     * @date 2015.04.07
-     * @memberof $.fn or $.blend
-     * @example 
-     * 	$.boost.fullcolumn()
-     */
-    
-'use strict';
-$.widget("blend.fullcolumn", {
-	
-    _init: function () {
-    	//此处是解决某些浏览器，如uc，横竖屏切换时，由于地址栏的显隐现象，导致的fullcolumn不能落底的问题。
-		$(window).on('resize orientationchange', function(){
-			 window.scrollBy(0,0);
-		});
-    },
-
-    /**
-     *  
-     *  
-     */
-});})(Zepto)
 ;(function($){/**
  * gallery 组件
  * Created by dingquan on 15-3-24.
@@ -6482,37 +6584,47 @@ $.widget('blend.gallery', {
 
 });
 })(Zepto)
-;(function($){'use strict';
+;(function($){/* globals NAMESPACE */
+/* globals IS_UIX */
+/* globals color2Hex */
+/* globals ACTION_BACK_CLASS */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file header 组件
+ * @author zhangyuanwei
+ */
+
+'use strict';
 /**
  * 定义一个组件
  */
 
 
-$.widget("blend.header", {
+$.widget('blend.header', {
     options: {
-        leftSelector: "." + NAMESPACE + "header-left",
-        rightSelector: "." + NAMESPACE + "header-right",
-        titleSelector: "." + NAMESPACE + "header-title",
-        itemSelector: "." + NAMESPACE + "header-item"
+        leftSelector: '.' + NAMESPACE + 'header-left',
+        rightSelector: '.' + NAMESPACE + 'header-right',
+        titleSelector: '.' + NAMESPACE + 'header-title',
+        itemSelector: '.' + NAMESPACE + 'header-item'
     },
-    _create: function() {
+    _create: function () {
         this._uix = null;
     },
-    _init: function() {
+    _init: function () {
         var me = this;
         if (IS_UIX) {
             if (this._uix !== null) {
                 this._uix.destroy();
             }
-            require(["blend"], function(blend) {
+            require(['blend'], function (blend) {
                 me._uix = me._initUIXComponent(blend);
                 me._uix.render();
             });
         }
 
-        //this._initUIXComponent();
+        // this._initUIXComponent();
     },
-    _initUIXComponent: function(blend) {
+    _initUIXComponent: function (blend) {
         var $el = this.element;
         var options = this.options;
         var uixTitle;
@@ -6521,23 +6633,23 @@ $.widget("blend.header", {
         var $rightItems = $el.find(options.rightSelector).find(options.itemSelector);
         var $titleItems = $el.find(options.titleSelector).find(options.itemSelector);
 
-        uixTitle = blend.create("title", {
+        uixTitle = blend.create('title', {
             text: $titleItems.text()
-                //TODO 支持Image
+            // TODO 支持Image
         });
 
 
         uixTitle.setStyle({
-            backgroundColor: color2Hex($el.css("background-color")),
-            color: color2Hex($el.css("color"))
+            backgroundColor: color2Hex($el.css('background-color')),
+            color: color2Hex($el.css('color'))
         });
 
 
-        $leftItems.each(__genItemIterator(function(obj) {
+        $leftItems.each(__genItemIterator(function (obj) {
             uixTitle.addLeftItem(obj);
         }));
 
-        $rightItems.each(__genItemIterator(function(obj) {
+        $rightItems.each(__genItemIterator(function (obj) {
             uixTitle.addRightItem(obj);
         }));
 
@@ -6548,16 +6660,17 @@ $.widget("blend.header", {
 
 
 function __genItemIterator(cb) {
-    return function(i, item) {
+    return function (i, item) {
         var $item = $(item);
         var retObj = {};
         var nodeName = item.nodeName;
 
         if ($item.hasClass(ACTION_BACK_CLASS)) {
             retObj.action = {
-                operator: "back"
+                operator: 'back'
             };
-        } else if (nodeName && nodeName.toUpperCase() === "A") {
+        }
+        else if (nodeName && nodeName.toUpperCase() === 'A') {
             retObj.action = {
                 url: item.href
             };
@@ -6565,34 +6678,11 @@ function __genItemIterator(cb) {
 
         retObj.text = $item.text();
 
-        //TODO more event
-        //TODO style
+        // TODO more event
+        // TODO style
         cb(retObj);
     };
 }
-})(Zepto)
-;(function($){'use strict';
-/**
- * 定义一个组件
- */
-
-$.widget("blend.imglist", {
-    options: {
-       
-    },
-    _create: function() {
-        // this._uix = null;
-    },
-    _init: function() {
-       
-        var options = this.options;
-        //this._initUIXComponent();
-    }
-    
-});
-
-
-
 })(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* globals Hammer */
@@ -6613,7 +6703,7 @@ $.widget('blend.list', {
         animateClass: NAMESPACE + 'list-animation',
         itemContentSelector: '.' + NAMESPACE + 'list-item-content',
         itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
-        exceptionClass: false
+        exceptionClass: false // 不删除的元素
     },
     /**
      * _create 创建组件时调用一次
@@ -6684,7 +6774,8 @@ $.widget('blend.list', {
             list.element.on('touchstart.list', function (e) {
                 var $target = $(e.target);
                 var className = list.deleteBtnClass;
-                if (!$target.hasClass(className) && list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
+                if (!$target.hasClass(className) &&
+                    list.element.find('.' + list.options.itemDeleteActiveClass).length === 1) {
                     var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
                     if ($el.length === 1) {
                         $el.removeClass(list.options.itemDeleteActiveClass);
@@ -6740,74 +6831,88 @@ $.widget('blend.list', {
 });
 })(Zepto)
 ;(function($){/**
-     * @function loading
-     * @name loading
-     * @author wangzhonghua
-     * @date 2015.02.05
-     * @memberof $.fn or $.blend
-     * @grammar  $('.test').loading().show(),$.blend.loading().show()
-     * @desc 页面级loading
-     * @param {Object} opts 组件配置（以下参数为配置项）
-     * @param {String} opts.loadingClass (可选, 默认值:\'\') loading节点的className
-     * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
-     *
-     * @example 
-     * 	1、$('.j_test_loading').loading(), $('.j_test_loading')为loading自定义节点,并不是容器,切记
-     * 	2、var loading = $.blend.loading({
-     * 						loadingClass: 'my_define'
-     * 					});
-     * 		  loading.show();
-     *  3、var loading = $.blend.loading({
-     * 						loadingHtml: '<div class="my_define">loading...</div>'
-     * 					});
-     * 		  loading.show();
-     */
-    
+ * @function loading
+ * @file loading.js
+ * @name loading
+ * @author wangzhonghua
+ * @date 2015.02.05
+ * @memberof $.fn or $.blend
+ * @grammar  $('.test').loading().show(),$.blend.loading().show()
+ * @desc 页面级loading
+ * @param {Object} opts 组件配置（以下参数为配置项）
+ * @param {String} opts.loadingClass (可选, 默认值:\'\') loading节点的className
+ * @param {String} opts.loadingHtml (可选, 默认值:\'\') loading节点
+ *
+ * @example
+ * 	1、$('.j_test_loading').loading(), $('.j_test_loading')为loading自定义节点,并不是容器,切记
+ * 	2、var loading = $.blend.loading({
+ * 						loadingClass: 'my_define'
+ * 					});
+ * 		  loading.show();
+ *  3、var loading = $.blend.loading({
+ * 						loadingHtml: '<div class="my_define">loading...</div>'
+ * 					});
+ * 		  loading.show();
+ */
 'use strict';
-$.widget("blend.loading", {
+$.widget('blend.loading', {
 	/*配置项*/
     options: {
-        loadingClass: "",
-        loadingHtml: ""
+        loadingClass: '',
+        loadingHtml: ''
     },
-    
-    /* _create 创建组件时调用一次*/
+    /**
+     * _create 创建组件时调用一次
+     * @private
+     */
     _create: function () {
-    	var options = this.options;
-    	this.$el = this.element;
-		this.$body = $('body');
-		this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + (options.loadingClass|| '') + ' ' + NAMESPACE + 'loading"></div>';
+        var options = this.options;
+        this.$el = this.element;
+        this.$body = $('body');
+        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + (options.loadingClass || '') + ' ' + NAMESPACE + 'loading"></div>';
     },
-    
-    /*初始化*/
-    _init: function(){
-    	if(this.$el.length){
-    		this.show();
-    	}else{
-    		this.defaultSegment = true
-    	}
+    /**
+     * 组件初始化
+     * @private
+     */
+    _init: function () {
+        if (this.$el.length) {
+            this.show();
+        }
+        else {
+            this.defaultSegment = true;
+        }
     },
-    
-    /*显示loading*/
-    show: function(){
-    	if(!this.$el.length){
-    		(this.$el = $(this.loadingHtml)).appendTo(this.$body);
-    	}
-    	return this.$el.show();
+    /**
+     * 显示dialog
+     * @private
+     * @return {Object} 当前Zepto对象
+     */
+    show: function () {
+        if (!this.$el.length) {
+            (this.$el = $(this.loadingHtml)).appendTo(this.$body);
+        }
+        return this.$el.show();
     },
-    
-    /*关闭loading*/
-    hide: function(){
-    	return this.$el.hide();
+    /**
+     * 关闭loading
+     * @private
+     * @return {Object} 当前Zepto对象
+     */
+    hide: function () {
+        return this.$el.hide();
     },
-    
-    /*销毁toast*/
-    destroy: function(){
-    	if(this.defaultSegment){
-    		this.$el.remove();
-    		this.$el = [];
-    	}
-    	return this.$el;
+    /**
+     * 销毁toast
+     * @private
+     * @return {Object} 当前Zepto对象
+     */
+    destroy: function () {
+        if (this.defaultSegment) {
+            this.$el.remove();
+            this.$el = [];
+        }
+        return this.$el;
     }
 });})(Zepto)
 ;(function($){/* globals NAMESPACE */
@@ -6986,7 +7091,8 @@ $.widget('blend.nav', {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
         }
         else {
-            nav.element.append('<span class="' + nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
+            nav.element.append('<span class="' +
+                nav.options.itemClass + ' ' + nav.expandClass + '">' + nav.options.expand + '</span>');
         }
     },
     /**
@@ -7046,29 +7152,32 @@ $.widget('blend.nav', {
 
 })(Zepto)
 ;(function($){/**
- *
- * Slider  组件
- * Created by dingquan on 15-2-3.
+ * Slider 组件
+ * Created by dingquan on 15-02-03
+ * @file slider.js
+ * @author dingquan
  */
-
 'use strict';
-
-$.widget("blend.slider",{
+$.widget('blend.slider', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        autoSwipe:true,         //自动滚动,默认开启
-        continuousScroll:true,  //连续滚动
-        axisX:true,             //滚动方向,默认x轴滚动
-        transitionType : 'ease',//过渡类型
-        duration:0.6,
-        speed:2000,             //切换的时间间隔
-        theme:"default",
-        needDirection:false,    //是否需要左右切换的按钮
-        ratio:"100%"
+        autoSwipe: true,            // 自动滚动,默认开启
+        continuousScroll: true,     // 连续滚动
+        axisX: true,                // 滚动方向,默认x轴滚动
+        transitionType: 'ease',     // 过渡类型
+        duration: 0.6,
+        speed: 2000,                // 切换的时间间隔
+        theme: "d2",
+        needDirection: false,    // 是否需要左右切换的按钮
+        ratio: "normal"     // normal/wide/square/small
     },
-    _create:function(){
+    /**
+     * 创建组件调用一次
+     * @private
+     */
+    _create: function () {
 
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
@@ -7079,223 +7188,248 @@ $.widget("blend.slider",{
          */
         var options = this.options;
 
-        $('.'+NAMESPACE+'slider:after').css('padding-top',options.ratio);
+        var ratioClass = NAMESPACE + 'slider-';
+        switch (options.ratio) {
+            case 'wide':
+                ratioClass += 'wide';
+                break;
+            case 'square':
+                ratioClass += 'square';
+                break;
+            case 'small':
+                ratioClass += 'small';
+                break;
+            default :
+                ratioClass += 'normal';
+        }
+        $el.addClass(ratioClass);
 
         this.$container = $el;
-        this.$ul = $el.find('.'+NAMESPACE+'slides');     
-        this.$li = $el.find('.'+NAMESPACE+'slides li');
+        this.$ul = $el.find('.' + NAMESPACE + 'slides');
+        this.$li = $el.find('.' + NAMESPACE + 'slides li');
 
         this.liWidth = this.$li.width();
         this.liHeight = this.$li.height();
         this.liLength = this.$li.length;
 
-        this.autoScroll = null;     //自动播放interval对象
-        this._index = 0;            //当前幻灯片位置
+        this.autoScroll = null;     // 自动播放interval对象
+        this._index = 0;            // 当前幻灯片位置
 
-
-        
-        if(typeof options.theme !== 'string'){
+        if (typeof options.theme !== 'string') {
             options.theme = 'default';
         }
 
         this._addComponents(options.theme);
-        
     },
     /**
      * _init 初始化的时候调用
+     * @private
      */
     _init: function () {
 
         var opts = this.options;
         var that = this;
-        var $ul = this.$ul,
-            $li = this.$li;
+        var $ul = this.$ul;
+        var $li = this.$li;
 
-        // 连续滚动，需要复制dom
-        if(opts.continuousScroll){
+        /**
+         * 连续滚动，需要复制dom
+         */
+        if (opts.continuousScroll) {
             $ul.prepend($li.last().clone()).append($li.first().clone());
-            if(opts.axisX){
-                that._fnTranslate($ul.children().first(),that.liWidth*-1);
-                that._fnTranslate($ul.children().last(),that.liWidth*that.liLength);
-            }else{
-                that._fnTranslate($ul.children().first(),that.liHeight*-1);
-                that._fnTranslate($ul.children().last(),that.liHeight*that.liLength);
+            if (opts.axisX) {
+                that._fnTranslate($ul.children().first(), that.liWidth * -1);
+                that._fnTranslate($ul.children().last(), that.liWidth * that.liLength);
+            }
+            else {
+                that._fnTranslate($ul.children().first(), that.liHeight * -1);
+                that._fnTranslate($ul.children().last(), that.liHeight * that.liLength);
             }
         }
 
-        // 给初始图片定位
-        if(opts.axisX){
-            $li.each(function(i){
-                that._fnTranslate($(this),that.liWidth*i);
+        /**
+         * 给初始图片定位
+         */
+        if (opts.axisX) {
+            $li.each(function (i) {
+                that._fnTranslate($(this), that.liWidth * i);
             });
-        }else{
-            $li.each(function(i){
-                that._fnTranslate($(this),that.liHeight*i);
+        }
+        else {
+            $li.each(function (i) {
+                that._fnTranslate($(this), that.liHeight * i);
             });
         }
 
-        that._fnAutoSwipe()
-
+        that._fnAutoSwipe();
         this._initEvent();
-        //this._initView();
+        // this._initView();
     },
-    _initEvent:function(){
+    /**
+     * 初始化事件绑定
+     * @private
+     */
+    _initEvent: function () {
         var that = this;
-
         // 绑定触摸
-        
         var hammer = new Hammer(this.$container[0]);
 
-        hammer.on('panstart',function(e){
-            console.log('begin');
-            console.log(e.center);
-            
+        hammer.on('panstart', function (e) {
 
-            that.start_x = e.center.x;
-            that.start_y = e.center.y;
+            that.startX = e.center.x;
+            that.startY = e.center.y;
         });
 
+        hammer.on('panmove', function (e) {
 
-        hammer.on('panmove',function(e){
-
-
-            if(that.options.autoSwipe){
+            if (that.options.autoSwipe) {
                 clearInterval(that.autoScroll);
             }
 
-            var cur_x = that.cur_x = e.center.x;
-            var cur_y = that.cur_y = e.center.y;
+            that.curX = e.center.x;
+            that.curY = e.center.y;
 
-            that.move_x = that.cur_x - that.start_x;
-            that.move_y = that.cur_y - that.start_y;
+            that.moveX = that.curX - that.startX;
+            that.moveY = that.curY - that.startY;
 
-            that._fnTransition(that.$ul,0);
+            that._fnTransition(that.$ul, 0);
 
-            if(that.options.axisX){
-                console.log(-(that.liWidth * (parseInt(that._index)) - that.move_x));
-                that._fnTranslate(that.$ul,-(that.liWidth * (parseInt(that._index)) - that.move_x));  
+            if (that.options.axisX) {
+                // console.log(-(that.liWidth * (parseInt(that._index)) - that.moveX));
+                that._fnTranslate(that.$ul, -(that.liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
 
         });
 
-        hammer.on('panend',function(e){
-             
+        hammer.on('panend', function (e) {
+
             var opts = that.options;
             var _touchDistance = 50;
 
-            if(opts.axisX){
-                that.moveDistance = that.move_x;
-            }else{
-                that.moveDistance = that.move_y;
+            if (opts.axisX) {
+                that.moveDistance = that.moveX;
+            }
+            else {
+                that.moveDistance = that.moveY;
             }
 
             // 距离小
-            if(Math.abs(that.moveDistance) <= _touchDistance){
+            if (Math.abs(that.moveDistance) <= _touchDistance) {
                 that._fnScroll(.3);
-            // 距离大
-            }else{
+            }
+            else {
+                // 距离大
                 // 手指触摸上一屏滚动
-                if(that.moveDistance > _touchDistance){
+                if (that.moveDistance > _touchDistance) {
                     that._fnMovePrev();
                     that._fnAutoSwipe();
                 // 手指触摸下一屏滚动
-                }else if(that.moveDistance < -_touchDistance){
+                }
+                else if (that.moveDistance < -_touchDistance) {
                     that._fnMoveNext();
                     that._fnAutoSwipe();
                 }
             }
 
-            that.move_x = 0;
-            that.move_y = 0;
-            
+            that.moveX = 0;
+            that.moveY = 0;
         });
-       
     },
-    _addComponents:function(theme){
+    /**
+     * 根据不同的theme添加组件和初始化样式
+     * @private
+     * @param {string} theme 幻灯片主题,目前支持有限的几个
+     */
+    _addComponents: function (theme) {
+
         var $el = this.$container;
 
-        if(theme == "a1"){
-            $el.addClass(NAMESPACE+"slider-a1");
-
+        if (theme === 'a1') {
+            $el.addClass(NAMESPACE + 'slider-a1');
             this._initControl();
         }
-
-        if(theme == "a2"){
-            $el.addClass(NAMESPACE+"slider-a2");
-
+        if (theme === 'a2') {
+            $el.addClass(NAMESPACE + 'slider-a2');
             this._initControl();
         }
-
-        if(theme == "d1"){
-            $el.addClass(NAMESPACE+"slider-title");
+        if (theme === 'd1') {
+            $el.addClass(NAMESPACE + 'slider-title');
         }
-
-        if(theme == "d2"){
-            $el.addClass(NAMESPACE+"slider-title");
+        if (theme === 'd2') {
+            $el.addClass(NAMESPACE + 'slider-title');
             this._initControl();
-
         }
-
-
     },
-    _initControl:function(){
+    /**
+     * 初始化control控件
+     * @private
+     */
+    _initControl: function () {
+
         var $el = this.$container;
         var liLength = this.liLength;
 
-        var html = "";
-        for(var i=0;i<liLength;i++){
-            html += (i==0)?"<li><a class='"+NAMESPACE+"slider-active'></a></li>":"<li><a></a></li>";
+        var html = '';
+        for (var i = 0; i < liLength; i++) {
+            html += (i === 0) ? '<li><a class="' + NAMESPACE + 'slider-active"></a></li>' : '<li><a></a></li>';
         }
 
-        var $ol = $("<ol class='"+NAMESPACE+"slider-control-nav'>"+html+"</ol>");
+        var $ol = $('<ol class="' + NAMESPACE + 'slider-control-nav">' + html + '</ol>');
 
         $el.append($ol);
 
         this.$controlOl = $ol;
-
     },
-    _initTitle:function(){
+    /**
+     * 初始化title
+     * @private
+     */
+    _initTitle: function () {
+        // to do
         // var $el = this.$container;
     },
     /*
-     *  css 过渡
+     * css 过渡
+     * @private
+     * @param {Object} dom  zepto object
+     * @param {number} num - transition number
      */
-    _fnTransition:function(dom,num){
-        var opts = this.options;
+    _fnTransition: function (dom, num) {
 
+        var opts = this.options;
         dom.css({
-            '-webkit-transition':'all '+num+'s '+opts.transitionType,
-            'transition':'all '+num+'s '+opts.transitionType
+            '-webkit-transition': 'all ' + num + 's ' + opts.transitionType,
+            'transition': 'all ' + num + 's ' + opts.transitionType
         });
     },
     /**
      * css 滚动
-     * @param  {[type]} dom    [description]
-     * @param  {[type]} result [description]
-     * @return null
-     * 
+     * @private
+     * @param  {Object} dom    zepto object
+     * @param  {number} result translate number
      */
-    _fnTranslate:function(dom,result){
+    _fnTranslate: function (dom, result) {
 
         var opts = this.options;
-        // console.log(dom);
-        // console.log(+new Date());
 
-        if(opts.axisX){
+        if (opts.axisX) {
             dom.css({
-                '-webkit-transform':'translate3d(' + result + 'px,0,0)',
-                'transform':'translate3d(' + result + 'px,0,0)'
+                '-webkit-transform': 'translate3d(' + result + 'px,0,0)',
+                'transform': 'translate3d(' + result + 'px,0,0)'
             });
-        }else{
+        }
+        else {
             dom.css({
-                '-webkit-transform':'translate3d(0,' + result + 'px,0)',
-                'transform':'translate3d(0,' + result + 'px,0)'
+                '-webkit-transform': 'translate3d(0,' + result + 'px,0)',
+                'transform': 'translate3d(0,' + result + 'px,0)'
             });
         }
     },
-    // 下一屏滚动
-    _fnMoveNext:function(){
-        
+    /**
+     * 下一屏滚动
+     * @private
+     */
+    _fnMoveNext: function () {
         this._index ++;
         this._fnMove();
         /*if(opts.lazyLoad){
@@ -7306,11 +7440,13 @@ $.widget("blend.slider",{
             }
         }*/
     },
-    // 上一屏滚动
-    _fnMovePrev:function(){
+    /**
+     * 上一屏滚动
+     * @private
+     */
+    _fnMovePrev: function () {
         this._index --;
         this._fnMove();
-
         // 第一次往右滚动懒加载图片
         /*if(firstMovePrev && opts.lazyLoad){
             var i = _liLength-1;
@@ -7324,83 +7460,115 @@ $.widget("blend.slider",{
             fnLazyLoad(_index);
         }*/
     },
-    _fnAutoSwipe:function(){
+    /**
+     * 自动滑动
+     * @private
+     */
+    _fnAutoSwipe: function () {
         var that = this;
         var opts = this.options;
 
-        if(opts.autoSwipe){
-            this.autoScroll = setInterval(function(){
+        if (opts.autoSwipe) {
+            this.autoScroll = setInterval(function () {
                 that._fnMoveNext();
-            },opts.speed);
+            }, opts.speed);
         }
     },
-    _fnMove:function(){
+    /**
+     * [_fnMove description]
+     * @private
+     */
+    _fnMove: function () {
         var that = this;
         var opts = this.options;
-        var _vars = this._vars;
-        var _liLength = this.liLength;
+        // var _vars = this._vars;
+        // var _liLength = this.liLength;
 
-        if(opts.continuousScroll){
-            if(that._index >= that.liLength){
-                console.log("333");
+        if (opts.continuousScroll) {
+            if (that._index >= that.liLength) {
                 that._fnScroll(.3);
                 that._index = 0;
-                setTimeout(function(){
+                setTimeout(function () {
                     that._fnScroll(0);
-                },300);
-            }else if(that._index < 0){
+                }, 300);
+            }
+            else if (that._index < 0) {
                 that._fnScroll(.3);
-                that._index = that.liLength-1;
-                setTimeout(function(){
+                that._index = that.liLength - 1;
+                setTimeout(function () {
                     that._fnScroll(0);
-                },300);
-            }else{
+                }, 300);
+            }
+            else {
                 that._fnScroll(.3);
             }
-        }else{
-            if(that._index >= that.liLength){
+        }
+        else {
+            if (that._index >= that.liLength) {
                 that._index = 0;
-            }else if(that._index < 0){
-                that._index = that.liLength-1;
+            }
+            else if (that._index < 0) {
+                that._index = that.liLength - 1;
             }
             that._fnScroll(.3);
         }
 
-        that._setDotActive();   
+        that._setDotActive();
 
-        //callback(_index);
+        // callback(_index);
     },
-    _fnScroll:function(num){
+    /**
+     * 滑动
+     * @private
+     * @param  {number} num num
+     */
+    _fnScroll: function (num) {
         var $ul = this.$ul;
         var _index = this._index;
         var _liWidth = this.liWidth;
         var _liHeight = this.liHeight;
         var opts = this.options;
 
-        this._fnTransition($ul,num);
-        if(opts.axisX){
-            this._fnTranslate($ul,-_index*_liWidth);
-        }else{
-            this._fnTranslate($ul,-_index*_liHeight);
+        this._fnTransition($ul, num);
+        if (opts.axisX) {
+            this._fnTranslate($ul, -_index * _liWidth);
+        }
+        else {
+            this._fnTranslate($ul, -_index * _liHeight);
         }
     },
-    _setDotActive:function(){
-        this.$controlOl.find('li a').removeClass(NAMESPACE+'slider-active');
-        this.$controlOl.find('li').eq(this._index).find('a').addClass(NAMESPACE+'slider-active');
+    /**
+     * 设置圆点的状态
+     * @private
+     */
+    _setDotActive: function () {
+        this.$controlOl.find('li a').removeClass(NAMESPACE + 'slider-active');
+        this.$controlOl.find('li').eq(this._index).find('a').addClass(NAMESPACE + 'slider-active');
     },
-    //下一张幻灯片
-    next:function(){
+    /**
+     * 下一张幻灯片
+     * @return {Object} 当前Zepto对象
+     */
+    next: function () {
         this._fnMoveNext();
+        return this.$container;
     },
-    //上一张幻灯片
-    prev:function(){
+    /**
+     * 上一张幻灯片
+     * @return {Object} 当前Zepto对象
+     */
+    prev: function () {
         this._fnMovePrev();
+        return this.$container;
     },
-
-    paused:function(){
+    /**
+     * 暂停
+     * @return {Object} 当前Zepto对象
+     */
+    paused: function () {
         clearInterval(this.autoScroll);
+        return this.$container;
     }
-    
 
 });})(Zepto)
 ;(function($){/* globals NAMESPACE */
@@ -7433,8 +7601,8 @@ $.widget('blend.tab', {
         tab.$activeEle = $el.find(tab.itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
-        tab.$activeEle.css('width', this.itemWidth * .7);
-        tab.itemOffsetX = this.itemWidth * .15;
+        tab.$activeEle.css('width', this.itemWidth);
+        tab.itemOffsetX = 0;
         tab.current = 0;
 
     },
@@ -7532,41 +7700,43 @@ $.widget('blend.tab', {
 });
 })(Zepto)
 ;(function($){/**
-     * @function toast(alert)
-     * @name toast
-     * @author wangzhonghua
-     * @date 2015.02.05
-     * @memberof $.fn or $.blend
-     * @grammar  $('.test').toast().show('xxx'),$.blend.toast().show('xxx')
-     * @desc 页面级toast(alert)
-     * @param {Object} opts 组件配置（以下参数为配置项）
-     * @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
-     * @param {String} opts.toastTpl (可选, 默认值:\'\') toast模板
-     * @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
-     *
-     * @example 
-     * 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
-     * 	2、var toast = $.blend.toast({
-     * 						toastClass: 'my_define',
-     * 						delay: 5000
-     * 					}); 
-     * 		  toast.show('hello world');
-     *  3、var toast = $.blend.toast({
-     * 						toastTpl: '<div class="my_define">{%content%}</div>'
-     * 					});
-     * 		  toast.show('hello world');
-     */
-    
+* @function toast(alert)
+* @file toast.js
+* @name toast
+* @author wangzhonghua
+* @date 2015.02.05
+* @memberof $.fn or $.blend
+* @grammar  $('.test').toast().show('xxx'),$.blend.toast().show('xxx')
+* @desc 页面级toast(alert)
+* @param {Object} opts 组件配置（以下参数为配置项）
+* @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
+* @param {String} opts.toastTpl (可选, 默认值:\'\') toast模板
+* @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
+*
+* @example
+* 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
+* 	2、var toast = $.blend.toast({
+* 						toastClass: 'my_define',
+* 						delay: 5000
+* 					});
+* 		  toast.show('hello world');
+*  3、var toast = $.blend.toast({
+* 						toastTpl: '<div class="my_define">{%content%}</div>'
+* 					});
+* 		  toast.show('hello world');
+*/
 'use strict';
-$.widget("blend.toast", {
+$.widget('blend.toast', {
     /*配置项*/
     options: {
-        toastClass: "",
-        toastTpl: "",
+        toastClass: '',
+        toastTpl: '',
         delay: 2500
     },
-    
-    /* _create 创建组件时调用一次*/
+    /**
+     * _create 创建组件时调用一次
+     * @private
+     */
     _create: function () {
     	var options = this.options;
     	this.$el = this.element;
@@ -7616,28 +7786,35 @@ $.widget("blend.toast", {
     	return this.$el;
     }
 });})(Zepto)
-    ;(function($){
-    //TODO 判断UA环境,给body增加class
-    $(function(){
-        $("[data-blend-widget]").each(function(i, elem){
+    /**
+ * 对于带有特定属性的dom节点,自动初始化
+ * @file init.js
+ * @author zhangyuanwei
+ */
+;(function ($) {
+    // TODO 判断UA环境,给body增加class
+    $(function () {
+        $('[data-blend-widget]').each(function (i, elem) {
             var $elem = $(elem);
-            var widgetAttr = $elem.data("blend-widget");
-            var widgetNames = widgetAttr.split(",");
+            var widgetAttr = $elem.data('blend-widget');
+            var widgetNames = widgetAttr.split(',');
             var widgetNameLen = widgetNames.length;
             var index;
             var name;
-            for(index = 0; index < widgetNameLen; index++){
-                var name = widgetNames[index];
-                if($.widget.has(name)){
+            for (index = 0; index < widgetNameLen; index++) {
+                name = widgetNames[index];
+                if ($.widget.has(name)) {
                     $elem[name]();
-                }else{
-                    //TODO error report
-                    //throw new Error("Unknow blend widget \"" + name + "\"");
-                    console.error("Unknow blend widget \"" + name + "\"");
+                }
+                else {
+                    // TODO error report
+                    throw new Error('Unknow blend widget \"' + name + '\"');
+                    // console.error('Unknow blend widget \"' + name + '\"');
                 }
             }
         });
     });
-})(Zepto)
+})(Zepto);
+
 
 })(window);
