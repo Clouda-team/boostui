@@ -1,15 +1,11 @@
-@tab-bottom-color: #d4d6d7;
-@tab-background-color: #fafafa;
-@active-border-color: #2eb6aa;
-
-@tab-nav-height: 42px;
+@tab-nav-height: 40px;
 @tab-nav-font-size: @boost-font-size-nav;
 
 .@{namespace}tabnav {
   display: -webkit-box;
   height: @tab-nav-height;
-  border-bottom: 1px solid @tab-bottom-color;
-  background-color: @tab-background-color;
+  /*border-bottom: 1px solid @tab-bottom-color;*/
+  background-color: @color-white;
 }
 .@{namespace}tabnav-item {
   display: block;
@@ -20,14 +16,14 @@
 }
 .@{namespace}tabnav-item:after {
   width: 0;
-  height: 20px;
+  height: 10px;
   content: " ";
   display: block;
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 0;
   /*background-color: #efefef;*/
-  border-left: 1px solid #efefef;
+  border-left: 1px solid @color-tab-cut;
 }
 .@{namespace}tabnav-item:last-child:after {
   display: none;
@@ -37,10 +33,10 @@
 }
 
 .@{namespace}tabnav-item-text {
-  font-size: 14px;
+  font-size: @tab-nav-font-size;
   line-height: @tab-nav-height;
   height: @tab-nav-height;
-  color: @font-color;
+  color: @color-font-grey;
   display: block;
   text-align: center;
   margin: 0 auto;
@@ -50,7 +46,8 @@
 
 .@{namespace}tabnav-item-active {
   .@{namespace}tabnav-item-text{
-    border-bottom: 2px solid @active-border-color;
+    color: @color-font;
+    border-bottom: 2px solid @color-tab-border;
   }
 }
 

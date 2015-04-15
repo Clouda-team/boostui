@@ -31,6 +31,7 @@ $.widget('blend.dialog', {
     /*配置项*/
     options: {
         id: null,
+        hasHeader: true,        // 是否有diaload头
         top: undefined,         // 自定义dialog距离顶部距离
         addCssClass: null,
         title: '标题',          // dialog标题
@@ -59,6 +60,7 @@ $.widget('blend.dialog', {
         this.cancelClass = options.cancelClass;
         this.confirmText = options.confirmText;
         this.confirmClass = options.confirmClass;
+        this.hasHeader = options.hasHeader;
         this.autoCloseDone = true;
         this.maskTapClose = options.maskTapClose;
         this.top = options.top;
@@ -166,8 +168,7 @@ $.widget('blend.dialog', {
         if (this.renderType === 0) {
             curEle = this.$el;
             curEle.find('.' + NAMESPACE + 'dialog-footer a')
-            .addClass(NAMESPACE + 'dialog-btn')
-            .addClass(NAMESPACE + 'button');
+            .addClass(NAMESPACE + 'dialog-btn');
             outerEle = curEle;
         }
         else if (this.renderType === 1) {
@@ -176,6 +177,12 @@ $.widget('blend.dialog', {
 
         this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
         this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
+        this.$header = outerEle.find('.' + NAMESPACE + 'dialog-header');
+
+        if (!this.hasHeader) {
+            this.$content.addClass(NAMESPACE + 'dialog-tips');
+            this.$header.remove();
+        }
 
         if (!this.btnStatus) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
@@ -229,8 +236,8 @@ $.widget('blend.dialog', {
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'button ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'dialog-btn">' + this.cancelText + '</a>'
                       + '</div>';
         this.$el.append(dom);
         return this.$el;

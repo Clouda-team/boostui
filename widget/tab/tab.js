@@ -12,6 +12,7 @@ $.widget('blend.tab', {
     options: {
         start: 0,
         animate: true,
+        activeClass: NAMESPACE + 'tab-header-item-active',
         animateClass: NAMESPACE + 'tab-animation'
     },
     /**
@@ -101,6 +102,8 @@ $.widget('blend.tab', {
         tab.$activeEle.css('left', left);
         tab.$contentItem.hide();
         tab.$contentItem.eq(tab.current).show();
+        tab.$headerItem.removeClass(tab.options.activeClass);
+        tab.$headerItem.eq(tab.current).addClass(tab.options.activeClass);
     },
     /**
      * 销毁tab对象

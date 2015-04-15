@@ -1,12 +1,14 @@
-@dialog-zindexlarger: 95;
-@dialog-zindexsmall: 90;
+@dialog-zindexlarger: @boost-zindex-larger;
+@dialog-zindexsmall: @boost-zindex-large;
 @dialog-width: 250px;
 @dialog-duration: .2s;
+@dialog-header-height: 40px;
+@dialog-footer-height: 40px;
+
+
 @dialog-padding: 10px;
 @dialog-body-margin: 8px;
-@dialog-fontlarger: 18px;
-@dialog-fontsmall: 16px;
-@dialog-color: #262626;
+
 
 .@{namespace}dialog {
     position: fixed;
@@ -14,8 +16,8 @@
     width: @dialog-width;
     padding: 0;
     z-index: @dialog-zindexlarger;
-    background-color: @white;
-    color:@dialog-color;
+    background-color: @color-dialog-backgroud;
+    color: @color-dialog-font;
     visibility: hidden;
 }
 
@@ -23,7 +25,7 @@
     display: block;
     width: 100%;
     height: 100%;
-    background: @black;
+    background: @color-black;
     z-index: @dialog-zindexsmall;
     position: absolute;
     top: 0;
@@ -41,43 +43,57 @@
 }
 
 .@{namespace}dialog-header {
-    height: 40px;
-    line-height: 40px;
+    height: @dialog-header-height;
+    line-height: @dialog-header-height;
     margin: 0;
     padding: 0;
     font-weight: bold;
-    font-size: @dialog-fontlarger;
+  color: @color-dialog-header-text;
+    font-size: @boost-font-size-nav;
     text-align: center;
     border-bottom: solid 1px #ddd; 
 }
 
 .@{namespace}dialog-body {
-    font-size: @dialog-fontsmall;
+    font-size: @boost-font-size-link;
+  line-height: 22px;
     padding: 10px;
-    border-bottom: solid 1px #ddd;
+    border-bottom: solid 1px @color-dialog-border;
+  &.@{namespace}dialog-tips {
+    line-height: 47px;
+    height: 67px;
+    text-align: center;
+  }
+}
+
+.@{namespace}dialog-link {
+  color: @color-dialog-link;
+}
+.@{namespace}dialog-phone {
+  color: @color-dialog-phone;
 }
 .@{namespace}dialog-footer {
     width: 100%;
-    height: 40px;
-    line-height: 40px;
+    height: @dialog-footer-height;
+    line-height: @dialog-footer-height;
     display: -webkit-box;
 }
 .@{namespace}dialog-cancel,
 .@{namespace}dialog-confirm {
-   box-flex: 1;
-   -webkit-box-flex: 1; 
+   -webkit-box-flex: 1;
+  width: 0;
    display: block;
    text-align: center;
-   background-color: #fafafa;
-   font-size: @dialog-fontlarger;
-   color: @dialog-color;
+   background-color: @color-dialog-footer;
+   font-size: @boost-font-size-nav;
+   color: @color-dialog-font;
 }
 
 .@{namespace}dialog-btn {
-   height: 40px;
-   line-height: 40px;   
+   height: @dialog-footer-height;
+   line-height: @dialog-footer-height;
 }
 
 .@{namespace}dialog-btn:not(:first-child) {
-    border-left: solid 1px #ddd;
+    border-left: solid 1px @color-dialog-border;
 }

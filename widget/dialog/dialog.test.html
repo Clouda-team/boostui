@@ -17,11 +17,15 @@
   <br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     
 
-  <button id="custome">自定义dialog</button>
 
-  <button id="domInit">DOM渲染方式</button>
-  <button id="jsInit">Js渲染方式</button>
 
+
+  <div>
+      <button id="domInit">DOM渲染方式 提示弹框</button>
+      <button id="jsInit">Js渲染方式 常规弹框</button>
+
+      <button id="custome">自定义dialog</button>
+  </div>
   <textarea id="result"></textarea>
 	
     <div  id="customeDialog" class="blend-dialog">
@@ -33,18 +37,17 @@
     </div>
 
     <div  id="domInitDialog" class="blend-dialog">
-      <div class="blend-dialog-header"> Dialog2 </div>
-      <div class="blend-dialog-body"> 
-        这是通过dom节点渲染的<br>
-        另起一行，继续，这是通过dom节点渲染的
+
+      <div class="blend-dialog-body">
+        这是提示弹框
       </div>
       <div class="blend-dialog-footer">
-        <a href="javascript:void(0);" class="blend-dialog-cancel">cancel</a>
-        <a href="javascript:void(0);" class="blend-dialog-confirm">ok</a>
+        <a href="javascript:void(0);" class="blend-dialog-cancel">取消</a>
+        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
       </div>
     </div>
 
-    <div  id="jsInitDialog" class="blend-dialog"> 
+    <div  id="jsInitDialog" class="blend-dialog">
     </div>
 
     <br><br><br><br><br><br><br>
@@ -56,18 +59,10 @@
    
     
     <script src="../../dist/boost.js"></script>
-    <script src="../../../BlendUI2/third_party/require.js"></script>
-    <script src="http://weinre123.duapp.com/target/target-script-min.js"></script>
 
     <script>
           
         ;(function(){
-
-
-           require.config({
-            baseUrl: "../../../BlendUI2/src/",
-            urlArgs: "_=" + +new Date()
-          });
 
           //自定义dom渲染方式
           var dialog1 = $("#customeDialog").dialog({
@@ -79,12 +74,13 @@
           }).on('dialog:hide',function(){
             console.log("dialog1 hide");
             document.querySelector("#result").innerHTML = "dialog1 hide";
-          });;
+          });
 
 
           var dialog2 = $("#domInitDialog").dialog({
             useCustom:false,
-            btnStatus:2,
+              hasHeader: false,
+            btnStatus:1,
             renderType:0 // 默认使用dom渲染
           }).on('dialog:show',function(){
             console.log("dialog2 show");
@@ -101,7 +97,7 @@
 
           var dialog3 = $("#jsInitDialog").dialog({
             title:"这是title",
-            content: "这是通过js传参渲染的，<a href='http://www.baidu.com'>这是一个链接</a>",
+            content: '<p style="margin: 0;" class="blend-dialog-phone">13313331333</p><p style="margin: 0;"><a href="http://www.baidu.com" class="blend-dialog-link">这是一个链接</a></p>',
             // cancelOnly: 1,
             confirmText:"确认",
             cancelText: '取消',
@@ -128,8 +124,8 @@
 
           $("#domInit").bind("click",function(){
             
-            // dialog2.dialog("show");
-            dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
+            dialog2.dialog("show");
+            // dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
             /*dialog2.dialog("show",{
               title:"title~"+ new
             });*/

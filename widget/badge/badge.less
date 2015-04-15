@@ -4,16 +4,18 @@
 @badge-info:        @brand-info;
 @badge-warning:     @brand-warning;
 @badge-danger:      @brand-danger;
-@badge-default:     @badge-secondary;
+@badge-default:     @color-badge;
+
 
 
 .@{namespace}badge {
     display: inline-block;
     min-width: 20px;
-    padding: 3px;
-    font-size: 12px;
+    padding: 0 2px;
+    font-size: 10px;
+  height: 14px;
+  line-height: 12px;
     color: #fff;
-    line-height: 1;
     vertical-align: baseline;
     white-space: nowrap;
     text-align: center;
@@ -22,10 +24,14 @@
     border: solid 1px;
 
     &.@{namespace}badge-empty {
-        padding: 2px;
+        padding: 0 9px;
         background-color: transparent;
         color: @badge-default;
     }
+  &.@{namespace}badge-large {
+    height: 18px;
+    line-height: 16px;
+  }
 }
 
 .@{namespace}badge-primary {

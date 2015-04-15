@@ -18,9 +18,9 @@
 @button-line-height:                @button-normal-height;
 @button-large-line-height:          38px;
 
-@button-default-color:              #ffffff;
-@button-default-bg:                 #666666;
-@button-default-border:             #666666;
+@button-default-color:              @color-button;
+@button-default-bg:                 @color-white;
+@button-default-border:             @color-button;
 @button-default-disabled-color:     darken(@button-default-color, 20%);
 @button-default-disabled-bg:        darken(@button-default-bg, 20%);
 @button-default-disabled-border:    darken(@button-default-border, 20%);
@@ -68,6 +68,13 @@
 @button-danger-disabled-border:    darken(@button-danger-border, 20%);
 
 @button-link-disabled-color:        @gray-light;
+
+@button-red-color:              @color-white;
+@button-red-bg:                 @color-button-red;
+@button-red-border:             @color-button-red;
+@button-red-disabled-color:     darken(@button-warning-color, 20%);
+@button-red-disabled-bg:        darken(@button-warning-bg, 20%);
+@button-red-disabled-border:    darken(@button-warning-border, 20%);
 
 .@{namespace}button {
     display: inline-block;
@@ -197,7 +204,15 @@
     }
 }
 
+.@{namespace}button-red {
+  .button-variant(@button-red-color; @button-red-bg; @button-red-border);
 
+  &.@{namespace}disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+  }
+}
 // Link buttons
 // -------------------------
 
