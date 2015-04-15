@@ -1,4 +1,4 @@
-
+@nav-height: 40px;
 .nav-item-column(@num) {
   width: percentage(1 / @num);
   &:nth-child(@{num}n):after {
@@ -9,7 +9,6 @@
 
 .@{namespace}nav {
   padding: 7px 0;
-  border-bottom: 1px solid @border-color;
   overflow: hidden;
   .clearfix();
 }
@@ -21,22 +20,27 @@
 
 .@{namespace}nav-item {
   text-decoration: none;
-  line-height: 30px;
-  height: 30px;
-  font-size: 15px;
-  color: @font-color;
+  line-height: @nav-height;
+  height: @nav-height;
+  font-size: @boost-font-size-nav;
+  color: @color-font-grey;
   text-align: center;
   float: left;
   .text-overflow();
+  border-bottom: 1px solid @color-border;
 
+  &.@{namespace}nav-item-active {
+    color: @color-font;
+    border-bottom-color: @color-tab-border;
+  }
   &:after {
     content: " ";
     width: 0;
-    border-right: 1px dotted @black;
+    border-right: 1px solid @color-tab-cut;
     display: block;
-    height: 15px;
+    height: 10px;
     float: right;
-    margin-top: 7px;
+    margin-top: 15px;
   }
   &:last-child:after {
     display: none;
@@ -50,10 +54,10 @@
 .@{namespace}nav-expand {
   float: right;
   text-decoration: none;
-  line-height: 30px;
-  height: 30px;
-  font-size: 15px;
-  color: @font-color;
+  line-height: @nav-height;
+  height: @nav-height;
+  font-size: @boost-font-size-nav;
+  color: @color-font;
   text-align: center;
   .text-overflow();
 }

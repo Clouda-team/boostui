@@ -1,5 +1,3 @@
-@header-bg: #FFF;
-@header-color: #262626;
 
 @font-size-header: @boost-font-size-titlebar;
 @font-size-header-lr: @boost-font-size-link;
@@ -15,8 +13,8 @@
   text-align: center;
   -webkit-box-align: center;
   display: -webkit-box;
-  background-color: @header-bg;
-  color: @header-color;
+  background-color: @color-titlebar-background;
+  color: @color-titlebar;
 }
 
 .@{namespace}header-left,
@@ -45,7 +43,8 @@
 
 .@{namespace}header-item {
   /*margin: 0 5px;*/
-  color: @header-color;
+  color: @color-titlebar;
+  .highlight();
 }
 
 .@{namespace}header-title .@{namespace}header-item {
@@ -54,8 +53,8 @@
 
 .@{namespace}action-back-icon:before {
   .font(@font-left);
-  color: @header-color;
-  font-size: 24px;
+  color: @color-titlebar-backicon;
+  font-size: 26px;
 }
 
 //.@{namespace}header {

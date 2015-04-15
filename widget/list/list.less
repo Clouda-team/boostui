@@ -4,7 +4,7 @@
 
 .@{namespace}list-card {
   margin: 6px;
-  border: 1px solid @border-color;
+  border: 1px solid @color-border;
   .@{namespace}list-item:last-child {
     border: none;
   }
@@ -15,10 +15,10 @@
   line-height: 46px;
   height: 46px;
   font-size: 15px;
-  color: @font-color;
+  color: @color-font;
   overflow: hidden;
   position: relative;
-  border-bottom: 1px solid @border-color;
+  border-bottom: 1px solid @color-border;
 }
 
 .@{namespace}list-animation {
@@ -40,20 +40,20 @@
   top: 0;
   z-index: 2;
   width: 100%;
-  background-color: @white;
+  background-color: #FFFFFF;
 }
 
 .@{namespace}list-item-delete {
   z-index: 1;
   position: absolute;
-  background-color: @red;
+  background-color: @color-red;
   text-decoration: none;
   width: 54px;
   line-height: 46px;
   display: block;
   height: 46px;
   font-size: 13px;
-  color: @white;
+  color: @color-white;
   text-align: center;
   .text-overflow();
   .highlight();
