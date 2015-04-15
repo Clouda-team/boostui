@@ -72,9 +72,16 @@
 @button-red-color:              @color-white;
 @button-red-bg:                 @color-button-red;
 @button-red-border:             @color-button-red;
-@button-red-disabled-color:     darken(@button-warning-color, 20%);
-@button-red-disabled-bg:        darken(@button-warning-bg, 20%);
-@button-red-disabled-border:    darken(@button-warning-border, 20%);
+@button-red-disabled-color:     darken(@button-red-color, 20%);
+@button-red-disabled-bg:        darken(@button-red-bg, 20%);
+@button-red-disabled-border:    darken(@button-red-border, 20%);
+
+@button-gray-color:              @color-white;
+@button-gray-bg:                 #666666;
+@button-gray-border:             #666666;
+@button-gray-disabled-color:     darken(@button-gray-color, 20%);
+@button-gray-disabled-bg:        darken(@button-gray-bg, 20%);
+@button-gray-disabled-border:    darken(@button-gray-border, 20%);
 
 .@{namespace}button {
     display: inline-block;
@@ -210,9 +217,21 @@
   &.@{namespace}disabled,
   &[disabled],
   fieldset[disabled] & {
-    .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+    .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
   }
 }
+
+.@{namespace}button-gray {
+  .button-variant(@button-gray-color; @button-gray-bg; @button-gray-border);
+
+  &.@{namespace}disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    .button-variant(@button-gray-disabled-color; @button-gray-disabled-bg; @button-gray-disabled-border);
+  }
+}
+
+
 // Link buttons
 // -------------------------
 
