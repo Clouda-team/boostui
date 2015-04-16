@@ -1,0 +1,187 @@
+@listview-font-normal: @boost-font-size-link;
+@listview-font-small: @boost-font-size-comment;
+@listview-font-large: @boost-font-size-nav;
+@listview-border: #DDDDDD;
+@listview-item-height: 85px;
+@listview-theme1-item-height: 105px;
+@listview-theme2-item-height: 85px;
+@listview-header-height: 40px;
+
+.@{namespace}listview {
+  background-color: @white;
+}
+
+.@{namespace}listview-main {
+  border-top: 1px solid @listview-border;
+  border-bottom: 1px solid @listview-border;
+}
+
+.@{namespace}listview-header {
+  height: @listview-header-height;
+}
+
+.@{namespace}listview-header-title {
+  line-height: @listview-header-height;
+  font-size: @listview-font-large;
+}
+
+
+.@{namespace}listview-item {
+  height: @listview-item-height;
+  border-bottom: 1px solid @listview-border;
+  padding: 10px 16px;
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.@{namespace}listview-item-pic {
+  width: 65px;
+  height: 65px;
+  display: block;
+}
+.@{namespace}listview-item-text-normal {
+  font-size: @listview-font-normal;
+}
+.@{namespace}listview-item-text-small {
+  font-size: @listview-font-small;
+}
+.@{namespace}listview-item {}
+
+.@{namespace}listview-item-title {}
+
+
+.@{namespace}listview-theme1 {
+  padding: 0 10px;
+  .@{namespace}listview-item {
+    position: relative;
+    padding: 10px 0;
+    height: @listview-theme1-item-height;
+  }
+
+  .@{namespace}listview-item-title {
+    color: @color-black;
+    font-size: @boost-font-size-link;
+    line-height: 18px;
+    margin: 2px 0 6px;
+  }
+
+  .@{namespace}listview-item-badge {
+    .@{namespace}badge {
+      border-color: @color-border;
+      color: @color-font;
+      padding: 0;
+    }
+
+  }
+
+  .@{namespace}listview-item-price {
+    position: absolute;
+    left: 127px;
+    bottom: 5px;
+    color: @color-red;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    em {
+      font-weight: normal;
+      font-style: normal;
+      font-size: 14px;
+    }
+  }
+
+  .@{namespace}listview-item-pic {
+    width: 85px;
+    height: 85px;
+    margin-right: 14px;
+  }
+
+  .@{namespace}checkbox-checked:before {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .@{namespace}checkbox-default {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-top: 31px;
+    margin-right: 6px;
+  }
+  .@{namespace}checkbox-all {
+    margin-top: 9px;
+  }
+
+  .@{namespace}checkbox-default:before {
+    top: 1px;
+    left: 2px;
+  }
+
+  .@{namespace}listview-conter-box {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+
+    .@{namespace}counter-minus:before, .@{namespace}counter-plus:before {
+      &.@{namespace}disabled {
+        color: #999999;
+      }
+    }
+    .@{namespace}counter-minus, .@{namespace}counter-plus {
+      &.@{namespace}disabled {
+        background-color: @color-white;
+      }
+    }
+
+    .@{namespace}counter-minus:before{
+      color: @color-red-bg;
+    }
+    .@{namespace}counter-plus:before{
+      color: @color-red-bg;
+    }
+  }
+}
+
+.@{namespace}listview-theme2 {
+  margin: 0;
+  .@{namespace}listview-header {
+    padding: 0 16px;
+  }
+  .@{namespace}listview-item {
+    padding: 10px 16px;
+    height: @listview-theme2-item-height;
+  }
+
+  .@{namespace}listview-item-pic {
+    margin-right: 18px;
+  }
+
+
+  .@{namespace}listview-item-title {
+    margin-top: 10px;
+    color: @color-font;
+    font-size: @listview-font-large;
+    line-height: 20px;
+  }
+
+  .@{namespace}listview-item-price {
+    margin-top: 10px;
+    color: @color-black;
+    font-size: @listview-font-large;
+    line-height: 20px;
+    text-align: right;
+  }
+
+  .@{namespace}listview-item-num {
+    margin-top: 4px;
+    text-align: right;
+    color: #bbbbbb;
+    font-size: @listview-font-large;
+    line-height: 20px;
+  }
+
+}
+
+.@{namespace}listview-footer {
+
+}
