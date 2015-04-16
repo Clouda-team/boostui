@@ -152,11 +152,17 @@
 .@{namespace}button-default {
     .button-variant(@button-default-color; @button-default-bg; @button-default-border);
 
-    &.@{namespace}disabled,
+
     &[disabled],
     fieldset[disabled] & {
         .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-default-border; @color-white; @button-default-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-default-color; @button-default-bg; @button-default-border);
+  }
 }
 .@{namespace}button-primary {
     .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
@@ -165,6 +171,12 @@
     fieldset[disabled] & {
         .button-variant(@button-primary-disabled-color; @button-primary-disabled-bg; @button-primary-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-primary-border; @color-white; @button-primary-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
+  }
 }
 .@{namespace}button-secondary {
     .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
@@ -173,15 +185,27 @@
     fieldset[disabled] & {
         .button-variant(@button-secondary-disabled-color; @button-secondary-disabled-bg; @button-secondary-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-secondary-border; @color-white; @button-secondary-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
+  }
 }
 // Success appears as green
 .@{namespace}button-success {
     .button-variant(@button-success-color; @button-success-bg; @button-success-border);
-    &.@{namespace}disabled,
+
     &[disabled],
     fieldset[disabled] & {
         .button-variant(@button-success-disabled-color; @button-success-disabled-bg; @button-success-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-success-border; @color-white; @button-success-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-success-color; @button-success-bg; @button-success-border);
+  }
 }
 // Info appears as blue-green
 .@{namespace}button-info {
@@ -191,6 +215,12 @@
     fieldset[disabled] & {
         .button-variant(@button-info-disabled-color; @button-info-disabled-bg; @button-info-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-info-border; @color-white; @button-info-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-info-color; @button-info-bg; @button-info-border);
+  }
 }
 // Warning appears as orange
 .@{namespace}button-warning {
@@ -200,6 +230,12 @@
     fieldset[disabled] & {
         .button-variant(@button-warning-disabled-color; @button-warning-disabled-bg; @button-warning-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-warning-border; @color-white; @button-warning-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-warning-color; @button-warning-bg; @button-warning-border);
+  }
 }
 // Danger and error appear as red
 .@{namespace}button-danger {
@@ -209,6 +245,12 @@
     fieldset[disabled] & {
         .button-variant(@button-danger-disabled-color; @button-danger-disabled-bg; @button-danger-disabled-border);
     }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-danger-border; @color-white; @button-danger-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-danger-color; @button-danger-bg; @button-danger-border);
+  }
 }
 
 .@{namespace}button-red {
@@ -219,6 +261,12 @@
   fieldset[disabled] & {
     .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
   }
+  &.@{namespace}button-checkbox {
+    .button-variant(@button-red-border; @color-white; @button-red-border);
+  }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-red-color; @button-red-bg; @button-red-border);
+  }
 }
 
 .@{namespace}button-gray {
@@ -228,6 +276,12 @@
   &[disabled],
   fieldset[disabled] & {
     .button-variant(@button-gray-disabled-color; @button-gray-disabled-bg; @button-gray-disabled-border);
+  }
+  &.@{namespace}button-checkbox {
+     .button-variant(@button-gray-border; @color-white; @button-gray-border);
+   }
+  &.@{namespace}button-checkbox-checked {
+    .button-variant(@button-gray-color; @button-gray-bg; @button-gray-border);
   }
 }
 
