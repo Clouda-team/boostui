@@ -1,33 +1,49 @@
+@mask-background-color: rgba(34, 34,34,1);
+@menu-font-color: #fff;
+@top-font-size:18px;
+
 .@{namespace}gallery-mask{
-    visibility:hidden;
-    width:100%;
-    height:101%;
+    visibility: hidden;
+    width: 100%;
+    height: 101%;
     position: fixed;
     overflow: hidden;
-    background: rgba(34, 34,34,1);
+    background: @mask-background-color;
     top: 0;
     left: 0;
 }
 
+.@{namespace}gallery-pic {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    list-style: none;
+}
+
 .@{namespace}gallery-top {
-    width:100%;
-    height:44px;
+    width: 100%;
+    height: 44px;
     position:absolute;
-    top:0;
-    color:#fff;
-    background:rgba(0, 0,0,0.5);
+    top: 0;
+    color: @menu-font-color;
+    background: rgba(0,0,0,0.5);
     -webkit-transform: translate3d(0px, -44px, 0px);
-    -webkit-transition:all 0.5s;
+    -webkit-transition: all 0.5s;
 }
 
 .@{namespace}gallery-top-back {
-    display:block;
-    position:absolute;
-    top:0;
-    left:0;
-    width:40px;
-    height:44px;
-    background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAkCAYAAABmMXGeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NEI1MUFFRURENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NEI1MUFFRUVENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0QjUxQUVFQkQ1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0QjUxQUVFQ0Q1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCFbdwAAADVSURBVHjatNYxDsIwDAXQwgonQMhs5RycmoEBiTuwMJQFuIZxEBFVlVL75zfSXxrpKUlbx42qNpVpLZ3lZFmlZwzwqb9xSTATzOO4bLDRWs6WTWFui6xwP7JC/Z7tjg5GX5QLjKBu0IuGQA8aBqdQCPyHwuAYWgWW0GpwiFLAPkoDM0oFM9oxwZSp0qdQYXRsX5Dt0+HIJyUISoOR31QQtBquKX2CoDDMuE4EQcMw84oWBHXDc7Q9svjI3AbtinZ9N8vB8irMPeZoete1aIbv/fb8LcAAtTywoWaV7soAAAAASUVORK5CYII=) no-repeat 20px 7px;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 44px;
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAkCAYAAABmMXGeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NEI1MUFFRURENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NEI1MUFFRUVENTA1MTFFNEI4ODZGRTVBNTlGM0UyRUQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo0QjUxQUVFQkQ1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo0QjUxQUVFQ0Q1MDUxMUU0Qjg4NkZFNUE1OUYzRTJFRCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsCFbdwAAADVSURBVHjatNYxDsIwDAXQwgonQMhs5RycmoEBiTuwMJQFuIZxEBFVlVL75zfSXxrpKUlbx42qNpVpLZ3lZFmlZwzwqb9xSTATzOO4bLDRWs6WTWFui6xwP7JC/Z7tjg5GX5QLjKBu0IuGQA8aBqdQCPyHwuAYWgWW0GpwiFLAPkoDM0oFM9oxwZSp0qdQYXRsX5Dt0+HIJyUISoOR31QQtBquKX2CoDDMuE4EQcMw84oWBHXDc7Q9svjI3AbtinZ9N8vB8irMPeZoete1aIbv/fb8LcAAtTywoWaV7soAAAAASUVORK5CYII=) no-repeat 20px 7px;
     background-size: auto 25px;
 }
 
@@ -37,8 +53,8 @@
     line-height:44px;
     text-align:center;
     overflow:hidden;
-    font-size:18px;
-    color:#fff;
+    font-size: @top-font-size;
+    color: @menu-font-color;
 } 
 
 .@{namespace}gallery-bottom {
@@ -46,7 +62,7 @@
     height:116px;
     position:absolute;
     bottom:0;
-    color:#fff;
+    color: @menu-font-color;
     background:rgba(0, 0,0,0.5);
     -webkit-transform: translate3d(0px, 116px, 0px);
     -webkit-transition:all 0.5s;
@@ -57,7 +73,6 @@
     position:relative;
     margin: 12px 15px;
     height: 96px;
-    font-size:14px;
     line-height: 24px;
     overflow: hidden;
     overflow-y: auto;
@@ -66,31 +81,33 @@
 }
 
 .@{namespace}gallery-bottom-info {
-    color:#fff;
-    font-size:14px;
-    text-indent:50px;
-    -webkit-user-select:none;
-    user-select:none;
+    color: @menu-font-color;
+    font-size: 14px;
+    text-indent: 50px;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 .@{namespace}gallery-bottom-info::selection{
-    color:#fff;
-    background:transparent;
+    color: @menu-font-color;
+    background: transparent;
 }
 
 
 .@{namespace}gallery-bottom-page {
-    display:inline-block;
+    display: inline-block;
     position: absolute;
     left: 0px;
     top: -7px;
     height: 35px;
     line-height: 35px;
     font-size: 22px;
-    color:#fff;
+    color: @menu-font-color;
 }
 
-
+/**
+ * 定制滚动条
+ */
 .@{namespace}gallery-bottom-info-wrap::-webkit-scrollbar-track {
     background-color: #111;
     -webkit-border-radius: 0
@@ -117,8 +134,10 @@
 }
 
 
-/****************/
 
+
+// =================================
+/**
 .@{namespace}gallery-dom {
     position: absolute;
     margin: 0;
@@ -127,17 +146,6 @@
     overflow: hidden;
 }
 
-.@{namespace}gallery-pic {
-    position: absolute;
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-pack: center;
-    -webkit-box-align: center;
-    list-style: none;
-}
 
 .@{namespace}gallery-img > img {
     max-width: 100%;
@@ -215,3 +223,4 @@
 .@{namespace}gallery-dot.active {
     background-color: #fff;
 }
+*/

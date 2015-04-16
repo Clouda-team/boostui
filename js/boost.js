@@ -5062,6 +5062,7 @@ $.widget('blend.dialog', {
     /*配置项*/
     options: {
         id: null,
+        hasHeader: true,        // 是否有diaload头
         top: undefined,         // 自定义dialog距离顶部距离
         addCssClass: null,
         title: '标题',          // dialog标题
@@ -5090,6 +5091,7 @@ $.widget('blend.dialog', {
         this.cancelClass = options.cancelClass;
         this.confirmText = options.confirmText;
         this.confirmClass = options.confirmClass;
+        this.hasHeader = options.hasHeader;
         this.autoCloseDone = true;
         this.maskTapClose = options.maskTapClose;
         this.top = options.top;
@@ -5197,8 +5199,7 @@ $.widget('blend.dialog', {
         if (this.renderType === 0) {
             curEle = this.$el;
             curEle.find('.' + NAMESPACE + 'dialog-footer a')
-            .addClass(NAMESPACE + 'dialog-btn')
-            .addClass(NAMESPACE + 'button');
+            .addClass(NAMESPACE + 'dialog-btn');
             outerEle = curEle;
         }
         else if (this.renderType === 1) {
@@ -5207,6 +5208,12 @@ $.widget('blend.dialog', {
 
         this.$title = outerEle.find('.' + NAMESPACE + 'dialog-title');
         this.$content = outerEle.find('.' + NAMESPACE + 'dialog-body');
+        this.$header = outerEle.find('.' + NAMESPACE + 'dialog-header');
+
+        if (!this.hasHeader) {
+            this.$content.addClass(NAMESPACE + 'dialog-tips');
+            this.$header.remove();
+        }
 
         if (!this.btnStatus) {
             outerEle.find('.' + NAMESPACE + 'dialog-footer').remove();
@@ -5260,8 +5267,8 @@ $.widget('blend.dialog', {
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'button">' + this.cancelText + '</a>'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'button ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'dialog-btn">' + this.cancelText + '</a>'
                       + '</div>';
         this.$el.append(dom);
         return this.$el;
@@ -5562,12 +5569,15 @@ $.widget('blend.gallery', {
      */
     options: {
     },
+    /**
+     * 创建组件是调用一次
+     * @private
+     */
     _create: function () {
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
-        var $el = this.element;
-        this.$el = $el;
+        this.$el = this.element;
         /**
          * 经过继承的 options
          */
@@ -5579,6 +5589,7 @@ $.widget('blend.gallery', {
     },
     /**
      * _init 初始化的时候调用
+     * @private
      */
     _init: function () {
 
@@ -5604,6 +5615,12 @@ $.widget('blend.gallery', {
             this._bindHandler();
         }
     },
+    /**
+     * 初始化 uix gallery
+     * @private
+     * @param  {Object} blend blend对象
+     * @return {[type]}
+     */
     _initUIXGallery: function (blend) {
 
         var uixGallery = blend.create('gallery', {
@@ -5613,6 +5630,10 @@ $.widget('blend.gallery', {
         return uixGallery;
 
     },
+    /**
+     * 创建遮罩mask
+     * @private
+     */
     _createMask: function () {
 
         if (this.mask) {
@@ -5627,7 +5648,7 @@ $.widget('blend.gallery', {
     },
     /**
      * 根据传入options 设置内部变量
-     *
+     * @private
      */
     _setting: function () {
 
@@ -5696,7 +5717,7 @@ $.widget('blend.gallery', {
         }
 
         if (this.useZoom) {
-            this.addZoomPlugin();
+            this._addZoomPlugin();
             this._initZoom(opts);
         }
         // debug mode
@@ -5712,11 +5733,19 @@ $.widget('blend.gallery', {
         this._animateFunc =
         opts.animateType in this._animateFuncs ? this._animateFuncs[opts.animateType] : this._animateFuncs['default'];
     },
+    /**
+     * transform 移动动画
+     * @private
+     * @type {Object}
+     */
     _animateFuncs: {
         'default': function (dom, axis, scale, i, offset) {
             dom.style.webkitTransform = 'translateZ(0) translate' + axis + '(' + (offset + scale * (i - 1)) + 'px)';
         }
     },
+    /**
+     * @private
+     */
     _setUpDamping: function () {
         var oneIn2 = this.scale >> 1;
         var oneIn4 = oneIn2 >> 1;
@@ -5738,6 +5767,7 @@ $.widget('blend.gallery', {
     },
     /**
     * render single item html by idx
+    * @private
     * @param {element} el ..
     * @param {number}  i  ..
     */
@@ -5768,7 +5798,8 @@ $.widget('blend.gallery', {
         if (this.type === 'pic') {
             if (!this.isOverspread) {
                 html = item.height / item.width > this.ratio ?
-                '<img  height="' + this.height + '" src="' + item.image + '">' : '<img width="' + this.width + '" src="' + item.image + '">';
+                '<img  height="' + this.height + '" src="' + item.image + '">' :
+                '<img width="' + this.width + '" src="' + item.image + '">';
             }
             else {
                 el.style.background = 'url(' + item.image + ') 50% 50% no-repeat';
@@ -5782,6 +5813,7 @@ $.widget('blend.gallery', {
     },
     /**
      * render list html
+     * @private
      */
     _renderHTML: function () {
 
@@ -5819,6 +5851,10 @@ $.widget('blend.gallery', {
             this._renderTopAndBottom();
         }
     },
+    /**
+     * 渲染顶部和底部
+     * @private
+     */
     _renderTopAndBottom: function () {
 
         var topMenu = this.topMenu || document.createElement('div');
@@ -5869,6 +5905,7 @@ $.widget('blend.gallery', {
     },
     /**
      *  preload img when slideChange
+     *  @private
      *  @param {number} dataIndex means which image will be load
      */
     _preloadImg: function (dataIndex) {
@@ -5891,6 +5928,7 @@ $.widget('blend.gallery', {
     },
     /**
      *  load extra imgs when renderHTML
+     *  @private
      */
     _initLoadImg: function () {
         var data = this.data;
@@ -5914,6 +5952,9 @@ $.widget('blend.gallery', {
             }, 200);
         }
     },
+    /**
+     * @private
+     */
     _play: function () {
         var self = this;
         var duration = this.duration;
@@ -5922,6 +5963,11 @@ $.widget('blend.gallery', {
             self._slideTo(self.slideIndex + 1);
         }, duration);
     },
+    /**
+     * 滑动到指定的图片
+     * @private
+     * @param  {number} dataIndex 图片索引
+     */
     _slideTo: function (dataIndex) {
 
         var data = this.data;
@@ -6006,12 +6052,17 @@ $.widget('blend.gallery', {
             this._pause();
         }
     },
+    /**
+     * 暂停自动播放
+     * @private
+     */
     _pause: function () {
         clearInterval(this.autoPlayTimer);
     },
     /**
      * judge the device
-     * @return {Object} 时间
+     * @private
+     * @return {Object} 事件
      */
     _device: function () {
         var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
@@ -6025,6 +6076,10 @@ $.widget('blend.gallery', {
             endEvt: endEvt
         };
     },
+    /**
+     * 绑定事件
+     * @private
+     */
     _bindHandler: function () {
 
         var outer = this.outer;
@@ -6070,6 +6125,11 @@ $.widget('blend.gallery', {
                 break;
         }
     },
+    /**
+     * 处理touchStart事件
+     * @private
+     * @param  {Event} evt ...
+     */
     _startHandler: function (evt) {
         if (this.fixPage) {
             evt.preventDefault();
@@ -6086,6 +6146,11 @@ $.widget('blend.gallery', {
         this.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
         this.zoomStartHandler && this.zoomStartHandler(evt);  // zoom 事件
     },
+    /**
+     * 处理touchMove事件
+     * @private
+     * @param  {Event} evt ...
+     */
     _moveHandler: function (evt) {
         if (this.isMoving) {
 
@@ -6118,6 +6183,11 @@ $.widget('blend.gallery', {
             this.offset = offset;
         }
     },
+    /**
+     * 处理touchEnd事件
+     * @private
+     * @param  {Event} evt ...
+     */
     _endHandler: function (evt) {
         this.isMoving = false;
         var offset = this.offset;
@@ -6161,6 +6231,9 @@ $.widget('blend.gallery', {
         // this.onslideend && this.onslideend(this.slideIndex);
         this.log('Event: afterslide');
     },
+    /**
+     * @private
+     */
     _destroy: function () {
         var outer = this.outer;
         var device = this._device();
@@ -6172,18 +6245,31 @@ $.widget('blend.gallery', {
         window.removeEventListener('blur', this);
         this.wrap.innerHTML = '';
     },
+    /**
+     * 展示顶部和底部
+     * @private
+     */
     _showMenu: function () {
 
         this.topMenu.style.webkitTransform = 'translate3d(0, 0, 0)';
         this.bottomMenu.style.webkitTransform = 'translate3d(0, 0, 0)';
         this.isMenuShow = true;
     },
+    /**
+     * 隐藏顶部和底部
+     * @private
+     */
     _hideMenu: function () {
 
         this.topMenu.style.webkitTransform = 'translate3d(0, -44px, 0)';
         this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
         this.isMenuShow = false;
     },
+    /**
+     * 指定展示第几张图片
+     * @public
+     * @param  {number} val 图片索引
+     */
     show: function (val) {
 
         if (IS_UIX && this._uix) {
@@ -6191,11 +6277,11 @@ $.widget('blend.gallery', {
             return;
         }
 
-        if (val < 0 || isNaN(parseInt(val,10))) {
+        if (val < 0 || isNaN(parseInt(val, 10))) {
             val = 0;
         }
         else if (val >= this.data.length) {
-            val = this.data.length -2;
+            val = this.data.length - 2;
         }
 
         this.initIndex = val;
@@ -6212,6 +6298,10 @@ $.widget('blend.gallery', {
 
         this._showMenu();
     },
+    /**
+     * 隐藏gallery
+     * @public
+     */
     hide: function () {
         this.mask.style.display = 'none';
         this.mask.style.visibility = 'hidden';
@@ -6226,8 +6316,9 @@ $.widget('blend.gallery', {
     },
     /**
      * 增加图片的缩放功能
+     * @private
      */
-    addZoomPlugin: function () {
+    _addZoomPlugin: function () {
         var has3d = 'WebKitCSSMatrix' in window && 'm11' in new WebKitCSSMatrix();
         var minScale = 1 / 2;
         var viewScope = {};
@@ -6273,7 +6364,9 @@ $.widget('blend.gallery', {
             if (!window.getComputedStyle || !obj) {
                 return result;
             }
-            var style = window.getComputedStyle(obj), transform, origin;
+            var style = window.getComputedStyle(obj);
+            var transform;
+            var origin;
             transform = style.webkitTransform || style.mozTransform;
             origin = style.webkitTransformOrigin || style.mozTransformOrigin;
             var par = origin.match(/(.*)px\s+(.*)px/);
@@ -6448,7 +6541,8 @@ $.widget('blend.gallery', {
             return pos;
         }
         function valueInViewScope(node, value, tag) {
-            var min, max;
+            var min;
+            var max;
             var pos = getPosition(node);
             viewScope = {
                 start: {
@@ -6510,7 +6604,18 @@ $.widget('blend.gallery', {
             if (this.currentScale === 1) {
                 return;
             }
-            var node = this.zoomNode, left, top, trans, w, h, pos, start, end, parent, flowTag;
+            // var node = this.zoomNode, left, top, trans, w, h, pos, start, end, parent, flowTag;
+            var node = this.zoomNode;
+            var left;
+            var top;
+            var trans;
+            var w;
+            var h;
+            var pos;
+            var start;
+            var end;
+            var parent;
+            var flowTag;
             trans = getComputedTranslate(node);
             parent = node.parentNode;
             w = node.clientWidth * trans.scaleX;
@@ -6568,13 +6673,34 @@ $.widget('blend.gallery', {
             }
             node.style.webkitTransitionDuration = '100ms';
             node.style.webkitTransform =
-            generateTranslate(trans.translateX + left - start.left, trans.translateY + top - start.top, 0, trans.scaleX);
+            generateTranslate(trans.translateX + left - start.left, trans.translateY + top - start.top,
+            0, trans.scaleX);
         }
         this.extend({
+            /**
+             * @private
+             * @type {Function}
+             */
             _initZoom: initZoom,
+            /**
+             * @private
+             * @type {Function}
+             */
             _scaleImage: scaleImage,
+            /**
+             * @private
+             * @type {Function}
+             */
             _moveImage: moveImage,
+            /**
+             * @private
+             * @type {Function}
+             */
             _resetImage: resetImage,
+            /**
+             * @private
+             * @type {Function}
+             */
             _handleDoubleTap: handleDoubleTap,
             zoomMoveHandler: moveHandler,
             zoomEndHandler: endHandler,
@@ -7585,6 +7711,7 @@ $.widget('blend.tab', {
     options: {
         start: 0,
         animate: true,
+        activeClass: NAMESPACE + 'tab-header-item-active',
         animateClass: NAMESPACE + 'tab-animation'
     },
     /**
@@ -7674,6 +7801,8 @@ $.widget('blend.tab', {
         tab.$activeEle.css('left', left);
         tab.$contentItem.hide();
         tab.$contentItem.eq(tab.current).show();
+        tab.$headerItem.removeClass(tab.options.activeClass);
+        tab.$headerItem.eq(tab.current).addClass(tab.options.activeClass);
     },
     /**
      * 销毁tab对象

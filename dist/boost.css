@@ -2,6 +2,9 @@
   font-family: "boostfont";
   src: url('boostfont.ttf') format('truetype');
 }
+/* theme color */
+/* common color*/
+/* theme rewrite */
 /* font */
 /* font size */
 /* font-weight */
@@ -292,21 +295,26 @@ hr {
 .blend-badge {
   display: inline-block;
   min-width: 20px;
-  padding: 3px;
-  font-size: 12px;
+  padding: 0 2px;
+  font-size: 10px;
+  height: 14px;
+  line-height: 12px;
   color: #fff;
-  line-height: 1;
   vertical-align: baseline;
   white-space: nowrap;
   text-align: center;
-  background-color: #62c9f4;
+  background-color: #2c85ff;
   border-radius: 0;
   border: solid 1px;
 }
 .blend-badge.blend-badge-empty {
-  padding: 2px;
+  padding: 0 9px;
   background-color: transparent;
-  color: #62c9f4;
+  color: #2c85ff;
+}
+.blend-badge.blend-badge-large {
+  height: 18px;
+  line-height: 16px;
 }
 .blend-badge-primary {
   background-color: #00a3e7;
@@ -373,7 +381,7 @@ hr {
 }
 .blend-button:hover,
 .blend-button:focus {
-  color: #ffffff;
+  color: #808080;
   text-decoration: none;
 }
 .blend-button:active,
@@ -404,9 +412,9 @@ fieldset[disabled] .blend-button {
   margin-right: 4px;
 }
 .blend-button-default {
-  color: #ffffff;
-  background-color: #666666;
-  border-color: #666666;
+  color: #808080;
+  background-color: #ffffff;
+  border-color: #808080;
 }
 .blend-button-default:hover,
 .blend-button-default:focus,
@@ -414,9 +422,9 @@ fieldset[disabled] .blend-button {
 .blend-button-default:active,
 .blend-button-default.active,
 .open > .dropdown-toggle.blend-button-default {
-  color: #ffffff;
-  background-color: #4d4d4d;
-  border-color: #474747;
+  color: #808080;
+  background-color: #e6e6e6;
+  border-color: #616161;
 }
 .blend-button-default:active,
 .blend-button-default.active,
@@ -441,19 +449,19 @@ fieldset[disabled] .blend-button-default:active,
 .blend-button-default.disabled.active,
 .blend-button-default[disabled].active,
 fieldset[disabled] .blend-button-default.active {
-  background-color: #666666;
-  border-color: #666666;
+  background-color: #ffffff;
+  border-color: #808080;
 }
 .blend-button-default .badge {
-  color: #666666;
-  background-color: #ffffff;
+  color: #ffffff;
+  background-color: #808080;
 }
 .blend-button-default.blend-disabled,
 .blend-button-default[disabled],
 fieldset[disabled] .blend-button-default {
-  color: #cccccc;
-  background-color: #333333;
-  border-color: #333333;
+  color: #4d4d4d;
+  background-color: #cccccc;
+  border-color: #4d4d4d;
 }
 .blend-button-default.blend-disabled:hover,
 .blend-button-default[disabled]:hover,
@@ -473,9 +481,9 @@ fieldset[disabled] .blend-button-default.active,
 .open > .dropdown-toggle.blend-button-default.blend-disabled,
 .open > .dropdown-toggle.blend-button-default[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-default {
-  color: #cccccc;
-  background-color: #1a1a1a;
-  border-color: #141414;
+  color: #4d4d4d;
+  background-color: #b3b3b3;
+  border-color: #2e2e2e;
 }
 .blend-button-default.blend-disabled:active,
 .blend-button-default[disabled]:active,
@@ -542,14 +550,14 @@ fieldset[disabled] .blend-button-default[disabled].active,
 fieldset[disabled] .blend-button-default.blend-disabled.active,
 fieldset[disabled] .blend-button-default[disabled].active,
 fieldset[disabled] fieldset[disabled] .blend-button-default.active {
-  background-color: #333333;
-  border-color: #333333;
+  background-color: #cccccc;
+  border-color: #4d4d4d;
 }
 .blend-button-default.blend-disabled .badge,
 .blend-button-default[disabled] .badge,
 fieldset[disabled] .blend-button-default .badge {
-  color: #333333;
-  background-color: #cccccc;
+  color: #cccccc;
+  background-color: #4d4d4d;
 }
 .blend-button-primary {
   color: #ffffff;
@@ -1439,6 +1447,302 @@ fieldset[disabled] .blend-button-danger .badge {
   color: #990099;
   background-color: #cccccc;
 }
+.blend-button-red {
+  color: #ffffff;
+  background-color: #f74545;
+  border-color: #f74545;
+}
+.blend-button-red:hover,
+.blend-button-red:focus,
+.blend-button-red.focus,
+.blend-button-red:active,
+.blend-button-red.active,
+.open > .dropdown-toggle.blend-button-red {
+  color: #ffffff;
+  background-color: #f51414;
+  border-color: #f40b0b;
+}
+.blend-button-red:active,
+.blend-button-red.active,
+.open > .dropdown-toggle.blend-button-red {
+  background-image: none;
+}
+.blend-button-red.disabled,
+.blend-button-red[disabled],
+fieldset[disabled] .blend-button-red,
+.blend-button-red.disabled:hover,
+.blend-button-red[disabled]:hover,
+fieldset[disabled] .blend-button-red:hover,
+.blend-button-red.disabled:focus,
+.blend-button-red[disabled]:focus,
+fieldset[disabled] .blend-button-red:focus,
+.blend-button-red.disabled.focus,
+.blend-button-red[disabled].focus,
+fieldset[disabled] .blend-button-red.focus,
+.blend-button-red.disabled:active,
+.blend-button-red[disabled]:active,
+fieldset[disabled] .blend-button-red:active,
+.blend-button-red.disabled.active,
+.blend-button-red[disabled].active,
+fieldset[disabled] .blend-button-red.active {
+  background-color: #f74545;
+  border-color: #f74545;
+}
+.blend-button-red .badge {
+  color: #f74545;
+  background-color: #ffffff;
+}
+.blend-button-red.blend-disabled,
+.blend-button-red[disabled],
+fieldset[disabled] .blend-button-red {
+  color: #cccccc;
+  background-color: #cd0909;
+  border-color: #cd0909;
+}
+.blend-button-red.blend-disabled:hover,
+.blend-button-red[disabled]:hover,
+fieldset[disabled] .blend-button-red:hover,
+.blend-button-red.blend-disabled:focus,
+.blend-button-red[disabled]:focus,
+fieldset[disabled] .blend-button-red:focus,
+.blend-button-red.blend-disabled.focus,
+.blend-button-red[disabled].focus,
+fieldset[disabled] .blend-button-red.focus,
+.blend-button-red.blend-disabled:active,
+.blend-button-red[disabled]:active,
+fieldset[disabled] .blend-button-red:active,
+.blend-button-red.blend-disabled.active,
+.blend-button-red[disabled].active,
+fieldset[disabled] .blend-button-red.active,
+.open > .dropdown-toggle.blend-button-red.blend-disabled,
+.open > .dropdown-toggle.blend-button-red[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-red {
+  color: #cccccc;
+  background-color: #9c0707;
+  border-color: #920606;
+}
+.blend-button-red.blend-disabled:active,
+.blend-button-red[disabled]:active,
+fieldset[disabled] .blend-button-red:active,
+.blend-button-red.blend-disabled.active,
+.blend-button-red[disabled].active,
+fieldset[disabled] .blend-button-red.active,
+.open > .dropdown-toggle.blend-button-red.blend-disabled,
+.open > .dropdown-toggle.blend-button-red[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-red {
+  background-image: none;
+}
+.blend-button-red.blend-disabled.disabled,
+.blend-button-red[disabled].disabled,
+fieldset[disabled] .blend-button-red.disabled,
+.blend-button-red.blend-disabled[disabled],
+.blend-button-red[disabled][disabled],
+fieldset[disabled] .blend-button-red[disabled],
+fieldset[disabled] .blend-button-red.blend-disabled,
+fieldset[disabled] .blend-button-red[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-red,
+.blend-button-red.blend-disabled.disabled:hover,
+.blend-button-red[disabled].disabled:hover,
+fieldset[disabled] .blend-button-red.disabled:hover,
+.blend-button-red.blend-disabled[disabled]:hover,
+.blend-button-red[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-red[disabled]:hover,
+fieldset[disabled] .blend-button-red.blend-disabled:hover,
+fieldset[disabled] .blend-button-red[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-red:hover,
+.blend-button-red.blend-disabled.disabled:focus,
+.blend-button-red[disabled].disabled:focus,
+fieldset[disabled] .blend-button-red.disabled:focus,
+.blend-button-red.blend-disabled[disabled]:focus,
+.blend-button-red[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-red[disabled]:focus,
+fieldset[disabled] .blend-button-red.blend-disabled:focus,
+fieldset[disabled] .blend-button-red[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-red:focus,
+.blend-button-red.blend-disabled.disabled.focus,
+.blend-button-red[disabled].disabled.focus,
+fieldset[disabled] .blend-button-red.disabled.focus,
+.blend-button-red.blend-disabled[disabled].focus,
+.blend-button-red[disabled][disabled].focus,
+fieldset[disabled] .blend-button-red[disabled].focus,
+fieldset[disabled] .blend-button-red.blend-disabled.focus,
+fieldset[disabled] .blend-button-red[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-red.focus,
+.blend-button-red.blend-disabled.disabled:active,
+.blend-button-red[disabled].disabled:active,
+fieldset[disabled] .blend-button-red.disabled:active,
+.blend-button-red.blend-disabled[disabled]:active,
+.blend-button-red[disabled][disabled]:active,
+fieldset[disabled] .blend-button-red[disabled]:active,
+fieldset[disabled] .blend-button-red.blend-disabled:active,
+fieldset[disabled] .blend-button-red[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-red:active,
+.blend-button-red.blend-disabled.disabled.active,
+.blend-button-red[disabled].disabled.active,
+fieldset[disabled] .blend-button-red.disabled.active,
+.blend-button-red.blend-disabled[disabled].active,
+.blend-button-red[disabled][disabled].active,
+fieldset[disabled] .blend-button-red[disabled].active,
+fieldset[disabled] .blend-button-red.blend-disabled.active,
+fieldset[disabled] .blend-button-red[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-red.active {
+  background-color: #cd0909;
+  border-color: #cd0909;
+}
+.blend-button-red.blend-disabled .badge,
+.blend-button-red[disabled] .badge,
+fieldset[disabled] .blend-button-red .badge {
+  color: #cd0909;
+  background-color: #cccccc;
+}
+.blend-button-gray {
+  color: #ffffff;
+  background-color: #666666;
+  border-color: #666666;
+}
+.blend-button-gray:hover,
+.blend-button-gray:focus,
+.blend-button-gray.focus,
+.blend-button-gray:active,
+.blend-button-gray.active,
+.open > .dropdown-toggle.blend-button-gray {
+  color: #ffffff;
+  background-color: #4d4d4d;
+  border-color: #474747;
+}
+.blend-button-gray:active,
+.blend-button-gray.active,
+.open > .dropdown-toggle.blend-button-gray {
+  background-image: none;
+}
+.blend-button-gray.disabled,
+.blend-button-gray[disabled],
+fieldset[disabled] .blend-button-gray,
+.blend-button-gray.disabled:hover,
+.blend-button-gray[disabled]:hover,
+fieldset[disabled] .blend-button-gray:hover,
+.blend-button-gray.disabled:focus,
+.blend-button-gray[disabled]:focus,
+fieldset[disabled] .blend-button-gray:focus,
+.blend-button-gray.disabled.focus,
+.blend-button-gray[disabled].focus,
+fieldset[disabled] .blend-button-gray.focus,
+.blend-button-gray.disabled:active,
+.blend-button-gray[disabled]:active,
+fieldset[disabled] .blend-button-gray:active,
+.blend-button-gray.disabled.active,
+.blend-button-gray[disabled].active,
+fieldset[disabled] .blend-button-gray.active {
+  background-color: #666666;
+  border-color: #666666;
+}
+.blend-button-gray .badge {
+  color: #666666;
+  background-color: #ffffff;
+}
+.blend-button-gray.blend-disabled,
+.blend-button-gray[disabled],
+fieldset[disabled] .blend-button-gray {
+  color: #cccccc;
+  background-color: #333333;
+  border-color: #333333;
+}
+.blend-button-gray.blend-disabled:hover,
+.blend-button-gray[disabled]:hover,
+fieldset[disabled] .blend-button-gray:hover,
+.blend-button-gray.blend-disabled:focus,
+.blend-button-gray[disabled]:focus,
+fieldset[disabled] .blend-button-gray:focus,
+.blend-button-gray.blend-disabled.focus,
+.blend-button-gray[disabled].focus,
+fieldset[disabled] .blend-button-gray.focus,
+.blend-button-gray.blend-disabled:active,
+.blend-button-gray[disabled]:active,
+fieldset[disabled] .blend-button-gray:active,
+.blend-button-gray.blend-disabled.active,
+.blend-button-gray[disabled].active,
+fieldset[disabled] .blend-button-gray.active,
+.open > .dropdown-toggle.blend-button-gray.blend-disabled,
+.open > .dropdown-toggle.blend-button-gray[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-gray {
+  color: #cccccc;
+  background-color: #1a1a1a;
+  border-color: #141414;
+}
+.blend-button-gray.blend-disabled:active,
+.blend-button-gray[disabled]:active,
+fieldset[disabled] .blend-button-gray:active,
+.blend-button-gray.blend-disabled.active,
+.blend-button-gray[disabled].active,
+fieldset[disabled] .blend-button-gray.active,
+.open > .dropdown-toggle.blend-button-gray.blend-disabled,
+.open > .dropdown-toggle.blend-button-gray[disabled],
+.open > .dropdown-togglefieldset[disabled] .blend-button-gray {
+  background-image: none;
+}
+.blend-button-gray.blend-disabled.disabled,
+.blend-button-gray[disabled].disabled,
+fieldset[disabled] .blend-button-gray.disabled,
+.blend-button-gray.blend-disabled[disabled],
+.blend-button-gray[disabled][disabled],
+fieldset[disabled] .blend-button-gray[disabled],
+fieldset[disabled] .blend-button-gray.blend-disabled,
+fieldset[disabled] .blend-button-gray[disabled],
+fieldset[disabled] fieldset[disabled] .blend-button-gray,
+.blend-button-gray.blend-disabled.disabled:hover,
+.blend-button-gray[disabled].disabled:hover,
+fieldset[disabled] .blend-button-gray.disabled:hover,
+.blend-button-gray.blend-disabled[disabled]:hover,
+.blend-button-gray[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-gray[disabled]:hover,
+fieldset[disabled] .blend-button-gray.blend-disabled:hover,
+fieldset[disabled] .blend-button-gray[disabled]:hover,
+fieldset[disabled] fieldset[disabled] .blend-button-gray:hover,
+.blend-button-gray.blend-disabled.disabled:focus,
+.blend-button-gray[disabled].disabled:focus,
+fieldset[disabled] .blend-button-gray.disabled:focus,
+.blend-button-gray.blend-disabled[disabled]:focus,
+.blend-button-gray[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-gray[disabled]:focus,
+fieldset[disabled] .blend-button-gray.blend-disabled:focus,
+fieldset[disabled] .blend-button-gray[disabled]:focus,
+fieldset[disabled] fieldset[disabled] .blend-button-gray:focus,
+.blend-button-gray.blend-disabled.disabled.focus,
+.blend-button-gray[disabled].disabled.focus,
+fieldset[disabled] .blend-button-gray.disabled.focus,
+.blend-button-gray.blend-disabled[disabled].focus,
+.blend-button-gray[disabled][disabled].focus,
+fieldset[disabled] .blend-button-gray[disabled].focus,
+fieldset[disabled] .blend-button-gray.blend-disabled.focus,
+fieldset[disabled] .blend-button-gray[disabled].focus,
+fieldset[disabled] fieldset[disabled] .blend-button-gray.focus,
+.blend-button-gray.blend-disabled.disabled:active,
+.blend-button-gray[disabled].disabled:active,
+fieldset[disabled] .blend-button-gray.disabled:active,
+.blend-button-gray.blend-disabled[disabled]:active,
+.blend-button-gray[disabled][disabled]:active,
+fieldset[disabled] .blend-button-gray[disabled]:active,
+fieldset[disabled] .blend-button-gray.blend-disabled:active,
+fieldset[disabled] .blend-button-gray[disabled]:active,
+fieldset[disabled] fieldset[disabled] .blend-button-gray:active,
+.blend-button-gray.blend-disabled.disabled.active,
+.blend-button-gray[disabled].disabled.active,
+fieldset[disabled] .blend-button-gray.disabled.active,
+.blend-button-gray.blend-disabled[disabled].active,
+.blend-button-gray[disabled][disabled].active,
+fieldset[disabled] .blend-button-gray[disabled].active,
+fieldset[disabled] .blend-button-gray.blend-disabled.active,
+fieldset[disabled] .blend-button-gray[disabled].active,
+fieldset[disabled] fieldset[disabled] .blend-button-gray.active {
+  background-color: #333333;
+  border-color: #333333;
+}
+.blend-button-gray.blend-disabled .badge,
+.blend-button-gray[disabled] .badge,
+fieldset[disabled] .blend-button-gray .badge {
+  color: #333333;
+  background-color: #cccccc;
+}
 .blend-button-link {
   color: #00a3e7;
   font-weight: normal;
@@ -1500,8 +1804,8 @@ input[type="button"].blend-button-block {
   display: inline-block;
   position: relative;
   font-family: BoostFont;
-  border: solid 1px #d4d4d4;
-  background-color: #fff;
+  border: solid 1px #dddddd;
+  background-color: #ffffff;
   vertical-align: middle;
 }
 .blend-checkbox-label {
@@ -1513,9 +1817,13 @@ input[type="button"].blend-button-block {
   margin-left: 5px;
   margin-right: 10px;
 }
+.blend-checkbox-red .blend-checkbox-checked {
+  border: none;
+  background-color: #f94b44;
+}
 .blend-checkbox-checked {
   border: none;
-  background-color: #2eb6aa;
+  background-color: #00a2eb;
 }
 .blend-checkbox-checked:before {
   font-family: "boostfont";
@@ -1525,7 +1833,7 @@ input[type="button"].blend-button-block {
   content: "\e601";
   font-size: 15px;
   line-height: 18px;
-  color: #fff;
+  color: #ffffff;
   position: absolute;
 }
 .blend-checkbox-default {
@@ -1548,7 +1856,7 @@ input[type="button"].blend-button-block {
 .blend-checkbox-group {
   display: -webkit-box;
   padding: 0 16px;
-  border-bottom: 1px solid #edebeb;
+  border-bottom: 1px solid #dddddd;
 }
 .blend-checkbox-group:last-child {
   border-bottom: none;
@@ -1625,7 +1933,7 @@ input[type="button"].blend-button-block {
   display: block;
   width: 250px;
   padding: 0;
-  z-index: 95;
+  z-index: 100;
   background-color: #ffffff;
   color: #262626;
   visibility: hidden;
@@ -1635,7 +1943,7 @@ input[type="button"].blend-button-block {
   width: 100%;
   height: 100%;
   background: #000000;
-  z-index: 90;
+  z-index: 80;
   position: absolute;
   top: 0;
   left: 0;
@@ -1655,14 +1963,27 @@ input[type="button"].blend-button-block {
   margin: 0;
   padding: 0;
   font-weight: bold;
-  font-size: 18px;
+  color: #262626;
+  font-size: 16px;
   text-align: center;
   border-bottom: solid 1px #ddd;
 }
 .blend-dialog-body {
-  font-size: 16px;
+  font-size: 14px;
+  line-height: 22px;
   padding: 10px;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px #dddddd;
+}
+.blend-dialog-body.blend-dialog-tips {
+  line-height: 47px;
+  height: 67px;
+  text-align: center;
+}
+.blend-dialog-link {
+  color: #0d54d9;
+}
+.blend-dialog-phone {
+  color: #000000;
 }
 .blend-dialog-footer {
   width: 100%;
@@ -1672,12 +1993,12 @@ input[type="button"].blend-button-block {
 }
 .blend-dialog-cancel,
 .blend-dialog-confirm {
-  box-flex: 1;
   -webkit-box-flex: 1;
+  width: 0;
   display: block;
   text-align: center;
   background-color: #fafafa;
-  font-size: 18px;
+  font-size: 16px;
   color: #262626;
 }
 .blend-dialog-btn {
@@ -1685,7 +2006,7 @@ input[type="button"].blend-button-block {
   line-height: 40px;
 }
 .blend-dialog-btn:not(:first-child) {
-  border-left: solid 1px #ddd;
+  border-left: solid 1px #dddddd;
 }
 .blend-fixedBar {
   width: 100%;
@@ -1828,12 +2149,23 @@ input[type="button"].blend-button-block {
   top: 0;
   left: 0;
 }
+.blend-gallery-pic {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  list-style: none;
+}
 .blend-gallery-top {
   width: 100%;
   height: 44px;
   position: absolute;
   top: 0;
-  color: #fff;
+  color: #ffffff;
   background: rgba(0, 0, 0, 0.5);
   -webkit-transform: translate3d(0px, -44px, 0px);
   -webkit-transition: all 0.5s;
@@ -1855,14 +2187,14 @@ input[type="button"].blend-button-block {
   text-align: center;
   overflow: hidden;
   font-size: 18px;
-  color: #fff;
+  color: #ffffff;
 }
 .blend-gallery-bottom {
   width: 100%;
   height: 116px;
   position: absolute;
   bottom: 0;
-  color: #fff;
+  color: #ffffff;
   background: rgba(0, 0, 0, 0.5);
   -webkit-transform: translate3d(0px, 116px, 0px);
   -webkit-transition: all 0.5s;
@@ -1871,21 +2203,20 @@ input[type="button"].blend-button-block {
   position: relative;
   margin: 12px 15px;
   height: 96px;
-  font-size: 14px;
   line-height: 24px;
   overflow: hidden;
   overflow-y: auto;
   word-break: break-all;
 }
 .blend-gallery-bottom-info {
-  color: #fff;
+  color: #ffffff;
   font-size: 14px;
   text-indent: 50px;
   -webkit-user-select: none;
   user-select: none;
 }
 .blend-gallery-bottom-info::selection {
-  color: #fff;
+  color: #ffffff;
   background: transparent;
 }
 .blend-gallery-bottom-page {
@@ -1896,8 +2227,11 @@ input[type="button"].blend-button-block {
   height: 35px;
   line-height: 35px;
   font-size: 22px;
-  color: #fff;
+  color: #ffffff;
 }
+/**
+ * 定制滚动条
+ */
 .blend-gallery-bottom-info-wrap::-webkit-scrollbar-track {
   background-color: #111;
   -webkit-border-radius: 0;
@@ -1918,93 +2252,93 @@ input[type="button"].blend-button-block {
   background-color: #9f9f9f;
   -webkit-border-radius: 4px;
 }
-/****************/
-.blend-gallery-dom {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
+/**
+.@{namespace}gallery-dom {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
 }
-.blend-gallery-pic {
-  position: absolute;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-pack: center;
-  -webkit-box-align: center;
-  list-style: none;
+
+
+.@{namespace}gallery-img > img {
+    max-width: 100%;
+    max-height: 100%;
 }
-.blend-gallery-img > img {
-  max-width: 100%;
-  max-height: 100%;
+
+.@{namespace}gallery-btn-outer {
+    position: absolute;
+    width: 3em;
+    height: 3em;
+    cursor: pointer;
+    top: 0px;
+    bottom: 0px;
+    margin: auto 0px;
+    display: block;
+    background-color: rgb(119, 119, 119);
 }
-.blend-gallery-btn-outer {
-  position: absolute;
-  width: 3em;
-  height: 3em;
-  cursor: pointer;
-  top: 0px;
-  bottom: 0px;
-  margin: auto 0px;
-  display: block;
-  background-color: #777777;
+
+.@{namespace}gallery-btn-outer.left {
+    left: 5%;
 }
-.blend-gallery-btn-outer.left {
-  left: 5%;
+
+.@{namespace}gallery-btn-outer.right {
+    right: 5%;
 }
-.blend-gallery-btn-outer.right {
-  right: 5%;
+
+.@{namespace}gallery-btn-inner {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    border-top-width: 2px;
+    border-top-style: solid;
+    border-top-color: rgb(255, 255, 255);
+    border-left-width: 2px;
+    border-left-style: solid;
+    border-left-color: rgb(255, 255, 255);
+    margin: auto;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
 }
-.blend-gallery-btn-inner {
-  position: absolute;
-  width: 50%;
-  height: 50%;
-  border-top-width: 2px;
-  border-top-style: solid;
-  border-top-color: #ffffff;
-  border-left-width: 2px;
-  border-left-style: solid;
-  border-left-color: #ffffff;
-  margin: auto;
-  top: 0px;
-  bottom: 0px;
-  left: 0px;
-  right: 0px;
+
+.@{namespace}gallery-btn-outer.left > .islider-btn-inner {
+    -webkit-transform: rotate(-45deg);
 }
-.blend-gallery-btn-outer.left > .islider-btn-inner {
-  -webkit-transform: rotate(-45deg);
+
+.@{namespace}gallery-btn-outer.right > .islider-btn-inner {
+    -webkit-transform: rotate(135deg);
 }
-.blend-gallery-btn-outer.right > .islider-btn-inner {
-  -webkit-transform: rotate(135deg);
+
+.@{namespace}gallery-dot-wrap {
+    width: 80%;
+    height: 10%;
+    margin: 0px auto;
+    position: absolute;
+    padding: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 10000;
+    text-align: center;
 }
-.blend-gallery-dot-wrap {
-  width: 80%;
-  height: 10%;
-  margin: 0px auto;
-  position: absolute;
-  padding: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 10000;
-  text-align: center;
+.@{namespace}gallery-dot {
+    position: relative;
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 50%;
+    border: 1px solid rgb(255, 255, 255);
+    list-style-type: none;
+    margin: 5px;
 }
-.blend-gallery-dot {
-  position: relative;
-  display: inline-block;
-  width: 0.8em;
-  height: 0.8em;
-  border-radius: 50%;
-  border: 1px solid #ffffff;
-  list-style-type: none;
-  margin: 5px;
+
+.@{namespace}gallery-dot.active {
+    background-color: #fff;
 }
-.blend-gallery-dot.active {
-  background-color: #fff;
-}
+*/
 .blend-container-fluid {
   margin-right: auto;
   margin-left: auto;
@@ -2202,8 +2536,8 @@ input[type="button"].blend-button-block {
   text-align: center;
   -webkit-box-align: center;
   display: -webkit-box;
-  background-color: #ffffff;
-  color: #262626;
+  background-color: #000000;
+  color: #ffffff;
 }
 .blend-header-left,
 .blend-header-title,
@@ -2229,7 +2563,8 @@ input[type="button"].blend-button-block {
 }
 .blend-header-item {
   /*margin: 0 5px;*/
-  color: #262626;
+  color: #ffffff;
+  -webkit-tap-highlight-color: transparent;
 }
 .blend-header-title .blend-header-item {
   font-size: 18px;
@@ -2240,8 +2575,8 @@ input[type="button"].blend-button-block {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   content: "\e600";
-  color: #262626;
-  font-size: 24px;
+  color: #ffffff;
+  font-size: 26px;
 }
 .blend-imglist {
   width: 100%;
@@ -2339,12 +2674,12 @@ input[type="button"].blend-button-block {
   top: 0;
   z-index: 2;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-list-item-delete {
   z-index: 1;
   position: absolute;
-  background-color: #f84b44;
+  background-color: #f94b44;
   text-decoration: none;
   width: 54px;
   line-height: 46px;
@@ -2394,7 +2729,6 @@ input[type="button"].blend-button-block {
 }
 .blend-nav {
   padding: 7px 0;
-  border-bottom: 1px solid #dddddd;
   overflow: hidden;
 }
 .blend-nav:before,
@@ -2411,24 +2745,29 @@ input[type="button"].blend-button-block {
 }
 .blend-nav-item {
   text-decoration: none;
-  line-height: 30px;
-  height: 30px;
-  font-size: 15px;
-  color: #262626;
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
+  color: #777777;
   text-align: center;
   float: left;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  border-bottom: 1px solid #dddddd;
+}
+.blend-nav-item.blend-nav-item-active {
+  color: #262626;
+  border-bottom-color: #666666;
 }
 .blend-nav-item:after {
   content: " ";
   width: 0;
-  border-right: 1px dotted #000000;
+  border-right: 1px solid #dddddd;
   display: block;
-  height: 15px;
+  height: 10px;
   float: right;
-  margin-top: 7px;
+  margin-top: 15px;
 }
 .blend-nav-item:last-child:after {
   display: none;
@@ -2439,9 +2778,9 @@ input[type="button"].blend-button-block {
 .blend-nav-expand {
   float: right;
   text-decoration: none;
-  line-height: 30px;
-  height: 30px;
-  font-size: 15px;
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
   color: #262626;
   text-align: center;
   overflow: hidden;
@@ -2798,14 +3137,14 @@ input[type="button"].blend-button-block {
 }
 .blend-tab-header {
   display: -webkit-box;
-  height: 42px;
+  height: 40px;
   position: relative;
   font-size: 16px;
-  line-height: 42px;
-  color: #262626;
+  line-height: 40px;
+  color: #777777;
   text-align: center;
-  border-bottom: 1px solid #d4d6d7;
-  background-color: #fafafa;
+  /*border-bottom: 1px solid @color-tab-border;*/
+  background-color: #ffffff;
 }
 .blend-tab-header-item {
   display: block;
@@ -2817,13 +3156,13 @@ input[type="button"].blend-button-block {
 }
 .blend-tab-header-item:after {
   width: 1px;
-  height: 20px;
+  height: 10px;
   content: " ";
   display: block;
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 0;
-  background-color: #efefef;
+  background-color: #dddddd;
 }
 .blend-tab-header-item:last-child:after {
   display: none;
@@ -2835,7 +3174,10 @@ input[type="button"].blend-button-block {
   height: 2px;
   display: block;
   width: 0;
-  background-color: #2eb6aa;
+  background-color: #666666;
+}
+.blend-tab-header-item-active {
+  color: #262626;
 }
 .blend-tab-animation .blend-tab-header-active {
   -webkit-transition: left 0.3s ease-in 0;
@@ -2846,9 +3188,9 @@ input[type="button"].blend-button-block {
 }
 .blend-tabnav {
   display: -webkit-box;
-  height: 42px;
-  border-bottom: 1px solid #d4d6d7;
-  background-color: #fafafa;
+  height: 40px;
+  /*border-bottom: 1px solid @tab-bottom-color;*/
+  background-color: #ffffff;
 }
 .blend-tabnav-item {
   display: block;
@@ -2859,14 +3201,14 @@ input[type="button"].blend-button-block {
 }
 .blend-tabnav-item:after {
   width: 0;
-  height: 20px;
+  height: 10px;
   content: " ";
   display: block;
   position: absolute;
-  top: 10px;
+  top: 15px;
   right: 0;
   /*background-color: #efefef;*/
-  border-left: 1px solid #efefef;
+  border-left: 1px solid #dddddd;
 }
 .blend-tabnav-item:last-child:after {
   display: none;
@@ -2875,10 +3217,10 @@ input[type="button"].blend-button-block {
   border-left-style: dashed;
 }
 .blend-tabnav-item-text {
-  font-size: 14px;
-  line-height: 42px;
-  height: 42px;
-  color: #262626;
+  font-size: 16px;
+  line-height: 40px;
+  height: 40px;
+  color: #777777;
   display: block;
   text-align: center;
   margin: 0 auto;
@@ -2886,7 +3228,8 @@ input[type="button"].blend-button-block {
   -webkit-tap-highlight-color: transparent;
 }
 .blend-tabnav-item-active .blend-tabnav-item-text {
-  border-bottom: 2px solid #2eb6aa;
+  color: #262626;
+  border-bottom: 2px solid #666666;
 }
 .blend-toast {
   position: fixed;
