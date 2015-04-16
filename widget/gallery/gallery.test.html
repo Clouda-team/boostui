@@ -104,6 +104,13 @@
             title:"图片集"
         }];
 
+        var list = [{
+            // height: 414,
+            // width: 300,
+            image: "http://a.hiphotos.baidu.com/image/pic/item/4b90f603738da977a9aac626b251f8198618e332.jpg",
+            description:"这是第1张图片啊！！！！！",
+            title:"图片集"
+        }]
 
         var wrapper = boost("#gallery-wrapper").gallery({
             data:list,
@@ -118,12 +125,12 @@
 
 
         boost("#show").on("click",function(){
-            wrapper.gallery("show");
+            wrapper.gallery("show",9);
             
         });
 	
 	setTimeout(function(){
-		wrapper.gallery("show",5);
+		// wrapper.gallery("show",5);
 	},3000);
 
        /* var s = boost.blend.gallery({

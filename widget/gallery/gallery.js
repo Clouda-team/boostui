@@ -358,7 +358,7 @@ $.widget('blend.gallery', {
         var idx = dataIndex;
         var self = this;
         var loadImg = function (index) {
-            if (!self.data[index].loaded) {
+            if (index > -1 && !self.data[index].loaded) {
                 var preloadImg = new Image();
                 preloadImg.src = self.data[index].image;
                 self.data[index].loaded = 1;
@@ -380,12 +380,12 @@ $.widget('blend.gallery', {
         var len = data.length;
         var idx = this.initIndex;
         var self = this;
-        if (idx >= len - 1) {
+        /*if (idx >= len - 1) {
             // fix bug
             return;
-        }
+        }*/
         if (this.type !== 'dom' && len > 3) {
-            var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
+            var nextIndex = idx + 2 > len ? (idx + 1) % len : idx + 1;
             var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
             data[idx].loaded = 1;
             data[nextIndex].loaded = 1;
@@ -726,7 +726,7 @@ $.widget('blend.gallery', {
             val = 0;
         }
         else if (val >= this.data.length) {
-            val = this.data.length - 2;
+            val = this.data.length - 1;
         }
 
         this.initIndex = val;
