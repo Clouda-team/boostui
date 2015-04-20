@@ -107,13 +107,13 @@ $.widget('blend.checkbox', {
 
         if (this.options.type === 'radio') {
             // radio box
-            this.$group.on('tap', function () {
+            this.$group.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
                     that._checkGroup(curElem);
                 }
             });
-            this.$label.on('tap', function () {
+            this.$label.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
                     that._checkGroup(curElem);
@@ -121,13 +121,13 @@ $.widget('blend.checkbox', {
             });
         }
         else {
-            this.$group.on('tap', function () {
+            this.$group.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
                     that._checkGroup(curElem);
                 }
             });
-            this.$label.on('tap', function () {
+            this.$label.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
                     that._checkGroup(curElem);

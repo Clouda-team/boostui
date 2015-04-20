@@ -7,6 +7,10 @@
 @picture-font-size: @boost-font-size-nav;
 @picture-font-size-small: @boost-font-size-link;
 
+.@{namespace}picture{
+  overflow-x:hidden;
+}
+
 .@{namespace}picture img{
   width:100%;
 }
@@ -29,7 +33,6 @@
   display: block;
   max-width: 100%;
   height: auto;
-  padding: @defaultImgPadding;
   margin: 10px auto;	
 }
 
@@ -55,7 +58,7 @@
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  bottom:@defaultImgPadding;
+  bottom:13px;
   left:@defaultImgPadding;
 }
 
@@ -93,7 +96,7 @@
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  bottom:0px;
+  bottom:10px;
   left:0
 }
 
