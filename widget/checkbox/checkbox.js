@@ -108,39 +108,23 @@ $.widget('blend.checkbox', {
 
         var that = this;
 
-        if (this.options.type === 'radio') {
-            // radio box
-            this.$group.on('tap', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = $(this);
-                    that._checkGroup(curElem);
-                }
-            });
-            this.$label.on('tap', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem);
-                }
-            });
-        }
-        else {
-            this.$group.on('tap', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = $(this);
-                    that._checkGroup(curElem);
-                }
-            });
-            this.$label.on('tap', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem);
-                }
-            });
-        }
+        this.$group.on('tap, click', function () {
+            if (that._trigger('beforechecked', null, {})) {
+                var curElem = $(this);
+                that._checkGroup(curElem);
+            }
+        });
+        this.$label.on('tap, click', function () {
+            if (that._trigger('beforechecked', null, {})) {
+                var curElem = that.$group.eq([that.$label.index($(this))]);
+                that._checkGroup(curElem);
+            }
+        });
     },
     /**
      *
      * @return {*}
+     * 获取value值函数
      */
     getValues: function () {
         var $this;
@@ -149,7 +133,7 @@ $.widget('blend.checkbox', {
         var elems = this.$group;
         for (var i = 0; i < elems.length; i++) {
             $this = $(elems[i]);
-            if ($this.hasClass(NAMESPACE + 'checkbox-checked') && !$this.hasClass(NAMESPACE + 'checkbox-all')) {
+            if ($this.hasClass(NAMESPACE + 'checkbox-checked') || $this.hasClass(NAMESPACE + 'button-checkbox-checked') && !$this.hasClass(NAMESPACE + 'checkbox-all')) {
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }

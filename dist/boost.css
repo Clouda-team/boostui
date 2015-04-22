@@ -456,108 +456,169 @@ fieldset[disabled] .blend-button-default.active {
   color: #ffffff;
   background-color: #808080;
 }
-.blend-button-default.blend-disabled,
 .blend-button-default[disabled],
 fieldset[disabled] .blend-button-default {
   color: #4d4d4d;
   background-color: #cccccc;
   border-color: #4d4d4d;
 }
-.blend-button-default.blend-disabled:hover,
 .blend-button-default[disabled]:hover,
 fieldset[disabled] .blend-button-default:hover,
-.blend-button-default.blend-disabled:focus,
 .blend-button-default[disabled]:focus,
 fieldset[disabled] .blend-button-default:focus,
-.blend-button-default.blend-disabled.focus,
 .blend-button-default[disabled].focus,
 fieldset[disabled] .blend-button-default.focus,
-.blend-button-default.blend-disabled:active,
 .blend-button-default[disabled]:active,
 fieldset[disabled] .blend-button-default:active,
-.blend-button-default.blend-disabled.active,
 .blend-button-default[disabled].active,
 fieldset[disabled] .blend-button-default.active,
-.open > .dropdown-toggle.blend-button-default.blend-disabled,
 .open > .dropdown-toggle.blend-button-default[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-default {
   color: #4d4d4d;
   background-color: #b3b3b3;
   border-color: #2e2e2e;
 }
-.blend-button-default.blend-disabled:active,
 .blend-button-default[disabled]:active,
 fieldset[disabled] .blend-button-default:active,
-.blend-button-default.blend-disabled.active,
 .blend-button-default[disabled].active,
 fieldset[disabled] .blend-button-default.active,
-.open > .dropdown-toggle.blend-button-default.blend-disabled,
 .open > .dropdown-toggle.blend-button-default[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-default {
   background-image: none;
 }
-.blend-button-default.blend-disabled.disabled,
 .blend-button-default[disabled].disabled,
 fieldset[disabled] .blend-button-default.disabled,
-.blend-button-default.blend-disabled[disabled],
 .blend-button-default[disabled][disabled],
 fieldset[disabled] .blend-button-default[disabled],
-fieldset[disabled] .blend-button-default.blend-disabled,
 fieldset[disabled] .blend-button-default[disabled],
 fieldset[disabled] fieldset[disabled] .blend-button-default,
-.blend-button-default.blend-disabled.disabled:hover,
 .blend-button-default[disabled].disabled:hover,
 fieldset[disabled] .blend-button-default.disabled:hover,
-.blend-button-default.blend-disabled[disabled]:hover,
 .blend-button-default[disabled][disabled]:hover,
 fieldset[disabled] .blend-button-default[disabled]:hover,
-fieldset[disabled] .blend-button-default.blend-disabled:hover,
 fieldset[disabled] .blend-button-default[disabled]:hover,
 fieldset[disabled] fieldset[disabled] .blend-button-default:hover,
-.blend-button-default.blend-disabled.disabled:focus,
 .blend-button-default[disabled].disabled:focus,
 fieldset[disabled] .blend-button-default.disabled:focus,
-.blend-button-default.blend-disabled[disabled]:focus,
 .blend-button-default[disabled][disabled]:focus,
 fieldset[disabled] .blend-button-default[disabled]:focus,
-fieldset[disabled] .blend-button-default.blend-disabled:focus,
 fieldset[disabled] .blend-button-default[disabled]:focus,
 fieldset[disabled] fieldset[disabled] .blend-button-default:focus,
-.blend-button-default.blend-disabled.disabled.focus,
 .blend-button-default[disabled].disabled.focus,
 fieldset[disabled] .blend-button-default.disabled.focus,
-.blend-button-default.blend-disabled[disabled].focus,
 .blend-button-default[disabled][disabled].focus,
 fieldset[disabled] .blend-button-default[disabled].focus,
-fieldset[disabled] .blend-button-default.blend-disabled.focus,
 fieldset[disabled] .blend-button-default[disabled].focus,
 fieldset[disabled] fieldset[disabled] .blend-button-default.focus,
-.blend-button-default.blend-disabled.disabled:active,
 .blend-button-default[disabled].disabled:active,
 fieldset[disabled] .blend-button-default.disabled:active,
-.blend-button-default.blend-disabled[disabled]:active,
 .blend-button-default[disabled][disabled]:active,
 fieldset[disabled] .blend-button-default[disabled]:active,
-fieldset[disabled] .blend-button-default.blend-disabled:active,
 fieldset[disabled] .blend-button-default[disabled]:active,
 fieldset[disabled] fieldset[disabled] .blend-button-default:active,
-.blend-button-default.blend-disabled.disabled.active,
 .blend-button-default[disabled].disabled.active,
 fieldset[disabled] .blend-button-default.disabled.active,
-.blend-button-default.blend-disabled[disabled].active,
 .blend-button-default[disabled][disabled].active,
 fieldset[disabled] .blend-button-default[disabled].active,
-fieldset[disabled] .blend-button-default.blend-disabled.active,
 fieldset[disabled] .blend-button-default[disabled].active,
 fieldset[disabled] fieldset[disabled] .blend-button-default.active {
   background-color: #cccccc;
   border-color: #4d4d4d;
 }
-.blend-button-default.blend-disabled .badge,
 .blend-button-default[disabled] .badge,
 fieldset[disabled] .blend-button-default .badge {
   color: #cccccc;
   background-color: #4d4d4d;
+}
+.blend-button-default.blend-button-checkbox {
+  color: #808080;
+  background-color: #ffffff;
+  border-color: #808080;
+}
+.blend-button-default.blend-button-checkbox:hover,
+.blend-button-default.blend-button-checkbox:focus,
+.blend-button-default.blend-button-checkbox.focus,
+.blend-button-default.blend-button-checkbox:active,
+.blend-button-default.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-default.blend-button-checkbox {
+  color: #808080;
+  background-color: #e6e6e6;
+  border-color: #616161;
+}
+.blend-button-default.blend-button-checkbox:active,
+.blend-button-default.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-default.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-default.blend-button-checkbox.disabled,
+.blend-button-default.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-default.blend-button-checkbox,
+.blend-button-default.blend-button-checkbox.disabled:hover,
+.blend-button-default.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-default.blend-button-checkbox:hover,
+.blend-button-default.blend-button-checkbox.disabled:focus,
+.blend-button-default.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-default.blend-button-checkbox:focus,
+.blend-button-default.blend-button-checkbox.disabled.focus,
+.blend-button-default.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-default.blend-button-checkbox.focus,
+.blend-button-default.blend-button-checkbox.disabled:active,
+.blend-button-default.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-default.blend-button-checkbox:active,
+.blend-button-default.blend-button-checkbox.disabled.active,
+.blend-button-default.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-default.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #808080;
+}
+.blend-button-default.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #808080;
+}
+.blend-button-default.blend-button-checkbox-checked {
+  color: #808080;
+  background-color: #ffffff;
+  border-color: #808080;
+}
+.blend-button-default.blend-button-checkbox-checked:hover,
+.blend-button-default.blend-button-checkbox-checked:focus,
+.blend-button-default.blend-button-checkbox-checked.focus,
+.blend-button-default.blend-button-checkbox-checked:active,
+.blend-button-default.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-default.blend-button-checkbox-checked {
+  color: #808080;
+  background-color: #e6e6e6;
+  border-color: #616161;
+}
+.blend-button-default.blend-button-checkbox-checked:active,
+.blend-button-default.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-default.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-default.blend-button-checkbox-checked.disabled,
+.blend-button-default.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked,
+.blend-button-default.blend-button-checkbox-checked.disabled:hover,
+.blend-button-default.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked:hover,
+.blend-button-default.blend-button-checkbox-checked.disabled:focus,
+.blend-button-default.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked:focus,
+.blend-button-default.blend-button-checkbox-checked.disabled.focus,
+.blend-button-default.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked.focus,
+.blend-button-default.blend-button-checkbox-checked.disabled:active,
+.blend-button-default.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked:active,
+.blend-button-default.blend-button-checkbox-checked.disabled.active,
+.blend-button-default.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-default.blend-button-checkbox-checked.active {
+  background-color: #ffffff;
+  border-color: #808080;
+}
+.blend-button-default.blend-button-checkbox-checked .badge {
+  color: #ffffff;
+  background-color: #808080;
 }
 .blend-button-primary {
   color: #ffffff;
@@ -707,6 +768,96 @@ fieldset[disabled] .blend-button-primary .badge {
   color: #005b81;
   background-color: #cccccc;
 }
+.blend-button-primary.blend-button-checkbox {
+  color: #00a3e7;
+  background-color: #ffffff;
+  border-color: #00a3e7;
+}
+.blend-button-primary.blend-button-checkbox:hover,
+.blend-button-primary.blend-button-checkbox:focus,
+.blend-button-primary.blend-button-checkbox.focus,
+.blend-button-primary.blend-button-checkbox:active,
+.blend-button-primary.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-primary.blend-button-checkbox {
+  color: #00a3e7;
+  background-color: #e6e6e6;
+  border-color: #0078aa;
+}
+.blend-button-primary.blend-button-checkbox:active,
+.blend-button-primary.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-primary.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-primary.blend-button-checkbox.disabled,
+.blend-button-primary.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-primary.blend-button-checkbox,
+.blend-button-primary.blend-button-checkbox.disabled:hover,
+.blend-button-primary.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox:hover,
+.blend-button-primary.blend-button-checkbox.disabled:focus,
+.blend-button-primary.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox:focus,
+.blend-button-primary.blend-button-checkbox.disabled.focus,
+.blend-button-primary.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox.focus,
+.blend-button-primary.blend-button-checkbox.disabled:active,
+.blend-button-primary.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox:active,
+.blend-button-primary.blend-button-checkbox.disabled.active,
+.blend-button-primary.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #00a3e7;
+}
+.blend-button-primary.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #00a3e7;
+}
+.blend-button-primary.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #00a3e7;
+  border-color: #00a3e7;
+}
+.blend-button-primary.blend-button-checkbox-checked:hover,
+.blend-button-primary.blend-button-checkbox-checked:focus,
+.blend-button-primary.blend-button-checkbox-checked.focus,
+.blend-button-primary.blend-button-checkbox-checked:active,
+.blend-button-primary.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-primary.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #007fb4;
+  border-color: #0078aa;
+}
+.blend-button-primary.blend-button-checkbox-checked:active,
+.blend-button-primary.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-primary.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-primary.blend-button-checkbox-checked.disabled,
+.blend-button-primary.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked,
+.blend-button-primary.blend-button-checkbox-checked.disabled:hover,
+.blend-button-primary.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked:hover,
+.blend-button-primary.blend-button-checkbox-checked.disabled:focus,
+.blend-button-primary.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked:focus,
+.blend-button-primary.blend-button-checkbox-checked.disabled.focus,
+.blend-button-primary.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked.focus,
+.blend-button-primary.blend-button-checkbox-checked.disabled:active,
+.blend-button-primary.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked:active,
+.blend-button-primary.blend-button-checkbox-checked.disabled.active,
+.blend-button-primary.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-primary.blend-button-checkbox-checked.active {
+  background-color: #00a3e7;
+  border-color: #00a3e7;
+}
+.blend-button-primary.blend-button-checkbox-checked .badge {
+  color: #00a3e7;
+  background-color: #ffffff;
+}
 .blend-button-secondary {
   color: #ffffff;
   background-color: #62c9f4;
@@ -855,6 +1006,96 @@ fieldset[disabled] .blend-button-secondary .badge {
   color: #10a3e0;
   background-color: #cccccc;
 }
+.blend-button-secondary.blend-button-checkbox {
+  color: #62c9f4;
+  background-color: #ffffff;
+  border-color: #62c9f4;
+}
+.blend-button-secondary.blend-button-checkbox:hover,
+.blend-button-secondary.blend-button-checkbox:focus,
+.blend-button-secondary.blend-button-checkbox.focus,
+.blend-button-secondary.blend-button-checkbox:active,
+.blend-button-secondary.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-button-checkbox {
+  color: #62c9f4;
+  background-color: #e6e6e6;
+  border-color: #29b5f0;
+}
+.blend-button-secondary.blend-button-checkbox:active,
+.blend-button-secondary.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-secondary.blend-button-checkbox.disabled,
+.blend-button-secondary.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox,
+.blend-button-secondary.blend-button-checkbox.disabled:hover,
+.blend-button-secondary.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox:hover,
+.blend-button-secondary.blend-button-checkbox.disabled:focus,
+.blend-button-secondary.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox:focus,
+.blend-button-secondary.blend-button-checkbox.disabled.focus,
+.blend-button-secondary.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox.focus,
+.blend-button-secondary.blend-button-checkbox.disabled:active,
+.blend-button-secondary.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox:active,
+.blend-button-secondary.blend-button-checkbox.disabled.active,
+.blend-button-secondary.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #62c9f4;
+}
+.blend-button-secondary.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #62c9f4;
+}
+.blend-button-secondary.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #62c9f4;
+  border-color: #62c9f4;
+}
+.blend-button-secondary.blend-button-checkbox-checked:hover,
+.blend-button-secondary.blend-button-checkbox-checked:focus,
+.blend-button-secondary.blend-button-checkbox-checked.focus,
+.blend-button-secondary.blend-button-checkbox-checked:active,
+.blend-button-secondary.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #32b9f1;
+  border-color: #29b5f0;
+}
+.blend-button-secondary.blend-button-checkbox-checked:active,
+.blend-button-secondary.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-secondary.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-secondary.blend-button-checkbox-checked.disabled,
+.blend-button-secondary.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked,
+.blend-button-secondary.blend-button-checkbox-checked.disabled:hover,
+.blend-button-secondary.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked:hover,
+.blend-button-secondary.blend-button-checkbox-checked.disabled:focus,
+.blend-button-secondary.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked:focus,
+.blend-button-secondary.blend-button-checkbox-checked.disabled.focus,
+.blend-button-secondary.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked.focus,
+.blend-button-secondary.blend-button-checkbox-checked.disabled:active,
+.blend-button-secondary.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked:active,
+.blend-button-secondary.blend-button-checkbox-checked.disabled.active,
+.blend-button-secondary.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-secondary.blend-button-checkbox-checked.active {
+  background-color: #62c9f4;
+  border-color: #62c9f4;
+}
+.blend-button-secondary.blend-button-checkbox-checked .badge {
+  color: #62c9f4;
+  background-color: #ffffff;
+}
 .blend-button-success {
   color: #ffffff;
   background-color: #ff00ff;
@@ -900,108 +1141,169 @@ fieldset[disabled] .blend-button-success.active {
   color: #ff00ff;
   background-color: #ffffff;
 }
-.blend-button-success.blend-disabled,
 .blend-button-success[disabled],
 fieldset[disabled] .blend-button-success {
   color: #cccccc;
   background-color: #990099;
   border-color: #990099;
 }
-.blend-button-success.blend-disabled:hover,
 .blend-button-success[disabled]:hover,
 fieldset[disabled] .blend-button-success:hover,
-.blend-button-success.blend-disabled:focus,
 .blend-button-success[disabled]:focus,
 fieldset[disabled] .blend-button-success:focus,
-.blend-button-success.blend-disabled.focus,
 .blend-button-success[disabled].focus,
 fieldset[disabled] .blend-button-success.focus,
-.blend-button-success.blend-disabled:active,
 .blend-button-success[disabled]:active,
 fieldset[disabled] .blend-button-success:active,
-.blend-button-success.blend-disabled.active,
 .blend-button-success[disabled].active,
 fieldset[disabled] .blend-button-success.active,
-.open > .dropdown-toggle.blend-button-success.blend-disabled,
 .open > .dropdown-toggle.blend-button-success[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-success {
   color: #cccccc;
   background-color: #660066;
   border-color: #5c005c;
 }
-.blend-button-success.blend-disabled:active,
 .blend-button-success[disabled]:active,
 fieldset[disabled] .blend-button-success:active,
-.blend-button-success.blend-disabled.active,
 .blend-button-success[disabled].active,
 fieldset[disabled] .blend-button-success.active,
-.open > .dropdown-toggle.blend-button-success.blend-disabled,
 .open > .dropdown-toggle.blend-button-success[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-success {
   background-image: none;
 }
-.blend-button-success.blend-disabled.disabled,
 .blend-button-success[disabled].disabled,
 fieldset[disabled] .blend-button-success.disabled,
-.blend-button-success.blend-disabled[disabled],
 .blend-button-success[disabled][disabled],
 fieldset[disabled] .blend-button-success[disabled],
-fieldset[disabled] .blend-button-success.blend-disabled,
 fieldset[disabled] .blend-button-success[disabled],
 fieldset[disabled] fieldset[disabled] .blend-button-success,
-.blend-button-success.blend-disabled.disabled:hover,
 .blend-button-success[disabled].disabled:hover,
 fieldset[disabled] .blend-button-success.disabled:hover,
-.blend-button-success.blend-disabled[disabled]:hover,
 .blend-button-success[disabled][disabled]:hover,
 fieldset[disabled] .blend-button-success[disabled]:hover,
-fieldset[disabled] .blend-button-success.blend-disabled:hover,
 fieldset[disabled] .blend-button-success[disabled]:hover,
 fieldset[disabled] fieldset[disabled] .blend-button-success:hover,
-.blend-button-success.blend-disabled.disabled:focus,
 .blend-button-success[disabled].disabled:focus,
 fieldset[disabled] .blend-button-success.disabled:focus,
-.blend-button-success.blend-disabled[disabled]:focus,
 .blend-button-success[disabled][disabled]:focus,
 fieldset[disabled] .blend-button-success[disabled]:focus,
-fieldset[disabled] .blend-button-success.blend-disabled:focus,
 fieldset[disabled] .blend-button-success[disabled]:focus,
 fieldset[disabled] fieldset[disabled] .blend-button-success:focus,
-.blend-button-success.blend-disabled.disabled.focus,
 .blend-button-success[disabled].disabled.focus,
 fieldset[disabled] .blend-button-success.disabled.focus,
-.blend-button-success.blend-disabled[disabled].focus,
 .blend-button-success[disabled][disabled].focus,
 fieldset[disabled] .blend-button-success[disabled].focus,
-fieldset[disabled] .blend-button-success.blend-disabled.focus,
 fieldset[disabled] .blend-button-success[disabled].focus,
 fieldset[disabled] fieldset[disabled] .blend-button-success.focus,
-.blend-button-success.blend-disabled.disabled:active,
 .blend-button-success[disabled].disabled:active,
 fieldset[disabled] .blend-button-success.disabled:active,
-.blend-button-success.blend-disabled[disabled]:active,
 .blend-button-success[disabled][disabled]:active,
 fieldset[disabled] .blend-button-success[disabled]:active,
-fieldset[disabled] .blend-button-success.blend-disabled:active,
 fieldset[disabled] .blend-button-success[disabled]:active,
 fieldset[disabled] fieldset[disabled] .blend-button-success:active,
-.blend-button-success.blend-disabled.disabled.active,
 .blend-button-success[disabled].disabled.active,
 fieldset[disabled] .blend-button-success.disabled.active,
-.blend-button-success.blend-disabled[disabled].active,
 .blend-button-success[disabled][disabled].active,
 fieldset[disabled] .blend-button-success[disabled].active,
-fieldset[disabled] .blend-button-success.blend-disabled.active,
 fieldset[disabled] .blend-button-success[disabled].active,
 fieldset[disabled] fieldset[disabled] .blend-button-success.active {
   background-color: #990099;
   border-color: #990099;
 }
-.blend-button-success.blend-disabled .badge,
 .blend-button-success[disabled] .badge,
 fieldset[disabled] .blend-button-success .badge {
   color: #990099;
   background-color: #cccccc;
+}
+.blend-button-success.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-success.blend-button-checkbox:hover,
+.blend-button-success.blend-button-checkbox:focus,
+.blend-button-success.blend-button-checkbox.focus,
+.blend-button-success.blend-button-checkbox:active,
+.blend-button-success.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-success.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #e6e6e6;
+  border-color: #c200c2;
+}
+.blend-button-success.blend-button-checkbox:active,
+.blend-button-success.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-success.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-success.blend-button-checkbox.disabled,
+.blend-button-success.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-success.blend-button-checkbox,
+.blend-button-success.blend-button-checkbox.disabled:hover,
+.blend-button-success.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-success.blend-button-checkbox:hover,
+.blend-button-success.blend-button-checkbox.disabled:focus,
+.blend-button-success.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-success.blend-button-checkbox:focus,
+.blend-button-success.blend-button-checkbox.disabled.focus,
+.blend-button-success.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-success.blend-button-checkbox.focus,
+.blend-button-success.blend-button-checkbox.disabled:active,
+.blend-button-success.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-success.blend-button-checkbox:active,
+.blend-button-success.blend-button-checkbox.disabled.active,
+.blend-button-success.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-success.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-success.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #ff00ff;
+}
+.blend-button-success.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-success.blend-button-checkbox-checked:hover,
+.blend-button-success.blend-button-checkbox-checked:focus,
+.blend-button-success.blend-button-checkbox-checked.focus,
+.blend-button-success.blend-button-checkbox-checked:active,
+.blend-button-success.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-success.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #cc00cc;
+  border-color: #c200c2;
+}
+.blend-button-success.blend-button-checkbox-checked:active,
+.blend-button-success.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-success.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-success.blend-button-checkbox-checked.disabled,
+.blend-button-success.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked,
+.blend-button-success.blend-button-checkbox-checked.disabled:hover,
+.blend-button-success.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked:hover,
+.blend-button-success.blend-button-checkbox-checked.disabled:focus,
+.blend-button-success.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked:focus,
+.blend-button-success.blend-button-checkbox-checked.disabled.focus,
+.blend-button-success.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked.focus,
+.blend-button-success.blend-button-checkbox-checked.disabled:active,
+.blend-button-success.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked:active,
+.blend-button-success.blend-button-checkbox-checked.disabled.active,
+.blend-button-success.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-success.blend-button-checkbox-checked.active {
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-success.blend-button-checkbox-checked .badge {
+  color: #ff00ff;
+  background-color: #ffffff;
 }
 .blend-button-info {
   color: #ffffff;
@@ -1151,6 +1453,96 @@ fieldset[disabled] .blend-button-info .badge {
   color: #8d3706;
   background-color: #cccccc;
 }
+.blend-button-info.blend-button-checkbox {
+  color: #ef5d0a;
+  background-color: #ffffff;
+  border-color: #ef5d0a;
+}
+.blend-button-info.blend-button-checkbox:hover,
+.blend-button-info.blend-button-checkbox:focus,
+.blend-button-info.blend-button-checkbox.focus,
+.blend-button-info.blend-button-checkbox:active,
+.blend-button-info.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-info.blend-button-checkbox {
+  color: #ef5d0a;
+  background-color: #e6e6e6;
+  border-color: #b44608;
+}
+.blend-button-info.blend-button-checkbox:active,
+.blend-button-info.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-info.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-info.blend-button-checkbox.disabled,
+.blend-button-info.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-info.blend-button-checkbox,
+.blend-button-info.blend-button-checkbox.disabled:hover,
+.blend-button-info.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-info.blend-button-checkbox:hover,
+.blend-button-info.blend-button-checkbox.disabled:focus,
+.blend-button-info.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-info.blend-button-checkbox:focus,
+.blend-button-info.blend-button-checkbox.disabled.focus,
+.blend-button-info.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-info.blend-button-checkbox.focus,
+.blend-button-info.blend-button-checkbox.disabled:active,
+.blend-button-info.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-info.blend-button-checkbox:active,
+.blend-button-info.blend-button-checkbox.disabled.active,
+.blend-button-info.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-info.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #ef5d0a;
+}
+.blend-button-info.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #ef5d0a;
+}
+.blend-button-info.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #ef5d0a;
+  border-color: #ef5d0a;
+}
+.blend-button-info.blend-button-checkbox-checked:hover,
+.blend-button-info.blend-button-checkbox-checked:focus,
+.blend-button-info.blend-button-checkbox-checked.focus,
+.blend-button-info.blend-button-checkbox-checked:active,
+.blend-button-info.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-info.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #be4a08;
+  border-color: #b44608;
+}
+.blend-button-info.blend-button-checkbox-checked:active,
+.blend-button-info.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-info.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-info.blend-button-checkbox-checked.disabled,
+.blend-button-info.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked,
+.blend-button-info.blend-button-checkbox-checked.disabled:hover,
+.blend-button-info.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked:hover,
+.blend-button-info.blend-button-checkbox-checked.disabled:focus,
+.blend-button-info.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked:focus,
+.blend-button-info.blend-button-checkbox-checked.disabled.focus,
+.blend-button-info.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked.focus,
+.blend-button-info.blend-button-checkbox-checked.disabled:active,
+.blend-button-info.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked:active,
+.blend-button-info.blend-button-checkbox-checked.disabled.active,
+.blend-button-info.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-info.blend-button-checkbox-checked.active {
+  background-color: #ef5d0a;
+  border-color: #ef5d0a;
+}
+.blend-button-info.blend-button-checkbox-checked .badge {
+  color: #ef5d0a;
+  background-color: #ffffff;
+}
 .blend-button-warning {
   color: #ffffff;
   background-color: #ff00ff;
@@ -1298,6 +1690,96 @@ fieldset[disabled] fieldset[disabled] .blend-button-warning.active {
 fieldset[disabled] .blend-button-warning .badge {
   color: #990099;
   background-color: #cccccc;
+}
+.blend-button-warning.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-warning.blend-button-checkbox:hover,
+.blend-button-warning.blend-button-checkbox:focus,
+.blend-button-warning.blend-button-checkbox.focus,
+.blend-button-warning.blend-button-checkbox:active,
+.blend-button-warning.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-warning.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #e6e6e6;
+  border-color: #c200c2;
+}
+.blend-button-warning.blend-button-checkbox:active,
+.blend-button-warning.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-warning.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-warning.blend-button-checkbox.disabled,
+.blend-button-warning.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-warning.blend-button-checkbox,
+.blend-button-warning.blend-button-checkbox.disabled:hover,
+.blend-button-warning.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox:hover,
+.blend-button-warning.blend-button-checkbox.disabled:focus,
+.blend-button-warning.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox:focus,
+.blend-button-warning.blend-button-checkbox.disabled.focus,
+.blend-button-warning.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox.focus,
+.blend-button-warning.blend-button-checkbox.disabled:active,
+.blend-button-warning.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox:active,
+.blend-button-warning.blend-button-checkbox.disabled.active,
+.blend-button-warning.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-warning.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #ff00ff;
+}
+.blend-button-warning.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-warning.blend-button-checkbox-checked:hover,
+.blend-button-warning.blend-button-checkbox-checked:focus,
+.blend-button-warning.blend-button-checkbox-checked.focus,
+.blend-button-warning.blend-button-checkbox-checked:active,
+.blend-button-warning.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-warning.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #cc00cc;
+  border-color: #c200c2;
+}
+.blend-button-warning.blend-button-checkbox-checked:active,
+.blend-button-warning.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-warning.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-warning.blend-button-checkbox-checked.disabled,
+.blend-button-warning.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked,
+.blend-button-warning.blend-button-checkbox-checked.disabled:hover,
+.blend-button-warning.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked:hover,
+.blend-button-warning.blend-button-checkbox-checked.disabled:focus,
+.blend-button-warning.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked:focus,
+.blend-button-warning.blend-button-checkbox-checked.disabled.focus,
+.blend-button-warning.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked.focus,
+.blend-button-warning.blend-button-checkbox-checked.disabled:active,
+.blend-button-warning.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked:active,
+.blend-button-warning.blend-button-checkbox-checked.disabled.active,
+.blend-button-warning.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-warning.blend-button-checkbox-checked.active {
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-warning.blend-button-checkbox-checked .badge {
+  color: #ff00ff;
+  background-color: #ffffff;
 }
 .blend-button-danger {
   color: #ffffff;
@@ -1447,6 +1929,96 @@ fieldset[disabled] .blend-button-danger .badge {
   color: #990099;
   background-color: #cccccc;
 }
+.blend-button-danger.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-danger.blend-button-checkbox:hover,
+.blend-button-danger.blend-button-checkbox:focus,
+.blend-button-danger.blend-button-checkbox.focus,
+.blend-button-danger.blend-button-checkbox:active,
+.blend-button-danger.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-danger.blend-button-checkbox {
+  color: #ff00ff;
+  background-color: #e6e6e6;
+  border-color: #c200c2;
+}
+.blend-button-danger.blend-button-checkbox:active,
+.blend-button-danger.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-danger.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-danger.blend-button-checkbox.disabled,
+.blend-button-danger.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-danger.blend-button-checkbox,
+.blend-button-danger.blend-button-checkbox.disabled:hover,
+.blend-button-danger.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox:hover,
+.blend-button-danger.blend-button-checkbox.disabled:focus,
+.blend-button-danger.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox:focus,
+.blend-button-danger.blend-button-checkbox.disabled.focus,
+.blend-button-danger.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox.focus,
+.blend-button-danger.blend-button-checkbox.disabled:active,
+.blend-button-danger.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox:active,
+.blend-button-danger.blend-button-checkbox.disabled.active,
+.blend-button-danger.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #ff00ff;
+}
+.blend-button-danger.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #ff00ff;
+}
+.blend-button-danger.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-danger.blend-button-checkbox-checked:hover,
+.blend-button-danger.blend-button-checkbox-checked:focus,
+.blend-button-danger.blend-button-checkbox-checked.focus,
+.blend-button-danger.blend-button-checkbox-checked:active,
+.blend-button-danger.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-danger.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #cc00cc;
+  border-color: #c200c2;
+}
+.blend-button-danger.blend-button-checkbox-checked:active,
+.blend-button-danger.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-danger.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-danger.blend-button-checkbox-checked.disabled,
+.blend-button-danger.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked,
+.blend-button-danger.blend-button-checkbox-checked.disabled:hover,
+.blend-button-danger.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked:hover,
+.blend-button-danger.blend-button-checkbox-checked.disabled:focus,
+.blend-button-danger.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked:focus,
+.blend-button-danger.blend-button-checkbox-checked.disabled.focus,
+.blend-button-danger.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked.focus,
+.blend-button-danger.blend-button-checkbox-checked.disabled:active,
+.blend-button-danger.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked:active,
+.blend-button-danger.blend-button-checkbox-checked.disabled.active,
+.blend-button-danger.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked.active {
+  background-color: #ff00ff;
+  border-color: #ff00ff;
+}
+.blend-button-danger.blend-button-checkbox-checked .badge {
+  color: #ff00ff;
+  background-color: #ffffff;
+}
 .blend-button-red {
   color: #ffffff;
   background-color: #f74545;
@@ -1594,6 +2166,96 @@ fieldset[disabled] fieldset[disabled] .blend-button-red.active {
 fieldset[disabled] .blend-button-red .badge {
   color: #cd0909;
   background-color: #cccccc;
+}
+.blend-button-red.blend-button-checkbox {
+  color: #f74545;
+  background-color: #ffffff;
+  border-color: #f74545;
+}
+.blend-button-red.blend-button-checkbox:hover,
+.blend-button-red.blend-button-checkbox:focus,
+.blend-button-red.blend-button-checkbox.focus,
+.blend-button-red.blend-button-checkbox:active,
+.blend-button-red.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-red.blend-button-checkbox {
+  color: #f74545;
+  background-color: #e6e6e6;
+  border-color: #f40b0b;
+}
+.blend-button-red.blend-button-checkbox:active,
+.blend-button-red.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-red.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-red.blend-button-checkbox.disabled,
+.blend-button-red.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-red.blend-button-checkbox,
+.blend-button-red.blend-button-checkbox.disabled:hover,
+.blend-button-red.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-red.blend-button-checkbox:hover,
+.blend-button-red.blend-button-checkbox.disabled:focus,
+.blend-button-red.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-red.blend-button-checkbox:focus,
+.blend-button-red.blend-button-checkbox.disabled.focus,
+.blend-button-red.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-red.blend-button-checkbox.focus,
+.blend-button-red.blend-button-checkbox.disabled:active,
+.blend-button-red.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-red.blend-button-checkbox:active,
+.blend-button-red.blend-button-checkbox.disabled.active,
+.blend-button-red.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-red.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #f74545;
+}
+.blend-button-red.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #f74545;
+}
+.blend-button-red.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #f74545;
+  border-color: #f74545;
+}
+.blend-button-red.blend-button-checkbox-checked:hover,
+.blend-button-red.blend-button-checkbox-checked:focus,
+.blend-button-red.blend-button-checkbox-checked.focus,
+.blend-button-red.blend-button-checkbox-checked:active,
+.blend-button-red.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-red.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #f51414;
+  border-color: #f40b0b;
+}
+.blend-button-red.blend-button-checkbox-checked:active,
+.blend-button-red.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-red.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-red.blend-button-checkbox-checked.disabled,
+.blend-button-red.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked,
+.blend-button-red.blend-button-checkbox-checked.disabled:hover,
+.blend-button-red.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked:hover,
+.blend-button-red.blend-button-checkbox-checked.disabled:focus,
+.blend-button-red.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked:focus,
+.blend-button-red.blend-button-checkbox-checked.disabled.focus,
+.blend-button-red.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked.focus,
+.blend-button-red.blend-button-checkbox-checked.disabled:active,
+.blend-button-red.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked:active,
+.blend-button-red.blend-button-checkbox-checked.disabled.active,
+.blend-button-red.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-red.blend-button-checkbox-checked.active {
+  background-color: #f74545;
+  border-color: #f74545;
+}
+.blend-button-red.blend-button-checkbox-checked .badge {
+  color: #f74545;
+  background-color: #ffffff;
 }
 .blend-button-gray {
   color: #ffffff;
@@ -1743,6 +2405,96 @@ fieldset[disabled] .blend-button-gray .badge {
   color: #333333;
   background-color: #cccccc;
 }
+.blend-button-gray.blend-button-checkbox {
+  color: #666666;
+  background-color: #ffffff;
+  border-color: #666666;
+}
+.blend-button-gray.blend-button-checkbox:hover,
+.blend-button-gray.blend-button-checkbox:focus,
+.blend-button-gray.blend-button-checkbox.focus,
+.blend-button-gray.blend-button-checkbox:active,
+.blend-button-gray.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-gray.blend-button-checkbox {
+  color: #666666;
+  background-color: #e6e6e6;
+  border-color: #474747;
+}
+.blend-button-gray.blend-button-checkbox:active,
+.blend-button-gray.blend-button-checkbox.active,
+.open > .dropdown-toggle.blend-button-gray.blend-button-checkbox {
+  background-image: none;
+}
+.blend-button-gray.blend-button-checkbox.disabled,
+.blend-button-gray.blend-button-checkbox[disabled],
+fieldset[disabled] .blend-button-gray.blend-button-checkbox,
+.blend-button-gray.blend-button-checkbox.disabled:hover,
+.blend-button-gray.blend-button-checkbox[disabled]:hover,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox:hover,
+.blend-button-gray.blend-button-checkbox.disabled:focus,
+.blend-button-gray.blend-button-checkbox[disabled]:focus,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox:focus,
+.blend-button-gray.blend-button-checkbox.disabled.focus,
+.blend-button-gray.blend-button-checkbox[disabled].focus,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox.focus,
+.blend-button-gray.blend-button-checkbox.disabled:active,
+.blend-button-gray.blend-button-checkbox[disabled]:active,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox:active,
+.blend-button-gray.blend-button-checkbox.disabled.active,
+.blend-button-gray.blend-button-checkbox[disabled].active,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox.active {
+  background-color: #ffffff;
+  border-color: #666666;
+}
+.blend-button-gray.blend-button-checkbox .badge {
+  color: #ffffff;
+  background-color: #666666;
+}
+.blend-button-gray.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #666666;
+  border-color: #666666;
+}
+.blend-button-gray.blend-button-checkbox-checked:hover,
+.blend-button-gray.blend-button-checkbox-checked:focus,
+.blend-button-gray.blend-button-checkbox-checked.focus,
+.blend-button-gray.blend-button-checkbox-checked:active,
+.blend-button-gray.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-gray.blend-button-checkbox-checked {
+  color: #ffffff;
+  background-color: #4d4d4d;
+  border-color: #474747;
+}
+.blend-button-gray.blend-button-checkbox-checked:active,
+.blend-button-gray.blend-button-checkbox-checked.active,
+.open > .dropdown-toggle.blend-button-gray.blend-button-checkbox-checked {
+  background-image: none;
+}
+.blend-button-gray.blend-button-checkbox-checked.disabled,
+.blend-button-gray.blend-button-checkbox-checked[disabled],
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked,
+.blend-button-gray.blend-button-checkbox-checked.disabled:hover,
+.blend-button-gray.blend-button-checkbox-checked[disabled]:hover,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked:hover,
+.blend-button-gray.blend-button-checkbox-checked.disabled:focus,
+.blend-button-gray.blend-button-checkbox-checked[disabled]:focus,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked:focus,
+.blend-button-gray.blend-button-checkbox-checked.disabled.focus,
+.blend-button-gray.blend-button-checkbox-checked[disabled].focus,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked.focus,
+.blend-button-gray.blend-button-checkbox-checked.disabled:active,
+.blend-button-gray.blend-button-checkbox-checked[disabled]:active,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked:active,
+.blend-button-gray.blend-button-checkbox-checked.disabled.active,
+.blend-button-gray.blend-button-checkbox-checked[disabled].active,
+fieldset[disabled] .blend-button-gray.blend-button-checkbox-checked.active {
+  background-color: #666666;
+  border-color: #666666;
+}
+.blend-button-gray.blend-button-checkbox-checked .badge {
+  color: #666666;
+  background-color: #ffffff;
+}
 .blend-button-link {
   color: #00a3e7;
   font-weight: normal;
@@ -1819,7 +2571,7 @@ input[type="button"].blend-button-block {
 }
 .blend-checkbox-red .blend-checkbox-checked {
   border: none;
-  background-color: #f94b44;
+  background-color: #fd461e;
 }
 .blend-checkbox-checked {
   border: none;
@@ -1905,7 +2657,7 @@ input[type="button"].blend-button-block {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   content: "\e603";
-  color: #565656;
+  color: #262626;
   font-size: 16px;
   line-height: 27px;
 }
@@ -1915,7 +2667,7 @@ input[type="button"].blend-button-block {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   content: "\e602";
-  color: #565656;
+  color: #262626;
   font-size: 16px;
   line-height: 27px;
 }
@@ -1924,7 +2676,7 @@ input[type="button"].blend-button-block {
   border-style: solid none;
   border-width: 1px;
   border-color: #e6e4e3;
-  color: #565656;
+  color: #262626;
   background-color: #ffffff;
   text-align: center;
 }
@@ -2679,7 +3431,7 @@ input[type="button"].blend-button-block {
 .blend-list-item-delete {
   z-index: 1;
   position: absolute;
-  background-color: #f94b44;
+  background-color: #f13d41;
   text-decoration: none;
   width: 54px;
   line-height: 46px;
@@ -2694,6 +3446,147 @@ input[type="button"].blend-button-block {
   -webkit-tap-highlight-color: transparent;
   right: 0;
   top: 0;
+}
+.blend-listview {
+  background-color: #ffffff;
+}
+.blend-listview-main {
+  border-top: 1px solid #dddddd;
+  border-bottom: 1px solid #dddddd;
+}
+.blend-listview-header {
+  height: 40px;
+}
+.blend-listview-header-title {
+  line-height: 40px;
+  font-size: 16px;
+}
+.blend-listview-item {
+  height: 85px;
+  border-bottom: 1px solid #dddddd;
+  padding: 10px 16px;
+}
+.blend-listview-item:last-child {
+  border-bottom: none;
+}
+.blend-listview-item-pic {
+  width: 65px;
+  height: 65px;
+  display: block;
+}
+.blend-listview-item-text-normal {
+  font-size: 14px;
+}
+.blend-listview-item-text-small {
+  font-size: 12px;
+}
+.blend-listview-theme1 {
+  padding: 0 10px;
+}
+.blend-listview-theme1 .blend-listview-item {
+  position: relative;
+  padding: 10px 0;
+  height: 105px;
+}
+.blend-listview-theme1 .blend-listview-item-title {
+  color: #000000;
+  font-size: 14px;
+  line-height: 18px;
+  margin: 2px 0 6px;
+}
+.blend-listview-theme1 .blend-listview-item-badge .blend-badge {
+  border-color: #dddddd;
+  color: #262626;
+  padding: 0;
+}
+.blend-listview-theme1 .blend-listview-item-price {
+  position: absolute;
+  left: 127px;
+  bottom: 5px;
+  color: #f13d41;
+  font-size: 20px;
+  line-height: 30px;
+  font-weight: 700;
+}
+.blend-listview-theme1 .blend-listview-item-price em {
+  font-weight: normal;
+  font-style: normal;
+  font-size: 14px;
+}
+.blend-listview-theme1 .blend-listview-item-pic {
+  width: 85px;
+  height: 85px;
+  margin-right: 14px;
+}
+.blend-listview-theme1 .blend-checkbox-checked:before {
+  font-size: 17px;
+  line-height: 20px;
+}
+.blend-listview-theme1 .blend-checkbox-default {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  margin-top: 31px;
+  margin-right: 6px;
+}
+.blend-listview-theme1 .blend-checkbox-all {
+  margin-top: 9px;
+}
+.blend-listview-theme1 .blend-checkbox-default:before {
+  top: 1px;
+  left: 2px;
+}
+.blend-listview-theme1 .blend-listview-conter-box {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+}
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus:before.blend-disabled,
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus:before.blend-disabled {
+  color: #999999;
+}
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus.blend-disabled,
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus.blend-disabled {
+  background-color: #ffffff;
+}
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus:before {
+  color: #fd461e;
+}
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus:before {
+  color: #fd461e;
+}
+.blend-listview-theme2 {
+  margin: 0;
+}
+.blend-listview-theme2 .blend-listview-header {
+  padding: 0 16px;
+}
+.blend-listview-theme2 .blend-listview-item {
+  padding: 10px 16px;
+  height: 85px;
+}
+.blend-listview-theme2 .blend-listview-item-pic {
+  margin-right: 18px;
+}
+.blend-listview-theme2 .blend-listview-item-title {
+  margin-top: 10px;
+  color: #262626;
+  font-size: 16px;
+  line-height: 20px;
+}
+.blend-listview-theme2 .blend-listview-item-price {
+  margin-top: 10px;
+  color: #000000;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: right;
+}
+.blend-listview-theme2 .blend-listview-item-num {
+  margin-top: 4px;
+  text-align: right;
+  color: #bbbbbb;
+  font-size: 16px;
+  line-height: 20px;
 }
 .blend-loading {
   height: 40px;
@@ -2861,6 +3754,9 @@ input[type="button"].blend-button-block {
 .blend-panel-clamp3 {
   -webkit-line-clamp: 3;
 }
+.blend-picture {
+  overflow-x: hidden;
+}
 .blend-picture img {
   width: 100%;
 }
@@ -2878,7 +3774,6 @@ input[type="button"].blend-button-block {
   display: block;
   max-width: 100%;
   height: auto;
-  padding: 3px;
   margin: 10px auto;
 }
 .blend-picture-default .blend-picture-title-default {
@@ -2898,7 +3793,7 @@ input[type="button"].blend-button-block {
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  bottom: 3px;
+  bottom: 13px;
   left: 3px;
 }
 /*
@@ -2931,7 +3826,7 @@ input[type="button"].blend-button-block {
   font-size: 14px;
   background-color: rgba(0, 0, 0, 0.6);
   color: #fff;
-  bottom: 0px;
+  bottom: 10px;
   left: 0;
 }
 .blend-picture-one {

@@ -4809,13 +4809,13 @@ $.widget('blend.checkbox', {
 
         if (this.options.type === 'radio') {
             // radio box
-            this.$group.on('tap', function () {
+            this.$group.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
                     that._checkGroup(curElem);
                 }
             });
-            this.$label.on('tap', function () {
+            this.$label.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
                     that._checkGroup(curElem);
@@ -4823,13 +4823,13 @@ $.widget('blend.checkbox', {
             });
         }
         else {
-            this.$group.on('tap', function () {
+            this.$group.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = $(this);
                     that._checkGroup(curElem);
                 }
             });
-            this.$label.on('tap', function () {
+            this.$label.on('tap, click', function () {
                 if (that._trigger('beforechecked', null, {})) {
                     var curElem = that.$group.eq([that.$label.index($(this))]);
                     that._checkGroup(curElem);
@@ -4948,10 +4948,10 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('tap', function () {
+        this.$plus.on('tap, click', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('tap', function () {
+        this.$minus.on('tap, click', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {
@@ -5913,7 +5913,7 @@ $.widget('blend.gallery', {
         var idx = dataIndex;
         var self = this;
         var loadImg = function (index) {
-            if (!self.data[index].loaded) {
+            if (index > -1 && !self.data[index].loaded) {
                 var preloadImg = new Image();
                 preloadImg.src = self.data[index].image;
                 self.data[index].loaded = 1;
@@ -5935,12 +5935,12 @@ $.widget('blend.gallery', {
         var len = data.length;
         var idx = this.initIndex;
         var self = this;
-        if (idx >= len - 1) {
+        /*if (idx >= len - 1) {
             // fix bug
             return;
-        }
+        }*/
         if (this.type !== 'dom' && len > 3) {
-            var nextIndex = idx + 1 > len ? (idx + 1) % len : idx + 1;
+            var nextIndex = idx + 2 > len ? (idx + 1) % len : idx + 1;
             var prevIndex = idx - 1 < 0 ? len - 1 + idx : idx - 1;
             data[idx].loaded = 1;
             data[nextIndex].loaded = 1;
@@ -6281,7 +6281,7 @@ $.widget('blend.gallery', {
             val = 0;
         }
         else if (val >= this.data.length) {
-            val = this.data.length - 2;
+            val = this.data.length - 1;
         }
 
         this.initIndex = val;
@@ -7829,31 +7829,11 @@ $.widget('blend.tab', {
 });
 })(Zepto)
 ;(function($){/**
-* @function toast(alert)
-* @file toast.js
-* @name toast
-* @author wangzhonghua
-* @date 2015.02.05
-* @memberof $.fn or $.blend
-* @grammar  $('.test').toast().show('xxx'),$.blend.toast().show('xxx')
-* @desc 页面级toast(alert)
-* @param {Object} opts 组件配置（以下参数为配置项）
-* @param {String} opts.toastClass (可选, 默认值:\'\') toast节点的className
-* @param {String} opts.toastTpl (可选, 默认值:\'\') toast模板
-* @param {Interval} opts.delay (可选, 默认值:2500) 延时消失的时间,单位ms
-*
-* @example
-* 	1、$('.j_test_toast').toast().toast('show', 'hello', 2000), $('.j_test_toast')为toast自定义节点,并不是容器,切记
-* 	2、var toast = $.blend.toast({
-* 						toastClass: 'my_define',
-* 						delay: 5000
-* 					});
-* 		  toast.show('hello world');
-*  3、var toast = $.blend.toast({
-* 						toastTpl: '<div class="my_define">{%content%}</div>'
-* 					});
-* 		  toast.show('hello world');
-*/
+ * @file toast.js
+ * @name toast
+ * @author wangzhonghua
+ * @date 2015.02.05
+ */
 'use strict';
 $.widget('blend.toast', {
     /*配置项*/
@@ -7867,54 +7847,70 @@ $.widget('blend.toast', {
      * @private
      */
     _create: function () {
-    	var options = this.options;
-    	this.$el = this.element;
-		this.$body = $('body');
-		this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="' + (options.toastClass|| '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
+        var options = this.options;
+        this.$el = this.element;
+        this.$body = $('body');
+        this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="' + (options.toastClass || '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
     },
-    
-    /*初始化*/
-    _init: function(){
-    	!this.$el.length && (this.defaultSegment = true);	
+    /**
+     * 初始化组件调用
+     * @private
+     */
+    _init: function () {
+        !this.$el.length && (this.defaultSegment = true);
     },
-    /*设置延时消失*/
-    _setDelay: function(delay){
-    	var self = this;
-    	delay = parseInt(delay, 10) || this.options.delay;
-    	clearTimeout(this.timeout);
-    	this.timeOut = window.setTimeout(function(){
-    		self.hide();
-    	}, delay);
+    /**
+     * 设置延时消失
+     * @param {number} delay 设置延时的时间
+     * @private
+     */
+    _setDelay: function (delay) {
+        var self = this;
+        delay = parseInt(delay, 10) || this.options.delay;
+        clearTimeout(this.timeout);
+        this.timeOut = window.setTimeout(function () {
+            self.hide();
+        }, delay);
     },
-    
-    /*显示toast*/
-    show: function(content, delay){
-    	if(!content){
-    		return false;
-    	}
-    	if(!this.$el.length){
-    		(this.$el = $(this.toastTpl.replace(/{%content%}/g, content))).appendTo(this.$body);
-    	}else{
-    		this.$el.html(content);
-    	}
-    	this._setDelay(delay);
-    	return this.$el.show();
+    /**
+     * 显示toast
+     * @param  {string} content 需要展示的内容
+     * @param  {number} delay 延时的时间
+     * @return {Object} 当前Zepto对象
+     */
+    show: function (content, delay) {
+        if (!content) {
+            return false;
+        }
+        if (!this.$el.length) {
+            (this.$el = $(this.toastTpl.replace(/{%content%}/g, content))).appendTo(this.$body);
+        }
+        else {
+            this.$el.html(content);
+        }
+        this._setDelay(delay);
+        return this.$el.show();
     },
-    
-    /*关闭toast*/
-    hide: function(){
-    	return this.$el.hide();
+    /**
+     * 关闭toast
+     * @return {Object} 当前Zepto对象
+     */
+    hide: function () {
+        return this.$el.hide();
     },
-    
-    /*销毁toast*/
-    destroy: function(){
-    	if(this.defaultSegment){
-    		this.$el.remove();
-    		this.$el = [];
-    	}
-    	return this.$el;
+    /**
+     * 销毁toast
+     * @return {[type]}
+     */
+    destroy: function () {
+        if (this.defaultSegment) {
+            this.$el.remove();
+            this.$el = [];
+        }
+        return this.$el;
     }
-});})(Zepto)
+});
+})(Zepto)
     /**
  * 对于带有特定属性的dom节点,自动初始化
  * @file init.js
