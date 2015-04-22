@@ -165,11 +165,14 @@ $.widget('blend.gallery', {
             this._addZoomPlugin();
             this._initZoom(opts);
         }
+
+        this.infoType = opts.infoType || 0;
+        this.bottomHeight = (this.infoType === 1) ? '50px' : '116px';
         // debug mode
         this.log = opts.isDebug ? function (str) {
                 window.console.log(str);
             } : function () {
-            };
+        };
         // set Damping function
         this._setUpDamping();
         // stop autoplay when window blur
@@ -326,6 +329,9 @@ $.widget('blend.gallery', {
 
         var bottomMenu = this.bottomMenu || document.createElement('div');
         bottomMenu.classList.add(NAMESPACE + 'gallery-bottom');
+        if (this.infoType === 1) {
+          bottomMenu.classList.add(NAMESPACE + 'gallery-type-1');  
+        }
 
         // 底部内容展示
 
@@ -707,7 +713,8 @@ $.widget('blend.gallery', {
     _hideMenu: function () {
 
         this.topMenu.style.webkitTransform = 'translate3d(0, -44px, 0)';
-        this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
+        // this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
+        this.bottomMenu.style.webkitTransform = 'translate3d(0, ' + this.bottomHeight + ', 0)';
         this.isMenuShow = false;
     },
     /**

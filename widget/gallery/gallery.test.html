@@ -25,7 +25,7 @@
     <div id="gallery-wrapper1"  class="blend-gallery" data-blend-gallery="">
     </div>
     <input type="button"  id="show" class="show" value="click to show"/>
-    <!-- <button id="show1" class="show">click to show1</button> -->
+    <button id="show1" class="show">房产样式</button>
 
     <div>
         让页面撑满！！！！<br>
@@ -116,9 +116,10 @@
             data:list,
             duration:2000,
             isLooping:true,
-            useZoom:true,
+            // useZoom:true, // 默认是true
             initIndex:5,
-            isAutoplay:false //是否自动播放
+            // isAutoplay:false //是否自动播放,暂不支持修改
+            // infoType:1
         });
 
 
@@ -165,20 +166,19 @@
         }];
 
 
-        /*var wrapper1 = boost("#gallery-wrapper1").gallery({
+        var wrapper1 = boost("#gallery-wrapper1").gallery({
             data:list1,
             // isDebug:true,
             duration:2000,
             isLooping:true,
-            useZoom:true,
-            isAutoplay:false //是否自动播放
+            infoType:1
         });
 
 
         boost("#show1").on("click",function(){
             wrapper1.gallery("show");
             
-        });*/
+        });
 
         
 
