@@ -63,7 +63,8 @@
     color: @color-black;
     font-size: @boost-font-size-link;
     line-height: 18px;
-    margin: 2px 0 6px;
+    margin: 2px 0;
+    word-break: break-all;
   }
 
   .@{namespace}listview-item-badge {
@@ -122,10 +123,8 @@
     right: 10px;
     bottom: 10px;
 
-    .@{namespace}counter-minus:before, .@{namespace}counter-plus:before {
-      &.@{namespace}disabled {
-        color: #999999;
-      }
+    .@{namespace}counter-minus.@{namespace}disabled:before, .@{namespace}counter-plus.@{namespace}disabled:before {
+      color: #999999;
     }
     .@{namespace}counter-minus, .@{namespace}counter-plus {
       &.@{namespace}disabled {
