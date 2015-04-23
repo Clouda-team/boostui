@@ -4807,39 +4807,23 @@ $.widget('blend.checkbox', {
 
         var that = this;
 
-        if (this.options.type === 'radio') {
-            // radio box
-            this.$group.on('tap, click', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = $(this);
-                    that._checkGroup(curElem);
-                }
-            });
-            this.$label.on('tap, click', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem);
-                }
-            });
-        }
-        else {
-            this.$group.on('tap, click', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = $(this);
-                    that._checkGroup(curElem);
-                }
-            });
-            this.$label.on('tap, click', function () {
-                if (that._trigger('beforechecked', null, {})) {
-                    var curElem = that.$group.eq([that.$label.index($(this))]);
-                    that._checkGroup(curElem);
-                }
-            });
-        }
+        this.$group.on('tap, click', function () {
+            if (that._trigger('beforechecked', null, {})) {
+                var curElem = $(this);
+                that._checkGroup(curElem);
+            }
+        });
+        this.$label.on('tap, click', function () {
+            if (that._trigger('beforechecked', null, {})) {
+                var curElem = that.$group.eq([that.$label.index($(this))]);
+                that._checkGroup(curElem);
+            }
+        });
     },
     /**
      *
      * @return {*}
+     * 获取value值函数
      */
     getValues: function () {
         var $this;
@@ -4848,7 +4832,7 @@ $.widget('blend.checkbox', {
         var elems = this.$group;
         for (var i = 0; i < elems.length; i++) {
             $this = $(elems[i]);
-            if ($this.hasClass(NAMESPACE + 'checkbox-checked') && !$this.hasClass(NAMESPACE + 'checkbox-all')) {
+            if ($this.hasClass(NAMESPACE + 'checkbox-checked') || $this.hasClass(NAMESPACE + 'button-checkbox-checked') && !$this.hasClass(NAMESPACE + 'checkbox-all')) {
                 val = this.options.values[i];
                 valArr.push(this.options.values[i]);
             }
@@ -5720,11 +5704,14 @@ $.widget('blend.gallery', {
             this._addZoomPlugin();
             this._initZoom(opts);
         }
+
+        this.infoType = opts.infoType || 0;
+        this.bottomHeight = (this.infoType === 1) ? '50px' : '116px';
         // debug mode
         this.log = opts.isDebug ? function (str) {
                 window.console.log(str);
             } : function () {
-            };
+        };
         // set Damping function
         this._setUpDamping();
         // stop autoplay when window blur
@@ -5881,6 +5868,9 @@ $.widget('blend.gallery', {
 
         var bottomMenu = this.bottomMenu || document.createElement('div');
         bottomMenu.classList.add(NAMESPACE + 'gallery-bottom');
+        if (this.infoType === 1) {
+          bottomMenu.classList.add(NAMESPACE + 'gallery-type-1');  
+        }
 
         // 底部内容展示
 
@@ -6262,7 +6252,8 @@ $.widget('blend.gallery', {
     _hideMenu: function () {
 
         this.topMenu.style.webkitTransform = 'translate3d(0, -44px, 0)';
-        this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
+        // this.bottomMenu.style.webkitTransform = 'translate3d(0, 116px, 0)';
+        this.bottomMenu.style.webkitTransform = 'translate3d(0, ' + this.bottomHeight + ', 0)';
         this.isMenuShow = false;
     },
     /**
