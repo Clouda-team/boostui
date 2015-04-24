@@ -39,6 +39,10 @@
                 console.log(arguments);
             })
 
+            .on("counter:beforeupdate", function (e) {
+                console.log("beforeupdate");
+            })
+
             // 函数调用
             .counter("value", 1);
 
