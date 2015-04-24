@@ -180,7 +180,7 @@ $.widget('blend.dialog', {
         this.$header = outerEle.find('.' + NAMESPACE + 'dialog-header');
 
         if (!this.hasHeader) {
-            this.$content.addClass(NAMESPACE + 'dialog-tips');
+            // this.$content.addClass(NAMESPACE + 'dialog-tips');
             this.$header.remove();
         }
 

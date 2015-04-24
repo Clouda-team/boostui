@@ -59,21 +59,24 @@ $.widget('blend.checkbox', {
         }
         else {
 
+            var len = 0;
             // 判断有无已勾选
             EventSelector.each(function () {
-                eventData.checked = $(this).hasClass(that.options.itemSelected)
-                    ? ++eventData.checked : eventData.checked;
+                var $this = $(this);
+                if (!$this.hasClass(that.options.itemSelectAll)) {
+                    len++;
+                    if ($this.hasClass(that.options.itemSelected)) {
+                        eventData.checked++;
+                    }
+                }
             });
-            if (that.$container.find('.' + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
-                eventData.checked--;
-            }
 
             if (curElem.hasClass(that.options.itemSelectAll)) {
-                if (eventData.checked < EventSelector.length - 1) {
+                if (eventData.checked < len) {
                     EventSelector.each(function () {
                         $(this).addClass(that.options.itemSelected);
-                        eventData.checked = EventSelector.length - 1;
                     });
+                    eventData.checked = len;
                 }
                 else {
                     EventSelected.removeClass(that.options.itemSelected);
@@ -92,7 +95,7 @@ $.widget('blend.checkbox', {
                 }
 
             }
-            if (eventData.checked < EventSelector.length - 1) {
+            if (eventData.checked < len) {
                 that.$container.find('.' + that.options.itemSelectAll).removeClass(that.options.itemSelected);
             }
             else {

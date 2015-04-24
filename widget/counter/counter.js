@@ -75,7 +75,15 @@ $.widget('blend.counter', {
     _initValue: function () {
         // var initValue = Number(this.$input.val());
         // this._value = isNaN(initValue) ? 0 : initValue;
-        this.value(Number(this.$input.val()));
+        var value = Number(this.$input.val());
+        if (isNaN(value)) {
+            return;
+        }
+        this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+        this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+        value = Math.min(this._maxValue, Math.max(this._minValue, value));
+        this.$input.val(value);
+        this._value = value;
     },
 
     /**
@@ -86,14 +94,14 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('tap, click', function () {
+        this.$plus.on('click', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('tap, click', function () {
+        this.$minus.on('click', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {
-            thisObj._initValue();
+            thisObj.value(Number(thisObj.$input.val()) || thisObj._value);
         });
     },
 
@@ -128,16 +136,18 @@ $.widget('blend.counter', {
             eventData = {
                 oldValue: oldValue,
                 newValue: value
-
             };
 
             if (this.options.asyn) {
                 var counter = this;
+                var updateData = {
+                    oldValue: oldValue,
+                    newValue: value
+                };
                 eventData.callback = function () {
                     counter.$input.val(value);
                     counter._value = value;
-                    delete eventData.callback;
-                    counter._trigger('update', null, eventData);
+                    counter._trigger('update', null, updateData);
                 };
                 this._trigger('beforeupdate', null, eventData);
             }

@@ -6,7 +6,9 @@
 @dialog-footer-height: 40px;
 
 
-@dialog-padding: 10px;
+@dialog-padding-lr: 16px;
+@dialog-padding-tb: 13px;
+@dialog-line-height: 20px;
 @dialog-body-margin: 8px;
 
 
@@ -56,12 +58,10 @@
 
 .@{namespace}dialog-body {
     font-size: @boost-font-size-link;
-  line-height: 22px;
-    padding: 10px;
+    line-height: @dialog-line-height;
+    padding: @dialog-padding-tb @dialog-padding-lr;
     border-bottom: solid 1px @color-dialog-border;
   &.@{namespace}dialog-tips {
-    line-height: 47px;
-    height: 67px;
     text-align: center;
   }
 }
