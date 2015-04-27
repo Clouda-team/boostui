@@ -2021,8 +2021,8 @@ fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked.active {
 }
 .blend-button-red {
   color: #ffffff;
-  background-color: #f74545;
-  border-color: #f74545;
+  background-color: #fd461e;
+  border-color: #fd461e;
 }
 .blend-button-red:hover,
 .blend-button-red:focus,
@@ -2031,8 +2031,8 @@ fieldset[disabled] .blend-button-danger.blend-button-checkbox-checked.active {
 .blend-button-red.active,
 .open > .dropdown-toggle.blend-button-red {
   color: #ffffff;
-  background-color: #f51414;
-  border-color: #f40b0b;
+  background-color: #e62b02;
+  border-color: #dc2902;
 }
 .blend-button-red:active,
 .blend-button-red.active,
@@ -2057,19 +2057,19 @@ fieldset[disabled] .blend-button-red:active,
 .blend-button-red.disabled.active,
 .blend-button-red[disabled].active,
 fieldset[disabled] .blend-button-red.active {
-  background-color: #f74545;
-  border-color: #f74545;
+  background-color: #fd461e;
+  border-color: #fd461e;
 }
 .blend-button-red .badge {
-  color: #f74545;
+  color: #fd461e;
   background-color: #ffffff;
 }
 .blend-button-red.blend-disabled,
 .blend-button-red[disabled],
 fieldset[disabled] .blend-button-red {
   color: #cccccc;
-  background-color: #cd0909;
-  border-color: #cd0909;
+  background-color: #b32102;
+  border-color: #b32102;
 }
 .blend-button-red.blend-disabled:hover,
 .blend-button-red[disabled]:hover,
@@ -2090,8 +2090,8 @@ fieldset[disabled] .blend-button-red.active,
 .open > .dropdown-toggle.blend-button-red[disabled],
 .open > .dropdown-togglefieldset[disabled] .blend-button-red {
   color: #cccccc;
-  background-color: #9c0707;
-  border-color: #920606;
+  background-color: #811801;
+  border-color: #771601;
 }
 .blend-button-red.blend-disabled:active,
 .blend-button-red[disabled]:active,
@@ -2158,19 +2158,19 @@ fieldset[disabled] .blend-button-red[disabled].active,
 fieldset[disabled] .blend-button-red.blend-disabled.active,
 fieldset[disabled] .blend-button-red[disabled].active,
 fieldset[disabled] fieldset[disabled] .blend-button-red.active {
-  background-color: #cd0909;
-  border-color: #cd0909;
+  background-color: #b32102;
+  border-color: #b32102;
 }
 .blend-button-red.blend-disabled .badge,
 .blend-button-red[disabled] .badge,
 fieldset[disabled] .blend-button-red .badge {
-  color: #cd0909;
+  color: #b32102;
   background-color: #cccccc;
 }
 .blend-button-red.blend-button-checkbox {
-  color: #f74545;
+  color: #fd461e;
   background-color: #ffffff;
-  border-color: #f74545;
+  border-color: #fd461e;
 }
 .blend-button-red.blend-button-checkbox:hover,
 .blend-button-red.blend-button-checkbox:focus,
@@ -2178,9 +2178,9 @@ fieldset[disabled] .blend-button-red .badge {
 .blend-button-red.blend-button-checkbox:active,
 .blend-button-red.blend-button-checkbox.active,
 .open > .dropdown-toggle.blend-button-red.blend-button-checkbox {
-  color: #f74545;
+  color: #fd461e;
   background-color: #e6e6e6;
-  border-color: #f40b0b;
+  border-color: #dc2902;
 }
 .blend-button-red.blend-button-checkbox:active,
 .blend-button-red.blend-button-checkbox.active,
@@ -2206,16 +2206,16 @@ fieldset[disabled] .blend-button-red.blend-button-checkbox:active,
 .blend-button-red.blend-button-checkbox[disabled].active,
 fieldset[disabled] .blend-button-red.blend-button-checkbox.active {
   background-color: #ffffff;
-  border-color: #f74545;
+  border-color: #fd461e;
 }
 .blend-button-red.blend-button-checkbox .badge {
   color: #ffffff;
-  background-color: #f74545;
+  background-color: #fd461e;
 }
 .blend-button-red.blend-button-checkbox-checked {
   color: #ffffff;
-  background-color: #f74545;
-  border-color: #f74545;
+  background-color: #fd461e;
+  border-color: #fd461e;
 }
 .blend-button-red.blend-button-checkbox-checked:hover,
 .blend-button-red.blend-button-checkbox-checked:focus,
@@ -2224,8 +2224,8 @@ fieldset[disabled] .blend-button-red.blend-button-checkbox.active {
 .blend-button-red.blend-button-checkbox-checked.active,
 .open > .dropdown-toggle.blend-button-red.blend-button-checkbox-checked {
   color: #ffffff;
-  background-color: #f51414;
-  border-color: #f40b0b;
+  background-color: #e62b02;
+  border-color: #dc2902;
 }
 .blend-button-red.blend-button-checkbox-checked:active,
 .blend-button-red.blend-button-checkbox-checked.active,
@@ -2250,11 +2250,11 @@ fieldset[disabled] .blend-button-red.blend-button-checkbox-checked:active,
 .blend-button-red.blend-button-checkbox-checked.disabled.active,
 .blend-button-red.blend-button-checkbox-checked[disabled].active,
 fieldset[disabled] .blend-button-red.blend-button-checkbox-checked.active {
-  background-color: #f74545;
-  border-color: #f74545;
+  background-color: #fd461e;
+  border-color: #fd461e;
 }
 .blend-button-red.blend-button-checkbox-checked .badge {
-  color: #f74545;
+  color: #fd461e;
   background-color: #ffffff;
 }
 .blend-button-gray {
@@ -3389,7 +3389,7 @@ input[type="button"].blend-button-block {
   display: block;
   clear: both;
 }
-.blend-imglist-item {
+.blend-imglist-wrapper .blend-imglist-item {
   list-style-type: none;
   float: left;
   padding: 0px;
