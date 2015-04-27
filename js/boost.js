@@ -7316,10 +7316,10 @@ $.widget('blend.slider', {
         continuousScroll: true,     // 连续滚动
         axisX: true,                // 滚动方向,默认x轴滚动
         transitionType: 'ease',     // 过渡类型
-        duration: 0.6,
+        // duration: 0.6,
         speed: 2000,                // 切换的时间间隔
         theme: "d2",
-        needDirection: false,    // 是否需要左右切换的按钮
+        // needDirection: false,    // 是否需要左右切换的按钮
         ratio: "normal"     // normal/wide/square/small
     },
     /**
@@ -7717,6 +7717,13 @@ $.widget('blend.slider', {
     paused: function () {
         clearInterval(this.autoScroll);
         return this.$container;
+    },
+    start: function(){
+        clearInterval(this.autoScroll);
+        
+        this._fnAutoSwipe();
+        return this.$container;
+       
     }
 
 });})(Zepto)
