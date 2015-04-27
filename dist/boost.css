@@ -2556,7 +2556,7 @@ input[type="button"].blend-button-block {
   display: inline-block;
   position: relative;
   font-family: BoostFont;
-  border: solid 1px #dddddd;
+  border: solid 1px #ededed;
   background-color: #ffffff;
   vertical-align: middle;
 }
@@ -2608,7 +2608,7 @@ input[type="button"].blend-button-block {
 .blend-checkbox-group {
   display: -webkit-box;
   padding: 0 16px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ededed;
 }
 .blend-checkbox-group:last-child {
   border-bottom: none;
@@ -2722,13 +2722,11 @@ input[type="button"].blend-button-block {
 }
 .blend-dialog-body {
   font-size: 14px;
-  line-height: 22px;
-  padding: 10px;
-  border-bottom: solid 1px #dddddd;
+  line-height: 20px;
+  padding: 13px 16px;
+  border-bottom: solid 1px #ededed;
 }
 .blend-dialog-body.blend-dialog-tips {
-  line-height: 47px;
-  height: 67px;
   text-align: center;
 }
 .blend-dialog-link {
@@ -2762,7 +2760,7 @@ input[type="button"].blend-button-block {
   text-decoration: none;
 }
 .blend-dialog-btn:not(:first-child) {
-  border-left: solid 1px #dddddd;
+  border-left: solid 1px #ededed;
 }
 .blend-fixedBar {
   width: 100%;
@@ -2825,11 +2823,11 @@ input[type="button"].blend-button-block {
   width: 0;
 }
 .blend-form {
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
 }
 .blend-form .blend-formgroup {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ededed;
 }
 .blend-form .blend-formgroup:last-child {
   border-bottom-color: transparent;
@@ -3422,7 +3420,7 @@ input[type="button"].blend-button-block {
 }
 .blend-imglist-column-4 > li {
   width: 25%;
-  padding: 5x 3px;
+  padding: 5px 3px;
 }
 .blend-imglist-column-4 > li:nth-of-type(4n+1) {
   clear: both;
@@ -3435,7 +3433,7 @@ input[type="button"].blend-button-block {
 }
 .blend-list-card {
   margin: 6px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ededed;
 }
 .blend-list-card .blend-list-item:last-child {
   border: none;
@@ -3448,7 +3446,7 @@ input[type="button"].blend-button-block {
   color: #262626;
   overflow: hidden;
   position: relative;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ededed;
 }
 .blend-list-animation .blend-list-item {
   -webkit-transition: height 0.3s ease-in 0;
@@ -3489,8 +3487,8 @@ input[type="button"].blend-button-block {
   background-color: #ffffff;
 }
 .blend-listview-main {
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #ededed;
+  border-bottom: 1px solid #ededed;
 }
 .blend-listview-header {
   height: 40px;
@@ -3501,11 +3499,27 @@ input[type="button"].blend-button-block {
 }
 .blend-listview-item {
   height: 85px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ededed;
   padding: 10px 16px;
 }
 .blend-listview-item:last-child {
   border-bottom: none;
+}
+.blend-listview-item-desc {
+  border-bottom: 1px solid #ededed;
+  line-height: 32px;
+  padding: 0 16px;
+}
+.blend-listview-item-desc [class*="col-"] {
+  border: none;
+  background-color: none;
+  background-color: rgba(255, 255, 255, 0);
+}
+.blend-listview-item-desc .blend-desc-header {
+  text-align: left;
+}
+.blend-listview-item-desc .blend-desc-body {
+  text-align: right;
 }
 .blend-listview-item-pic {
   width: 65px;
@@ -3530,10 +3544,11 @@ input[type="button"].blend-button-block {
   color: #000000;
   font-size: 14px;
   line-height: 18px;
-  margin: 2px 0 6px;
+  margin: 2px 0;
+  word-break: break-all;
 }
 .blend-listview-theme1 .blend-listview-item-badge .blend-badge {
-  border-color: #dddddd;
+  border-color: #ededed;
   color: #262626;
   padding: 0;
 }
@@ -3579,8 +3594,8 @@ input[type="button"].blend-button-block {
   right: 10px;
   bottom: 10px;
 }
-.blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus:before.blend-disabled,
-.blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus:before.blend-disabled {
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus.blend-disabled:before,
+.blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus.blend-disabled:before {
   color: #999999;
 }
 .blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus.blend-disabled,
@@ -3685,7 +3700,7 @@ input[type="button"].blend-button-block {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ededed;
 }
 .blend-nav-item.blend-nav-item-active {
   color: #262626;
@@ -3694,7 +3709,7 @@ input[type="button"].blend-button-block {
 .blend-nav-item:after {
   content: " ";
   width: 0;
-  border-right: 1px solid #dddddd;
+  border-right: 1px solid #ededed;
   display: block;
   height: 10px;
   float: right;
@@ -3960,6 +3975,7 @@ input[type="button"].blend-button-block {
 }
 .blend-slider ol {
   position: absolute;
+  margin: 0;
   padding: 0;
   line-height: 0;
   z-index: 20;
@@ -3983,7 +3999,11 @@ input[type="button"].blend-button-block {
 .blend-slider-a1 ol {
   width: 100%;
   text-align: center;
-  bottom: 5px;
+  bottom: 10px;
+  margin: 0 0 4px;
+}
+.blend-slider-small.blend-slider-a2 ol {
+  margin: 0;
 }
 .blend-slider-a1 ol li a {
   background-color: rgba(0, 0, 0, 0.5);
@@ -3999,7 +4019,11 @@ input[type="button"].blend-button-block {
 .blend-slider-a2 ol {
   width: 100%;
   text-align: center;
-  bottom: 5px;
+  bottom: 10px;
+  margin: 0 0 4px;
+}
+.blend-slider-small.blend-slider-a1 ol {
+  margin: 0;
 }
 .blend-slider-a2 ol li a {
   background-color: rgba(255, 255, 255, 0.5);
@@ -4066,7 +4090,7 @@ input[type="button"].blend-button-block {
 }
 .blend-tab-card {
   margin: 6px;
-  border: 1px solid #dddddd;
+  border: 1px solid #ededed;
 }
 .blend-tab-header {
   display: -webkit-box;
@@ -4095,7 +4119,7 @@ input[type="button"].blend-button-block {
   position: absolute;
   top: 15px;
   right: 0;
-  background-color: #dddddd;
+  background-color: #ededed;
 }
 .blend-tab-header-item:last-child:after {
   display: none;
@@ -4141,7 +4165,7 @@ input[type="button"].blend-button-block {
   top: 15px;
   right: 0;
   /*background-color: #efefef;*/
-  border-left: 1px solid #dddddd;
+  border-left: 1px solid #ededed;
 }
 .blend-tabnav-item:last-child:after {
   display: none;
@@ -4169,12 +4193,16 @@ input[type="button"].blend-button-block {
   left: 50%;
   top: 50%;
   margin: -40px 0px 0px -110px;
-  width: 210px;
-  padding: 15px;
+  padding: 0 16px;
   background-color: rgba(0, 0, 0, 0.7);
-  border-radius: 8px;
+  border-radius: 3px;
   color: #ffffff;
   text-align: center;
   z-index: 99;
   word-break: break-all;
+  font-size: 16px;
+  line-height: 40px;
+  height: 40px;
+  width: 210px;
+  overflow: hidden;
 }

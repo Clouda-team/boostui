@@ -4761,21 +4761,24 @@ $.widget('blend.checkbox', {
         }
         else {
 
+            var len = 0;
             // 判断有无已勾选
             EventSelector.each(function () {
-                eventData.checked = $(this).hasClass(that.options.itemSelected)
-                    ? ++eventData.checked : eventData.checked;
+                var $this = $(this);
+                if (!$this.hasClass(that.options.itemSelectAll)) {
+                    len++;
+                    if ($this.hasClass(that.options.itemSelected)) {
+                        eventData.checked++;
+                    }
+                }
             });
-            if (that.$container.find('.' + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
-                eventData.checked--;
-            }
 
             if (curElem.hasClass(that.options.itemSelectAll)) {
-                if (eventData.checked < EventSelector.length - 1) {
+                if (eventData.checked < len) {
                     EventSelector.each(function () {
                         $(this).addClass(that.options.itemSelected);
-                        eventData.checked = EventSelector.length - 1;
                     });
+                    eventData.checked = len;
                 }
                 else {
                     EventSelected.removeClass(that.options.itemSelected);
@@ -4794,7 +4797,7 @@ $.widget('blend.checkbox', {
                 }
 
             }
-            if (eventData.checked < EventSelector.length - 1) {
+            if (eventData.checked < len) {
                 that.$container.find('.' + that.options.itemSelectAll).removeClass(that.options.itemSelected);
             }
             else {
@@ -4921,7 +4924,15 @@ $.widget('blend.counter', {
     _initValue: function () {
         // var initValue = Number(this.$input.val());
         // this._value = isNaN(initValue) ? 0 : initValue;
-        this.value(Number(this.$input.val()));
+        var value = Number(this.$input.val());
+        if (isNaN(value)) {
+            return;
+        }
+        this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+        this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+        value = Math.min(this._maxValue, Math.max(this._minValue, value));
+        this.$input.val(value);
+        this._value = value;
     },
 
     /**
@@ -4932,14 +4943,14 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('tap, click', function () {
+        this.$plus.on('click', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('tap, click', function () {
+        this.$minus.on('click', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {
-            thisObj._initValue();
+            thisObj.value(Number(thisObj.$input.val()) || thisObj._value);
         });
     },
 
@@ -4974,16 +4985,18 @@ $.widget('blend.counter', {
             eventData = {
                 oldValue: oldValue,
                 newValue: value
-
             };
 
             if (this.options.asyn) {
                 var counter = this;
+                var updateData = {
+                    oldValue: oldValue,
+                    newValue: value
+                };
                 eventData.callback = function () {
                     counter.$input.val(value);
                     counter._value = value;
-                    delete eventData.callback;
-                    counter._trigger('update', null, eventData);
+                    counter._trigger('update', null, updateData);
                 };
                 this._trigger('beforeupdate', null, eventData);
             }
@@ -5195,7 +5208,7 @@ $.widget('blend.dialog', {
         this.$header = outerEle.find('.' + NAMESPACE + 'dialog-header');
 
         if (!this.hasHeader) {
-            this.$content.addClass(NAMESPACE + 'dialog-tips');
+            // this.$content.addClass(NAMESPACE + 'dialog-tips');
             this.$header.remove();
         }
 
@@ -7284,10 +7297,10 @@ $.widget('blend.slider', {
         continuousScroll: true,     // 连续滚动
         axisX: true,                // 滚动方向,默认x轴滚动
         transitionType: 'ease',     // 过渡类型
-        duration: 0.6,
+        // duration: 0.6,
         speed: 2000,                // 切换的时间间隔
         theme: "d2",
-        needDirection: false,    // 是否需要左右切换的按钮
+        // needDirection: false,    // 是否需要左右切换的按钮
         ratio: "normal"     // normal/wide/square/small
     },
     /**
@@ -7685,6 +7698,13 @@ $.widget('blend.slider', {
     paused: function () {
         clearInterval(this.autoScroll);
         return this.$container;
+    },
+    start: function(){
+        clearInterval(this.autoScroll);
+        
+        this._fnAutoSwipe();
+        return this.$container;
+       
     }
 
 });})(Zepto)

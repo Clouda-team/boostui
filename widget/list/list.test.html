@@ -41,7 +41,9 @@
 
 <script>
     var $blendList = $('.blend-list').eq(0);
-    $blendList.list();//.list('destroy');
+    $blendList.list({
+        animate:false
+    });//.list('destroy');
     $('#revert').click(function () {
         $blendList.list('revert');
     });
