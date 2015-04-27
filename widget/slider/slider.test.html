@@ -40,11 +40,13 @@
             </li>
          
         </ul>
-  </div>
+    </div>
 
   <button id="prev">上一张</button>
 
   <button id="paused">暂停</button>
+
+  <button id="start">启动</button>
 
   <button id="next">下一张</button>
 
@@ -80,7 +82,11 @@
     ;(function(){
         
         $("#slider1").slider({"speed": 2000, "ratio": "small"});
-        $("#slider2").slider();
+        $("#slider2").slider({
+            "theme":'a2',
+            "ratio": "square",
+            autoSwipe: false,  
+        });
 
         $("#next").on('click',function(){
             $("#slider1").slider('next');
@@ -92,6 +98,10 @@
 
         $("#prev").on('click',function(){
             $("#slider1").slider('prev');
+        });
+
+        $("#start").on('click',function(){
+            $("#slider1").slider('start');
         });
 
     

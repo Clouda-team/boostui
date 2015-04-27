@@ -74,9 +74,10 @@
 
 .@{namespace}slider ol{
 	position: absolute;
+	margin:0;
 	padding:0;
 	line-height: 0;
-  z-index: @slider-zindex;
+  	z-index: @slider-zindex;
 }
 
 .@{namespace}slider ol li{
@@ -102,7 +103,12 @@
 .@{namespace}slider-a1 ol{
 	width:100%;
 	text-align: center;
-	bottom: 5px;
+	bottom: 10px;
+	margin: 0 0 4px;
+}
+
+.@{namespace}slider-small.@{namespace}slider-a2 ol{
+	margin: 0;
 }
 
 .@{namespace}slider-a1 ol li a{
@@ -122,8 +128,15 @@
 .@{namespace}slider-a2 ol{
 	width:100%;
 	text-align: center;
-	bottom: 5px;
+	bottom: 10px;
+	margin: 0 0 4px;
 }
+
+
+.@{namespace}slider-small.@{namespace}slider-a1 ol{
+	margin: 0;
+}
+
 
 .@{namespace}slider-a2 ol li a{
 	background-color: rgba(255,255,255,.5);
