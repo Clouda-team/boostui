@@ -4761,21 +4761,24 @@ $.widget('blend.checkbox', {
         }
         else {
 
+            var len = 0;
             // 判断有无已勾选
             EventSelector.each(function () {
-                eventData.checked = $(this).hasClass(that.options.itemSelected)
-                    ? ++eventData.checked : eventData.checked;
+                var $this = $(this);
+                if (!$this.hasClass(that.options.itemSelectAll)) {
+                    len++;
+                    if ($this.hasClass(that.options.itemSelected)) {
+                        eventData.checked++;
+                    }
+                }
             });
-            if (that.$container.find('.' + that.options.itemSelectAll).hasClass(that.options.itemSelected)) {
-                eventData.checked--;
-            }
 
             if (curElem.hasClass(that.options.itemSelectAll)) {
-                if (eventData.checked < EventSelector.length - 1) {
+                if (eventData.checked < len) {
                     EventSelector.each(function () {
                         $(this).addClass(that.options.itemSelected);
-                        eventData.checked = EventSelector.length - 1;
                     });
+                    eventData.checked = len;
                 }
                 else {
                     EventSelected.removeClass(that.options.itemSelected);
@@ -4794,7 +4797,7 @@ $.widget('blend.checkbox', {
                 }
 
             }
-            if (eventData.checked < EventSelector.length - 1) {
+            if (eventData.checked < len) {
                 that.$container.find('.' + that.options.itemSelectAll).removeClass(that.options.itemSelected);
             }
             else {
@@ -4921,7 +4924,15 @@ $.widget('blend.counter', {
     _initValue: function () {
         // var initValue = Number(this.$input.val());
         // this._value = isNaN(initValue) ? 0 : initValue;
-        this.value(Number(this.$input.val()));
+        var value = Number(this.$input.val());
+        if (isNaN(value)) {
+            return;
+        }
+        this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+        this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+        value = Math.min(this._maxValue, Math.max(this._minValue, value));
+        this.$input.val(value);
+        this._value = value;
     },
 
     /**
@@ -4932,14 +4943,14 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('tap, click', function () {
+        this.$plus.on('click', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('tap, click', function () {
+        this.$minus.on('click', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {
-            thisObj._initValue();
+            thisObj.value(Number(thisObj.$input.val()) || thisObj._value);
         });
     },
 
@@ -4974,16 +4985,18 @@ $.widget('blend.counter', {
             eventData = {
                 oldValue: oldValue,
                 newValue: value
-
             };
 
             if (this.options.asyn) {
                 var counter = this;
+                var updateData = {
+                    oldValue: oldValue,
+                    newValue: value
+                };
                 eventData.callback = function () {
                     counter.$input.val(value);
                     counter._value = value;
-                    delete eventData.callback;
-                    counter._trigger('update', null, eventData);
+                    counter._trigger('update', null, updateData);
                 };
                 this._trigger('beforeupdate', null, eventData);
             }
@@ -5195,7 +5208,7 @@ $.widget('blend.dialog', {
         this.$header = outerEle.find('.' + NAMESPACE + 'dialog-header');
 
         if (!this.hasHeader) {
-            this.$content.addClass(NAMESPACE + 'dialog-tips');
+            // this.$content.addClass(NAMESPACE + 'dialog-tips');
             this.$header.remove();
         }
 
@@ -6814,13 +6827,14 @@ $.widget('blend.list', {
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        del: true,
-        animate: true,
-        itemSelector: '.' + NAMESPACE + 'list-item',
-        animateClass: NAMESPACE + 'list-animation',
-        itemContentSelector: '.' + NAMESPACE + 'list-item-content',
-        itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',
-        exceptionClass: false // 不删除的元素
+        del: true,  // 删除的开关
+        animate: true,  // 动画的开关
+        itemClass: NAMESPACE + 'list-item',     // 滑动的element的class
+        animateClass: NAMESPACE + 'list-animation', // 动画实现的class
+        itemContentClass: NAMESPACE + 'list-item-content',  // 列表主体element的class
+        itemDeleteActiveClass: NAMESPACE + 'list-item-delete-active',   // 列表删除激活时的class
+        asyn: false,    // 删除的异步模式开关
+        exceptionElement: false // 不删除的元素, 填写css的class
     },
     /**
      * _create 创建组件时调用一次
@@ -6855,7 +6869,7 @@ $.widget('blend.list', {
      */
     _initEvent: function () {
         var list = this;
-        var $items = list.element.find(list.options.itemSelector);
+        var $items = list.element.find('.' + list.options.itemClass);
         $items.each(function () {
             var $this = $(this);
             var hammer = $this.data('hammer');
@@ -6871,21 +6885,39 @@ $.widget('blend.list', {
                     $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
                 }
                 $this.addClass(list.options.itemDeleteActiveClass);
-                $this.find(list.options.itemContentSelector).css('left', list.deleteWidth);
+                $this.find('.' + list.options.itemContentClass).css('left', list.deleteWidth);
             });
         });
         if (!list.eventInit) {
             list.eventInit = true;
             list.element.on('click.list', '.' + list.deleteBtnClass, function (e) {
-                var $parent = $(this).closest(list.options.itemSelector);
+                var $parent = $(this).closest('.' + list.options.itemClass);
                 list.tempIndex = $parent.index();
                 $parent.data('height', $parent.height());
-                $parent.height(0);
-                setTimeout(function () {
-                    list.$tempEl = $parent.detach();
-                    list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
-                    list.$tempEl.find(list.options.itemContentSelector).css('left', 0);
-                }, list.options.animate ? 500 : 0);
+
+                var eventData = {};
+                eventData.ele = $parent;
+                if (list.options.asyn) {
+                    eventData.callback = function () {
+                        $parent.height(0);
+                        setTimeout(function () {
+                            list.$tempEl = $parent.detach();
+                            list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
+                            list.$tempEl.find('.' + list.options.itemContentClass).css('left', 0);
+                        }, list.options.animate ? 500 : 0);
+                    };
+                    list._trigger('beforedelete', null, eventData);
+                }
+                else {
+                    if (list._trigger('beforedelete', null, eventData)) {
+                        $parent.height(0);
+                        setTimeout(function () {
+                            list.$tempEl = $parent.detach();
+                            list.$tempEl.removeClass(list.options.itemDeleteActiveClass);
+                            list.$tempEl.find('.' + list.options.itemContentClass).css('left', 0);
+                        }, list.options.animate ? 500 : 0);
+                    }
+                }
             });
             // 未点击删除时的恢复
             list.element.on('touchstart.list', function (e) {
@@ -6896,7 +6928,7 @@ $.widget('blend.list', {
                     var $el = list.element.find('.' + list.options.itemDeleteActiveClass);
                     if ($el.length === 1) {
                         $el.removeClass(list.options.itemDeleteActiveClass);
-                        $el.find(list.options.itemContentSelector).css('left', 0);
+                        $el.find('.' + list.options.itemContentClass).css('left', 0);
                     }
                 }
             });
@@ -6910,7 +6942,7 @@ $.widget('blend.list', {
      */
     _destroy: function () {
         var list = this;
-        var $items = list.element.find(list.options.itemSelector);
+        var $items = list.element.find('.' + list.options.itemClass);
         $items.each(function () {
             var hammer = $(this).data('hammer');
             if (hammer) {
@@ -6936,7 +6968,7 @@ $.widget('blend.list', {
             return;
         }
         var height = list.$tempEl.data('height');
-        var $lastItem = list.element.find(list.options.itemSelector).eq(list.tempIndex);
+        var $lastItem = list.element.find('.' + list.options.itemClass).eq(list.tempIndex);
         if ($lastItem.length === 1) {
             list.$tempEl.insertBefore($lastItem).height(height);
         }
@@ -7691,6 +7723,186 @@ $.widget('blend.slider', {
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
+ * @file sug 组件
+ * @author wanghongliang02
+ */
+
+$.widget('blend.sug', {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        itemClass: NAMESPACE + 'sug-tip-content-item',
+        inputClass: NAMESPACE + 'sug-search-input',
+        buttonClass: NAMESPACE + 'sug-search-button',
+        history: true, // 搜索历史记录开关
+        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
+        historyData: undefined, // 历史记录数据 [1, 2]
+        // 读取联想词列表数据的key
+        list: 'list',
+        createEle: undefined,
+        callback: function (key) {
+        }, // 事件
+        // todo 预留
+        suggest: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var sug = this;
+        var $el = sug.element;
+        sug.$input = $el.find('.' + sug.options.inputClass);
+        sug.$button = $el.find('.' + sug.options.buttonClass);
+        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
+        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
+        sug._initEvent();
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function () {
+        var sug = this;
+        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
+            var $item = $(this);
+            var key = $item.data('key');
+            if (sug.options.callback && $.isFunction(sug.options.callback)) {
+                if (sug.options.callback(key) === false) {
+                    return;
+                }
+            }
+            sug.$input.val(key);
+            sug.$button.trigger('click tap');
+            sug._hide();
+        });
+        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
+            if (!sug.options.history) {
+                return;
+            }
+            // todo 定位
+            if (sug.options.historyAjax) {
+                $.getJSON(sug.options.historyAjax, function (res) {
+                    sug._createEle(res);
+                });
+            }
+            else {
+                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
+                    sug._show();
+                    return;
+                }
+                var local = {
+                    errno: 0,
+                    data: []
+                };
+                local.data[sug.options.list] = sug.options.historyData || [];
+                sug._createEle(local);
+            }
+
+        });
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function () {
+        var sug = this;
+        sug.element.off('click.sug', '.' + sug.options.itemClass);
+        sug.element.off('focus.sug', '.' + sug.options.inputClass);
+        sug.element.find('.' + sug.options.itemClass).remove();
+        sug._hide();
+    },
+    /**
+     * 隐藏提示框
+     * @private
+     */
+    _hide: function () {
+        var sug = this;
+        sug.$tip.hide();
+    },
+    /**
+     * 显示提示框
+     * @private
+     */
+    _show: function () {
+        var sug = this;
+        sug.$tip.show();
+    },
+    /**
+     * 创建提示项
+     * @param {Object} res 返回数据
+     * @private
+     */
+    _createEle: function (res) {
+        var sug = this;
+        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
+            sug.options.createEle(res, sug.$tipContent);
+        }
+        else {
+            if (res.errno !== 0) {
+                return;
+            }
+            var list = res.data[sug.options.list];
+            if (!list || !list.length) {
+                return;
+            }
+            var len = list.length;
+            sug.$tipContent.empty();
+            for (var i = 0; i < len; i++) {
+                sug.$tipContent.append('<li data-key="' + list[i] +
+                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
+            }
+        }
+        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
+            sug._show();
+        }
+    },
+    /**
+     * todo 预留
+     * 搜索关键词提示
+     * @private
+     */
+    _suggest: function () {
+    },
+    /**
+     * 清除历史记录
+     */
+    clear: function () {
+        var sug = this;
+        if (!sug.options.history) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug._hide();
+        if (!sug.options.historyAjax) {
+            sug.options.historyData = undefined;
+        }
+        if (sug.options.clear && $.isFunction(sug.options.clear)) {
+            sug.options.clear();
+        }
+    },
+    /**
+     * 更新历史数据
+     * @param {Array} historyData 历史记录数据
+     */
+    refreshHistoryData: function (historyData) {
+        var sug = this;
+        if (!$.isArray(historyData)) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug.options.historyData = historyData;
+    }
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
  * @file tab 组件
  * @author wanghongliang02
  */
@@ -7711,12 +7923,12 @@ $.widget('blend.tab', {
     _create: function () {
         var tab = this;
         var $el = this.element;
-        tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
-        tab.itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
-        tab.itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
-        tab.$headerItem = $el.find(tab.itemSelector);
-        tab.$contentItem = $el.find(tab.itemContentSelector);
-        tab.$activeEle = $el.find(tab.itemActiveSelector);
+        tab._itemSelector = '.' + NAMESPACE + 'tab-header-item';
+        tab._itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
+        tab._itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
+        tab.$headerItem = $el.find(tab._itemSelector);
+        tab.$contentItem = $el.find(tab._itemContentSelector);
+        tab.$activeEle = $el.find(tab._itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
         tab.$activeEle.css('width', this.itemWidth);

@@ -21,12 +21,12 @@ $.widget('blend.tab', {
     _create: function () {
         var tab = this;
         var $el = this.element;
-        tab.itemSelector = '.' + NAMESPACE + 'tab-header-item';
-        tab.itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
-        tab.itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
-        tab.$headerItem = $el.find(tab.itemSelector);
-        tab.$contentItem = $el.find(tab.itemContentSelector);
-        tab.$activeEle = $el.find(tab.itemActiveSelector);
+        tab._itemSelector = '.' + NAMESPACE + 'tab-header-item';
+        tab._itemContentSelector = '.' + NAMESPACE + 'tab-content-item';
+        tab._itemActiveSelector = '.' + NAMESPACE + 'tab-header-active';
+        tab.$headerItem = $el.find(tab._itemSelector);
+        tab.$contentItem = $el.find(tab._itemContentSelector);
+        tab.$activeEle = $el.find(tab._itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = this.$headerItem.eq(0).width();
         tab.$activeEle.css('width', this.itemWidth);
