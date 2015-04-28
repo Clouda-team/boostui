@@ -16,6 +16,7 @@
         padding: 0;
     }
     </style>
+
 </head>
 
 <body>
@@ -116,8 +117,8 @@
             data:list,
             duration:2000,
             isLooping:true,
-            // useZoom:true, // 默认是true
-            initIndex:5,
+            useZoom:true, // 默认是true
+            // initIndex:5,
             // isAutoplay:false //是否自动播放,暂不支持修改
             // infoType:1
         });
@@ -126,7 +127,8 @@
 
 
         boost("#show").on("click",function(){
-            wrapper.gallery("show",9);
+            wrapper.gallery("show");
+            // wrapper.gallery("show",9);
             
         });
 	

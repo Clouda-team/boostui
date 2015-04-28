@@ -748,7 +748,11 @@ $.widget('blend.gallery', {
             this._renderHTML();
         }*/
 
-        this._showMenu();
+        var that = this;
+        setTimeout(function(){
+            that._showMenu();
+        },300);
+        // this._showMenu();
     },
     /**
      * 隐藏gallery

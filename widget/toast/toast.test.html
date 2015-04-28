@@ -9,15 +9,19 @@
 </head>
 	
 <body>
-	<div class="j_test_toast">{%content%}</div>
+	<!-- <div class="j_test_toast">{%content%}</div> -->
+    <div class="j_test_toast"></div>
+
 	<button onclick="triggerToast()">点我，点我</button>
     <script src="../../dist/boost.js"></script>
     <script>
     	function triggerToast(){
-    		var toast = $.blend.toast();
+    		var toast = $.blend.toast({
+                toastTpl:"<h2>这是个H2的标题</h2>"
+            });
         	toast.show('test', 3000);
     	}
-        $('.j_test_toast').toast().toast('show', 'hello', 2000);
+        $('.j_test_toast').toast().toast('show', '<h3 style="color:red">uiuiuiui</h3>', 2000);
     </script>
 </body>
 
