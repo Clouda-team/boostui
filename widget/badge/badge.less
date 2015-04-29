@@ -5,7 +5,7 @@
 @badge-warning:     @brand-warning;
 @badge-danger:      @brand-danger;
 @badge-default:     @color-badge;
-
+@reddot-bg: #f00;
 
 
 .@{namespace}badge {
@@ -70,4 +70,19 @@
     &.@{namespace}badge-empty {
         color: @badge-danger;
     }
+}
+
+.@{namespace}reddot{
+    position: absolute;
+    border-radius: 1000px;
+    height: 1.4rem;
+    text-align: center;
+    min-width: 1.4rem;
+    line-height: 1.2;
+    right: -0.7rem;
+    top:-0.7rem;
+    z-index: 10000;
+    background-color: @reddot-bg;
+    padding: 0 .2rem;
+    color:#fff;
 }

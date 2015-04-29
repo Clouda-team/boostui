@@ -58,24 +58,24 @@
 
 	<button class="blend-button blend-button-primary blend-disabled">禁用状</button>
     <button class="blend-button blend-button-primary blend-active">激活状态</button>
-
+    
 
 ## 圆角按钮
 
 - `blend-round` 圆角按钮
 - `blend-radius` 半圆角按钮
-
+	
 <div class="doc-demo">
     <button class="blend-button blend-button-primary blend-round">圆角按钮</button>
     <button class="blend-button blend-button-primary blend-radius">半圆角按钮</button>
 </div>
 
 	<button class="blend-button blend-button-primary blend-round">圆角按钮</button>
-    <button class="blend-button blend-button-primary blend-radius">半圆角按钮</button>
-
+    <button class="blend-button blend-button-primary blend-round">半圆角按钮</button>
+    
 ## 链接按钮
 
-- `blend-button-link`
+- `blend-button-link` 链接样式
 
 
 <div class="doc-demo">
@@ -83,9 +83,9 @@
 </div>
 
 	<button class="blend-button blend-button-primary blend-button-link">圆角按钮</button>
-
-
-
+	
+	
+	
 
 
 

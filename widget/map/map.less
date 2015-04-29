@@ -1,0 +1,51 @@
+.@{namespace}map-info{
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left:0.1rem;
+    right:0.1rem;
+    margin:0.1rem;
+    background-color: #fff;
+    padding: 1.6rem 2.6rem;
+}
+.@{namespace}map-info::after,.@{namespace}map-info::before{
+    font-family: "boostfont";
+    content: "\e600";
+    position:absolute;
+    left:0rem;
+    top:50%;
+    color: #c0c0c0;
+    font-size: 2rem;
+    margin-top: -1rem;
+}
+.@{namespace}map-info::before{
+    content: "\e604";
+    left:auto;
+    right:0.4rem;
+}
+.@{namespace}map-ihead,.@{namespace}map-ibody{
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    word-break: break-all;
+}
+.@{namespace}map-ihead{
+    font-size: 1.6rem;
+    color: #262626;
+    margin-bottom: .8rem;
+}
+.@{namespace}map-ibody{
+    font-size: 1.4rem;
+    color:#777;
+    line-height: 1.6;
+}
+/*可选择行数，多出...*/
+.@{namespace}map-info .clamp1 {
+    -webkit-line-clamp: 1;
+}
+.@{namespace}map-info .clamp2 {
+    -webkit-line-clamp: 2;
+}
+.@{namespace}map-info .clamp3 {
+    -webkit-line-clamp: 3;
+}

@@ -1,0 +1,42 @@
+@switch-off-bg: #ddd;
+@switch-on-bg: #666;
+
+
+.@{namespace}switch{
+    display: inline-block;
+    width: 5.2rem;
+    height: 3rem;
+    background-color: @switch-off-bg;
+    position: relative;
+    margin-right: .5rem;
+}
+.@{namespace}switch::after,.@{namespace}switch::before{
+    content: "";
+    position: absolute;
+}
+.@{namespace}switch::after{
+    width: 2.8rem;
+    height: 2.8rem;
+    background-color:#fff;
+    margin:0.1rem;
+    box-shadow: inset 0 0 0 0.1rem rgba(0,0,0,.1);
+    z-index: 1;
+}
+.@{namespace}switch::before{
+    color: #efefef;
+    width: 0.5rem;
+    height: 1.6rem;
+    border-left:0.1rem #efefef solid;
+    border-right:0.1rem #efefef solid;
+    margin:0.7rem 1.2rem;
+    z-index: 2;
+}
+.@{namespace}switch.on{
+    background-color: @switch-on-bg;
+}
+.@{namespace}switch.on::after,.@{namespace}switch.on::before{
+    right: 0;
+}
+.@{namespace}switch.round,.@{namespace}switch.round::after{
+  border-radius: 1000px;
+}

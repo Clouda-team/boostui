@@ -352,6 +352,20 @@ hr {
 .blend-badge-danger.blend-badge-empty {
   color: #ff00ff;
 }
+.blend-reddot {
+  position: absolute;
+  border-radius: 1000px;
+  height: 1.4rem;
+  text-align: center;
+  min-width: 1.4rem;
+  line-height: 1.2;
+  right: -0.7rem;
+  top: -0.7rem;
+  z-index: 10000;
+  background-color: #ff0000;
+  padding: 0 .2rem;
+  color: #fff;
+}
 .blend-button {
   display: inline-block;
   margin-bottom: 0;
@@ -3389,7 +3403,7 @@ input[type="button"].blend-button-block {
   display: block;
   clear: both;
 }
-.blend-imglist-wrapper .blend-imglist-item {
+.blend-imglist-item {
   list-style-type: none;
   float: left;
   padding: 0px;
@@ -3674,6 +3688,59 @@ input[type="button"].blend-button-block {
   to {
     transform: rotate(359deg);
   }
+}
+.blend-map-info {
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 0.1rem;
+  right: 0.1rem;
+  margin: 0.1rem;
+  background-color: #fff;
+  padding: 1.6rem 2.6rem;
+}
+.blend-map-info::after,
+.blend-map-info::before {
+  font-family: "boostfont";
+  content: "\e600";
+  position: absolute;
+  left: 0rem;
+  top: 50%;
+  color: #c0c0c0;
+  font-size: 2rem;
+  margin-top: -1rem;
+}
+.blend-map-info::before {
+  content: "\e604";
+  left: auto;
+  right: 0.4rem;
+}
+.blend-map-ihead,
+.blend-map-ibody {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  word-break: break-all;
+}
+.blend-map-ihead {
+  font-size: 1.6rem;
+  color: #262626;
+  margin-bottom: .8rem;
+}
+.blend-map-ibody {
+  font-size: 1.4rem;
+  color: #777;
+  line-height: 1.6;
+}
+/*可选择行数，多出...*/
+.blend-map-info .clamp1 {
+  -webkit-line-clamp: 1;
+}
+.blend-map-info .clamp2 {
+  -webkit-line-clamp: 2;
+}
+.blend-map-info .clamp3 {
+  -webkit-line-clamp: 3;
 }
 .blend-nav {
   padding: 7px 0;
@@ -4089,6 +4156,65 @@ input[type="button"].blend-button-block {
 }
 .blend-slider-title ol li a.blend-slider-active {
   background-color: #0078da;
+}
+.blend-star {
+  display: block;
+  display: -webkit-box;
+  -webkit-box-pack: justify;
+  -webkit-box-align: center;
+  width: 20rem;
+}
+.blend-star-item {
+  display: block;
+  width: 42px;
+  height: 28px;
+  background: url(img/star_icon.png) no-repeat 0 -28px;
+  background-size: 42px 56px;
+  cursor: pointer;
+}
+.blend-star-item.selected {
+  background-position: 0 0;
+}
+.blend-switch {
+  display: inline-block;
+  width: 5.2rem;
+  height: 3rem;
+  background-color: #dddddd;
+  position: relative;
+  margin-right: .5rem;
+}
+.blend-switch::after,
+.blend-switch::before {
+  content: "";
+  position: absolute;
+}
+.blend-switch::after {
+  width: 2.8rem;
+  height: 2.8rem;
+  background-color: #fff;
+  margin: 0.1rem;
+  box-shadow: inset 0 0 0 0.1rem rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+.blend-switch::before {
+  color: #efefef;
+  width: 0.5rem;
+  height: 1.6rem;
+  border-left: 0.1rem #efefef solid;
+  border-right: 0.1rem #efefef solid;
+  margin: 0.7rem 1.2rem;
+  z-index: 2;
+}
+.blend-switch.on {
+  background-color: #666666;
+}
+.blend-switch.on::after,
+.blend-switch.on::before {
+  right: 0;
+}
+.blend-switch.round,
+.blend-switch.round::after {
+  border-radius: 1000px;
 }
 .blend-tab-card {
   margin: 6px;

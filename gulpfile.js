@@ -110,11 +110,11 @@ gulp.task("build:prepar", function () {
 });
 
 gulp.task("build:clean", function (cb) {
-    del(CONFIG.DIST_DIR, cb)
+    del(CONFIG.DIST_DIR,{force:true}, cb)
 });
 
 gulp.task("build:js", function () {
-    //return 
+    //return
     gulp
         .src(CONFIG.JS_FILE)
         .pipe(gulp.dest(CONFIG.DIST_DIR))
@@ -140,7 +140,7 @@ gulp.task("build:js", function () {
 });
 
 gulp.task("build:css", function () {
-    //return 
+    //return
     gulp
         .src(CONFIG.LESS_FILE)
         .pipe($.less())
@@ -182,7 +182,16 @@ gulp.task("build:font", function () {
         }));
 });
 
-gulp.task("build", ["build:clean", "build:prepar", "build:js", "build:css", "build:font"]);
+gulp.task('build:image', function () {
+    return gulp.src(CONFIG.WIDGET_DIR + '/**/img/*')
+        .pipe($.rename(function (path) {
+            //path.basename = path.dirname.split('/')[0]+'_' + path.basename;
+            path.dirname = "";
+          }))
+        .pipe(gulp.dest(CONFIG.DIST_DIR + '/img'));
+});
+
+gulp.task("build", ["build:prepar", "build:js", "build:css", "build:font", "build:image"]);
 //gulp.task("build", ["build:clean", "build:prepar", "build:css"]);
 gulp.task("default", ["build"]);
 
