@@ -191,7 +191,33 @@ gulp.task('build:image', function () {
         .pipe(gulp.dest(CONFIG.DIST_DIR + '/img'));
 });
 
-gulp.task("build", ["build:prepar", "build:js", "build:css", "build:font", "build:image"]);
+gulp.task('build:md', function () {
+    return gulp.src(CONFIG.WIDGET_DIR + '/**/*.md')
+        .pipe($.rename(function (path) {
+            //path.basename = path.dirname.split('/')[0]+'_' + path.basename;
+            if(path.basename==='button'){
+                path.basename = 'index';
+            }
+            path.dirname = "";
+          }))
+        .pipe(gulp.dest(CONFIG.DIST_DIR + '/docs'));
+});
+
+gulp.task('build:samples', function () {
+    return gulp.src([CONFIG.WIDGET_DIR + '/**/*.html','!'+CONFIG.WIDGET_DIR + '/**/*.test*.html',])
+        .pipe($.rename(function (path) {
+            //path.basename = path.dirname.split('/')[0]+'_' + path.basename;
+            if(path.basename==='button'){
+                path.basename = 'index';
+            }
+            path.dirname = "";
+          }))
+        // replace css js->cdn
+        .pipe(gulp.dest(CONFIG.DIST_DIR + '/samples'));
+});
+
+
+gulp.task("build", ["build:prepar", "build:js", "build:css", "build:font", "build:image", "build:md", "build:samples"]);
 //gulp.task("build", ["build:clean", "build:prepar", "build:css"]);
 gulp.task("default", ["build"]);
 
