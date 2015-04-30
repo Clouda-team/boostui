@@ -79,8 +79,14 @@ $.widget('blend.counter', {
         if (isNaN(value)) {
             return;
         }
-        this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
-        this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+        if (this._maxValue <= this._minValue) {
+            this.$minus.addClass(this.options.disableClass);
+            this.$plus.addClass(this.options.disableClass);
+        }
+        else {
+            this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+            this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+        }
         value = Math.min(this._maxValue, Math.max(this._minValue, value));
         this.$input.val(value);
         this._value = value;
@@ -123,9 +129,14 @@ $.widget('blend.counter', {
             if (isNaN(value)) {
                 return;
             }
-
-            this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
-            this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+            if (this._maxValue <= this._minValue) {
+                this.$minus.addClass(this.options.disableClass);
+                this.$plus.addClass(this.options.disableClass);
+            }
+            else {
+                this.$minus.toggleClass(this.options.disableClass, value <= this._minValue);
+                this.$plus.toggleClass(this.options.disableClass, value >= this._maxValue);
+            }
             value = Math.min(this._maxValue, Math.max(this._minValue, value));
             oldValue = this._value;
 
