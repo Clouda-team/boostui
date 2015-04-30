@@ -2,10 +2,15 @@
 @listview-font-small: @boost-font-size-comment;
 @listview-font-large: @boost-font-size-nav;
 @listview-border: @color-border;
+@listview-title-color: @color-font;
+@listview-sub-title-color: #777777;
+@listview-summary-color: #777777;
 @listview-item-height: 85px;
 @listview-theme1-item-height: 105px;
 @listview-theme2-item-height: 85px;
 @listview-header-height: 40px;
+@listview-base-padding: 10px;
+@listview-base-margin: 10px;
 
 .@{namespace}listview {
   background-color: @white;
@@ -18,6 +23,7 @@
 
 .@{namespace}listview-header {
   height: @listview-header-height;
+  padding: 0 @listview-base-padding;
 }
 
 .@{namespace}listview-header-title {
@@ -29,7 +35,7 @@
 .@{namespace}listview-item {
   height: @listview-item-height;
   border-bottom: 1px solid @listview-border;
-  padding: 10px 16px;
+  padding: @listview-base-padding;
   &:last-child {
     border-bottom: none;
   }
@@ -54,18 +60,56 @@
 .@{namespace}listview-item-pic {
   width: 65px;
   height: 65px;
+  margin-right: @listview-base-margin;
   display: block;
 }
-.@{namespace}listview-item-text-normal {
+
+
+.@{namespace}listview-item-title {
+  font-size: @listview-font-large;
+  color: @listview-title-color;
+  line-height: 20px;
+  margin: 0;
+}
+.@{namespace}listview-item-sub-title {
   font-size: @listview-font-normal;
+  color: @listview-sub-title-color;
+  line-height: 18px;
+  margin: 0;
 }
-.@{namespace}listview-item-text-small {
-  font-size: @listview-font-small;
+.@{namespace}listview-item-summary {
+  font-size: @listview-font-normal;
+  color: @listview-summary-color;
+  line-height: 18px;
+  margin: 0;
 }
-.@{namespace}listview-item {}
 
-.@{namespace}listview-item-title {}
+.@{namespace}listview-item-two-line {
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  max-height: 36px;
+  overflow: hidden;
+}
 
+.@{namespace}listview-item-right {
+  height: @listview-font-large;
+  margin-top: 26px;
+  display: block;
+  width: 6px;
+  position: relative;
+  margin-left: 10px;
+}
+.@{namespace}listview-item-right:after {
+  color: #c5c5c5;
+  .font(@font-right);
+  line-height: @listview-font-large;
+  position: absolute;
+  top: 0;
+  left: -5px;
+  font-size: @listview-font-large;
+}
 
 .@{namespace}listview-theme1 {
   padding: 0 10px;
@@ -200,3 +244,48 @@
 .@{namespace}listview-footer {
 
 }
+
+.@{namespace}listview-pic-theme-item {
+  margin-right: 8px;
+  padding-bottom: 10px;
+  &:last-child {
+    margin-right: 0;
+  }
+}
+.@{namespace}listview-pic-theme-img {
+  margin-bottom: 6px;
+  display: block;
+  width: 100%;
+}
+.@{namespace}listview-pic-theme {
+  padding: 0 10px;
+}
+
+.@{namespace}listview-cart-theme{
+  padding: 10px 10px;
+  .@{namespace}listview-item{
+    display: block;
+    padding: 8px 10px;
+    border: 1px solid @listview-border;
+    margin-bottom: 10px;
+    height: auto;
+  }
+
+  .@{namespace}listview-item-two-line {
+    max-height: 40px;
+  }
+
+  .@{namespace}listview-status-text {
+    color: #f43b3b;
+    line-height: 22px;
+    font-size: @listview-font-normal;
+    margin: 0;
+  }
+
+  .@{namespace}listview-item-sub-title{
+    margin-top: 8px;
+  }
+}
+
+
+
