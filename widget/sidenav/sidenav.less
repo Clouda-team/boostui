@@ -1,0 +1,46 @@
+.@{namespace}sidenav{
+	width: 100%;
+	position: relative;
+}
+
+.@{namespace}sidenav-nav{
+	position: fixed;
+	width: 100px;
+	min-height: 100%;
+	background-color:#fafafa;
+	/*top:0;*/
+}
+
+.@{namespace}sidenav-nav ul{
+	margin:0;
+	padding: 0;
+}
+
+.@{namespace}sidenav-nav ul li{
+	list-style: none;
+	height:40px;
+	line-height: 40px;
+	text-align: center;
+	border-bottom: solid 1px #ddd;
+	font-size: 16px;
+	color: #777;
+}
+
+.@{namespace}sidenav-nav ul li a{
+	display: block;
+	height: 100%;
+	width: 100%;
+	color:#777;
+}
+
+.@{namespace}sidenav-nav ul li.blend-sidenav-active{
+	background-color:#fff;
+}
+
+.@{namespace}sidenav-content{
+	margin-left: 100px;
+}
+
+.@{namespace}sidenav-content .@{namespace}sidenav-item{
+    display: none;
+}

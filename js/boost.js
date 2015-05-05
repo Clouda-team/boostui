@@ -7315,6 +7315,162 @@ $.widget('blend.nav', {
 ;(function($){
 
 })(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * 侧边导航组件
+ *
+ * @file sidenav.js
+ * @author dingquan
+ */
+$.widget('blend.sidenav', {
+
+    options: {
+        limit: 44,
+        // type: 1 // 类型，1为连续滚动
+    },
+	/**
+	 * 创建组件
+	 * @private
+	 */
+    _create: function () {
+    },
+	/**
+	 * 初始化组件
+	 * @private
+	 */
+    _init: function () {
+
+        var opts = this.options;
+
+        this.navId = 'wZijePQW';   // 自定义， 用于建立nav和content一一对应关系
+
+        this.$el = this.element;
+        this.limit = opts.limit;
+        this.type = opts.type;
+
+        this.navs = this.$el.find('.blend-sidenav-nav li');
+        this.contents = this.$el.find('.blend-sidenav-content .blend-sidenav-item');
+
+        this._initSidePosition();   // 初始化side位置
+        this._initContent();    // 初始化右侧内容
+
+        this._bindEvent();
+    },
+    /**
+     * 初始化左侧side 位置, 只在页面加载时候执行一次
+     * @private
+     */
+    _initSidePosition: function () {
+        var doc = document;
+        var originScrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
+        if (originScrollTop > 0) {
+            this.$el.find('.blend-sidenav-nav').css('top', 0);
+        }
+    },
+    /**
+     * 初始化右侧显示
+     * @private
+     */
+    _initContent: function () {
+        var activeIndex;
+        var nav;
+        for (var i = 0, len = this.navs.length; i < len; i++) {
+            nav = this.navs.eq(i);
+            if (nav.hasClass('blend-sidenav-active')) {
+                activeIndex = i;
+            }
+            // 建立导航和内容的对应关系
+            nav.data(this.navId, i);
+            this.contents.eq(i).data(this.navId, i);
+        }
+        if (!activeIndex) {
+            activeIndex = 0;
+            this.navs.eq(0).addClass('blend-sidenav-active');
+        }
+        if (this.type === 1) {
+            this.contents.show();
+            return;
+        }
+        this.contents.hide();
+        this.contents.eq(activeIndex).show();
+
+    },
+    /**
+     * 绑定事件
+     * @private
+     */
+    _bindEvent: function () {
+        var doc = document;
+        var me = this;
+        var $side = this.$el.find('.blend-sidenav-nav');
+        var flag = false;
+        /*window.onscroll = function (e) {
+            // $side.append("aaaa<br>");
+            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
+            if (scrollTop >= me.limit) {
+                // $side.css('top', 0);
+                if(flag){return;}
+                $side.css('position', 'fixed');
+                flag = true;
+            }
+            else {
+                // $side.css('top', null);
+                $side.css('position', 'absolute');
+                flag = false;
+            }
+        };*/
+
+       /* var timer = setInterval(function(){
+            console.log(new Date().getTime() + "----");
+            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
+            if (scrollTop >= me.limit) {
+                // $side.css('top', 0);
+                $side.css('position', 'fixed');
+            }
+            else {
+                // $side.css('top', null);
+                $side.css('position', 'absolute');
+
+            }
+        },100);*/
+        
+        /*var hammer = new Hammer(this.$el[0]);
+        hammer.on('panmove',function (e) {
+            
+            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
+            console.log(scrollTop);
+            if (scrollTop >= me.limit) {
+                // $side.css('top', 0);
+                $side.css('position', 'fixed');
+            }
+            else {
+                // $side.css('top', null);
+                $side.css('position', 'absolute');
+
+            }
+        });*/
+
+
+
+        var $nav = this.$el.find('.blend-sidenav-nav ul');
+        $nav.on('tap, click', function (e) {
+            e.preventDefault();
+            $nav.find('li').removeClass('blend-sidenav-active');
+            var target = e.target || e.srcElement;
+            var nodeName = target.nodeName.toLowerCase();
+            var blendId;
+            if (nodeName === 'li') {
+                blendId = $(target).data(me.navId);
+                $(target).addClass('blend-sidenav-active');
+                me.contents.hide();
+                me.contents.eq(blendId).show();
+            }
+        });
+    }
+});
+
+})(Zepto)
 ;(function($){/**
  * Slider 组件
  * Created by dingquan on 15-02-03
@@ -7745,186 +7901,6 @@ $.widget('blend.slider', {
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
- * @file sug 组件
- * @author wanghongliang02
- */
-
-$.widget('blend.sug', {
-    /**
-     * 组件的默认选项，可以由多重覆盖关系
-     */
-    options: {
-        itemClass: NAMESPACE + 'sug-tip-content-item',
-        inputClass: NAMESPACE + 'sug-search-input',
-        buttonClass: NAMESPACE + 'sug-search-button',
-        history: true, // 搜索历史记录开关
-        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
-        historyData: undefined, // 历史记录数据 [1, 2]
-        // 读取联想词列表数据的key
-        list: 'list',
-        createEle: undefined,
-        callback: function (key) {
-        }, // 事件
-        // todo 预留
-        suggest: false
-    },
-    /**
-     * _create 创建组件时调用一次
-     */
-    _create: function () {
-        var sug = this;
-        var $el = sug.element;
-        sug.$input = $el.find('.' + sug.options.inputClass);
-        sug.$button = $el.find('.' + sug.options.buttonClass);
-        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
-        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
-        sug._initEvent();
-    },
-    /**
-     * _init 初始化的时候调用
-     */
-    _init: function () {
-    },
-    /**
-     *
-     * @private
-     */
-    _initEvent: function () {
-        var sug = this;
-        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
-            var $item = $(this);
-            var key = $item.data('key');
-            if (sug.options.callback && $.isFunction(sug.options.callback)) {
-                if (sug.options.callback(key) === false) {
-                    return;
-                }
-            }
-            sug.$input.val(key);
-            sug.$button.trigger('click tap');
-            sug._hide();
-        });
-        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
-            if (!sug.options.history) {
-                return;
-            }
-            // todo 定位
-            if (sug.options.historyAjax) {
-                $.getJSON(sug.options.historyAjax, function (res) {
-                    sug._createEle(res);
-                });
-            }
-            else {
-                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
-                    sug._show();
-                    return;
-                }
-                var local = {
-                    errno: 0,
-                    data: []
-                };
-                local.data[sug.options.list] = sug.options.historyData || [];
-                sug._createEle(local);
-            }
-
-        });
-    },
-    /**
-     * 销毁对象
-     * @private
-     */
-    _destroy: function () {
-        var sug = this;
-        sug.element.off('click.sug', '.' + sug.options.itemClass);
-        sug.element.off('focus.sug', '.' + sug.options.inputClass);
-        sug.element.find('.' + sug.options.itemClass).remove();
-        sug._hide();
-    },
-    /**
-     * 隐藏提示框
-     * @private
-     */
-    _hide: function () {
-        var sug = this;
-        sug.$tip.hide();
-    },
-    /**
-     * 显示提示框
-     * @private
-     */
-    _show: function () {
-        var sug = this;
-        sug.$tip.show();
-    },
-    /**
-     * 创建提示项
-     * @param {Object} res 返回数据
-     * @private
-     */
-    _createEle: function (res) {
-        var sug = this;
-        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
-            sug.options.createEle(res, sug.$tipContent);
-        }
-        else {
-            if (res.errno !== 0) {
-                return;
-            }
-            var list = res.data[sug.options.list];
-            if (!list || !list.length) {
-                return;
-            }
-            var len = list.length;
-            sug.$tipContent.empty();
-            for (var i = 0; i < len; i++) {
-                sug.$tipContent.append('<li data-key="' + list[i] +
-                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
-            }
-        }
-        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
-            sug._show();
-        }
-    },
-    /**
-     * todo 预留
-     * 搜索关键词提示
-     * @private
-     */
-    _suggest: function () {
-    },
-    /**
-     * 清除历史记录
-     */
-    clear: function () {
-        var sug = this;
-        if (!sug.options.history) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug._hide();
-        if (!sug.options.historyAjax) {
-            sug.options.historyData = undefined;
-        }
-        if (sug.options.clear && $.isFunction(sug.options.clear)) {
-            sug.options.clear();
-        }
-    },
-    /**
-     * 更新历史数据
-     * @param {Array} historyData 历史记录数据
-     */
-    refreshHistoryData: function (historyData) {
-        var sug = this;
-        if (!$.isArray(historyData)) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug.options.historyData = historyData;
-    }
-});
-})(Zepto)
-;(function($){/* globals NAMESPACE */
-/* eslint-disable fecs-camelcase */
-/**
  * @file tab 组件
  * @author wanghongliang02
  */
@@ -8134,6 +8110,111 @@ $.widget('blend.toast', {
         }
         return this.$el;
     }
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * 顶部二级导航
+ * @file topnav.js
+ * @author dingquan@baidu.com
+ */
+
+$.widget('blend.topnav', {
+    /**
+     * 配置信息
+     */
+    options: {
+        defaultIcon: true
+    },
+    /**
+     * 创建组件
+     * @private
+     */
+    _create: function () {
+
+    },
+    /**
+     * 初始化组件
+     * @private
+     */
+    _init: function () {
+        var opt = this.options;
+        this.$el = this.element;
+
+        this.defaultIcon = opt.defaultIcon;
+
+        this._initUI();
+        this._bindEvent();
+    },
+    /**
+     * 初始化UI, 增加相应的class
+     * @private
+     */
+    _initUI: function () {
+        var contentHTML = this.$el.html();
+
+        // 外层增加wrapper
+        var $wrapper = $('<div class="' + NAMESPACE + 'topnav-wrapper"></div>');
+        $wrapper.html(contentHTML);
+
+        this.$el.empty().append($wrapper);
+
+        var $items = this.$items = this.$el.find('.' + NAMESPACE + 'topnav-item');
+
+        if (this.defaultIcon) {
+            for (var i = 0, len = $items.length; i < len; i++) {
+                var item = $items[i];
+
+                if (item.getElementsByTagName('ul').length > 0) {
+                    $(item).find('span').addClass(NAMESPACE + 'topnav-arrow')
+                    .addClass(NAMESPACE + 'topnav-downarrow');
+                }
+            }
+        }
+        /**
+         * show 整个nav
+         */
+        this.$el.show();
+
+    },
+    /**
+     * 导航相关事件绑定
+     * @private
+     */
+    _bindEvent: function () {
+
+        var $items = this.$items;
+
+        for (var i = 0, len = $items.length; i < len; i++) {
+            var $item = $items.eq(i);
+
+            $item.on('tap, click', function (e) {
+                var $this = $(this);
+                var $ul = $(this).find('ul');
+                var $span = $(this).find('span');
+                var isActive = $(this).hasClass(NAMESPACE + 'topnav-active') ? true : false;
+
+                $items.not(i).removeClass(NAMESPACE + 'topnav-active');
+                $items.not(i).find('ul').hide();
+                $items.not(i).find('span').removeClass(NAMESPACE + 'topnav-uparrow')
+                .addClass(NAMESPACE + 'topnav-downarrow');
+
+                if (isActive) {
+                    $this.removeClass(NAMESPACE + 'topnav-active');
+                    $ul.hide();
+                    $span.removeClass(NAMESPACE + 'topnav-uparrow').addClass(NAMESPACE + 'topnav-downarrow');
+                }
+                else {
+                    $this.addClass(NAMESPACE + 'topnav-active');
+                    $ul.show();
+                    $span.removeClass(NAMESPACE + 'topnav-downarrow').addClass(NAMESPACE + 'topnav-uparrow');
+                }
+
+            });
+        }
+    }
+
 });
 })(Zepto)
     /**

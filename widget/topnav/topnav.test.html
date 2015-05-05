@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title></title>
+    <link rel="stylesheet" href="../../dist/boost.css"/>
+
+    <style type="text/css">
+        html, body{
+            margin: 0;
+            padding: 0;
+            
+
+        }
+
+       /* .blend-topnav{
+            padding: 0 6px;
+        }
+
+        .blend-topnav-wrapper{
+            width: 100%;
+            height: 40px;
+            display: -webkit-box;
+            border:solid 1px #ddd;
+        }
+
+        .blend-topnav-item{
+            position: relative;
+            -webkit-box-flex:1;
+            height: 38px;
+        }
+
+        .blend-topnav-item:not(:last-child):after{
+            position: absolute;
+            display: block;
+            content: "";
+            height: 11px;
+            width: 2px;
+            background-color: #c8c8c8;
+            top: 13px;
+            right: 0px;
+        }
+
+        .blend-topnav-item span{
+            display: block;
+            height: 38px;
+            line-height: 38px;
+            text-align: center;
+            position: relative;
+        }
+
+        .blend-topnav-item >ul{
+            margin: 0;
+            padding: 0;
+            width: calc(100% + 3px);
+            -webkit-box-shadow:2px 0 2px #e4e4e4,
+            -2px 0 2px #e4e4e4,
+            0 3px 3px #e4e4e4;
+            border:solid 1px #e4e4e4;
+            border-top:none;
+            margin-left: -1px;
+            position: relative;
+        }
+
+        .blend-topnav-item >ul li{
+            list-style: none;
+            height:36px;
+            line-height: 36px;
+            text-align: center;
+            position: relative;
+        }
+
+        
+
+        .blend-topnav-item >ul li:not(:last-child):after{
+            content: "";
+            position: absolute;
+            width: 82px;
+            height: 1px;
+            background-color:#ddd; 
+            left: 50%;
+            bottom:0;
+            margin-left: -41px;
+        }
+
+        .blend-topnav-item.blend-topnav-active{
+            border-bottom: none;
+        }
+
+        .blend-topnav-active>ul li:first-child{
+            border-top:solid 2px #666;
+        }
+
+        .blend-topnav-active >ul:before{
+            position: absolute;
+            display: block;
+            content: "";
+            border:solid 7px transparent;
+            border-bottom-color:#666; 
+            top:-13px;
+            right: 10px;
+        }
+
+
+        span.blend-topnav-arrow:after{
+            position: absolute;
+            width: 0;
+            height: 0;
+            border: 5px solid transparent;
+            content: "";
+            z-index: 1;
+            margin-left: 1px;
+        }
+
+        span.blend-topnav-uparrow:after{
+            top:11px;
+            border-bottom-color: #3c2222;
+        }
+
+        span.blend-topnav-downarrow:after{
+            top:16px;
+            border-top-color: #3c2222;
+        }*/
+
+    </style>
+</head>
+
+<body>
+
+    <!-- <nav class="blend-topnav">
+        <div class="blend-topnav-wrapper">
+            <div class="blend-topnav-item blend-topnav-active">
+                <span class="blend-topnav-arrow blend-topnav-uparrow">一级导航1</span>
+                <ul>
+                    <li>这是链接1</li>
+                    <li>这是链接2</li>
+                    <li>这是链接3</li>
+                </ul>
+            </div>
+            <div class="blend-topnav-item">
+                <span class="blend-topnav-arrow blend-topnav-downarrow">一级导航2</span>
+            </div>
+            <div class="blend-topnav-item">
+                <span class="blend-topnav-arrow blend-topnav-downarrow">一级导航3</span>
+                <ul>
+                    <li>这是链接1</li>
+                    <li>这是链接2</li>
+                </ul>
+            </div>
+
+        </div>
+    </nav>
+    
+    <br><br><br><br><br><br><br><br><br><br><br><br> -->
+
+    <nav id="topnav" class="blend-topnav">
+        <div class="blend-topnav-item">
+            <span>一级导航1</span>
+            <ul>
+                <li><a href="http://www.baidu.com">百度</a></li>
+                <li><a href="http://www.qq.com">腾讯</a></li>
+                <li><a href="http://www.163.com">网易</a></li>
+            </ul>
+        </div>
+        <div class="blend-topnav-item">
+            <span>一级导航2</span>
+        </div>
+        <div class="blend-topnav-item">
+            <span>一级导航3</span>
+            <ul>
+                <li>这是链接1</li>
+                <li>这是链接2</li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+    <script type="text/javascript" src="../../dist/boost.js"></script>
+    <script type="text/javascript">
+        void function(){
+            $("#topnav").topnav({
+                // defaultIcon: false
+            }); 
+        }();
+
+    </script>
+
+</body>
+
+</html>
