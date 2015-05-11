@@ -3372,7 +3372,7 @@ input[type="button"].blend-button-block {
 .blend-header-title .blend-header-item {
   font-size: 18px;
 }
-.blend-action-back-icon {
+.blend-action-back-icon:before {
   font-family: "boostfont";
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -3380,7 +3380,7 @@ input[type="button"].blend-button-block {
   content: "\e600";
   color: #ffffff;
   font-size: 26px;
-  content: "";
+  /*content: "";*/
 }
 .blend-imglist {
   width: 100%;
