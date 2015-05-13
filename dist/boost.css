@@ -4087,7 +4087,7 @@ input[type="button"].blend-button-block {
 }
 .blend-sidenav-nav ul li {
   list-style: none;
-  height: 40px;
+  height: 41px;
   line-height: 40px;
   text-align: center;
   border-bottom: solid 1px #ddd;
@@ -4099,6 +4099,7 @@ input[type="button"].blend-button-block {
   height: 100%;
   width: 100%;
   color: #777;
+  text-decoration: none;
 }
 .blend-sidenav-nav ul li.blend-sidenav-active {
   background-color: #fff;
@@ -4558,7 +4559,7 @@ span.blend-topnav-arrow:after {
   border: 5px solid transparent;
   content: "";
   z-index: 1;
-  margin-left: 1px;
+  margin-left: 4px;
   /*transition: all 0.2s;*/
 }
 span.blend-topnav-uparrow:after {
