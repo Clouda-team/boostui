@@ -3372,7 +3372,7 @@ input[type="button"].blend-button-block {
 .blend-header-title .blend-header-item {
   font-size: 18px;
 }
-.blend-action-back-icon:before {
+.blend-action-back-icon {
   font-family: "boostfont";
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -3380,7 +3380,7 @@ input[type="button"].blend-button-block {
   content: "\e600";
   color: #ffffff;
   font-size: 26px;
-  /*content: "";*/
+  content: "";
 }
 .blend-imglist {
   width: 100%;
@@ -3777,27 +3777,28 @@ input[type="button"].blend-button-block {
   display: block;
   position: absolute;
   bottom: 0;
-  left: 0.1rem;
-  right: 0.1rem;
-  margin: 0.1rem;
+  left: 1px;
+  right: 1px;
+  margin: 1px;
   background-color: #fff;
-  padding: 1.6rem 2.6rem;
+  padding: 14px 0;
 }
-.blend-map-info::after,
-.blend-map-info::before {
+.blend-map-ibody::after,
+.blend-map-ibody::before {
   font-family: "boostfont";
   content: "\e600";
   position: absolute;
-  left: 0rem;
+  left: 2px;
   top: 50%;
   color: #c0c0c0;
-  font-size: 2rem;
-  margin-top: -1rem;
+  font-size: 20px;
+  margin-top: -10px;
+  line-height: 20px;
 }
-.blend-map-info::before {
+.blend-map-ibody::before {
   content: "\e604";
   left: auto;
-  right: 0.4rem;
+  right: 4px;
 }
 .blend-map-ihead,
 .blend-map-ibody {
@@ -3805,26 +3806,32 @@ input[type="button"].blend-button-block {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   word-break: break-all;
+  padding: 0 26px;
 }
 .blend-map-ihead {
-  font-size: 1.6rem;
+  font-size: 16px;
   color: #262626;
-  margin-bottom: .8rem;
+  margin-bottom: 4px;
+  line-height: 20px;
 }
 .blend-map-ibody {
-  font-size: 1.4rem;
+  font-size: 14px;
   color: #777;
-  line-height: 1.6;
+  line-height: 18px;
+  position: relative;
 }
 /*可选择行数，多出...*/
 .blend-map-info .clamp1 {
   -webkit-line-clamp: 1;
+  height: 18px;
 }
 .blend-map-info .clamp2 {
   -webkit-line-clamp: 2;
+  height: 36px;
 }
 .blend-map-info .clamp3 {
   -webkit-line-clamp: 3;
+  height: 54px;
 }
 .blend-nav {
   padding: 7px 0;
@@ -3857,7 +3864,7 @@ input[type="button"].blend-button-block {
 }
 .blend-nav-item.blend-nav-item-active {
   color: #262626;
-  border-bottom-color: #666666;
+  /*border-bottom-color: @color-tab-border;*/
 }
 .blend-nav-item:after {
   content: " ";
@@ -3874,6 +3881,9 @@ input[type="button"].blend-button-block {
 .blend-nav-item.blend-nav-item-hide {
   display: none;
 }
+.blend-nav-item.blend-nav-item-no-border {
+  border-bottom: none;
+}
 .blend-nav-expand {
   float: right;
   text-decoration: none;
@@ -3882,6 +3892,7 @@ input[type="button"].blend-button-block {
   font-size: 16px;
   color: #262626;
   text-align: center;
+  border-bottom: none;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -4299,6 +4310,40 @@ input[type="button"].blend-button-block {
 .blend-star-item.selected {
   background-position: 0 0;
 }
+.blend-sug {
+  position: relative;
+}
+.blend-sug-search {
+  display: -webkit-box;
+}
+.blend-sug-search-input {
+  display: block;
+  -webkit-box-flex: 1;
+  height: 40px;
+}
+.blend-sug-search-button {
+  display: block;
+  width: 50px;
+  height: 40px;
+}
+.blend-sug-tip {
+  display: none;
+  width: 100%;
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 10;
+}
+.blend-sug-tip-header {
+  height: 20px;
+}
+.blend-sug-tip-content-item {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+}
+.blend-sug-tip-footer {
+  height: 20px;
+}
 .blend-switch {
   display: inline-block;
   width: 5.2rem;
@@ -4475,13 +4520,14 @@ input[type="button"].blend-button-block {
   width: 100%;
   height: 38px;
   display: block;
+  text-align: center;
 }
 .blend-topnav-item:not(:last-child):after {
   position: absolute;
   display: block;
   content: "";
   height: 11px;
-  width: 2px;
+  width: 1px;
   background-color: #c8c8c8;
   top: 13px;
   right: 0px;
@@ -4490,7 +4536,6 @@ input[type="button"].blend-button-block {
   display: block;
   height: 38px;
   line-height: 38px;
-  text-align: center;
   position: relative;
   font-size: 16px;
   color: #262626;
@@ -4508,6 +4553,7 @@ input[type="button"].blend-button-block {
   border-top: none;
   /*margin-left: -1px;*/
   position: relative;
+  border-top: solid 2px #666;
 }
 .blend-topnav-item > ul li {
   list-style: none;
@@ -4517,28 +4563,20 @@ input[type="button"].blend-button-block {
   position: relative;
   font-size: 14px;
   color: #262626;
+  padding: 0 10px;
 }
 .blend-topnav-item > ul li a {
   height: 100%;
   width: 100%;
   display: inline-block;
   color: #262626;
+  border-bottom: 1px solid #ededed;
 }
-.blend-topnav-item > ul li:not(:last-child):after {
-  content: "";
-  position: absolute;
-  width: 82px;
-  height: 1px;
-  background-color: #ddd;
-  left: 50%;
-  bottom: 0;
-  margin-left: -41px;
+.blend-topnav-item > ul li:last-child {
+  border: none;
 }
 .blend-topnav-item.blend-topnav-active {
   border-bottom: none;
-}
-.blend-topnav-active > ul li:first-child {
-  border-top: solid 2px #666;
 }
 .blend-topnav-active > ul:before {
   position: absolute;
@@ -4546,12 +4584,12 @@ input[type="button"].blend-button-block {
   content: "";
   border: solid 7px transparent;
   border-bottom-color: #666;
-  top: -13px;
+  top: -15px;
   right: 10px;
 }
-/*span.@{namespace}topnav-arrow{
-    transition: all 2s;
-}*/
+span.blend-topnav-arrow {
+  text-indent: -14px;
+}
 span.blend-topnav-arrow:after {
   position: absolute;
   width: 0;
@@ -4564,9 +4602,9 @@ span.blend-topnav-arrow:after {
 }
 span.blend-topnav-uparrow:after {
   top: 11px;
-  border-bottom-color: #3c2222;
+  border-bottom-color: #262626;
 }
 span.blend-topnav-downarrow:after {
   top: 16px;
-  border-top-color: #3c2222;
+  border-top-color: #262626;
 }

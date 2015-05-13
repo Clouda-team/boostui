@@ -31,7 +31,7 @@
 
   &.@{namespace}nav-item-active {
     color: @color-font;
-    border-bottom-color: @color-tab-border;
+    /*border-bottom-color: @color-tab-border;*/
   }
   &:after {
     content: " ";
@@ -49,6 +49,9 @@
   &.@{namespace}nav-item-hide {
     display: none;
   }
+  &.@{namespace}nav-item-no-border {
+    border-bottom: none;
+  }
 }
 
 .@{namespace}nav-expand {
@@ -59,6 +62,7 @@
   font-size: @boost-font-size-nav;
   color: @color-font;
   text-align: center;
+  border-bottom: none;
   .text-overflow();
 }
 

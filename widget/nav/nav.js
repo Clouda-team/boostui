@@ -31,6 +31,7 @@ $.widget('blend.nav', {
         nav.expandedClass = NAMESPACE + 'nav-expanded';
         nav.columnClassPre = NAMESPACE + 'nav-column-';
         nav.hideClass = NAMESPACE + 'nav-item-hide';
+        nav.noborderClass = NAMESPACE + 'nav-item-no-border';
         nav.columnRange = [3, 4, 5];
     },
     /**
@@ -76,8 +77,34 @@ $.widget('blend.nav', {
                             $navItem.addClass(nav.hideClass);
                         }
                     }
+                    if (i >= max - nav.options.column) {
+                        if (nav.options.animate) {
+                            setTimeout(function () {
+                                $navItem.addClass(nav.noborderClass);
+                            }, nav.options.time);
+                        }
+                        else {
+                            $navItem.addClass(nav.noborderClass);
+                        }
+                    } else {
+                        if (nav.options.animate) {
+                            setTimeout(function () {
+                                $navItem.removeClass(nav.noborderClass);
+                            }, nav.options.time);
+                        }
+                        else {
+                            $navItem.removeClass(nav.noborderClass);
+                        }
+                    }
                 });
-                $this.html(nav.options.expand);
+                if (nav.options.animate) {
+                    setTimeout(function () {
+                        $this.html(nav.options.expand);
+                    }, nav.options.time);
+                }
+                else {
+                    $this.html(nav.options.expand);
+                }
             }
             else {
                 var len = nav.$items.length;
@@ -87,6 +114,16 @@ $.widget('blend.nav', {
                 $this.addClass(nav.expandedClass);
                 nav.$items.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
+                var offset = len % nav.options.column || nav.options.column;
+                var max = len - offset;
+                nav.$items.each(function (i) {
+                    var $this = $(this);
+                    if (i >= max) {
+                        $this.addClass(nav.noborderClass);
+                    } else {
+                        $this.removeClass(nav.noborderClass);
+                    }
+                });
             }
             if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
                 nav.options.expandHandle(e);
@@ -112,7 +149,6 @@ $.widget('blend.nav', {
             columnClass.push(nav.columnClassPre + nav.columnRange[i]);
         }
         $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
-
     },
     /**
      * _row 自定义的成员函数，
@@ -153,6 +189,15 @@ $.widget('blend.nav', {
         $el.css('height', height);
         $el.find('.' + nav.expandClass).remove();
         nav.$items.removeClass(this.hideClass);
+        var max = (option.column - 1) * option.row;
+        nav.$items.each(function (i) {
+            var $this = $(this);
+            if (i >= max) {
+                $this.addClass(nav.noborderClass);
+            } else {
+                $this.removeClass(nav.noborderClass);
+            }
+        });
     },
     /**
      * @param {number} max 最大行数
@@ -161,11 +206,17 @@ $.widget('blend.nav', {
     _addExpand: function (max) {
         var nav = this;
         nav.$items.each(function (i) {
+            var $this = $(this);
+            if (i >= max - nav.options.column) {
+                $this.addClass(nav.noborderClass);
+            } else {
+                $this.removeClass(nav.noborderClass);
+            }
             if (i >= max - 1) {
-                $(this).addClass(nav.hideClass);
+                $this.addClass(nav.hideClass);
             }
             else {
-                $(this).removeClass(nav.hideClass);
+                $this.removeClass(nav.hideClass);
             }
         });
         var height = nav.$items.eq(0).height();

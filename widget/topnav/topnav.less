@@ -17,6 +17,7 @@
     width: 100%;
     height: 38px;
     display: block;
+  text-align: center;
 }
 
 .@{namespace}topnav-item:not(:last-child):after{
@@ -24,7 +25,7 @@
     display: block;
     content: "";
     height: 11px;
-    width: 2px;
+    width: 1px;
     background-color: #c8c8c8;
     top: 13px;
     right: 0px;
@@ -34,10 +35,10 @@
     display: block;
     height: 38px;
     line-height: 38px;
-    text-align: center;
     position: relative;
     font-size: 16px;
     color:#262626;
+
 }
 
 .@{namespace}topnav-item >ul{
@@ -57,7 +58,9 @@
     border-top:none;
     /*margin-left: -1px;*/
     position: relative;
+  border-top:solid 2px #666;
 }
+
 
 .@{namespace}topnav-item >ul li{
     list-style: none;
@@ -67,35 +70,27 @@
     position: relative;
     font-size: 14px;
     color:#262626;
+  padding: 0 10px;
 }
 
 .@{namespace}topnav-item >ul li a{
     height: 100%;
     width: 100%;
     display: inline-block;
-    color:#262626;
-    
+    color: @color-font;
+    border-bottom: 1px solid @color-border;
 }
 
 
-.@{namespace}topnav-item >ul li:not(:last-child):after{
-    content: "";
-    position: absolute;
-    width: 82px;
-    height: 1px;
-    background-color:#ddd; 
-    left: 50%;
-    bottom:0;
-    margin-left: -41px;
+.@{namespace}topnav-item >ul li:last-child{
+    border: none;
 }
 
 .@{namespace}topnav-item.blend-topnav-active{
     border-bottom: none;
 }
 
-.@{namespace}topnav-active>ul li:first-child{
-    border-top:solid 2px #666;
-}
+
 
 .@{namespace}topnav-active >ul:before{
     position: absolute;
@@ -103,15 +98,15 @@
     content: "";
     border:solid 7px transparent;
     border-bottom-color:#666; 
-    top:-13px;
+    top:-15px;
     right: 10px;
 }
 
-/*span.@{namespace}topnav-arrow{
-    transition: all 2s;
-}*/
+span.@{namespace}topnav-arrow{
+  text-indent: -14px;
+}
 
-span.@{namespace}topnav-arrow:after{
+span.@{namespace}topnav-arrow:after {
     position: absolute;
     width: 0;
     height: 0;
@@ -124,10 +119,10 @@ span.@{namespace}topnav-arrow:after{
 
 span.@{namespace}topnav-uparrow:after{
     top:11px;
-    border-bottom-color: #3c2222;
+    border-bottom-color: @color-font;
 }
 
 span.@{namespace}topnav-downarrow:after{
     top:16px;
-    border-top-color: #3c2222;
+    border-top-color: @color-font;
 }

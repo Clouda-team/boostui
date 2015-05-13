@@ -7112,6 +7112,7 @@ $.widget('blend.nav', {
         nav.expandedClass = NAMESPACE + 'nav-expanded';
         nav.columnClassPre = NAMESPACE + 'nav-column-';
         nav.hideClass = NAMESPACE + 'nav-item-hide';
+        nav.noborderClass = NAMESPACE + 'nav-item-no-border';
         nav.columnRange = [3, 4, 5];
     },
     /**
@@ -7157,8 +7158,34 @@ $.widget('blend.nav', {
                             $navItem.addClass(nav.hideClass);
                         }
                     }
+                    if (i >= max - nav.options.column) {
+                        if (nav.options.animate) {
+                            setTimeout(function () {
+                                $navItem.addClass(nav.noborderClass);
+                            }, nav.options.time);
+                        }
+                        else {
+                            $navItem.addClass(nav.noborderClass);
+                        }
+                    } else {
+                        if (nav.options.animate) {
+                            setTimeout(function () {
+                                $navItem.removeClass(nav.noborderClass);
+                            }, nav.options.time);
+                        }
+                        else {
+                            $navItem.removeClass(nav.noborderClass);
+                        }
+                    }
                 });
-                $this.html(nav.options.expand);
+                if (nav.options.animate) {
+                    setTimeout(function () {
+                        $this.html(nav.options.expand);
+                    }, nav.options.time);
+                }
+                else {
+                    $this.html(nav.options.expand);
+                }
             }
             else {
                 var len = nav.$items.length;
@@ -7168,6 +7195,16 @@ $.widget('blend.nav', {
                 $this.addClass(nav.expandedClass);
                 nav.$items.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
+                var offset = len % nav.options.column || nav.options.column;
+                var max = len - offset;
+                nav.$items.each(function (i) {
+                    var $this = $(this);
+                    if (i >= max) {
+                        $this.addClass(nav.noborderClass);
+                    } else {
+                        $this.removeClass(nav.noborderClass);
+                    }
+                });
             }
             if (nav.options.expandHandle && $.isFunction(nav.options.expandHandle)) {
                 nav.options.expandHandle(e);
@@ -7193,7 +7230,6 @@ $.widget('blend.nav', {
             columnClass.push(nav.columnClassPre + nav.columnRange[i]);
         }
         $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
-
     },
     /**
      * _row 自定义的成员函数，
@@ -7234,6 +7270,15 @@ $.widget('blend.nav', {
         $el.css('height', height);
         $el.find('.' + nav.expandClass).remove();
         nav.$items.removeClass(this.hideClass);
+        var max = (option.column - 1) * option.row;
+        nav.$items.each(function (i) {
+            var $this = $(this);
+            if (i >= max) {
+                $this.addClass(nav.noborderClass);
+            } else {
+                $this.removeClass(nav.noborderClass);
+            }
+        });
     },
     /**
      * @param {number} max 最大行数
@@ -7242,11 +7287,17 @@ $.widget('blend.nav', {
     _addExpand: function (max) {
         var nav = this;
         nav.$items.each(function (i) {
+            var $this = $(this);
+            if (i >= max - nav.options.column) {
+                $this.addClass(nav.noborderClass);
+            } else {
+                $this.removeClass(nav.noborderClass);
+            }
             if (i >= max - 1) {
-                $(this).addClass(nav.hideClass);
+                $this.addClass(nav.hideClass);
             }
             else {
-                $(this).removeClass(nav.hideClass);
+                $this.removeClass(nav.hideClass);
             }
         });
         var height = nav.$items.eq(0).height();
@@ -7898,6 +7949,186 @@ $.widget('blend.slider', {
     }
 
 });})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file sug 组件
+ * @author wanghongliang02
+ */
+
+$.widget('blend.sug', {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        itemClass: NAMESPACE + 'sug-tip-content-item',
+        inputClass: NAMESPACE + 'sug-search-input',
+        buttonClass: NAMESPACE + 'sug-search-button',
+        history: true, // 搜索历史记录开关
+        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
+        historyData: undefined, // 历史记录数据 [1, 2]
+        // 读取联想词列表数据的key
+        list: 'list',
+        createEle: undefined,
+        callback: function (key) {
+        }, // 事件
+        // todo 预留
+        suggest: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var sug = this;
+        var $el = sug.element;
+        sug.$input = $el.find('.' + sug.options.inputClass);
+        sug.$button = $el.find('.' + sug.options.buttonClass);
+        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
+        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
+        sug._initEvent();
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function () {
+        var sug = this;
+        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
+            var $item = $(this);
+            var key = $item.data('key');
+            if (sug.options.callback && $.isFunction(sug.options.callback)) {
+                if (sug.options.callback(key) === false) {
+                    return;
+                }
+            }
+            sug.$input.val(key);
+            sug.$button.trigger('click tap');
+            sug._hide();
+        });
+        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
+            if (!sug.options.history) {
+                return;
+            }
+            // todo 定位
+            if (sug.options.historyAjax) {
+                $.getJSON(sug.options.historyAjax, function (res) {
+                    sug._createEle(res);
+                });
+            }
+            else {
+                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
+                    sug._show();
+                    return;
+                }
+                var local = {
+                    errno: 0,
+                    data: []
+                };
+                local.data[sug.options.list] = sug.options.historyData || [];
+                sug._createEle(local);
+            }
+
+        });
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function () {
+        var sug = this;
+        sug.element.off('click.sug', '.' + sug.options.itemClass);
+        sug.element.off('focus.sug', '.' + sug.options.inputClass);
+        sug.element.find('.' + sug.options.itemClass).remove();
+        sug._hide();
+    },
+    /**
+     * 隐藏提示框
+     * @private
+     */
+    _hide: function () {
+        var sug = this;
+        sug.$tip.hide();
+    },
+    /**
+     * 显示提示框
+     * @private
+     */
+    _show: function () {
+        var sug = this;
+        sug.$tip.show();
+    },
+    /**
+     * 创建提示项
+     * @param {Object} res 返回数据
+     * @private
+     */
+    _createEle: function (res) {
+        var sug = this;
+        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
+            sug.options.createEle(res, sug.$tipContent);
+        }
+        else {
+            if (res.errno !== 0) {
+                return;
+            }
+            var list = res.data[sug.options.list];
+            if (!list || !list.length) {
+                return;
+            }
+            var len = list.length;
+            sug.$tipContent.empty();
+            for (var i = 0; i < len; i++) {
+                sug.$tipContent.append('<li data-key="' + list[i] +
+                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
+            }
+        }
+        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
+            sug._show();
+        }
+    },
+    /**
+     * todo 预留
+     * 搜索关键词提示
+     * @private
+     */
+    _suggest: function () {
+    },
+    /**
+     * 清除历史记录
+     */
+    clear: function () {
+        var sug = this;
+        if (!sug.options.history) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug._hide();
+        if (!sug.options.historyAjax) {
+            sug.options.historyData = undefined;
+        }
+        if (sug.options.clear && $.isFunction(sug.options.clear)) {
+            sug.options.clear();
+        }
+    },
+    /**
+     * 更新历史数据
+     * @param {Array} historyData 历史记录数据
+     */
+    refreshHistoryData: function (historyData) {
+        var sug = this;
+        if (!$.isArray(historyData)) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug.options.historyData = historyData;
+    }
+});
+})(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
