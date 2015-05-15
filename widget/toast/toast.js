@@ -1,3 +1,4 @@
+/* globals NAMESPACE */
 /**
  * @file toast.js
  * @name toast
@@ -20,7 +21,8 @@ $.widget('blend.toast', {
         var options = this.options;
         this.$el = this.element;
         this.$body = $('body');
-        this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="' + (options.toastClass || '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
+        this.toastTpl = options.toastTpl || '<div data-' + NAMESPACE + 'widget="toast" class="'
+        + (options.toastClass || '') + ' ' + NAMESPACE + 'toast">{%content%}</div>';
     },
     /**
      * 初始化组件调用

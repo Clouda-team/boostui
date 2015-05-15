@@ -1,3 +1,4 @@
+/* globals NAMESPACE */
 /**
  * @function loading
  * @file loading.js
@@ -37,7 +38,8 @@ $.widget('blend.loading', {
         var options = this.options;
         this.$el = this.element;
         this.$body = $('body');
-        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + (options.loadingClass || '') + ' ' + NAMESPACE + 'loading"></div>';
+        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="'
+        + (options.loadingClass || '') + ' ' + NAMESPACE + 'loading"></div>';
     },
     /**
      * 组件初始化

@@ -1,3 +1,5 @@
+/* globals NAMESPACE */
+/* globals IS_UIX */
 /**
  * @function dialog
  * @name dialog
@@ -10,7 +12,7 @@
  * @param {Object} options 组件配置（以下参数为配置项）
  * @param {String} options.id (可选, 默认值: 随机数) dialog id
  * @param {Interval} options.top (可选, 默认值: null) dialog 自定义top值
- * @param {String} options.addCssClass (可选, 默认值: \'\') dialog最外层自定义class
+ * @param {String} options.addCSSClass (可选, 默认值: \'\') dialog最外层自定义class
  * @param {String} options.title (可选, 默认值: 标题) dialog 标题
  * @param {String} options.content (可选, 默认值: \'\') dialog 内容
  * @param {String} options.cancelText (可选, 默认值: 取消) dialog 取消按钮的文案
@@ -33,7 +35,7 @@ $.widget('blend.dialog', {
         id: null,
         hasHeader: true,        // 是否有diaload头
         top: undefined,         // 自定义dialog距离顶部距离
-        addCssClass: null,
+        addCSSClass: null,
         title: '标题',          // dialog标题
         content: '',            // dialog内容
         cancelText: '取消',     // 取消按钮自定义文案
@@ -52,8 +54,8 @@ $.widget('blend.dialog', {
         var options = this.options;
 
         this.$body = $('body');
-        this.id = options.id || 'dialog-' + (((1 + Math.random()) * 0x1000) | 0).toString(16);
-        this.addCssClass = options.addCssClass ? options.addCssClass : '';
+        this.id = options.id || 'dialog-' + this._randomID();
+        this.addCSSClass = options.addCSSClass ? options.addCSSClass : '';
         this.title = options.title;
         this.content = options.content;
         this.cancelText = options.cancelText;
@@ -96,6 +98,14 @@ $.widget('blend.dialog', {
             this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
+    },
+    /**
+     * 返回随机的id
+     * @private
+     * @return {string} 随机生成的id
+     */
+    _randomID: function () {
+        return (((1 + Math.random()) * 0x1000) | 0).toString(16);
     },
     /**
      * 创建UIX的Dialog
@@ -310,9 +320,9 @@ $.widget('blend.dialog', {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
         var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
-        (this.maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
-        this.maskDom.css('height', bodyHeight);
-        this.maskDom.on('click', function (e) {
+        (this._maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
+        this._maskDom.css('height', bodyHeight);
+        this._maskDom.on('click', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
         }).on('touchmove', function (e) {
@@ -323,7 +333,7 @@ $.widget('blend.dialog', {
      * 关闭mask
      */
     unmask: function () {
-        this.maskDom.off('touchstart touchmove').remove();
+        this._maskDom.off('touchstart touchmove').remove();
     },
     /**
      * 设置dialog位置
