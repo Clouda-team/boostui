@@ -7141,8 +7141,8 @@ $.widget('blend.nav', {
         else {
             nav.element.removeClass(nav.animateClass);
         }
-        nav._colunm();
-        nav._row();
+        nav._setColumn();
+        nav._setRow();
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;
@@ -7228,10 +7228,10 @@ $.widget('blend.nav', {
         });
     },
     /**
-     * _column 自定义的成员函数，
+     * _setColumn 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
      */
-    _colunm: function () {
+    _setColumn: function () {
         var nav = this;
         var $el = nav.element;
         /**
@@ -7247,10 +7247,10 @@ $.widget('blend.nav', {
         $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
     },
     /**
-     * _row 自定义的成员函数，
+     * _setRow 自定义的成员函数，
      * @private
      */
-    _row: function () {
+    _setRow: function () {
         var nav = this;
         var option = nav.options;
         if (option.row === false) {
@@ -7334,47 +7334,6 @@ $.widget('blend.nav', {
         nav.options.row = false;
         nav._removeExpand();
         nav.element.off('click.nav', '.' + nav.expandClass);
-    },
-    /**
-     * 设置列数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 列数
-     * @return {undefined}
-     */
-    column: function (num) {
-        if (arguments.length === 0) {
-            return this.options.column;
-        }
-        if (num && $.inArray(num, this.columnRange) === -1) {
-            return;
-        }
-        this.options.column = num;
-        this._colunm();
-        this._row();
-    },
-    /**
-     * 设置行数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 行数
-     * @return {undefined}
-     */
-    row: function (num) {
-        if (arguments.length === 0) {
-            return this.options.row;
-        }
-        if (num === false) {
-            this.options.row = false;
-            this._removeExpand();
-            return;
-        }
-        var row = parseInt(num, 10);
-        if (!row || row <= 0) {
-            return;
-        }
-        this.options.row = row;
-        this._row();
     }
 });
 })(Zepto)
@@ -7948,6 +7907,186 @@ $.widget('blend.slider', {
         return this.$container;
     }
 
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
+ * @file sug 组件
+ * @author wanghongliang02
+ */
+
+$.widget('blend.sug', {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        itemClass: NAMESPACE + 'sug-tip-content-item',
+        inputClass: NAMESPACE + 'sug-search-input',
+        buttonClass: NAMESPACE + 'sug-search-button',
+        history: true, // 搜索历史记录开关
+        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
+        historyData: undefined, // 历史记录数据 [1, 2]
+        // 读取联想词列表数据的key
+        list: 'list',
+        createEle: undefined,
+        callback: function (key) {
+        }, // 事件
+        // todo 预留
+        suggest: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var sug = this;
+        var $el = sug.element;
+        sug.$input = $el.find('.' + sug.options.inputClass);
+        sug.$button = $el.find('.' + sug.options.buttonClass);
+        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
+        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
+        sug._initEvent();
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function () {
+        var sug = this;
+        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
+            var $item = $(this);
+            var key = $item.data('key');
+            if (sug.options.callback && $.isFunction(sug.options.callback)) {
+                if (sug.options.callback(key) === false) {
+                    return;
+                }
+            }
+            sug.$input.val(key);
+            sug.$button.trigger('click tap');
+            sug._hide();
+        });
+        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
+            if (!sug.options.history) {
+                return;
+            }
+            // todo 定位
+            if (sug.options.historyAjax) {
+                $.getJSON(sug.options.historyAjax, function (res) {
+                    sug._createEle(res);
+                });
+            }
+            else {
+                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
+                    sug._show();
+                    return;
+                }
+                var local = {
+                    errno: 0,
+                    data: []
+                };
+                local.data[sug.options.list] = sug.options.historyData || [];
+                sug._createEle(local);
+            }
+
+        });
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function () {
+        var sug = this;
+        sug.element.off('click.sug', '.' + sug.options.itemClass);
+        sug.element.off('focus.sug', '.' + sug.options.inputClass);
+        sug.element.find('.' + sug.options.itemClass).remove();
+        sug._hide();
+    },
+    /**
+     * 隐藏提示框
+     * @private
+     */
+    _hide: function () {
+        var sug = this;
+        sug.$tip.hide();
+    },
+    /**
+     * 显示提示框
+     * @private
+     */
+    _show: function () {
+        var sug = this;
+        sug.$tip.show();
+    },
+    /**
+     * 创建提示项
+     * @param {Object} res 返回数据
+     * @private
+     */
+    _createEle: function (res) {
+        var sug = this;
+        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
+            sug.options.createEle(res, sug.$tipContent);
+        }
+        else {
+            if (res.errno !== 0) {
+                return;
+            }
+            var list = res.data[sug.options.list];
+            if (!list || !list.length) {
+                return;
+            }
+            var len = list.length;
+            sug.$tipContent.empty();
+            for (var i = 0; i < len; i++) {
+                sug.$tipContent.append('<li data-key="' + list[i] +
+                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
+            }
+        }
+        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
+            sug._show();
+        }
+    },
+    /**
+     * todo 预留
+     * 搜索关键词提示
+     * @private
+     */
+    _suggest: function () {
+    },
+    /**
+     * 清除历史记录
+     */
+    clear: function () {
+        var sug = this;
+        if (!sug.options.history) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug._hide();
+        if (!sug.options.historyAjax) {
+            sug.options.historyData = undefined;
+        }
+        if (sug.options.clear && $.isFunction(sug.options.clear)) {
+            sug.options.clear();
+        }
+    },
+    /**
+     * 更新历史数据
+     * @param {Array} historyData 历史记录数据
+     */
+    refreshHistoryData: function (historyData) {
+        var sug = this;
+        if (!$.isArray(historyData)) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug.options.historyData = historyData;
+    }
 });
 })(Zepto)
 ;(function($){/* globals NAMESPACE */
