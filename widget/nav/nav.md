@@ -52,7 +52,7 @@
         $('.blend-nav').nav({
                 column: 3,
                 row: 2
-        }).nav('column');
+        });
 
 
 <div class="doc-demo">
@@ -77,7 +77,7 @@
     boost('.blend-nav-column-4').nav({
         column: 3,
         row: 2
-    }).nav('column');
+    });
 </script>
 
 

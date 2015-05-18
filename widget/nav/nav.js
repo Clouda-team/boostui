@@ -45,8 +45,8 @@ $.widget('blend.nav', {
         else {
             nav.element.removeClass(nav.animateClass);
         }
-        nav._colunm();
-        nav._row();
+        nav._setColumn();
+        nav._setRow();
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;
@@ -132,10 +132,10 @@ $.widget('blend.nav', {
         });
     },
     /**
-     * _column 自定义的成员函数，
+     * _setColumn 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
      */
-    _colunm: function () {
+    _setColumn: function () {
         var nav = this;
         var $el = nav.element;
         /**
@@ -151,10 +151,10 @@ $.widget('blend.nav', {
         $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
     },
     /**
-     * _row 自定义的成员函数，
+     * _setRow 自定义的成员函数，
      * @private
      */
-    _row: function () {
+    _setRow: function () {
         var nav = this;
         var option = nav.options;
         if (option.row === false) {
@@ -238,46 +238,5 @@ $.widget('blend.nav', {
         nav.options.row = false;
         nav._removeExpand();
         nav.element.off('click.nav', '.' + nav.expandClass);
-    },
-    /**
-     * 设置列数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 列数
-     * @return {undefined}
-     */
-    column: function (num) {
-        if (arguments.length === 0) {
-            return this.options.column;
-        }
-        if (num && $.inArray(num, this.columnRange) === -1) {
-            return;
-        }
-        this.options.column = num;
-        this._colunm();
-        this._row();
-    },
-    /**
-     * 设置行数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 行数
-     * @return {undefined}
-     */
-    row: function (num) {
-        if (arguments.length === 0) {
-            return this.options.row;
-        }
-        if (num === false) {
-            this.options.row = false;
-            this._removeExpand();
-            return;
-        }
-        var row = parseInt(num, 10);
-        if (!row || row <= 0) {
-            return;
-        }
-        this.options.row = row;
-        this._row();
     }
 });
