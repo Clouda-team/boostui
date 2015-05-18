@@ -1,3 +1,4 @@
+/* globals NAMESPACE */
 /**
  * gallery 组件
  * Created by dingquan on 15-3-24.

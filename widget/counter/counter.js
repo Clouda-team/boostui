@@ -1,3 +1,4 @@
+/* globals NAMESPACE */
 /**
  * counter 组件
  * @file counter.js

@@ -1,3 +1,6 @@
+/* globals NAMESPACE */
+/* globals Hammer */
+/* eslint-disable fecs-camelcase */
 /**
  * Slider 组件
  * Created by dingquan on 15-02-03
@@ -16,9 +19,9 @@ $.widget('blend.slider', {
         transitionType: 'ease',     // 过渡类型
         // duration: 0.6,
         speed: 2000,                // 切换的时间间隔
-        theme: "d2",
+        theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
-        ratio: "normal"     // normal/wide/square/small
+        ratio: 'normal'     // normal/wide/square/small
     },
     /**
      * 创建组件调用一次
@@ -38,13 +41,9 @@ $.widget('blend.slider', {
         var ratioClass = NAMESPACE + 'slider-';
         switch (options.ratio) {
             case 'wide':
-                ratioClass += 'wide';
-                break;
             case 'square':
-                ratioClass += 'square';
-                break;
             case 'small':
-                ratioClass += 'small';
+                ratioClass += options.ratio;
                 break;
             default :
                 ratioClass += 'normal';
@@ -55,9 +54,9 @@ $.widget('blend.slider', {
         this.$ul = $el.find('.' + NAMESPACE + 'slides');
         this.$li = $el.find('.' + NAMESPACE + 'slides li');
 
-        this.liWidth = this.$li.width();
-        this.liHeight = this.$li.height();
-        this.liLength = this.$li.length;
+        this._liWidth = this.$li.width();
+        this._liHeight = this.$li.height();
+        this._liLength = this.$li.length;
 
         this.autoScroll = null;     // 自动播放interval对象
         this._index = 0;            // 当前幻灯片位置
@@ -84,29 +83,17 @@ $.widget('blend.slider', {
          */
         if (opts.continuousScroll) {
             $ul.prepend($li.last().clone()).append($li.first().clone());
-            if (opts.axisX) {
-                that._fnTranslate($ul.children().first(), that.liWidth * -1);
-                that._fnTranslate($ul.children().last(), that.liWidth * that.liLength);
-            }
-            else {
-                that._fnTranslate($ul.children().first(), that.liHeight * -1);
-                that._fnTranslate($ul.children().last(), that.liHeight * that.liLength);
-            }
+
+            var widthOrHeight = opts.axisX ? that._liWidth : that._liHeight;
+            that._fnTranslate($ul.children().first(), widthOrHeight * -1);
+            that._fnTranslate($ul.children().last(), widthOrHeight * that._liLength);
+
         }
 
-        /**
-         * 给初始图片定位
-         */
-        if (opts.axisX) {
-            $li.each(function (i) {
-                that._fnTranslate($(this), that.liWidth * i);
-            });
-        }
-        else {
-            $li.each(function (i) {
-                that._fnTranslate($(this), that.liHeight * i);
-            });
-        }
+        // 给初始图片定位
+        $li.each(function (i) {
+            that._fnTranslate($(this), (opts.axisX ? that._liWidth : that._liHeight) * i);
+        });
 
         that._fnAutoSwipe();
         this._initEvent();
@@ -139,11 +126,11 @@ $.widget('blend.slider', {
             that.moveX = that.curX - that.startX;
             that.moveY = that.curY - that.startY;
 
-            that._fnTransition(that.$ul, 0);
+            that._transitionHandle(that.$ul, 0);
 
             if (that.options.axisX) {
-                // console.log(-(that.liWidth * (parseInt(that._index)) - that.moveX));
-                that._fnTranslate(that.$ul, -(that.liWidth * (parseInt(that._index, 10)) - that.moveX));
+                // console.log(-(that._liWidth * (parseInt(that._index)) - that.moveX));
+                that._fnTranslate(that.$ul, -(that._liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
 
         });
@@ -214,7 +201,7 @@ $.widget('blend.slider', {
     _initControl: function () {
 
         var $el = this.$container;
-        var liLength = this.liLength;
+        var liLength = this._liLength;
 
         var html = '';
         for (var i = 0; i < liLength; i++) {
@@ -241,7 +228,7 @@ $.widget('blend.slider', {
      * @param {Object} dom  zepto object
      * @param {number} num - transition number
      */
-    _fnTransition: function (dom, num) {
+    _transitionHandle: function (dom, num) {
 
         var opts = this.options;
         dom.css({
@@ -329,10 +316,10 @@ $.widget('blend.slider', {
         var that = this;
         var opts = this.options;
         // var _vars = this._vars;
-        // var _liLength = this.liLength;
+        // var _liLength = this._liLength;
 
         if (opts.continuousScroll) {
-            if (that._index >= that.liLength) {
+            if (that._index >= that._liLength) {
                 that._fnScroll(.3);
                 that._index = 0;
                 setTimeout(function () {
@@ -341,7 +328,7 @@ $.widget('blend.slider', {
             }
             else if (that._index < 0) {
                 that._fnScroll(.3);
-                that._index = that.liLength - 1;
+                that._index = that._liLength - 1;
                 setTimeout(function () {
                     that._fnScroll(0);
                 }, 300);
@@ -351,11 +338,11 @@ $.widget('blend.slider', {
             }
         }
         else {
-            if (that._index >= that.liLength) {
+            if (that._index >= that._liLength) {
                 that._index = 0;
             }
             else if (that._index < 0) {
-                that._index = that.liLength - 1;
+                that._index = that._liLength - 1;
             }
             that._fnScroll(.3);
         }
@@ -372,11 +359,11 @@ $.widget('blend.slider', {
     _fnScroll: function (num) {
         var $ul = this.$ul;
         var _index = this._index;
-        var _liWidth = this.liWidth;
-        var _liHeight = this.liHeight;
+        var _liWidth = this._liWidth;
+        var _liHeight = this._liHeight;
         var opts = this.options;
 
-        this._fnTransition($ul, num);
+        this._transitionHandle($ul, num);
         if (opts.axisX) {
             this._fnTranslate($ul, -_index * _liWidth);
         }
@@ -416,12 +403,10 @@ $.widget('blend.slider', {
         clearInterval(this.autoScroll);
         return this.$container;
     },
-    start: function(){
+    start: function () {
         clearInterval(this.autoScroll);
-        
         this._fnAutoSwipe();
         return this.$container;
-       
     }
 
 });
