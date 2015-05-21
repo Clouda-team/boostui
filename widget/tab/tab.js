@@ -32,12 +32,75 @@ $.widget('blend.tab', {
         tab.$activeEle.css('width', this.itemWidth);
         tab.itemOffsetX = 0;
         tab.current = 0;
-
+        this._uix = null;
     },
     /**
      * _init 初始化的时候调用
      */
-    _init: function () {
+    _init: function () { 
+          if (IS_UIX) {
+            this._UIXInit();
+          } else {
+            this._webInit();
+          }
+    },
+    /**
+     * uix版的初始化
+     * @private
+     */
+    _UIXInit : function () {
+        var me = this;
+        if (this._uix !== null) {
+            this._uix.destroy();
+        }
+        $.dynamicLoad (function() {
+            require(['src/blend'], function (blend) {
+                me._uix = me._initUIXComponent(blend);
+            });
+        });
+    },
+    /**
+     * 创建UIX的实例
+     * @private
+     */
+     _initUIXComponent : function (blend) {
+        var uixTab,
+            me = this, 
+            $el = this.element,
+            $tabItem = $el.find(this._itemSelector);
+            /*创建一个UIXtab*/
+            uixTab = blend.create('tab', {
+                 "id": "tab",
+                 "items":[]
+            });
+            $tabItem.each(me._generateItem(function (item) {
+                uixTab.append(item);
+                uixTab.render();
+            },uixTab));
+            return uixTab;
+     },
+    /**
+     * 生成uix的tab的item
+     * @private
+     */
+    _generateItem : function (callback, uixTab) {
+        return function (index, _item) {
+            var $item = $(_item),
+                blendItem,
+                itemConf ={
+                    text : $item.text(),
+                    href : $item.data('href')
+                },
+                itemTab;
+            itemTab = uixTab.create(itemConf);
+            callback(itemTab);
+        };
+    },
+   /**
+     * web版的初始化
+     * @private
+     */
+    _webInit: function () {
         var tab = this;
 
         tab._checkStart();

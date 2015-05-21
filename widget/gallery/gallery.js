@@ -1,4 +1,3 @@
-/* globals NAMESPACE */
 /**
  * gallery 组件
  * Created by dingquan on 15-3-24.
@@ -46,8 +45,10 @@ $.widget('blend.gallery', {
             if (this._uix !== null) {
               // (this._uix.destroy)&&(this._uix.destroy());
             }
-            require(['blend'], function (blend) {
-                me._uix = me._initUIXGallery(blend);
+            $.dynamicLoad (function() {
+                require(['src/blend'], function (blend) {
+                   me._uix = me._initUIXGallery(blend);
+                });
             });
 
         }

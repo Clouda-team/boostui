@@ -3,6 +3,7 @@
     /*!read(js/uix.js)*/
     /*!read(js/hammer.js)*/
     /*!read(js/zepto.js)*/
+    /*!read(js/blend.bridge.js)*/
     /*!read(js/event.js)*/
     /*!read(js/data.js)*/
     /*!read(js/touch.js)*/

@@ -5124,11 +5124,12 @@ $.widget('blend.dialog', {
             if (this._uix !== null) {
                 // (this._uix.destroy)&&(this._uix.destroy());
             }
-
-            require(['blend'], function (blend) {
-                me._uix = me._createUIXDialog(blend);
+            $.dynamicLoad (function() {
+                require(['src/blend'], function (blend) {
+                    me._uix = me._createUIXDialog(blend);
+                 
+                });
             });
-
             return;
         }
         /**
