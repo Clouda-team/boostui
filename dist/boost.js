@@ -3445,6 +3445,32 @@ window.Zepto = window.$ = Zepto;
 //     (c) 2010-2015 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+// The following code is heavily inspired by jQuery's $.fn.data()
+var BLENDURL = 'http://cp01-rdqa04-dev111.cp01.baidu.com:8042/boost/test/blendui-naitve.js';
+
+;(function($){
+  function dynamicLoad (callback) {  
+      var _doc=document.getElementsByTagName('head')[0], 
+          _script=document.createElement('script'),
+          _loadScript = BLENDURL; 
+      _script.setAttribute('type','text/javascript');  
+      _script.setAttribute('src',_loadScript);  
+      _doc.appendChild(_script);  
+      _script.onload = _script.onreadystatechange=function(){  
+          if(!this.readyState||this.readyState=='loaded'||this.readyState=='complete'){  
+              callback();  
+          }  
+          _script.onload=_script.onreadystatechange=null;  
+      }  
+  };
+
+  $.dynamicLoad = dynamicLoad;
+})(Zepto)
+
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
 ;(function($){
   var _zid = 1, undefined,
       slice = Array.prototype.slice,
@@ -5124,11 +5150,12 @@ $.widget('blend.dialog', {
             if (this._uix !== null) {
                 // (this._uix.destroy)&&(this._uix.destroy());
             }
-
-            require(['blend'], function (blend) {
-                me._uix = me._createUIXDialog(blend);
+             $.dynamicLoad (function() {
+                require(['src/blend'], function (blend) {
+                    me._uix = me._createUIXDialog(blend);
+                 
+                });
             });
-
             return;
         }
         /**
@@ -5572,8 +5599,7 @@ $.widget('blend.formgroup', {
 
 });
 })(Zepto)
-;(function($){/* globals NAMESPACE */
-/**
+;(function($){/**
  * gallery 组件
  * Created by dingquan on 15-3-24.
  *
@@ -5620,8 +5646,10 @@ $.widget('blend.gallery', {
             if (this._uix !== null) {
               // (this._uix.destroy)&&(this._uix.destroy());
             }
-            require(['blend'], function (blend) {
-                me._uix = me._initUIXGallery(blend);
+            $.dynamicLoad (function() {
+                require(['src/blend'], function (blend) {
+                   me._uix = me._initUIXGallery(blend);
+                });
             });
 
         }
@@ -7109,8 +7137,8 @@ $.widget('blend.nav', {
         column: 3,
         animate: true,
         time: 500,
-        expand: '更多',
-        pack: '收起',
+        expand: '<i>更多</i>',
+        pack: '<i>收起</i>',
         itemClass: NAMESPACE + 'nav-item',
         row: false
     },
@@ -7159,7 +7187,7 @@ $.widget('blend.nav', {
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
-                $this.removeClass(nav.expandedClass);
+                
                 var max = nav.options.row * nav.options.column;
                 nav.$items.each(function (i) {
                     var $navItem = $(this);
@@ -7196,10 +7224,12 @@ $.widget('blend.nav', {
                 if (nav.options.animate) {
                     setTimeout(function () {
                         $this.html(nav.options.expand);
+                        $this.removeClass(nav.expandedClass);
                     }, nav.options.time);
                 }
                 else {
                     $this.html(nav.options.expand);
+                    $this.removeClass(nav.expandedClass);
                 }
             }
             else {
@@ -7912,186 +7942,6 @@ $.widget('blend.slider', {
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
- * @file sug 组件
- * @author wanghongliang02
- */
-
-$.widget('blend.sug', {
-    /**
-     * 组件的默认选项，可以由多重覆盖关系
-     */
-    options: {
-        itemClass: NAMESPACE + 'sug-tip-content-item',
-        inputClass: NAMESPACE + 'sug-search-input',
-        buttonClass: NAMESPACE + 'sug-search-button',
-        history: true, // 搜索历史记录开关
-        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
-        historyData: undefined, // 历史记录数据 [1, 2]
-        // 读取联想词列表数据的key
-        list: 'list',
-        createEle: undefined,
-        callback: function (key) {
-        }, // 事件
-        // todo 预留
-        suggest: false
-    },
-    /**
-     * _create 创建组件时调用一次
-     */
-    _create: function () {
-        var sug = this;
-        var $el = sug.element;
-        sug.$input = $el.find('.' + sug.options.inputClass);
-        sug.$button = $el.find('.' + sug.options.buttonClass);
-        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
-        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
-        sug._initEvent();
-    },
-    /**
-     * _init 初始化的时候调用
-     */
-    _init: function () {
-    },
-    /**
-     *
-     * @private
-     */
-    _initEvent: function () {
-        var sug = this;
-        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
-            var $item = $(this);
-            var key = $item.data('key');
-            if (sug.options.callback && $.isFunction(sug.options.callback)) {
-                if (sug.options.callback(key) === false) {
-                    return;
-                }
-            }
-            sug.$input.val(key);
-            sug.$button.trigger('click tap');
-            sug._hide();
-        });
-        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
-            if (!sug.options.history) {
-                return;
-            }
-            // todo 定位
-            if (sug.options.historyAjax) {
-                $.getJSON(sug.options.historyAjax, function (res) {
-                    sug._createEle(res);
-                });
-            }
-            else {
-                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
-                    sug._show();
-                    return;
-                }
-                var local = {
-                    errno: 0,
-                    data: []
-                };
-                local.data[sug.options.list] = sug.options.historyData || [];
-                sug._createEle(local);
-            }
-
-        });
-    },
-    /**
-     * 销毁对象
-     * @private
-     */
-    _destroy: function () {
-        var sug = this;
-        sug.element.off('click.sug', '.' + sug.options.itemClass);
-        sug.element.off('focus.sug', '.' + sug.options.inputClass);
-        sug.element.find('.' + sug.options.itemClass).remove();
-        sug._hide();
-    },
-    /**
-     * 隐藏提示框
-     * @private
-     */
-    _hide: function () {
-        var sug = this;
-        sug.$tip.hide();
-    },
-    /**
-     * 显示提示框
-     * @private
-     */
-    _show: function () {
-        var sug = this;
-        sug.$tip.show();
-    },
-    /**
-     * 创建提示项
-     * @param {Object} res 返回数据
-     * @private
-     */
-    _createEle: function (res) {
-        var sug = this;
-        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
-            sug.options.createEle(res, sug.$tipContent);
-        }
-        else {
-            if (res.errno !== 0) {
-                return;
-            }
-            var list = res.data[sug.options.list];
-            if (!list || !list.length) {
-                return;
-            }
-            var len = list.length;
-            sug.$tipContent.empty();
-            for (var i = 0; i < len; i++) {
-                sug.$tipContent.append('<li data-key="' + list[i] +
-                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
-            }
-        }
-        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
-            sug._show();
-        }
-    },
-    /**
-     * todo 预留
-     * 搜索关键词提示
-     * @private
-     */
-    _suggest: function () {
-    },
-    /**
-     * 清除历史记录
-     */
-    clear: function () {
-        var sug = this;
-        if (!sug.options.history) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug._hide();
-        if (!sug.options.historyAjax) {
-            sug.options.historyData = undefined;
-        }
-        if (sug.options.clear && $.isFunction(sug.options.clear)) {
-            sug.options.clear();
-        }
-    },
-    /**
-     * 更新历史数据
-     * @param {Array} historyData 历史记录数据
-     */
-    refreshHistoryData: function (historyData) {
-        var sug = this;
-        if (!$.isArray(historyData)) {
-            return;
-        }
-        sug.$tipContent.empty();
-        sug.options.historyData = historyData;
-    }
-});
-})(Zepto)
-;(function($){/* globals NAMESPACE */
-/* eslint-disable fecs-camelcase */
-/**
  * @file tab 组件
  * @author wanghongliang02
  */
@@ -8123,12 +7973,75 @@ $.widget('blend.tab', {
         tab.$activeEle.css('width', this.itemWidth);
         tab.itemOffsetX = 0;
         tab.current = 0;
-
+        this._uix = null;
     },
     /**
      * _init 初始化的时候调用
      */
-    _init: function () {
+    _init: function () { 
+          if (IS_UIX) {
+            this._UIXInit();
+          } else {
+            this._webInit();
+          }
+    },
+    /**
+     * uix版的初始化
+     * @private
+     */
+    _UIXInit : function () {
+        var me = this;
+        if (this._uix !== null) {
+            this._uix.destroy();
+        }
+        $.dynamicLoad (function() {
+            require(['src/blend'], function (blend) {
+                me._uix = me._initUIXComponent(blend);
+            });
+        });
+    },
+    /**
+     * 创建UIX的实例
+     * @private
+     */
+     _initUIXComponent : function (blend) {
+        var uixTab,
+            me = this, 
+            $el = this.element,
+            $tabItem = $el.find(this._itemSelector);
+            /*创建一个UIXtab*/
+            uixTab = blend.create('tab', {
+                 "id": "tab",
+                 "items":[]
+            });
+            $tabItem.each(me._generateItem(function (item) {
+                uixTab.append(item);
+                uixTab.render();
+            },uixTab));
+            return uixTab;
+     },
+    /**
+     * 生成uix的tab的item
+     * @private
+     */
+    _generateItem : function (callback, uixTab) {
+        return function (index, _item) {
+            var $item = $(_item),
+                blendItem,
+                itemConf ={
+                    text : $item.text(),
+                    href : $item.data('href')
+                },
+                itemTab;
+            itemTab = uixTab.create(itemConf);
+            callback(itemTab);
+        };
+    },
+   /**
+     * web版的初始化
+     * @private
+     */
+    _webInit: function () {
         var tab = this;
 
         tab._checkStart();

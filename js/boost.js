@@ -3445,6 +3445,32 @@ window.Zepto = window.$ = Zepto;
 //     (c) 2010-2015 Thomas Fuchs
 //     Zepto.js may be freely distributed under the MIT license.
 
+// The following code is heavily inspired by jQuery's $.fn.data()
+var BLENDURL = 'http://cp01-rdqa04-dev111.cp01.baidu.com:8042/boost/test/blendui-naitve.js';
+
+;(function($){
+  function dynamicLoad (callback) {  
+      var _doc=document.getElementsByTagName('head')[0], 
+          _script=document.createElement('script'),
+          _loadScript = BLENDURL; 
+      _script.setAttribute('type','text/javascript');  
+      _script.setAttribute('src',_loadScript);  
+      _doc.appendChild(_script);  
+      _script.onload = _script.onreadystatechange=function(){  
+          if(!this.readyState||this.readyState=='loaded'||this.readyState=='complete'){  
+              callback();  
+          }  
+          _script.onload=_script.onreadystatechange=null;  
+      }  
+  };
+
+  $.dynamicLoad = dynamicLoad;
+})(Zepto)
+
+    //     Zepto.js
+//     (c) 2010-2015 Thomas Fuchs
+//     Zepto.js may be freely distributed under the MIT license.
+
 ;(function($){
   var _zid = 1, undefined,
       slice = Array.prototype.slice,
@@ -5124,7 +5150,7 @@ $.widget('blend.dialog', {
             if (this._uix !== null) {
                 // (this._uix.destroy)&&(this._uix.destroy());
             }
-            $.dynamicLoad (function() {
+             $.dynamicLoad (function() {
                 require(['src/blend'], function (blend) {
                     me._uix = me._createUIXDialog(blend);
                  
@@ -5573,8 +5599,7 @@ $.widget('blend.formgroup', {
 
 });
 })(Zepto)
-;(function($){/* globals NAMESPACE */
-/**
+;(function($){/**
  * gallery 组件
  * Created by dingquan on 15-3-24.
  *
@@ -5621,8 +5646,10 @@ $.widget('blend.gallery', {
             if (this._uix !== null) {
               // (this._uix.destroy)&&(this._uix.destroy());
             }
-            require(['blend'], function (blend) {
-                me._uix = me._initUIXGallery(blend);
+            $.dynamicLoad (function() {
+                require(['src/blend'], function (blend) {
+                   me._uix = me._initUIXGallery(blend);
+                });
             });
 
         }
@@ -7110,8 +7137,8 @@ $.widget('blend.nav', {
         column: 3,
         animate: true,
         time: 500,
-        expand: '更多',
-        pack: '收起',
+        expand: '<i>更多</i>',
+        pack: '<i>收起</i>',
         itemClass: NAMESPACE + 'nav-item',
         row: false
     },
@@ -7142,8 +7169,8 @@ $.widget('blend.nav', {
         else {
             nav.element.removeClass(nav.animateClass);
         }
-        nav._colunm();
-        nav._row();
+        nav._setColumn();
+        nav._setRow();
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;
@@ -7160,7 +7187,7 @@ $.widget('blend.nav', {
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
-                $this.removeClass(nav.expandedClass);
+                
                 var max = nav.options.row * nav.options.column;
                 nav.$items.each(function (i) {
                     var $navItem = $(this);
@@ -7197,10 +7224,12 @@ $.widget('blend.nav', {
                 if (nav.options.animate) {
                     setTimeout(function () {
                         $this.html(nav.options.expand);
+                        $this.removeClass(nav.expandedClass);
                     }, nav.options.time);
                 }
                 else {
                     $this.html(nav.options.expand);
+                    $this.removeClass(nav.expandedClass);
                 }
             }
             else {
@@ -7229,10 +7258,10 @@ $.widget('blend.nav', {
         });
     },
     /**
-     * _column 自定义的成员函数，
+     * _setColumn 自定义的成员函数，
      * 所有以下划线开头的函数不可在外部调用
      */
-    _colunm: function () {
+    _setColumn: function () {
         var nav = this;
         var $el = nav.element;
         /**
@@ -7248,10 +7277,10 @@ $.widget('blend.nav', {
         $el.removeClass(columnClass.join(' ')).addClass(nav.columnClassPre + nav.options.column);
     },
     /**
-     * _row 自定义的成员函数，
+     * _setRow 自定义的成员函数，
      * @private
      */
-    _row: function () {
+    _setRow: function () {
         var nav = this;
         var option = nav.options;
         if (option.row === false) {
@@ -7335,47 +7364,6 @@ $.widget('blend.nav', {
         nav.options.row = false;
         nav._removeExpand();
         nav.element.off('click.nav', '.' + nav.expandClass);
-    },
-    /**
-     * 设置列数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 列数
-     * @return {undefined}
-     */
-    column: function (num) {
-        if (arguments.length === 0) {
-            return this.options.column;
-        }
-        if (num && $.inArray(num, this.columnRange) === -1) {
-            return;
-        }
-        this.options.column = num;
-        this._colunm();
-        this._row();
-    },
-    /**
-     * 设置行数
-     * 没有返回值或者返回值为 undefined 时会保持调用链，
-     * 如果返回值不为 undefined 则将该值返回，不能再次链式调用
-     * @param {number} num 行数
-     * @return {undefined}
-     */
-    row: function (num) {
-        if (arguments.length === 0) {
-            return this.options.row;
-        }
-        if (num === false) {
-            this.options.row = false;
-            this._removeExpand();
-            return;
-        }
-        var row = parseInt(num, 10);
-        if (!row || row <= 0) {
-            return;
-        }
-        this.options.row = row;
-        this._row();
     }
 });
 })(Zepto)
@@ -7985,12 +7973,75 @@ $.widget('blend.tab', {
         tab.$activeEle.css('width', this.itemWidth);
         tab.itemOffsetX = 0;
         tab.current = 0;
-
+        this._uix = null;
     },
     /**
      * _init 初始化的时候调用
      */
-    _init: function () {
+    _init: function () { 
+          if (IS_UIX) {
+            this._UIXInit();
+          } else {
+            this._webInit();
+          }
+    },
+    /**
+     * uix版的初始化
+     * @private
+     */
+    _UIXInit : function () {
+        var me = this;
+        if (this._uix !== null) {
+            this._uix.destroy();
+        }
+        $.dynamicLoad (function() {
+            require(['src/blend'], function (blend) {
+                me._uix = me._initUIXComponent(blend);
+            });
+        });
+    },
+    /**
+     * 创建UIX的实例
+     * @private
+     */
+     _initUIXComponent : function (blend) {
+        var uixTab,
+            me = this, 
+            $el = this.element,
+            $tabItem = $el.find(this._itemSelector);
+            /*创建一个UIXtab*/
+            uixTab = blend.create('tab', {
+                 "id": "tab",
+                 "items":[]
+            });
+            $tabItem.each(me._generateItem(function (item) {
+                uixTab.append(item);
+                uixTab.render();
+            },uixTab));
+            return uixTab;
+     },
+    /**
+     * 生成uix的tab的item
+     * @private
+     */
+    _generateItem : function (callback, uixTab) {
+        return function (index, _item) {
+            var $item = $(_item),
+                blendItem,
+                itemConf ={
+                    text : $item.text(),
+                    href : $item.data('href')
+                },
+                itemTab;
+            itemTab = uixTab.create(itemConf);
+            callback(itemTab);
+        };
+    },
+   /**
+     * web版的初始化
+     * @private
+     */
+    _webInit: function () {
         var tab = this;
 
         tab._checkStart();

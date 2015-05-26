@@ -14,8 +14,8 @@
 }
 
 .@{namespace}nav-animation {
-  -webkit-transition:height .3s ease-in 0;
-  transition:height .3s ease-in 0;
+  -webkit-transition:height .3s ease-in;
+  transition:height .3s ease-in;
 }
 
 .@{namespace}nav-item {
@@ -30,8 +30,8 @@
   border-bottom: 1px solid @color-border;
 
   &.@{namespace}nav-item-active {
-    color: @color-font;
     /*border-bottom-color: @color-tab-border;*/
+    font-weight: bold;
   }
   &:after {
     content: " ";
@@ -60,10 +60,21 @@
   line-height: @nav-height;
   height: @nav-height;
   font-size: @boost-font-size-nav;
-  color: @color-font;
   text-align: center;
   border-bottom: none;
   .text-overflow();
+  i{
+    font-style: normal;
+  }
+  i:after {
+    content: "\e6cb" !important;
+    .font(@font-left);
+    color: @color-font-grey;
+  }
+}
+
+.@{namespace}nav-expanded i:after{
+  content: "\e6ce" !important;
 }
 
 .@{namespace}nav-column-3 {

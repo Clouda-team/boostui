@@ -13,8 +13,8 @@ $.widget('blend.nav', {
         column: 3,
         animate: true,
         time: 500,
-        expand: '更多',
-        pack: '收起',
+        expand: '<i>更多</i>',
+        pack: '<i>收起</i>',
         itemClass: NAMESPACE + 'nav-item',
         row: false
     },
@@ -63,7 +63,7 @@ $.widget('blend.nav', {
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
                 nav.element.css('height', 15 + height * nav.options.row);
-                $this.removeClass(nav.expandedClass);
+                
                 var max = nav.options.row * nav.options.column;
                 nav.$items.each(function (i) {
                     var $navItem = $(this);
@@ -100,10 +100,12 @@ $.widget('blend.nav', {
                 if (nav.options.animate) {
                     setTimeout(function () {
                         $this.html(nav.options.expand);
+                        $this.removeClass(nav.expandedClass);
                     }, nav.options.time);
                 }
                 else {
                     $this.html(nav.options.expand);
+                    $this.removeClass(nav.expandedClass);
                 }
             }
             else {

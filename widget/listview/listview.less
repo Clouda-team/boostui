@@ -8,6 +8,7 @@
 @listview-item-height: 85px;
 @listview-theme1-item-height: 105px;
 @listview-theme2-item-height: 85px;
+@listview-theme3-item-height: 130px;
 @listview-header-height: 40px;
 @listview-base-padding: 10px;
 @listview-base-margin: 10px;
@@ -291,5 +292,97 @@
   }
 }
 
+.@{namespace}listview-theme3 {
+  padding: 0 10px;
+  .@{namespace}listview-item {
+    position: relative;
+    padding: 10px 0;
+    height: @listview-theme3-item-height;
+  }
 
+  .@{namespace}listview-item-title {
+    color: @color-black;
+    font-size: @listview-font-large;
+    line-height: 20px;
+    margin: 2px 0 4px;
+    word-break: break-all;
+  }
+
+  .@{namespace}listview-item-badge {
+    .@{namespace}badge {
+      border-color: @color-border;
+      color: @color-font;
+      padding: 0;
+    }
+
+  }
+
+  .@{namespace}listview-item-price {
+    position: absolute;
+    left: 95px;
+    bottom: 5px;
+    color: @color-danger;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    em {
+      font-weight: normal;
+      font-style: normal;
+      font-size: 14px;
+    }
+  }
+
+  .@{namespace}listview-item-pic {
+    width: 85px;
+    height: 110px;
+    margin-right: 10px;
+  }
+
+  .@{namespace}checkbox-checked:before {
+    font-size: 17px;
+    line-height: 20px;
+  }
+
+  .@{namespace}checkbox-default {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    margin-top: 31px;
+    margin-right: 10px;
+  }
+  .@{namespace}checkbox-all {
+    margin-top: 9px;
+  }
+
+  .@{namespace}checkbox-default:before {
+    top: 1px;
+    left: 2px;
+  }
+
+  .@{namespace}listview-conter-box {
+    position: absolute;
+    right: 0;
+    bottom: 10px;
+
+    .@{namespace}counter-minus.@{namespace}disabled:before, .@{namespace}counter-plus.@{namespace}disabled:before {
+      color: #999999;
+    }
+    .@{namespace}counter-minus, .@{namespace}counter-plus {
+      &.@{namespace}disabled {
+        background-color: @color-white;
+      }
+    }
+
+    .@{namespace}counter-minus:before{
+      color: @color-danger-bg;
+    }
+    .@{namespace}counter-plus:before{
+      color: @color-danger-bg;
+    }
+  }
+
+  .@{namespace}listview-item-right {
+    margin-top: 47px;
+  }
+}
 
