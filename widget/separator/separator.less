@@ -1,0 +1,32 @@
+@separator-color: #f1f1f1;
+@separator-line-height: 2px;
+@separator-width: 100%;
+@separator-rect-height: 20px;
+@separator-rect2-border-color: #e0e0e0;
+@separator-rect1-border-top-color: #e8e8e8;
+@separator-rect1-border-top2-color: #ebeaea;
+
+.@{namespace}separator{
+      width: @separator-width;
+      border-top: @separator-line-height solid @separator-color;
+}
+.@{namespace}separator-dashed{
+    border-top: @separator-line-height dashed @separator-color;
+}
+
+.@{namespace}separator-rect1{
+      height: @separator-rect-height;
+      box-sizing: border-box;
+      background: @separator-color;
+      border-top: 1px solid @separator-rect1-border-top-color;
+      .@{namespace}separator-rect1-top{
+          border-top: 2px solid @separator-rect1-border-top2-color;
+      }
+}
+.@{namespace}separator-rect2{
+    height: @separator-rect-height;
+    box-sizing: border-box;
+    background: @separator-color;
+    border-top: 1px solid @separator-rect2-border-color;
+    border-bottom: 1px solid @separator-rect2-border-color;
+}
