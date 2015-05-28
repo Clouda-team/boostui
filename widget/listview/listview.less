@@ -3,8 +3,8 @@
 @listview-font-large: @boost-font-size-nav;
 @listview-border: @color-border;
 @listview-title-color: @color-font;
-@listview-sub-title-color: #777777;
-@listview-summary-color: #777777;
+@listview-sub-title-color: @color-font-grey;
+@listview-summary-color: @color-font-grey;
 @listview-item-height: 85px;
 @listview-theme1-item-height: 105px;
 @listview-theme2-item-height: 85px;
@@ -70,7 +70,7 @@
   font-size: @listview-font-large;
   color: @listview-title-color;
   line-height: 20px;
-  margin: 0;
+  margin: 0 !important;
 }
 .@{namespace}listview-item-sub-title {
   font-size: @listview-font-normal;
@@ -81,7 +81,7 @@
 .@{namespace}listview-item-summary {
   font-size: @listview-font-normal;
   color: @listview-summary-color;
-  line-height: 18px;
+  line-height: 18px !important;
   margin: 0;
 }
 
@@ -288,7 +288,7 @@
   }
 
   .@{namespace}listview-item-sub-title{
-    margin-top: 8px;
+    margin: 8px 0 0 0 !important;
   }
 }
 
@@ -386,3 +386,6 @@
   }
 }
 
+.@{namespace}listview-item-title, .@{namespace}listview-item-two-line, .@{namespace}listview-item-sub-title {
+  margin: 0 !important;
+}

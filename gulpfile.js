@@ -20,6 +20,9 @@ var del = require('del');
 
 
 var CONFIG = require("./build.json");
+var dependJson = {
+                            "hammer": ["list", "slider"]
+                         };
 
 function pregQuote(str, delimiter) {
     // http://kevin.vanzonneveld.net
@@ -34,8 +37,6 @@ function format(tpl, data, ldel, rdel) {
         // /{{\s*((\w*)|((\w+)\s*\(\s*([\w\d\/\\\.\-_]*?)\s*\)))}}/gi,
         replacer,
         function (all, $1, key, $3, fn, args) {
-            //console.log("key:", key, "\n", "fn:", fn, "\n", "args:", args);
-            //console.log(arguments);
             var value;
             if (key) {
                 value = data[key];
@@ -46,12 +47,16 @@ function format(tpl, data, ldel, rdel) {
         });
 }
 
+function inArray(elem, array, k){
+    return [].indexOf.apply(array, [elem, k]);
+};
+
 gulp.task("build:prepar", function () {
     var widgets = CONFIG.widgets;
 
     var allWidgets = fs.readdirSync(CONFIG.WIDGET_DIR)
         .filter(function (name) {
-            return widgets === "*" || widgets.indexOf(name) > -1;
+            return widgets === "*" || inArray(name, widgets) > -1;
         });
 
     var allLessFiles = [];
@@ -86,6 +91,7 @@ gulp.task("build:prepar", function () {
     var FS_OPTIONS = {
         encoding: "utf8"
     };
+
     var lessTpl = fs.readFileSync(CONFIG.LESS_TPL, FS_OPTIONS);
     var lessData = {};
 
@@ -97,6 +103,17 @@ gulp.task("build:prepar", function () {
     fs.writeFileSync(CONFIG.LESS_FILE, format(lessTpl, lessData, "/*!", "*/"));
 
     var jsTpl = fs.readFileSync(CONFIG.JS_TPL, FS_OPTIONS);
+    //检查是否需要加载hammer
+    for(var item in dependJson){
+        for(var i = 0; i < dependJson[item].length; i++){
+            if(inArray(path.join(CONFIG.WIDGET_DIR, dependJson[item][i], dependJson[item][i] + ".js"), allJsFiles)){
+                jsTpl = jsTpl.replace(/(\/\*\!read)/, "/*!read(js/" + item + ".js)*/\n$1");
+                
+                break;
+            }
+        }
+    }
+
     var jsData = {};
     jsData.widgets = allJsFiles.map(function (file) {
         var code = fs.readFileSync(file, FS_OPTIONS);

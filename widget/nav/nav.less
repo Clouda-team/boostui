@@ -1,4 +1,7 @@
 @nav-height: 40px;
+@arrow-down: "\e6cb";
+@arrow-up: "\e6ce";
+
 .nav-item-column(@num) {
   width: percentage(1 / @num);
   &:nth-child(@{num}n):after {
@@ -11,6 +14,7 @@
   padding: 7px 0;
   overflow: hidden;
   .clearfix();
+  height: 0px;
 }
 
 .@{namespace}nav-animation {
@@ -67,14 +71,14 @@
     font-style: normal;
   }
   i:after {
-    content: "\e6cb" !important;
+    content: @arrow-down !important;
     .font(@font-left);
     color: @color-font-grey;
   }
 }
 
 .@{namespace}nav-expanded i:after{
-  content: "\e6ce" !important;
+  content: @arrow-up !important;
 }
 
 .@{namespace}nav-column-3 {

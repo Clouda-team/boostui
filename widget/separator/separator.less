@@ -1,10 +1,10 @@
-@separator-color: #f1f1f1;
+@separator-color: @gray-lighter;
 @separator-line-height: 2px;
 @separator-width: 100%;
 @separator-rect-height: 20px;
-@separator-rect2-border-color: #e0e0e0;
-@separator-rect1-border-top-color: #e8e8e8;
-@separator-rect1-border-top2-color: #ebeaea;
+@separator-rect2-border-color: darken(@separator-color, 5%);
+@separator-rect1-border-top-color: darken(@separator-color, 7%);
+@separator-rect1-border-top2-color: darken(@separator-color, 2%);
 
 .@{namespace}separator{
       width: @separator-width;

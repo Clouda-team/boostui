@@ -3449,7 +3449,7 @@ input[type="button"].blend-button-block {
 }
 .blend-link a {
   color: #00a3e7 !important;
-  font-size: 16px;
+  font-size: 1.6rem;
 }
 .blend-link-left {
   text-align: left;
@@ -3564,7 +3564,7 @@ input[type="button"].blend-button-block {
   font-size: 16px;
   color: #262626;
   line-height: 20px;
-  margin: 0;
+  margin: 0 !important;
 }
 .blend-listview-item-sub-title {
   font-size: 14px;
@@ -3575,7 +3575,7 @@ input[type="button"].blend-button-block {
 .blend-listview-item-summary {
   font-size: 14px;
   color: #777777;
-  line-height: 18px;
+  line-height: 18px !important;
   margin: 0;
 }
 .blend-listview-item-two-line {
@@ -3755,7 +3755,7 @@ input[type="button"].blend-button-block {
   margin: 0;
 }
 .blend-listview-cart-theme .blend-listview-item-sub-title {
-  margin-top: 8px;
+  margin: 8px 0 0 0 !important;
 }
 .blend-listview-theme3 {
   padding: 0 10px;
@@ -3835,6 +3835,11 @@ input[type="button"].blend-button-block {
 }
 .blend-listview-theme3 .blend-listview-item-right {
   margin-top: 47px;
+}
+.blend-listview-item-title,
+.blend-listview-item-two-line,
+.blend-listview-item-sub-title {
+  margin: 0 !important;
 }
 .blend-loading {
   height: 40px;
@@ -3931,6 +3936,7 @@ input[type="button"].blend-button-block {
 .blend-nav {
   padding: 7px 0;
   overflow: hidden;
+  height: 0px;
 }
 .blend-nav:before,
 .blend-nav:after {
@@ -4192,26 +4198,26 @@ input[type="button"].blend-button-block {
 }
 .blend-separator {
   width: 100%;
-  border-top: 2px solid #f1f1f1;
+  border-top: 2px solid #eeeeee;
 }
 .blend-separator-dashed {
-  border-top: 2px dashed #f1f1f1;
+  border-top: 2px dashed #eeeeee;
 }
 .blend-separator-rect1 {
   height: 20px;
   box-sizing: border-box;
-  background: #f1f1f1;
-  border-top: 1px solid #e8e8e8;
+  background: #eeeeee;
+  border-top: 1px solid #dddddd;
 }
 .blend-separator-rect1 .blend-separator-rect1-top {
-  border-top: 2px solid #ebeaea;
+  border-top: 2px solid #e9e9e9;
 }
 .blend-separator-rect2 {
   height: 20px;
   box-sizing: border-box;
-  background: #f1f1f1;
-  border-top: 1px solid #e0e0e0;
-  border-bottom: 1px solid #e0e0e0;
+  background: #eeeeee;
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
 }
 .blend-sidenav {
   width: 100%;
