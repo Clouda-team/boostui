@@ -35,7 +35,9 @@ $.widget('blend.header', {
                 me._uix.render();
             });
         }
-
+        if(navigator.userAgent.match(/baiduboxapp/i) && navigator.userAgent.match(/light/i) ){
+            this.element.remove();
+        }
         // this._initUIXComponent();
     },
     _initUIXComponent: function (blend) {
