@@ -4001,7 +4001,7 @@ input[type="button"].blend-button-block {
   font-style: normal;
 }
 .blend-nav-expand i:after {
-  content: "\e6cb" !important;
+  content: "\e7ba" !important;
   font-family: "boostfont";
   font-style: normal;
   -webkit-font-smoothing: antialiased;
@@ -4010,7 +4010,7 @@ input[type="button"].blend-button-block {
   color: #777777;
 }
 .blend-nav-expanded i:after {
-  content: "\e6ce" !important;
+  content: "\e7aa" !important;
 }
 .blend-nav-column-3 .blend-nav-item,
 .blend-nav-column-3 .blend-nav-expand {
@@ -4448,6 +4448,40 @@ input[type="button"].blend-button-block {
 .blend-star-item.selected {
   background-position: 0 0;
 }
+.blend-sug {
+  position: relative;
+}
+.blend-sug-search {
+  display: -webkit-box;
+}
+.blend-sug-search-input {
+  display: block;
+  -webkit-box-flex: 1;
+  height: 40px;
+}
+.blend-sug-search-button {
+  display: block;
+  width: 50px;
+  height: 40px;
+}
+.blend-sug-tip {
+  display: none;
+  width: 100%;
+  position: absolute;
+  background-color: #ffffff;
+  z-index: 10;
+}
+.blend-sug-tip-header {
+  height: 20px;
+}
+.blend-sug-tip-content-item {
+  display: block;
+  height: 20px;
+  line-height: 20px;
+}
+.blend-sug-tip-footer {
+  height: 20px;
+}
 .blend-switch {
   display: inline-block;
   width: 5.2rem;
@@ -4610,21 +4644,21 @@ input[type="button"].blend-button-block {
 }
 .blend-title-flag > span:before,
 .blend-title-flag > a:before {
-  content: "\e6ca";
+  content: "\e7bb";
   font-family: "boostfont";
   font-size: 24px;
   color: #00A3E7;
 }
 .blend-title-circle > span:before,
 .blend-title-circle > a:before {
-  content: "\e6cd";
+  content: "\e7bd";
   font-family: "boostfont";
   font-size: 20px;
   color: #333;
 }
 .blend-title-dot > span:before,
 .blend-title-dot > a:before {
-  content: "\e6cc";
+  content: "\e7be";
   font-family: "boostfont";
   font-size: 16px;
   color: #333;
