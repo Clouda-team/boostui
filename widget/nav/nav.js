@@ -39,14 +39,17 @@ $.widget('blend.nav', {
      */
     _init: function () {
         var nav = this;
-        if (nav.options.animate) {
-            nav.element.addClass(nav.animateClass);
-        }
-        else {
-            nav.element.removeClass(nav.animateClass);
-        }
         nav._setColumn();
         nav._setRow();
+        setTimeout(function (){
+            if (nav.options.animate) {
+                nav.element.addClass(nav.animateClass);
+            }
+            else {
+                nav.element.removeClass(nav.animateClass);
+            }
+        }, 100);
+        
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;
