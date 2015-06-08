@@ -11,6 +11,7 @@
 $.widget('blend.gallery', {
     /**
      * 组件的默认选项，可以由多重覆盖关系
+     * tapMode: true表示点击图片切换显示描述，false表示点击切换显示图集
      */
     options: {
     },
@@ -138,6 +139,9 @@ $.widget('blend.gallery', {
         // Callback function when the finger move out of the screen
         this.onslidechange = opts.onslidechange;
 
+        //单击是显示描述/图集
+        this.tapMode = (typeof opts.tapMode === "undefined") ?  true : opts.tapMode;
+      
         this.offset = this.offset || {
             X: 0,
             Y: 0
@@ -355,6 +359,7 @@ $.widget('blend.gallery', {
 
         this.wrap.appendChild(this.topMenu = topMenu);
         this.wrap.appendChild(this.bottomMenu = bottomMenu);
+
     },
     /**
      *  preload img when slideChange
@@ -589,7 +594,7 @@ $.widget('blend.gallery', {
         }
 
         var device = this._device();
-        // console.log(device);
+   
         this.isMoving = true;
         this._pause();
         // this.onslidestart && this.onslidestart();
@@ -664,12 +669,19 @@ $.widget('blend.gallery', {
         else if (!res) {
             this._slideTo(this.slideIndex);
 
-            if (this.isMenuShow) {
-                this._hideMenu();
-            }
-            else {
-                this._showMenu();
-            }
+            var _that = this;
+            setTimeout(function (){
+                if (_that.gesture !== 3 && _that.tapMode){
+                     if (_that.isMenuShow) {
+                        _that._hideMenu();
+                    }
+                    else {
+                        _that._showMenu();
+                    }
+                }else if (_that.gesture !== 3 && !_that.tapMode){
+                    _that.hide();
+                }
+            }, 300);
         }
         // create tap event if offset < 10
         if (Math.abs(this.offset.X) < 10 && Math.abs(this.offset.Y) < 10) {
@@ -749,11 +761,13 @@ $.widget('blend.gallery', {
         /* if (!this.outer || !this.outer.innerHTML) {
             this._renderHTML();
         }*/
-
-        var that = this;
-        setTimeout(function(){
-            that._showMenu();
-        },300);
+        if (this.tapMode){
+            var that = this;
+            setTimeout(function(){
+                that._showMenu();
+            },300);
+        }
+        
         // this._showMenu();
     },
     /**
@@ -885,7 +899,6 @@ $.widget('blend.gallery', {
                 this.currentScale = transform.scaleX;
                 this.zoomNode = node;
                 var pos = getPosition(node);
-                // console.log(evt.targetTouches);
                 if (evt.targetTouches.length === 2) {
                     this.lastTouchStart = null;
                     var touches = evt.touches;
@@ -937,10 +950,7 @@ $.widget('blend.gallery', {
             var pos = getPosition(node);
             this.currentScale = this.currentScale === 1 ? zoomFactor : 1;
             node.style.webkitTransform = generateTranslate(0, 0, 0, this.currentScale);
-            if (this.currentScale !== 1) {
-                node.style.webkitTransformOrigin =
-                generateTransformOrigin(evt.touches[0].pageX - pos.left, evt.touches[0].pageY - pos.top);
-            }
+       
         }
         // 缩放图片
         function scaleImage(evt) {
@@ -968,7 +978,8 @@ $.widget('blend.gallery', {
             else if (this.gesture === 3) {
                 // 双击
                 this._handleDoubleTap(evt);
-                this._resetImage(evt);
+                //this._resetImage(evt);
+                result = 3; 
             }
             return result;
         }
