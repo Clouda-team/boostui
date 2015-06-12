@@ -6817,7 +6817,9 @@ $.widget('blend.header', {
                 me._uix.render();
             });
         }
-
+        if(navigator.userAgent.match(/baiduboxapp/i) && navigator.userAgent.match(/light/i) ){
+            this.element.remove();
+        }
         // this._initUIXComponent();
     },
     _initUIXComponent: function (blend) {
@@ -7174,14 +7176,17 @@ $.widget('blend.nav', {
      */
     _init: function () {
         var nav = this;
-        if (nav.options.animate) {
-            nav.element.addClass(nav.animateClass);
-        }
-        else {
-            nav.element.removeClass(nav.animateClass);
-        }
         nav._setColumn();
         nav._setRow();
+        setTimeout(function (){
+            if (nav.options.animate) {
+                nav.element.addClass(nav.animateClass);
+            }
+            else {
+                nav.element.removeClass(nav.animateClass);
+            }
+        }, 100);
+        
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;

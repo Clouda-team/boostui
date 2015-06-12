@@ -6,21 +6,8 @@ var path = require("path");
 var gulp = require("gulp");
 var $ = require('gulp-load-plugins')();
 var del = require('del');
-//var debug = require('gulp-debug');
-//var less = require("gulp-less");
 
-//var tap = require("gulp-tap");
-//var coffee = require('gulp-coffee');
-//var concat = require('gulp-concat');
-//var uglify = require('gulp-uglify');
-//var imagemin = require('gulp-imagemin');
-//var sourcemaps = require('gulp-sourcemaps');
-//var less = require("gulp-less");
-//var through = require("through");
-
-
-var CONFIG = require("./build.json");
-var dependJson = {
+var CONFIG, dependJson = {
                             "hammer": ["list", "slider"]
                          };
 
@@ -50,6 +37,14 @@ function format(tpl, data, ldel, rdel) {
 function inArray(elem, array, k){
     return [].indexOf.apply(array, [elem, k]);
 };
+
+gulp.task("build: setConfig", function (){
+    CONFIG = require("./build.json");
+});
+
+gulp.task("build: setConfigTmp", function (){
+    CONFIG = require("./pack/buildtmp.json");
+});
 
 gulp.task("build:prepar", function () {
     var widgets = CONFIG.widgets;
@@ -234,8 +229,10 @@ gulp.task('build:samples', function () {
 });
 
 
-gulp.task("build", ["build:prepar", "build:js", "build:css", "build:font", "build:image", "build:md", "build:samples"]);
-//gulp.task("build", ["build:clean", "build:prepar", "build:css"]);
+gulp.task("build", ["build: setConfig", "build:prepar", "build:js", "build:css", "build:font", "build:image", "build:md", "build:samples"]);
+
+gulp.task("buildtmp", ["build: setConfigTmp", "build:prepar", "build:js", "build:css", "build:font", "build:image"]);
+
 gulp.task("default", ["build"]);
 
 //gulp.run();

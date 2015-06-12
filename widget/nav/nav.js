@@ -41,6 +41,7 @@ $.widget('blend.nav', {
         var nav = this;
         nav._setColumn();
         nav._setRow();
+        
         setTimeout(function (){
             if (nav.options.animate) {
                 nav.element.addClass(nav.animateClass);
