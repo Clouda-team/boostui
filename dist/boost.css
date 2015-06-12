@@ -3968,7 +3968,6 @@ input[type="button"].blend-button-block {
   border-bottom: 1px solid #ededed;
 }
 .blend-nav-item.blend-nav-item-active {
-  /*border-bottom-color: @color-tab-border;*/
   font-weight: bold;
 }
 .blend-nav-item:after {
