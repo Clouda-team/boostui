@@ -117,7 +117,7 @@ $.widget('blend.nav', {
             else {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
-                height = nav.$items.eq(0).height() * row + 15;
+                height = nav.$items.eq(0).height() * row;
                 nav.element.css('height', height);
                 $this.addClass(nav.expandedClass);
                 nav.$items.removeClass(nav.hideClass);
@@ -190,10 +190,11 @@ $.widget('blend.nav', {
      */
     _removeExpand: function () {
         var nav = this;
+        var option = nav.options;
         var $el = nav.element;
         var len = nav.$items.length;
         var row = Math.ceil(len / nav.options.column);
-        var height = nav.$items.eq(0).height() * row + 15;
+        var height = nav.$items.eq(0).height() * row ;
         $el.css('height', height);
         $el.find('.' + nav.expandClass).remove();
         nav.$items.removeClass(this.hideClass);
@@ -228,7 +229,7 @@ $.widget('blend.nav', {
             }
         });
         var height = nav.$items.eq(0).height();
-        nav.element.css('height', 15 + height * nav.options.row);
+        nav.element.css('height', height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
         }
