@@ -1,0 +1,71 @@
+@mail-font-color: @color-font;
+@mail-font-gray: @color-font-grey;
+@usercenter-font-color: @color-font;
+
+.@{namespace}mail{
+    padding: 12px 10px;
+    background: url(img/border.jpg) 0 0 repeat-x;
+    background-size: auto 4px;
+    color: @mail-font-color;
+}
+.@{namespace}mail-user{
+    font-size: 15px;
+    line-height: 27px;
+    margin: 0;
+}
+.@{namespace}mail-name{
+    margin-right: 15px;
+}
+.@{namespace}mail-addr{
+    font-size: 14px;
+    line-height: 18px;
+    margin: 0;
+}
+.@{namespace}mail-info{
+    font-size: 12px;
+    color: @mail-font-gray;
+    line-height: 24px;
+    margin: 0;
+}
+
+/************/
+.@{namespace}usercenter{
+    height: 44px;
+    line-height: 30px;
+    font-size: 16px;
+    color: @usercenter-font-color;
+    padding: 7px 10px;
+    overflow: hidden;
+    a{
+        color: @usercenter-font-color;
+    }
+}
+.@{namespace}usercenter-desc{
+    overflow: hidden;
+    float: left;
+}
+.@{namespace}usercenter-img{
+    border-radius: 50%;
+    overflow: hidden;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    float: left;
+    img{
+        width: 30px;
+    height: 30px;
+    }
+}
+.@{namespace}usercenter-name{
+    float: left;
+}
+.@{namespace}usercenter-enter{
+    float: right;
+}
+.@{namespace}usercenter-entrance:after{
+    .font(@font-left);
+    content: "\e79a";
+    color: #c0c0c0;
+    font-size: 18px;
+    margin-left: 5px;
+}

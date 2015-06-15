@@ -7203,7 +7203,9 @@ $.widget('blend.nav', {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
-                nav.element.css('height', 15 + height * nav.options.row);
+                //nav.element.css('height', 15 + height * nav.options.row);
+                nav.element.css('height', height * nav.options.row);
+
                 
                 var max = nav.options.row * nav.options.column;
                 nav.$items.each(function (i) {
