@@ -101,7 +101,7 @@ gulp.task("build:prepar", function () {
     //检查是否需要加载hammer
     for(var item in dependJson){
         for(var i = 0; i < dependJson[item].length; i++){
-            if(inArray(path.join(CONFIG.WIDGET_DIR, dependJson[item][i], dependJson[item][i] + ".js"), allJsFiles)){
+            if(inArray(path.join(CONFIG.WIDGET_DIR, dependJson[item][i], dependJson[item][i] + ".js"), allJsFiles) > -1){
                 jsTpl = jsTpl.replace(/(\/\*\!read)/, "/*!read(js/" + item + ".js)*/\n$1");
                 
                 break;
