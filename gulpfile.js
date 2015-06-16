@@ -7,9 +7,7 @@ var gulp = require("gulp");
 var $ = require('gulp-load-plugins')();
 var del = require('del');
 
-var CONFIG, dependJson = {
-                            "hammer": ["list", "slider"]
-                         };
+var CONFIG;
 
 function pregQuote(str, delimiter) {
     // http://kevin.vanzonneveld.net
@@ -98,17 +96,6 @@ gulp.task("build:prepar", function () {
     fs.writeFileSync(CONFIG.LESS_FILE, format(lessTpl, lessData, "/*!", "*/"));
 
     var jsTpl = fs.readFileSync(CONFIG.JS_TPL, FS_OPTIONS);
-    //检查是否需要加载hammer
-    for(var item in dependJson){
-        for(var i = 0; i < dependJson[item].length; i++){
-            if(inArray(path.join(CONFIG.WIDGET_DIR, dependJson[item][i], dependJson[item][i] + ".js"), allJsFiles) > -1){
-                jsTpl = jsTpl.replace(/(\/\*\!read)/, "/*!read(js/" + item + ".js)*/\n$1");
-                
-                break;
-            }
-        }
-    }
-
     var jsData = {};
     jsData.widgets = allJsFiles.map(function (file) {
         var code = fs.readFileSync(file, FS_OPTIONS);
