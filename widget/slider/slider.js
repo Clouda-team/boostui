@@ -1,5 +1,4 @@
 /* globals NAMESPACE */
-/* globals Hammer */
 /* eslint-disable fecs-camelcase */
 /**
  * Slider 组件
@@ -105,23 +104,23 @@ $.widget('blend.slider', {
      */
     _initEvent: function () {
         var that = this;
+        var device = this._device();
         // 绑定触摸
-        var hammer = new Hammer(this.$container[0]);
+        that.$ul[0].addEventListener(device.startEvt, function (evt){
+            that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+            that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
 
-        hammer.on('panstart', function (e) {
-
-            that.startX = e.center.x;
-            that.startY = e.center.y;
-        });
-
-        hammer.on('panmove', function (e) {
-
+            that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
+            that.$ul[0].addEventListener(device.endEvt, endHandler, false);
+        }, false);
+        
+        function moveHandler (evt){
             if (that.options.autoSwipe) {
                 clearInterval(that.autoScroll);
             }
 
-            that.curX = e.center.x;
-            that.curY = e.center.y;
+            that.curX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+            that.curY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
 
             that.moveX = that.curX - that.startX;
             that.moveY = that.curY - that.startY;
@@ -129,14 +128,12 @@ $.widget('blend.slider', {
             that._transitionHandle(that.$ul, 0);
 
             if (that.options.axisX) {
-                // console.log(-(that._liWidth * (parseInt(that._index)) - that.moveX));
+                evt.preventDefault();
                 that._fnTranslate(that.$ul, -(that._liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
+        };
 
-        });
-
-        hammer.on('panend', function (e) {
-
+        function endHandler (evt){
             var opts = that.options;
             var _touchDistance = 50;
 
@@ -167,7 +164,10 @@ $.widget('blend.slider', {
 
             that.moveX = 0;
             that.moveY = 0;
-        });
+
+            that.$ul[0].removeEventListener(device.moveEvt, moveHandler, false);
+            that.$ul[0].removeEventListener(device.endEvt, endHandler, false);
+        };
     },
     /**
      * 根据不同的theme添加组件和初始化样式
@@ -378,6 +378,23 @@ $.widget('blend.slider', {
     _setDotActive: function () {
         this.$controlOl.find('li a').removeClass(NAMESPACE + 'slider-active');
         this.$controlOl.find('li').eq(this._index).find('a').addClass(NAMESPACE + 'slider-active');
+    },
+    /**
+     * judge the device
+     * @private
+     * @return {Object} 事件
+     */
+    _device: function () {
+        var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+        var startEvt = hasTouch ? 'touchstart' : 'mousedown';
+        var moveEvt = hasTouch ? 'touchmove' : 'mousemove';
+        var endEvt = hasTouch ? 'touchend' : 'mouseup';
+        return {
+            hasTouch: hasTouch,
+            startEvt: startEvt,
+            moveEvt: moveEvt,
+            endEvt: endEvt
+        };
     },
     /**
      * 下一张幻灯片

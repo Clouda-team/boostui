@@ -1,5 +1,4 @@
 /* globals NAMESPACE */
-/* globals Hammer */
 /* eslint-disable fecs-camelcase */
 /**
  * @file list 组件
@@ -54,23 +53,28 @@ $.widget('blend.list', {
     _initEvent: function () {
         var list = this;
         var $items = list.element.find('.' + list.options.itemClass);
+        var device = this._device();
+        
         $items.each(function () {
-            var $this = $(this);
-            var hammer = $this.data('hammer');
-            if (!hammer) {
-                hammer = new Hammer(this);
+            if (!device.hasTouch) {
+                this.style.cursor = 'pointer';
+                this.ondragstart = function (evt) {
+                    if (evt) {
+                        return false;
+                    }
+                    return true;
+                };
             }
-            $this.data('hammer', hammer);
-            if ($this.hasClass(list.options.exceptionClass)) {
-                return;
-            }
-            hammer.on('swipeleft', function (ev) {
-                if ($this.find('.' + list.deleteBtnClass).length === 0) {
-                    $this.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
-                }
-                $this.addClass(list.options.itemDeleteActiveClass);
-                $this.find('.' + list.options.itemContentClass).css('left', list.deleteWidth);
-            });
+
+            this.addEventListener(device.startEvt, function (evt){
+                list._startHandler(evt, this, list);
+            }, false);
+            this.addEventListener(device.moveEvt, function (evt){
+                list._moveHandler(evt, this, list);
+            }, false);
+            this.addEventListener(device.endEvt, function (evt){
+                list._endHandler(evt, this, list);
+            }, false);
         });
         if (!list.eventInit) {
             list.eventInit = true;
@@ -126,13 +130,10 @@ $.widget('blend.list', {
      */
     _destroy: function () {
         var list = this;
-        var $items = list.element.find('.' + list.options.itemClass);
-        $items.each(function () {
-            var hammer = $(this).data('hammer');
-            if (hammer) {
-                hammer.off('swipeleft');
-            }
-        });
+        list._startHandler = null;
+        list._moveHandler = null;
+        list._endHandler = null;
+
         list.eventInit = false;
         list.element.off('click.list', '.' + list.deleteBtnClass);
         list.element.off('touchstart.list');
@@ -159,6 +160,57 @@ $.widget('blend.list', {
         else {
             list.$tempEl.appendTo(list.element).height(height);
         }
+    },
+    /**
+     * judge the device
+     * @private
+     * @return {Object} 事件
+     */
+    _device: function () {
+        var hasTouch = !!('ontouchstart' in window || window.DocumentTouch && document instanceof window.DocumentTouch);
+        var startEvt = hasTouch ? 'touchstart' : 'mousedown';
+        var moveEvt = hasTouch ? 'touchmove' : 'mousemove';
+        var endEvt = hasTouch ? 'touchend' : 'mouseup';
+        return {
+            hasTouch: hasTouch,
+            startEvt: startEvt,
+            moveEvt: moveEvt,
+            endEvt: endEvt
+        };
+    },
+    _startHandler: function (evt, that, list){
+        var device = list._device();
+
+        that.startTime = +new Date();
+        that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+        that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+    },
+    _moveHandler: function (evt, that, list){
+        if (that.startTime === 0){
+            return;
+        }
+        var device = list._device();
+
+        var pageY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+        //判断滑出范围就重置startTime
+        if (pageY < that.offsetTop || pageY > (that.offsetTop + that.offsetHeight)){
+            that.startTime = 0;
+        }
+    },
+    _endHandler: function (evt, that, list){
+        var device = list._device();
+        var endTime = +new Date();
+         var endX = device.hasTouch ? evt.changedTouches[0].pageX : evt.pageX;
+      
+        if (that.startTime > 0 && endTime - that.startTime < 400 && that.startX - endX > 50){
+            if ($(that).find('.' + list.deleteBtnClass).length === 0) {
+                that.parent().append('<span class="' + list.deleteBtnClass + '">删除</span>');
+            }
+            $(that).addClass(list.options.itemDeleteActiveClass);
+            $(that).find('.' + list.options.itemContentClass).css('left', list.deleteWidth);
+        }
+
+        that.startTime = 0;
     }
 
 });

@@ -88,54 +88,7 @@ $.widget('blend.sidenav', {
         var me = this;
         var $side = this.$el.find('.blend-sidenav-nav');
         var flag = false;
-        /*window.onscroll = function (e) {
-            // $side.append("aaaa<br>");
-            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
-            if (scrollTop >= me.limit) {
-                // $side.css('top', 0);
-                if(flag){return;}
-                $side.css('position', 'fixed');
-                flag = true;
-            }
-            else {
-                // $side.css('top', null);
-                $side.css('position', 'absolute');
-                flag = false;
-            }
-        };*/
-
-       /* var timer = setInterval(function(){
-            console.log(new Date().getTime() + "----");
-            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
-            if (scrollTop >= me.limit) {
-                // $side.css('top', 0);
-                $side.css('position', 'fixed');
-            }
-            else {
-                // $side.css('top', null);
-                $side.css('position', 'absolute');
-
-            }
-        },100);*/
         
-        /*var hammer = new Hammer(this.$el[0]);
-        hammer.on('panmove',function (e) {
-            
-            var scrollTop = doc.documentElement.scrollTop || doc.body.scrollTop;
-            console.log(scrollTop);
-            if (scrollTop >= me.limit) {
-                // $side.css('top', 0);
-                $side.css('position', 'fixed');
-            }
-            else {
-                // $side.css('top', null);
-                $side.css('position', 'absolute');
-
-            }
-        });*/
-
-
-
         var $nav = this.$el.find('.blend-sidenav-nav ul');
         $nav.on('tap, click', function (e) {
             e.preventDefault();
