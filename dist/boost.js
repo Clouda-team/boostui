@@ -5137,6 +5137,7 @@ $.widget('blend.slider', {
                 ratioClass += 'normal';
         }
         $el.addClass(ratioClass);
+        $el.css("visibility", "visible");
 
         this.$container = $el;
         this.$ul = $el.find('.' + NAMESPACE + 'slides');

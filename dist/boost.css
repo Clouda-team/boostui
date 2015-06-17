@@ -2894,6 +2894,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   position: relative;
   overflow: hidden;
   height: 100%;
+  visibility: hidden;
 }
 .blend-slider:after {
   content: '';
