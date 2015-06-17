@@ -78,6 +78,11 @@ $.widget('blend.slider', {
         var $ul = this.$ul;
         var $li = this.$li;
 
+        // 如果speed是0, 不自动滚动
+        if (this.options.speed <= 0) {
+            this.options.autoSwipe = false;
+        }
+
         /**
          * 连续滚动，需要复制dom
          */
