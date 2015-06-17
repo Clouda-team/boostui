@@ -1,22 +1,16 @@
-//@button-primary:
-//@button-secondary:
-//@button-success:
-//@button-info:
-//@button-warning:
-//@button-danger:
-//@button-default: @button-info;
-
-// button size
 @button-normal-height: 30px;
 @button-normal-line-height: 28px;
-@button-normal-width: 61px; // 2个字按钮宽度
 @button-large-height: 40px;
+@button-small-height: 30px;
+@button-xs-height: 26px;
 
 @button-font-size:                  @boost-font-size-link;
 @button-large-font-size:            @boost-font-size-nav;
 @button-font-weight:                @boost-font-weight-normal;
 @button-line-height:                @button-normal-height;
 @button-large-line-height:          38px;
+@button-small-line-height:          28px;
+@button-xs-line-height:          24px;
 
 @button-default-color:              @color-button;
 @button-default-bg:                 @color-white;
@@ -38,36 +32,6 @@
 @button-secondary-disabled-color:     darken(@button-secondary-color, 20%);
 @button-secondary-disabled-bg:        darken(@button-secondary-bg, 20%);
 @button-secondary-disabled-border:    darken(@button-secondary-border, 20%);
-
-@button-success-color:              #fff;
-@button-success-bg:                 @brand-success;
-@button-success-border:             @button-success-bg;
-@button-success-disabled-color:     darken(@button-success-color, 20%);
-@button-success-disabled-bg:        darken(@button-success-bg, 20%);
-@button-success-disabled-border:    darken(@button-success-border, 20%);
-
-@button-info-color:                 #fff;
-@button-info-bg:                    @brand-info;
-@button-info-border:                @button-info-bg;
-@button-info-disabled-color:     darken(@button-info-color, 20%);
-@button-info-disabled-bg:        darken(@button-info-bg, 20%);
-@button-info-disabled-border:    darken(@button-info-border, 20%);
-
-@button-warning-color:              #fff;
-@button-warning-bg:                 @brand-warning;
-@button-warning-border:             @button-warning-bg;
-@button-warning-disabled-color:     darken(@button-warning-color, 20%);
-@button-warning-disabled-bg:        darken(@button-warning-bg, 20%);
-@button-warning-disabled-border:    darken(@button-warning-border, 20%);
-
-@button-danger-color:               #fff;
-@button-danger-bg:                  @brand-danger;
-@button-danger-border:              @button-danger-bg;
-@button-danger-disabled-color:     darken(@button-danger-color, 20%);
-@button-danger-disabled-bg:        darken(@button-danger-bg, 20%);
-@button-danger-disabled-border:    darken(@button-danger-border, 20%);
-
-@button-link-disabled-color:        @gray-light;
 
 @button-red-color:              @color-white;
 @button-red-bg:                 @color-button-red;
@@ -91,7 +55,7 @@
     font-size: @button-font-size;
     font-weight: @button-font-weight;
     line-height: @button-normal-line-height;
-  height: @button-normal-height;
+    height: @button-normal-height;
     text-align: center;
     white-space: nowrap;
     background-image: none;
@@ -101,7 +65,6 @@
     outline: 0;
     -webkit-appearance: none;
     .user-select(none);
-    //transition: background-color 300ms ease-out, border-color 300ms ease-out;
 
     &:focus {
         .tab-focus();
@@ -121,12 +84,9 @@
     }
 
     &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
+    &[disabled] {
         cursor: @cursor-disabled;
-        pointer-events: none; // Future-proof disabling of clicks
-        //.opacity(.65);
-        //.box-shadow(none);
+        pointer-events: none; 
     }
 
     &.@{namespace}round {
@@ -145,127 +105,34 @@
   }
 }
 
-
-// Alternate buttons
-// --------------------------------------------------
-
 .@{namespace}button-default {
     .button-variant(@button-default-color; @button-default-bg; @button-default-border);
 
-
-    &[disabled],
-    fieldset[disabled] & {
+    &[disabled] {
         .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
     }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-default-border; @color-white; @button-default-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-default-color; @button-default-bg; @button-default-border);
-  }
 }
 .@{namespace}button-primary {
     .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
     &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
+    &[disabled]{
         .button-variant(@button-primary-disabled-color; @button-primary-disabled-bg; @button-primary-disabled-border);
     }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-primary-border; @color-white; @button-primary-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
-  }
 }
 .@{namespace}button-secondary {
     .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
     &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
+    &[disabled] {
         .button-variant(@button-secondary-disabled-color; @button-secondary-disabled-bg; @button-secondary-disabled-border);
     }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-secondary-border; @color-white; @button-secondary-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
-  }
-}
-// Success appears as green
-.@{namespace}button-success {
-    .button-variant(@button-success-color; @button-success-bg; @button-success-border);
-
-    &[disabled],
-    fieldset[disabled] & {
-        .button-variant(@button-success-disabled-color; @button-success-disabled-bg; @button-success-disabled-border);
-    }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-success-border; @color-white; @button-success-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-success-color; @button-success-bg; @button-success-border);
-  }
-}
-// Info appears as blue-green
-.@{namespace}button-info {
-    .button-variant(@button-info-color; @button-info-bg; @button-info-border);
-    &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
-        .button-variant(@button-info-disabled-color; @button-info-disabled-bg; @button-info-disabled-border);
-    }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-info-border; @color-white; @button-info-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-info-color; @button-info-bg; @button-info-border);
-  }
-}
-// Warning appears as orange
-.@{namespace}button-warning {
-    .button-variant(@button-warning-color; @button-warning-bg; @button-warning-border);
-    &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
-        .button-variant(@button-warning-disabled-color; @button-warning-disabled-bg; @button-warning-disabled-border);
-    }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-warning-border; @color-white; @button-warning-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-warning-color; @button-warning-bg; @button-warning-border);
-  }
-}
-// Danger and error appear as red
-.@{namespace}button-danger {
-    .button-variant(@button-danger-color; @button-danger-bg; @button-danger-border);
-    &.@{namespace}disabled,
-    &[disabled],
-    fieldset[disabled] & {
-        .button-variant(@button-danger-disabled-color; @button-danger-disabled-bg; @button-danger-disabled-border);
-    }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-danger-border; @color-white; @button-danger-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-danger-color; @button-danger-bg; @button-danger-border);
-  }
 }
 
 .@{namespace}button-red {
   .button-variant(@button-red-color; @button-red-bg; @button-red-border);
 
   &.@{namespace}disabled,
-  &[disabled],
-  fieldset[disabled] & {
+  &[disabled] {
     .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
-  }
-  &.@{namespace}button-checkbox {
-    .button-variant(@button-red-border; @color-white; @button-red-border);
-  }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-red-color; @button-red-bg; @button-red-border);
   }
 }
 
@@ -273,97 +140,24 @@
   .button-variant(@button-gray-color; @button-gray-bg; @button-gray-border);
 
   &.@{namespace}disabled,
-  &[disabled],
-  fieldset[disabled] & {
+  &[disabled] {
     .button-variant(@button-gray-disabled-color; @button-gray-disabled-bg; @button-gray-disabled-border);
   }
-  &.@{namespace}button-checkbox {
-     .button-variant(@button-gray-border; @color-white; @button-gray-border);
-   }
-  &.@{namespace}button-checkbox-checked {
-    .button-variant(@button-gray-color; @button-gray-bg; @button-gray-border);
-  }
 }
-
-
-// Link buttons
-// -------------------------
-
-// Make a button look and behave like a link
-.@{namespace}button-link {
-    color: @link-color;
-    font-weight: normal;
-    border-radius: 0;
-
-    &,
-    &:active,
-    &.active,
-    &[disabled],
-    fieldset[disabled] & {
-        background-color: transparent;
-        .box-shadow(none);
-    }
-    &,
-    &:hover,
-    &:focus,
-    &:active {
-        border-color: transparent;
-    }
-    &:hover,
-    &:focus {
-        color: @link-hover-color;
-        text-decoration: @link-hover-decoration;
-        background-color: transparent;
-    }
-    &[disabled],
-    fieldset[disabled] & {
-        &:hover,
-        &:focus {
-            color: @button-link-disabled-color;
-            text-decoration: none;
-        }
-    }
-}
-
-
-// Button Sizes
-// --------------------------------------------------
 
 .@{namespace}button-large {
-    // line-height: ensure even-numbered height of button next to large input
-    //.button-size(@padding-large-vertical; @padding-large-horizontal; @button-large-font-size; @button-large-line-height; @border-radius-large);
   font-size: @button-large-font-size;
   height: @button-large-height;
   line-height: @button-large-line-height;
   width: 100%;
 }
 .@{namespace}button-small {
-    // line-height: ensure proper height of button next to small input
-    .button-size(@padding-small-vertical; @padding-small-horizontal; @font-size-small; @line-height-small; @border-radius-small);
+    font-size: @font-size-small;
+    line-height: @button-small-line-height;
+    height: @button-small-height;
 }
 .@{namespace}button-xs {
-    .button-size(@padding-xs-vertical; @padding-xs-horizontal; @font-size-small; @line-height-small; @border-radius-small);
-}
-
-
-// Block button
-// --------------------------------------------------
-
-.@{namespace}button-block {
-    display: block;
-    width: 100%;
-}
-
-// Vertically space out multiple block buttons
-.@{namespace}button-block + .@{namespace}button-block {
-    margin-top: 5px;
-}
-
-// Specificity overrides
-input[type="submit"],
-input[type="reset"],
-input[type="button"] {
-    &.@{namespace}button-block {
-        width: 100%;
-    }
+    font-size: @font-size-small;
+    line-height: @button-xs-line-height;
+    height: @button-xs-height;
 }

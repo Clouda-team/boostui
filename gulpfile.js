@@ -41,7 +41,13 @@ gulp.task("build: setConfig", function (){
 });
 
 gulp.task("build: setConfigTmp", function (){
-    CONFIG = require("./pack/buildtmp.json");
+    var lastParam = process.argv[process.argv.length - 1];
+    if (lastParam.indexOf("-") !== -1){
+        CONFIG = require("./pack/buildtmp" + lastParam.substring(1) + ".json");
+    }else{
+        CONFIG = require("./pack/buildtmp.json");
+    }
+    
 });
 
 gulp.task("build:prepar", function () {
@@ -113,9 +119,19 @@ gulp.task("build:clean", function (cb) {
 });
 
 gulp.task("build:js", function () {
+    //修改打包后的js文件名
+    var lastParam = process.argv[process.argv.length - 1];
+    if (lastParam.indexOf("-") !== -1){
+        var jsFileName = CONFIG.JS_FILE.replace(/\w+\/|\-\d+\.\w+/g, "");
+    }else{
+        var jsFileName = CONFIG.JS_FILE.replace(/\w+\/|\.\w+/g, "");
+    }
     //return
     gulp
         .src(CONFIG.JS_FILE)
+        .pipe($.rename({
+            basename: jsFileName
+        }))
         .pipe(gulp.dest(CONFIG.DIST_DIR))
         .pipe($.size({
             showFiles: true,
@@ -139,10 +155,20 @@ gulp.task("build:js", function () {
 });
 
 gulp.task("build:css", function () {
-    //return
+    //修改打包后的less文件名
+    var lastParam = process.argv[process.argv.length - 1];
+    if (lastParam.indexOf("-") !== -1){
+        var lessFileName = CONFIG.LESS_FILE.replace(/\w+\/|\-\d+\.\w+/g, "");
+    }else{
+        var lessFileName = CONFIG.LESS_FILE.replace(/\w+\/|\.\w+/g, "");
+    }
+
     gulp
         .src(CONFIG.LESS_FILE)
         .pipe($.less())
+        .pipe($.rename({
+            basename: lessFileName
+        }))
         .pipe(gulp.dest(CONFIG.DIST_DIR))
         .pipe($.size({
             showFiles: true,
