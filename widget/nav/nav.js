@@ -32,7 +32,7 @@ $.widget('blend.nav', {
         nav.columnClassPre = NAMESPACE + 'nav-column-';
         nav.hideClass = NAMESPACE + 'nav-item-hide';
         nav.noborderClass = NAMESPACE + 'nav-item-no-border';
-        nav.columnRange = [3, 4, 5];
+        nav.columnRange = [2, 3, 4, 5, 6];
     },
     /**
      * _init 初始化的时候调用
@@ -149,6 +149,12 @@ $.widget('blend.nav', {
         /**
          * 处理column范围
          */
+        var columnNum = ($el[0].className).match(/blend\-nav\-column\-(\d{1})/);
+        
+        if (columnNum){
+            nav.options.column = parseInt(columnNum[1], 10);
+        }
+        
         if (nav.options.column && $.inArray(nav.options.column, nav.columnRange) === -1) {
             nav.options.column = 3;
         }

@@ -2657,6 +2657,22 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-nav-expand .blend-nav-item:nth-child(5n):after {
   display: none;
 }
+.blend-nav-column-2 .blend-nav-item,
+.blend-nav-column-2 .blend-nav-expand {
+  width: 50%;
+}
+.blend-nav-column-2 .blend-nav-item:nth-child(2n):after,
+.blend-nav-column-2 .blend-nav-expand:nth-child(2n):after {
+  display: none;
+}
+.blend-nav-column-6 .blend-nav-item,
+.blend-nav-column-6 .blend-nav-expand {
+  width: 16.66666667%;
+}
+.blend-nav-column-6 .blend-nav-item:nth-child(6n):after,
+.blend-nav-column-6 .blend-nav-expand:nth-child(6n):after {
+  display: none;
+}
 .blend-panel-left {
   text-align: left;
 }
