@@ -78,7 +78,7 @@ $.widget('blend.list', {
         });
         if (!list.eventInit) {
             list.eventInit = true;
-            list.element.on('click.list', '.' + list.deleteBtnClass, function (e) {
+            list.element.on('tap.list', '.' + list.deleteBtnClass, function (e) {
                 var $parent = $(this).closest('.' + list.options.itemClass);
                 list.tempIndex = $parent.index();
                 $parent.data('height', $parent.height());
@@ -135,7 +135,7 @@ $.widget('blend.list', {
         list._endHandler = null;
 
         list.eventInit = false;
-        list.element.off('click.list', '.' + list.deleteBtnClass);
+        list.element.off('tap.list', '.' + list.deleteBtnClass);
         list.element.off('touchstart.list');
     },
     /**

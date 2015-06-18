@@ -2372,13 +2372,13 @@ $.widget('blend.checkbox', {
 
         var that = this;
 
-        this.$group.on('tap, click', function () {
+        this.$group.on('tap', function () {
             if (that._trigger('beforechecked', null, {})) {
                 var curElem = $(this);
                 that._checkGroup(curElem);
             }
         });
-        this.$label.on('tap, click', function () {
+        this.$label.on('tap', function () {
             if (that._trigger('beforechecked', null, {})) {
                 var curElem = that.$group.eq([that.$label.index($(this))]);
                 that._checkGroup(curElem);
@@ -2512,10 +2512,10 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('click', function () {
+        this.$plus.on('tap', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('click', function () {
+        this.$minus.on('tap', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {
@@ -2821,10 +2821,10 @@ $.widget('blend.dialog', {
         $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on('tap, click', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
             self._trigger('cancel');
             self.autoCloseDone && self.hide();
-        }).on('tap, click', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
@@ -2925,7 +2925,7 @@ $.widget('blend.dialog', {
         var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this._maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
         this._maskDom.css('height', bodyHeight);
-        this._maskDom.on('click', function (e) {
+        this._maskDom.on('tap', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
         }).on('touchmove', function (e) {
@@ -4498,7 +4498,7 @@ $.widget('blend.list', {
         });
         if (!list.eventInit) {
             list.eventInit = true;
-            list.element.on('click.list', '.' + list.deleteBtnClass, function (e) {
+            list.element.on('tap.list', '.' + list.deleteBtnClass, function (e) {
                 var $parent = $(this).closest('.' + list.options.itemClass);
                 list.tempIndex = $parent.index();
                 $parent.data('height', $parent.height());
@@ -4555,7 +4555,7 @@ $.widget('blend.list', {
         list._endHandler = null;
 
         list.eventInit = false;
-        list.element.off('click.list', '.' + list.deleteBtnClass);
+        list.element.off('tap.list', '.' + list.deleteBtnClass);
         list.element.off('touchstart.list');
     },
     /**
@@ -4757,7 +4757,7 @@ $.widget('blend.nav', {
         nav.columnClassPre = NAMESPACE + 'nav-column-';
         nav.hideClass = NAMESPACE + 'nav-item-hide';
         nav.noborderClass = NAMESPACE + 'nav-item-no-border';
-        nav.columnRange = [3, 4, 5];
+        nav.columnRange = [2, 3, 4, 5, 6];
     },
     /**
      * _init 初始化的时候调用
@@ -4787,7 +4787,7 @@ $.widget('blend.nav', {
      */
     _initEvent: function () {
         var nav = this;
-        nav.element.on('click.nav', '.' + nav.expandClass, function (e) {
+        nav.element.on('tap.nav', '.' + nav.expandClass, function (e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
@@ -4874,6 +4874,12 @@ $.widget('blend.nav', {
         /**
          * 处理column范围
          */
+        var columnNum = ($el[0].className).match(/blend\-nav\-column\-(\d{1})/);
+        
+        if (columnNum){
+            nav.options.column = parseInt(columnNum[1], 10);
+        }
+        
         if (nav.options.column && $.inArray(nav.options.column, nav.columnRange) === -1) {
             nav.options.column = 3;
         }
@@ -4971,7 +4977,7 @@ $.widget('blend.nav', {
         var nav = this;
         nav.options.row = false;
         nav._removeExpand();
-        nav.element.off('click.nav', '.' + nav.expandClass);
+        nav.element.off('tap.nav', '.' + nav.expandClass);
     }
 });
 })(Zepto)
@@ -5070,7 +5076,7 @@ $.widget('blend.sidenav', {
         var flag = false;
         
         var $nav = this.$el.find('.blend-sidenav-nav ul');
-        $nav.on('tap, click', function (e) {
+        $nav.on('tap', function (e) {
             e.preventDefault();
             $nav.find('li').removeClass('blend-sidenav-active');
             var target = e.target || e.srcElement;
@@ -5166,6 +5172,11 @@ $.widget('blend.slider', {
         var that = this;
         var $ul = this.$ul;
         var $li = this.$li;
+
+        // 如果speed是0, 不自动滚动
+        if (this.options.speed <= 0) {
+            this.options.autoSwipe = false;
+        }
 
         /**
          * 连续滚动，需要复制dom
@@ -5521,6 +5532,186 @@ $.widget('blend.slider', {
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
+ * @file sug 组件
+ * @author wanghongliang02
+ */
+
+$.widget('blend.sug', {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        itemClass: NAMESPACE + 'sug-tip-content-item',
+        inputClass: NAMESPACE + 'sug-search-input',
+        buttonClass: NAMESPACE + 'sug-search-button',
+        history: true, // 搜索历史记录开关
+        historyAjax: false, // 是否异步读历史数据，url/false，默认json，jsonp请在url后添加callback=?
+        historyData: undefined, // 历史记录数据 [1, 2]
+        // 读取联想词列表数据的key
+        list: 'list',
+        createEle: undefined,
+        callback: function (key) {
+        }, // 事件
+        // todo 预留
+        suggest: false
+    },
+    /**
+     * _create 创建组件时调用一次
+     */
+    _create: function () {
+        var sug = this;
+        var $el = sug.element;
+        sug.$input = $el.find('.' + sug.options.inputClass);
+        sug.$button = $el.find('.' + sug.options.buttonClass);
+        sug.$tip = $el.find('.' + NAMESPACE + 'sug-tip');
+        sug.$tipContent = $el.find('.' + NAMESPACE + 'sug-tip-content');
+        sug._initEvent();
+    },
+    /**
+     * _init 初始化的时候调用
+     */
+    _init: function () {
+    },
+    /**
+     *
+     * @private
+     */
+    _initEvent: function () {
+        var sug = this;
+        sug.element.on('click.sug', '.' + sug.options.itemClass, function () {
+            var $item = $(this);
+            var key = $item.data('key');
+            if (sug.options.callback && $.isFunction(sug.options.callback)) {
+                if (sug.options.callback(key) === false) {
+                    return;
+                }
+            }
+            sug.$input.val(key);
+            sug.$button.trigger('click tap');
+            sug._hide();
+        });
+        sug.element.on('focus.sug', '.' + sug.options.inputClass, function () {
+            if (!sug.options.history) {
+                return;
+            }
+            // todo 定位
+            if (sug.options.historyAjax) {
+                $.getJSON(sug.options.historyAjax, function (res) {
+                    sug._createEle(res);
+                });
+            }
+            else {
+                if (sug.$tip.find('.' + sug.options.itemClass).length > 0) {
+                    sug._show();
+                    return;
+                }
+                var local = {
+                    errno: 0,
+                    data: []
+                };
+                local.data[sug.options.list] = sug.options.historyData || [];
+                sug._createEle(local);
+            }
+
+        });
+    },
+    /**
+     * 销毁对象
+     * @private
+     */
+    _destroy: function () {
+        var sug = this;
+        sug.element.off('click.sug', '.' + sug.options.itemClass);
+        sug.element.off('focus.sug', '.' + sug.options.inputClass);
+        sug.element.find('.' + sug.options.itemClass).remove();
+        sug._hide();
+    },
+    /**
+     * 隐藏提示框
+     * @private
+     */
+    _hide: function () {
+        var sug = this;
+        sug.$tip.hide();
+    },
+    /**
+     * 显示提示框
+     * @private
+     */
+    _show: function () {
+        var sug = this;
+        sug.$tip.show();
+    },
+    /**
+     * 创建提示项
+     * @param {Object} res 返回数据
+     * @private
+     */
+    _createEle: function (res) {
+        var sug = this;
+        if (sug.options.createEle && $.isFunction(sug.options.createEle)) {
+            sug.options.createEle(res, sug.$tipContent);
+        }
+        else {
+            if (res.errno !== 0) {
+                return;
+            }
+            var list = res.data[sug.options.list];
+            if (!list || !list.length) {
+                return;
+            }
+            var len = list.length;
+            sug.$tipContent.empty();
+            for (var i = 0; i < len; i++) {
+                sug.$tipContent.append('<li data-key="' + list[i] +
+                    '" class="' + sug.options.itemClass + '">' + list[i] + '</li>');
+            }
+        }
+        if (sug.element.find('.' + sug.options.itemClass).length > 0) {
+            sug._show();
+        }
+    },
+    /**
+     * todo 预留
+     * 搜索关键词提示
+     * @private
+     */
+    _suggest: function () {
+    },
+    /**
+     * 清除历史记录
+     */
+    clear: function () {
+        var sug = this;
+        if (!sug.options.history) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug._hide();
+        if (!sug.options.historyAjax) {
+            sug.options.historyData = undefined;
+        }
+        if (sug.options.clear && $.isFunction(sug.options.clear)) {
+            sug.options.clear();
+        }
+    },
+    /**
+     * 更新历史数据
+     * @param {Array} historyData 历史记录数据
+     */
+    refreshHistoryData: function (historyData) {
+        var sug = this;
+        if (!$.isArray(historyData)) {
+            return;
+        }
+        sug.$tipContent.empty();
+        sug.options.historyData = historyData;
+    }
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
  * 单选滑块组件
  *
  * @file switch.js
@@ -5555,7 +5746,7 @@ $.widget('blend.switch', {
     _initEvent: function (){
         var that = this;
         
-        this.switches.on('tap, click', function () {
+        this.switches.on('tap', function () {
             if ($(this).hasClass(that.options.classNameActive)) {
                 $(this).removeClass(that.options.classNameActive);
             }else {
@@ -5710,7 +5901,7 @@ $.widget('blend.tab', {
      */
     _initEvent: function () {
         var tab = this;
-        tab.$headerItem.on('click.tab', function (e) {
+        tab.$headerItem.on('tap.tab', function (e) {
             var index = $(this).index();
             tab._switch(index);
         });
@@ -5742,7 +5933,7 @@ $.widget('blend.tab', {
      */
     _destroy: function () {
         var tab = this;
-        tab.$headerItem.off('click.tab');
+        tab.$headerItem.off('tap.tab');
     },
 
     /**
@@ -5922,7 +6113,7 @@ $.widget('blend.topnav', {
         for (var i = 0, len = $items.length; i < len; i++) {
             var $item = $items.eq(i);
 
-            $item.on('tap, click', function (e) {
+            $item.on('tap', function (e) {
                 var $this = $(this);
                 var $ul = $(this).find('ul');
                 var $span = $(this).find('span');

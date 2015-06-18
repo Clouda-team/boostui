@@ -75,7 +75,7 @@ $.widget('blend.topnav', {
         for (var i = 0, len = $items.length; i < len; i++) {
             var $item = $items.eq(i);
 
-            $item.on('tap, click', function (e) {
+            $item.on('tap', function (e) {
                 var $this = $(this);
                 var $ul = $(this).find('ul');
                 var $span = $(this).find('span');

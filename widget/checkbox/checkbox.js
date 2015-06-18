@@ -108,13 +108,13 @@ $.widget('blend.checkbox', {
 
         var that = this;
 
-        this.$group.on('tap, click', function () {
+        this.$group.on('tap', function () {
             if (that._trigger('beforechecked', null, {})) {
                 var curElem = $(this);
                 that._checkGroup(curElem);
             }
         });
-        this.$label.on('tap, click', function () {
+        this.$label.on('tap', function () {
             if (that._trigger('beforechecked', null, {})) {
                 var curElem = that.$group.eq([that.$label.index($(this))]);
                 that._checkGroup(curElem);

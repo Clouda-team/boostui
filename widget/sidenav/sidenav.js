@@ -90,7 +90,7 @@ $.widget('blend.sidenav', {
         var flag = false;
         
         var $nav = this.$el.find('.blend-sidenav-nav ul');
-        $nav.on('tap, click', function (e) {
+        $nav.on('tap', function (e) {
             e.preventDefault();
             $nav.find('li').removeClass('blend-sidenav-active');
             var target = e.target || e.srcElement;

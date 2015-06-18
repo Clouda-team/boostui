@@ -142,7 +142,7 @@ $.widget('blend.tab', {
      */
     _initEvent: function () {
         var tab = this;
-        tab.$headerItem.on('click.tab', function (e) {
+        tab.$headerItem.on('tap.tab', function (e) {
             var index = $(this).index();
             tab._switch(index);
         });
@@ -174,7 +174,7 @@ $.widget('blend.tab', {
      */
     _destroy: function () {
         var tab = this;
-        tab.$headerItem.off('click.tab');
+        tab.$headerItem.off('tap.tab');
     },
 
     /**

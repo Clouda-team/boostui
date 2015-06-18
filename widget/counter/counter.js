@@ -101,10 +101,10 @@ $.widget('blend.counter', {
         var thisObj = this;
         var step = Number(this.options.step);
         step = isNaN(step) ? 1 : step;
-        this.$plus.on('click', function () {
+        this.$plus.on('tap', function () {
             thisObj.value(thisObj._value + step);
         });
-        this.$minus.on('click', function () {
+        this.$minus.on('tap', function () {
             thisObj.value(thisObj._value - step);
         });
         this.$input.on('blur', function () {

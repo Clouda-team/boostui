@@ -62,7 +62,7 @@ $.widget('blend.nav', {
      */
     _initEvent: function () {
         var nav = this;
-        nav.element.on('click.nav', '.' + nav.expandClass, function (e) {
+        nav.element.on('tap.nav', '.' + nav.expandClass, function (e) {
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
@@ -252,6 +252,6 @@ $.widget('blend.nav', {
         var nav = this;
         nav.options.row = false;
         nav._removeExpand();
-        nav.element.off('click.nav', '.' + nav.expandClass);
+        nav.element.off('tap.nav', '.' + nav.expandClass);
     }
 });

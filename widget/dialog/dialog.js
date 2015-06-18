@@ -219,10 +219,10 @@ $.widget('blend.dialog', {
         $(window).on('orientationchange resize', function () {
             self.setPosition();
         });
-        this.$el.on('tap, click', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
+        this.$el.on('tap', '.' + (this.cancelClass || NAMESPACE + 'dialog-cancel'), function () {
             self._trigger('cancel');
             self.autoCloseDone && self.hide();
-        }).on('tap, click', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
+        }).on('tap', '.' + (this.doneClass || NAMESPACE + 'dialog-confirm'), function () {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
@@ -323,7 +323,7 @@ $.widget('blend.dialog', {
         var bodyHeight = document.body.clientHeight || document.body.offsetHeight;
         (this._maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
         this._maskDom.css('height', bodyHeight);
-        this._maskDom.on('click', function (e) {
+        this._maskDom.on('tap', function (e) {
             e.preventDefault();
             self.maskTapClose && self.hide();
         }).on('touchmove', function (e) {

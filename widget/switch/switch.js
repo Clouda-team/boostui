@@ -35,7 +35,7 @@ $.widget('blend.switch', {
     _initEvent: function (){
         var that = this;
         
-        this.switches.on('tap, click', function () {
+        this.switches.on('tap', function () {
             if ($(this).hasClass(that.options.classNameActive)) {
                 $(this).removeClass(that.options.classNameActive);
             }else {
