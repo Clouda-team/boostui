@@ -2,37 +2,37 @@
 @push-font-gray: @color-font-grey;
 @push-font-white: @color-white;
 
-.blend-push{
+.@{namespace}push{
     margin: 0 6px;
     p{
         margin: 0;
     }
 }
-.blend-push-box{
+.@{namespace}push-box{
     border: 1px solid #ddd;
     padding-top: 10px;
 }
-.blend-push-title{
+.@{namespace}push-title{
     font-size: 16px;
     color: @push-font-color;
     line-height: 18px;
     margin: 0 10px 0 10px;
     font-weight: normal;
 }
-.blend-push-assist{
+.@{namespace}push-assist{
     font-size: 12px;
     line-height: 20px;
     color: @gray-light;
     padding: 0 0 5px 10px;
 }
-.blend-push-desc{
+.@{namespace}push-desc{
     font-size: 14px;
     line-height: 18px;
     color: @push-font-gray;
     padding: 8px 10px;
     
 }
-.blend-push-link{
+.@{namespace}push-link{
     font-size: 14px;
     color: @push-font-color;
     height: 39px;
@@ -46,26 +46,27 @@
         margin-right: 5px;
     }
 }
-.blend-push-time{
+.@{namespace}push-time{
     font-size: 12px;
     color: @push-font-gray;
     line-height: 26px;
     margin-left: 10px;
+    padding-left: 10px;
     &:before{
         .font(@font-left);
         content: "\e797";
         margin-right: 4px;
     }
 }
-.blend-push-wrap{
+.@{namespace}push-wrap{
     position: relative;
     margin: 0 10px;
-    .blend-push-title{
+    .@{namespace}push-title{
         line-height: 24px;
         margin-top: 7px;
         color: @push-font-white;
     }
-    .blend-push-assist{
+    .@{namespace}push-assist{
         color: @push-font-white;
     }
     img{
@@ -73,7 +74,7 @@
         height: 173px;
     }
 }
-.blend-push-mask{
+.@{namespace}push-mask{
     height: 53px;
     width: 100%;
     background: rgba(92,92,92,0.5);
@@ -81,25 +82,25 @@
     bottom: 0;
     left: 0;
 }
-.blend-push-img{
+.@{namespace}push-img{
     width: 85px;
     height: 53px;
     float: right;
     margin-right: 10px;
 }
-.blend-push-border{
+.@{namespace}push-border{
     border-bottom: 1px solid #ddd;
 }
-.blend-push-theme{
+.@{namespace}push-theme{
     display: flex;
     overflow: hidden;
-    .blend-push-img{
+    .@{namespace}push-img{
         margin-top: 10px;
     }
 }
-.blend-push-descbox{
+.@{namespace}push-descbox{
     flex: 1;
-    .blend-push-desc{
+    .@{namespace}push-desc{
         color: @push-font-color;
         padding-bottom: 2px;
     }

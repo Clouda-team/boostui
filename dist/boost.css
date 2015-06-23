@@ -1058,6 +1058,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   color: #777777;
   line-height: 26px;
   margin-left: 10px;
+  padding-left: 10px;
 }
 .blend-push-time:before {
   font-family: "boostfont";
@@ -1326,7 +1327,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   border-left: solid 1px #ededed;
 }
 .blend-mail {
-  padding: 12px 10px;
+  padding: 8px 10px;
   background: url(img/border.jpg) 0 0 repeat-x;
   background-size: auto 4px;
   color: #262626;
@@ -1335,6 +1336,9 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   font-size: 15px;
   line-height: 27px;
   margin: 0;
+}
+.blend-mail-user span {
+  color: #262626;
 }
 .blend-mail-name {
   margin-right: 15px;
@@ -3098,40 +3102,6 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 }
 .blend-star-item.selected {
   background-position: 0 0;
-}
-.blend-sug {
-  position: relative;
-}
-.blend-sug-search {
-  display: -webkit-box;
-}
-.blend-sug-search-input {
-  display: block;
-  -webkit-box-flex: 1;
-  height: 40px;
-}
-.blend-sug-search-button {
-  display: block;
-  width: 50px;
-  height: 40px;
-}
-.blend-sug-tip {
-  display: none;
-  width: 100%;
-  position: absolute;
-  background-color: #ffffff;
-  z-index: 10;
-}
-.blend-sug-tip-header {
-  height: 20px;
-}
-.blend-sug-tip-content-item {
-  display: block;
-  height: 20px;
-  line-height: 20px;
-}
-.blend-sug-tip-footer {
-  height: 20px;
 }
 .blend-switch {
   display: inline-block;
