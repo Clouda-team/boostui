@@ -76,12 +76,14 @@
     width: 100%;
     height: @dialog-footer-height;
     line-height: @dialog-footer-height;
-    display: flex;
+    display:-webkit-box; 
+    display:box;
 }
 .@{namespace}dialog-cancel,
 .@{namespace}dialog-confirm {
-   flex: 1;
-  width: 0;
+   -webkit-box-flex: 1; 
+   box-flex: 1;
+   width: 0;
    display: block;
    text-align: center;
    background-color: @color-dialog-footer;

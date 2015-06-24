@@ -1007,6 +1007,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   height: 26px;
 }
 .blend-push {
+  border: none;
   margin: 0 6px;
 }
 .blend-push p {
@@ -1096,21 +1097,22 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-push-img {
   width: 85px;
   height: 53px;
-  float: right;
   margin-right: 10px;
 }
 .blend-push-border {
   border-bottom: 1px solid #ddd;
 }
 .blend-push-theme {
-  display: flex;
+  display: -webkit-box;
+  display: box;
   overflow: hidden;
 }
 .blend-push-theme .blend-push-img {
   margin-top: 10px;
 }
 .blend-push-descbox {
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
 }
 .blend-push-descbox .blend-push-desc {
   color: #262626;
@@ -1303,11 +1305,13 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   width: 100%;
   height: 40px;
   line-height: 40px;
-  display: flex;
+  display: -webkit-box;
+  display: box;
 }
 .blend-dialog-cancel,
 .blend-dialog-confirm {
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   width: 0;
   display: block;
   text-align: center;
@@ -1414,49 +1418,60 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   bottom: 0;
 }
 .blend-flexbox {
-  display: flex;
+  display: -webkit-box;
+  display: box;
 }
 .blend-flexbox-item {
   display: block;
 }
 .blend-flexbox-item.blend-flexbox-ratio {
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio2 {
-  flex: 2;
+  -webkit-box-flex: 2;
+  box-flex: 2;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio3 {
-  flex: 3;
+  -webkit-box-flex: 3;
+  box-flex: 3;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio4 {
-  flex: 4;
+  -webkit-box-flex: 4;
+  box-flex: 4;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio5 {
-  flex: 5;
+  -webkit-box-flex: 5;
+  box-flex: 5;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio6 {
-  flex: 6;
+  -webkit-box-flex: 6;
+  box-flex: 6;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio7 {
-  flex: 7;
+  -webkit-box-flex: 7;
+  box-flex: 7;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio8 {
-  flex: 8;
+  -webkit-box-flex: 8;
+  box-flex: 8;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio9 {
-  flex: 9;
+  -webkit-box-flex: 9;
+  box-flex: 9;
   width: 0;
 }
 .blend-flexbox-item.blend-flexbox-ratio10 {
-  flex: 10;
+  -webkit-box-flex: 10;
+  box-flex: 10;
   width: 0;
 }
 .blend-form {
@@ -1470,7 +1485,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   border-bottom-color: transparent;
 }
 .blend-formgroup {
-  display: flex;
+  display: -webkit-box;
+  display: box;
   background-color: #ffffff;
 }
 .blend-formgroup-label {
@@ -1484,7 +1500,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   border: none;
 }
 .blend-formgroup-input {
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   height: 40px;
   font-size: 14px;
   padding: 9px 10px;
@@ -1499,7 +1516,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   color: #999999;
 }
 .blend-formgroup-select {
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   height: 40px;
   font-size: 14px;
   padding: 9px 10px;
@@ -2380,6 +2398,14 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   line-height: 22px;
   font-size: 14px;
   margin: 0;
+  display: -webkit-box;
+  display: box;
+  align-items: center;
+  -webkit-align-items: center;
+}
+.blend-listview-cart-theme .blend-listview-status-text span {
+  -webkit-box-flex: 1;
+  box-flex: 1;
 }
 .blend-listview-cart-theme .blend-listview-item-sub-title {
   margin: 8px 0 0 0 !important;
@@ -3145,7 +3171,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   border-radius: 1000px;
 }
 .blend-tab-header {
-  display: flex;
+  display: -webkit-box;
+  display: box;
   height: 40px;
   position: relative;
   font-size: 16px;
@@ -3157,7 +3184,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 }
 .blend-tab-header-item {
   display: block;
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   width: 0;
   text-decoration: none;
   position: relative;
@@ -3196,14 +3224,16 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   display: none;
 }
 .blend-tabnav {
-  display: flex;
+  display: -webkit-box;
+  display: box;
   height: 40px;
   /*border-bottom: 1px solid @tab-bottom-color;*/
   background-color: #ffffff;
 }
 .blend-tabnav-item {
   display: block;
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   width: 0;
   text-decoration: none;
   position: relative;
@@ -3308,13 +3338,15 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-topnav-wrapper {
   width: 100%;
   height: 40px;
-  display: flex;
+  display: -webkit-box;
+  display: box;
   border: solid 1px #ddd;
   background-color: #fff;
 }
 .blend-topnav-item {
   position: relative;
-  flex: 1;
+  -webkit-box-flex: 1;
+  box-flex: 1;
   width: 100%;
   height: 38px;
   display: block;

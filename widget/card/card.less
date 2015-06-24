@@ -3,6 +3,7 @@
 @push-font-white: @color-white;
 
 .@{namespace}push{
+    border: none;
     margin: 0 6px;
     p{
         margin: 0;
@@ -85,21 +86,22 @@
 .@{namespace}push-img{
     width: 85px;
     height: 53px;
-    float: right;
     margin-right: 10px;
 }
 .@{namespace}push-border{
     border-bottom: 1px solid #ddd;
 }
 .@{namespace}push-theme{
-    display: flex;
+    display:-webkit-box; 
+    display:box;
     overflow: hidden;
     .@{namespace}push-img{
         margin-top: 10px;
     }
 }
 .@{namespace}push-descbox{
-    flex: 1;
+    -webkit-box-flex: 1; 
+    box-flex: 1;
     .@{namespace}push-desc{
         color: @push-font-color;
         padding-bottom: 2px;

@@ -25,7 +25,8 @@
 }
 
 .@{namespace}formgroup {
-  display: flex;
+  display:-webkit-box; 
+  display:box;
   background-color: @formgroup-background-color;
 }
 
@@ -41,7 +42,8 @@
 }
 
 .@{namespace}formgroup-input {
-  flex: 1;
+  -webkit-box-flex: 1; 
+  box-flex: 1;
   height: @formgroup-height;
   font-size: @formgroup-label-font;
   padding: 9px 10px;
@@ -58,7 +60,8 @@
 
 
 .@{namespace}formgroup-select {
-  flex: 1;
+  -webkit-box-flex: 1; 
+  box-flex: 1;
   height: @formgroup-height;
   font-size: @formgroup-label-font;
   padding: 9px 10px;

@@ -1,11 +1,15 @@
 
 .flex(@num) {
-  flex: @num;
+  //flex: @num;
+  //-webkit-flex: @num;
+  -webkit-box-flex: @num; 
+  box-flex: @num;
   width: 0;
 }
 
 .@{namespace}flexbox {
-  display: flex;
+  display:-webkit-box; 
+  display:box;
 }
 
 .@{namespace}flexbox-item {

@@ -6,7 +6,8 @@
 }
 
 .@{namespace}tab-header {
-  display: flex;
+  display:-webkit-box; 
+  display:box;
   height: @tab-nav-height;
   position: relative;
   font-size: @tab-nav-font-size;
@@ -20,7 +21,8 @@
 
 .@{namespace}tab-header-item {
   display: block;
-  flex: 1;
+  -webkit-box-flex: 1; 
+  box-flex: 1;
   width: 0;
   text-decoration: none;
   position: relative;
