@@ -63,6 +63,10 @@ $.widget('blend.nav', {
     _initEvent: function () {
         var nav = this;
         nav.element.on('tap.nav', '.' + nav.expandClass, function (e) {
+            if (!new RegExp(nav.expandClass).test(e.target.parentNode.className)){
+                return ;
+            }
+            
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
