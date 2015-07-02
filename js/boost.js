@@ -6607,15 +6607,22 @@ $.widget('blend.tab', {
         tab.$activeEle = $el.find(tab._itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = tab.$headerItem.eq(0).width();
-        
+        $el.removeClass(tab.options.animateClass);
+
         if (tab.itemWidth){
             tab.$activeEle.css('width', tab.itemWidth);
+            setTimeout(function (){
+                $el.addClass(tab.options.animateClass);
+            }, 100);
         }else{
             var tabTimer = setInterval(function (){
                 tab.itemWidth = tab.$headerItem.eq(0).width();
                 if (tab.itemWidth){
                     clearInterval(tabTimer);
                     tab.$activeEle.css('width', tab.itemWidth);
+                    setTimeout(function (){
+                        $el.addClass(tab.options.animateClass);
+                    }, 100);
                 }
             }, 100);
         }
@@ -6700,7 +6707,7 @@ $.widget('blend.tab', {
         }
         tab._switch(tab.options.start);
 
-        if (tab.options.animate) {
+        if (tab.options.animate && tab.$headerItem.eq(0).width() > 0) {
             // 初始化的时候不出动画
             setTimeout(function () {
                 tab.element.addClass(tab.options.animateClass);

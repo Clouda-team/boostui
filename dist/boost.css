@@ -2932,6 +2932,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   display: block;
   width: 0;
   background-color: #666666;
+  z-index: 10;
 }
 .blend-tab-header-item-active {
   color: #262626;
