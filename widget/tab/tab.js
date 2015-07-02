@@ -28,8 +28,20 @@ $.widget('blend.tab', {
         tab.$contentItem = $el.find(tab._itemContentSelector);
         tab.$activeEle = $el.find(tab._itemActiveSelector);
         // 计算active宽度和位置
-        tab.itemWidth = this.$headerItem.eq(0).width();
-        tab.$activeEle.css('width', this.itemWidth);
+        tab.itemWidth = tab.$headerItem.eq(0).width();
+        
+        if (tab.itemWidth){
+            tab.$activeEle.css('width', tab.itemWidth);
+        }else{
+            var tabTimer = setInterval(function (){
+                tab.itemWidth = tab.$headerItem.eq(0).width();
+                if (tab.itemWidth){
+                    clearInterval(tabTimer);
+                    tab.$activeEle.css('width', tab.itemWidth);
+                }
+            }, 100);
+        }
+        
         tab.itemOffsetX = 0;
         tab.current = 0;
         this._uix = null;
@@ -142,7 +154,7 @@ $.widget('blend.tab', {
      */
     _initEvent: function () {
         var tab = this;
-        tab.$headerItem.on('tap.tab', function (e) {
+        tab.$headerItem.on('click.tab', function (e) {
             var index = $(this).index();
             tab._switch(index);
         });
@@ -162,7 +174,8 @@ $.widget('blend.tab', {
         }
 
         var left = tab.itemOffsetX + tab.current * tab.itemWidth;
-        tab.$activeEle.css('left', left);
+        tab.$activeEle.css({'transform': "translateX(" + left + "px)", '-webkit-transform': "translateX(" + left + "px)"});
+        //tab.$activeEle.css('left', left);
         tab.$contentItem.hide();
         tab.$contentItem.eq(tab.current).show();
         tab.$headerItem.removeClass(tab.options.activeClass);
@@ -174,7 +187,7 @@ $.widget('blend.tab', {
      */
     _destroy: function () {
         var tab = this;
-        tab.$headerItem.off('tap.tab');
+        tab.$headerItem.off('click.tab');
     },
 
     /**

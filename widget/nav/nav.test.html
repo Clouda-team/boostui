@@ -10,8 +10,8 @@
 
 <body>
 
-    <nav class="blend-nav blend-nav-column-4">
-        <a class="blend-nav-item blend-nav-item-active" href="#">12113</a>
+    <nav class="blend-nav blend-nav-column-2">
+        <a class="blend-nav-item blend-nav-item-active" href="?t=123">12113</a>
         <a class="blend-nav-item" href="#">45226</a>
         <a class="blend-nav-item" href="#">33789</a>
         <a class="blend-nav-item" href="#">1243</a>
@@ -37,6 +37,7 @@
     </nav> -->
 
     <script src="../../dist/boost.js"></script>
+    <script src="http://ftlabs.github.io/fastclick/lib/fastclick.js"></script>
     <script>
         $('.blend-nav').nav({
             // column: 4,
@@ -44,6 +45,21 @@
             expand: '<i class="lgm-nav-styleColor">更多</i>',
             pack: '<i class="lgm-nav-styleColor">收起</i>',
             //animate: false,
+        });
+        /*
+        $("a").click(function (){
+            return false;
+        });*/
+        $(function (){
+            FastClick.attach($(".blend-nav-expand")[0]);
+            //console.log($("a")[0]);
+            /*
+            $("a")[0].addEventListener('touchend', function(event) {
+                //return false;
+            }, false);
+            $("a")[0].addEventListener('click', function(event) {
+                //return false;
+            }, false);*/
         });
     </script>
 

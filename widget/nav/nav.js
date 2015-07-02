@@ -33,6 +33,8 @@ $.widget('blend.nav', {
         nav.hideClass = NAMESPACE + 'nav-item-hide';
         nav.noborderClass = NAMESPACE + 'nav-item-no-border';
         nav.columnRange = [2, 3, 4, 5, 6];
+        //
+        nav.expandTaped = false;
     },
     /**
      * _init 初始化的时候调用
@@ -41,7 +43,7 @@ $.widget('blend.nav', {
         var nav = this;
         nav._setColumn();
         nav._setRow();
-        
+        /*
         setTimeout(function (){
             if (nav.options.animate) {
                 nav.element.addClass(nav.animateClass);
@@ -50,7 +52,7 @@ $.widget('blend.nav', {
                 nav.element.removeClass(nav.animateClass);
             }
         }, 100);
-        
+        */
         if (!nav.inited) {
             nav._initEvent();
             nav.inited = true;
@@ -62,17 +64,26 @@ $.widget('blend.nav', {
      */
     _initEvent: function () {
         var nav = this;
-        nav.element.on('tap.nav', '.' + nav.expandClass, function (e) {
+
+        nav.element.on('click.nav', '.' + nav.expandClass, function (e) {
+            nav.expandTaped = true;
+            setTimeout(function (){
+                nav.expandTaped = false;
+            }, 500);
+            /*
             if (!new RegExp(nav.expandClass).test(e.target.parentNode.className)){
                 return ;
-            }
+            }*/
             
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
-                //nav.element.css('height', 15 + height * nav.options.row);
-                nav.element.css('height', height * nav.options.row);
-
+                
+                if (nav.options.animate){
+                    nav.element.animate({'height': height * nav.options.row}, 300, "ease-in");
+                }else{
+                    nav.element.css('height', height * nav.options.row);
+                }
                 
                 var max = nav.options.row * nav.options.column;
                 nav.$items.each(function (i) {
@@ -122,8 +133,15 @@ $.widget('blend.nav', {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
                 height = nav.$items.eq(0).height() * row;
-                nav.element.css('height', height);
+               
+                if (nav.options.animate){
+                    nav.element.animate({'height': height}, 300, "ease-in");
+                }else{
+                    nav.element.css('height', height);
+                }
+
                 $this.addClass(nav.expandedClass);
+                
                 nav.$items.removeClass(nav.hideClass);
                 $this.html(nav.options.pack);
                 var offset = len % nav.options.column || nav.options.column;
@@ -141,6 +159,14 @@ $.widget('blend.nav', {
                 nav.options.expandHandle(e);
             }
 
+        });
+
+        nav.element.on('click.nav', "." + nav.options.itemClass, function (e){
+            if (nav.expandTaped){
+                e.preventDefault();
+                return false;
+            }
+            
         });
     },
     /**
@@ -256,6 +282,6 @@ $.widget('blend.nav', {
         var nav = this;
         nav.options.row = false;
         nav._removeExpand();
-        nav.element.off('tap.nav', '.' + nav.expandClass);
+        nav.element.off('click.nav', '.' + nav.expandClass);
     }
 });
