@@ -2932,13 +2932,14 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   display: block;
   width: 0;
   background-color: #666666;
+  z-index: 10;
 }
 .blend-tab-header-item-active {
   color: #262626;
 }
 .blend-tab-animation .blend-tab-header-active {
-  -webkit-transition: all 0.3s ease-in;
-  transition: all 0.3s ease-in;
+  -webkit-transition: transform 0.3s ease-in;
+  transition: transform 0.3s ease-in;
 }
 .blend-tab-content-item {
   display: none;

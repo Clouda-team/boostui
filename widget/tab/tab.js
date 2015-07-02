@@ -29,7 +29,7 @@ $.widget('blend.tab', {
         tab.$activeEle = $el.find(tab._itemActiveSelector);
         // 计算active宽度和位置
         tab.itemWidth = tab.$headerItem.eq(0).width();
-        
+
         if (tab.itemWidth){
             tab.$activeEle.css('width', tab.itemWidth);
         }else{
