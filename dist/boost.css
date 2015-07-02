@@ -2938,8 +2938,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   color: #262626;
 }
 .blend-tab-animation .blend-tab-header-active {
-  -webkit-transition: transform 0.3s ease-in;
-  transition: transform 0.3s ease-in;
+  -webkit-transition: all 0.3s ease-in;
+  transition: all 0.3s ease-in;
 }
 .blend-tab-content-item {
   display: none;
