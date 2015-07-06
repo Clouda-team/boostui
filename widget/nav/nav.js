@@ -250,6 +250,7 @@ $.widget('blend.nav', {
      */
     _addExpand: function (max) {
         var nav = this;
+        var option = nav.options;
         nav.$items.each(function (i) {
             var $this = $(this);
             if (i >= max - nav.options.column) {
