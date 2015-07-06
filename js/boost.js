@@ -6116,7 +6116,8 @@ $.widget('blend.slider', {
         speed: 2000,                // 切换的时间间隔
         theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
-        ratio: 'normal'     // normal/wide/square/small
+        ratio: 'normal' ,    // normal/wide/square/small
+        wrapWidth: document.body.clientWidth
     },
     /**
      * 创建组件调用一次
@@ -6150,7 +6151,7 @@ $.widget('blend.slider', {
         this.$ul = $el.find('.' + NAMESPACE + 'slides');
         this.$li = $el.find('.' + NAMESPACE + 'slides li');
 
-        this._liWidth = this.$li.width();
+        this._liWidth = this.$li.width() ? this.$li.width() : options.wrapWidth;
         this._liHeight = this.$li.height();
         this._liLength = this.$li.length;
 
@@ -6239,7 +6240,6 @@ $.widget('blend.slider', {
             if (Math.abs(that.moveY) - Math.abs(that.moveX) > 10 && Math.abs(that.moveY)/Math.abs(that.moveX) > Math.atan(Math.PI/6) && that.options.axisX){
                 endHandler(evt);
             }else if (Math.abs(that.moveX) - Math.abs(that.moveY) > 10 || !isPhone){
-                console.log("prevent");
                 evt.preventDefault();
             }
 
@@ -6260,10 +6260,12 @@ $.widget('blend.slider', {
             }
 
             // 距离小
-            if (Math.abs(that.moveDistance) <= _touchDistance ||  (opts.axisX && Math.abs(that.moveY) > Math.abs(that.moveX))) {
+            if (opts.axisX && Math.abs(that.moveY) > Math.abs(that.moveX)){
                 that._fnScroll(.3);
-            }
-            else {
+                that._fnAutoSwipe();
+            }else if (Math.abs(that.moveDistance) <= _touchDistance) {
+                that._fnScroll(.3);
+            }else {
                 // 距离大
                 // 手指触摸上一屏滚动
                 if (that.moveDistance > _touchDistance) {
@@ -6273,9 +6275,10 @@ $.widget('blend.slider', {
                 else if (that.moveDistance < -_touchDistance) {
                     that._fnMoveNext();
                 }
+                that._fnAutoSwipe();
             }
 
-            that._fnAutoSwipe();
+            
 
             that.moveX = 0;
             that.moveY = 0;
@@ -6421,6 +6424,7 @@ $.widget('blend.slider', {
     _fnAutoSwipe: function () {
         var that = this;
         var opts = this.options;
+        clearInterval(this.autoScroll);
 
         if (opts.autoSwipe) {
             this.autoScroll = setInterval(function () {
