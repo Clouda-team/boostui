@@ -5710,7 +5710,8 @@ $.widget('blend.nav', {
         expand: '<i>更多</i>',
         pack: '<i>收起</i>',
         itemClass: NAMESPACE + 'nav-item',
-        row: false
+        row: false,
+        rowHeight: 30
     },
     /**
      * _create 创建组件时调用一次
@@ -5768,7 +5769,6 @@ $.widget('blend.nav', {
             if (!new RegExp(nav.expandClass).test(e.target.parentNode.className)){
                 return ;
             }*/
-            
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
@@ -5827,7 +5827,6 @@ $.widget('blend.nav', {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
                 height = nav.$items.eq(0).height() * row;
-               
                 if (nav.options.animate){
                     nav.element.animate({'height': height}, 300, "ease-in");
                 }else{
@@ -5924,7 +5923,8 @@ $.widget('blend.nav', {
         var $el = nav.element;
         var len = nav.$items.length;
         var row = Math.ceil(len / nav.options.column);
-        var height = nav.$items.eq(0).height() * row ;
+        var rowHeight = nav.$items.eq(0).height() > 0 ? nav.$items.eq(0).height() : option.rowHeight;
+        var height = rowHeight * row ;
         $el.css('height', height);
         $el.find('.' + nav.expandClass).remove();
         nav.$items.removeClass(this.hideClass);
@@ -5958,7 +5958,9 @@ $.widget('blend.nav', {
                 $this.removeClass(nav.hideClass);
             }
         });
-        var height = nav.$items.eq(0).height();
+        //var height = nav.$items.eq(0).height();
+        var height = nav.$items.eq(0).height() > 0 ? nav.$items.eq(0).height() : option.rowHeight;
+        
         nav.element.css('height', height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);
@@ -6205,13 +6207,19 @@ $.widget('blend.slider', {
     _initEvent: function () {
         var that = this;
         var device = this._device();
+        var evReady = true;
+         var isPhone = (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent));
         // 绑定触摸
         that.$ul[0].addEventListener(device.startEvt, function (evt){
-            that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
-            that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+            if (evReady){
+                that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+                that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
 
-            that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
-            that.$ul[0].addEventListener(device.endEvt, endHandler, false);
+                that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
+                that.$ul[0].addEventListener(device.endEvt, endHandler, false);
+
+                evReady = false;
+            }
         }, false);
         
         function moveHandler (evt){
@@ -6227,8 +6235,15 @@ $.widget('blend.slider', {
 
             that._transitionHandle(that.$ul, 0);
 
-            if (that.options.axisX) {
+            //横向滑动阻止默认事件
+            if (Math.abs(that.moveY) - Math.abs(that.moveX) > 10 && Math.abs(that.moveY)/Math.abs(that.moveX) > Math.atan(Math.PI/6) && that.options.axisX){
+                endHandler(evt);
+            }else if (Math.abs(that.moveX) - Math.abs(that.moveY) > 10 || !isPhone){
+                console.log("prevent");
                 evt.preventDefault();
+            }
+
+            if (that.options.axisX && Math.abs(that.moveX) > Math.abs(that.moveY)) {
                 that._fnTranslate(that.$ul, -(that._liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
         };
@@ -6245,7 +6260,7 @@ $.widget('blend.slider', {
             }
 
             // 距离小
-            if (Math.abs(that.moveDistance) <= _touchDistance) {
+            if (Math.abs(that.moveDistance) <= _touchDistance ||  (opts.axisX && Math.abs(that.moveY) > Math.abs(that.moveX))) {
                 that._fnScroll(.3);
             }
             else {
@@ -6253,20 +6268,25 @@ $.widget('blend.slider', {
                 // 手指触摸上一屏滚动
                 if (that.moveDistance > _touchDistance) {
                     that._fnMovePrev();
-                    that._fnAutoSwipe();
                 // 手指触摸下一屏滚动
                 }
                 else if (that.moveDistance < -_touchDistance) {
                     that._fnMoveNext();
-                    that._fnAutoSwipe();
                 }
             }
 
+            that._fnAutoSwipe();
+
             that.moveX = 0;
             that.moveY = 0;
+            evReady = true;
 
             that.$ul[0].removeEventListener(device.moveEvt, moveHandler, false);
             that.$ul[0].removeEventListener(device.endEvt, endHandler, false);
+            if(!isPhone){
+                evt.preventDefault();
+                return false;
+            }
         };
     },
     /**

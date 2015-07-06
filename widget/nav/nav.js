@@ -16,7 +16,8 @@ $.widget('blend.nav', {
         expand: '<i>更多</i>',
         pack: '<i>收起</i>',
         itemClass: NAMESPACE + 'nav-item',
-        row: false
+        row: false,
+        rowHeight: 30
     },
     /**
      * _create 创建组件时调用一次
@@ -74,7 +75,6 @@ $.widget('blend.nav', {
             if (!new RegExp(nav.expandClass).test(e.target.parentNode.className)){
                 return ;
             }*/
-            
             var $this = $(this);
             if ($this.hasClass(nav.expandedClass)) {
                 var height = nav.$items.eq(0).height();
@@ -133,7 +133,6 @@ $.widget('blend.nav', {
                 var len = nav.$items.length;
                 var row = Math.ceil(len / nav.options.column) + (len % nav.options.column ? 0 : 1);
                 height = nav.$items.eq(0).height() * row;
-               
                 if (nav.options.animate){
                     nav.element.animate({'height': height}, 300, "ease-in");
                 }else{
@@ -230,7 +229,8 @@ $.widget('blend.nav', {
         var $el = nav.element;
         var len = nav.$items.length;
         var row = Math.ceil(len / nav.options.column);
-        var height = nav.$items.eq(0).height() * row ;
+        var rowHeight = nav.$items.eq(0).height() > 0 ? nav.$items.eq(0).height() : option.rowHeight;
+        var height = rowHeight * row ;
         $el.css('height', height);
         $el.find('.' + nav.expandClass).remove();
         nav.$items.removeClass(this.hideClass);
@@ -264,7 +264,9 @@ $.widget('blend.nav', {
                 $this.removeClass(nav.hideClass);
             }
         });
-        var height = nav.$items.eq(0).height();
+        //var height = nav.$items.eq(0).height();
+        var height = nav.$items.eq(0).height() > 0 ? nav.$items.eq(0).height() : option.rowHeight;
+        
         nav.element.css('height', height * nav.options.row);
         if (nav.element.find('.' + nav.expandClass).length === 1) {
             nav.element.find('.' + nav.expandClass).removeClass(nav.expandedClass).html(nav.options.expand);

@@ -111,13 +111,19 @@ $.widget('blend.slider', {
     _initEvent: function () {
         var that = this;
         var device = this._device();
+        var evReady = true;
+         var isPhone = (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent));
         // 绑定触摸
         that.$ul[0].addEventListener(device.startEvt, function (evt){
-            that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
-            that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+            if (evReady){
+                that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
+                that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
 
-            that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
-            that.$ul[0].addEventListener(device.endEvt, endHandler, false);
+                that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
+                that.$ul[0].addEventListener(device.endEvt, endHandler, false);
+
+                evReady = false;
+            }
         }, false);
         
         function moveHandler (evt){
@@ -133,8 +139,15 @@ $.widget('blend.slider', {
 
             that._transitionHandle(that.$ul, 0);
 
-            if (that.options.axisX) {
+            //横向滑动阻止默认事件
+            if (Math.abs(that.moveY) - Math.abs(that.moveX) > 10 && Math.abs(that.moveY)/Math.abs(that.moveX) > Math.atan(Math.PI/6) && that.options.axisX){
+                endHandler(evt);
+            }else if (Math.abs(that.moveX) - Math.abs(that.moveY) > 10 || !isPhone){
+                console.log("prevent");
                 evt.preventDefault();
+            }
+
+            if (that.options.axisX && Math.abs(that.moveX) > Math.abs(that.moveY)) {
                 that._fnTranslate(that.$ul, -(that._liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
         };
@@ -151,7 +164,7 @@ $.widget('blend.slider', {
             }
 
             // 距离小
-            if (Math.abs(that.moveDistance) <= _touchDistance) {
+            if (Math.abs(that.moveDistance) <= _touchDistance ||  (opts.axisX && Math.abs(that.moveY) > Math.abs(that.moveX))) {
                 that._fnScroll(.3);
             }
             else {
@@ -159,20 +172,25 @@ $.widget('blend.slider', {
                 // 手指触摸上一屏滚动
                 if (that.moveDistance > _touchDistance) {
                     that._fnMovePrev();
-                    that._fnAutoSwipe();
                 // 手指触摸下一屏滚动
                 }
                 else if (that.moveDistance < -_touchDistance) {
                     that._fnMoveNext();
-                    that._fnAutoSwipe();
                 }
             }
 
+            that._fnAutoSwipe();
+
             that.moveX = 0;
             that.moveY = 0;
+            evReady = true;
 
             that.$ul[0].removeEventListener(device.moveEvt, moveHandler, false);
             that.$ul[0].removeEventListener(device.endEvt, endHandler, false);
+            if(!isPhone){
+                evt.preventDefault();
+                return false;
+            }
         };
     },
     /**
