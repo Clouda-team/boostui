@@ -1954,7 +1954,7 @@ var BLENDURL = 'http://cp01-rdqa04-dev111.cp01.baidu.com:8042/boost/test/blendui
 		return new FastClick(layer, options);
 	};
 
-
+	/*
 	if (typeof define === 'function' && typeof define.amd === 'object' && define.amd) {
 
 		// AMD. Register as an anonymous module.
@@ -1964,9 +1964,9 @@ var BLENDURL = 'http://cp01-rdqa04-dev111.cp01.baidu.com:8042/boost/test/blendui
 	} else if (typeof module !== 'undefined' && module.exports) {
 		module.exports = FastClick.attach;
 		module.exports.FastClick = FastClick;
-	} else {
+	} else {*/
 		window.FastClick = FastClick;
-	}
+	//}
 }());
 
     //     Zepto.js
@@ -5944,6 +5944,7 @@ $.widget('blend.nav', {
      */
     _addExpand: function (max) {
         var nav = this;
+        var option = nav.options;
         nav.$items.each(function (i) {
             var $this = $(this);
             if (i >= max - nav.options.column) {
