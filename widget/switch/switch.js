@@ -23,6 +23,7 @@ $.widget('blend.switch', {
      * @private
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         var options = this.options;
 
         this.switches = this.element;

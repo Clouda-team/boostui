@@ -40,6 +40,7 @@ $.widget('blend.checkbox', {
      * _init 初始化的时候调用
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         this._initEvent();
     },
     _checkGroup: function (curElem) {

@@ -44,6 +44,8 @@ $.widget('blend.nav', {
         var nav = this;
         nav._setColumn();
         nav._setRow();
+
+        FastClick.attach(nav.element[0]);
         /*
         setTimeout(function (){
             if (nav.options.animate) {

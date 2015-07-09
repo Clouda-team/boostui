@@ -23,7 +23,7 @@ $.widget('blend.sidenav', {
 	 * @private
 	 */
     _init: function () {
-
+        FastClick.attach(this.element[0]);
         var opts = this.options;
 
         this.navId = 'wZijePQW';   // 自定义， 用于建立nav和content一一对应关系

@@ -3270,6 +3270,7 @@ $.widget('blend.checkbox', {
      * _init 初始化的时候调用
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         this._initEvent();
     },
     _checkGroup: function (curElem) {
@@ -3434,6 +3435,7 @@ $.widget('blend.counter', {
      * @private
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         var options = this.options;
         var minValue = Number(options.minValue);
         var maxValue = Number(options.maxValue);
@@ -3443,6 +3445,7 @@ $.widget('blend.counter', {
 
         this._initValue();
         this._initEvent();
+
     },
 
     /**
@@ -3646,6 +3649,8 @@ $.widget('blend.dialog', {
      */
     _init: function () {
         var me = this;
+
+        //FastClick.attach(this.element[0]);
         /**
          * UIX 环境的初始化
          */
@@ -3668,6 +3673,7 @@ $.widget('blend.dialog', {
             this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
+
     },
     /**
      * 返回随机的id
@@ -4145,6 +4151,8 @@ $.widget('blend.gallery', {
      */
     _init: function () {
 
+        //FastClick.attach(this.element[0]);
+
         var me = this;
 
         if (IS_UIX) {
@@ -4168,6 +4176,7 @@ $.widget('blend.gallery', {
             this._renderHTML();
             this._bindHandler();
         }
+
     },
     /**
      * 初始化 uix gallery
@@ -5738,6 +5747,8 @@ $.widget('blend.nav', {
         var nav = this;
         nav._setColumn();
         nav._setRow();
+
+        FastClick.attach(nav.element[0]);
         /*
         setTimeout(function (){
             if (nav.options.animate) {
@@ -6011,7 +6022,7 @@ $.widget('blend.sidenav', {
 	 * @private
 	 */
     _init: function () {
-
+        FastClick.attach(this.element[0]);
         var opts = this.options;
 
         this.navId = 'wZijePQW';   // 自定义， 用于建立nav和content一一对应关系
@@ -6578,6 +6589,7 @@ $.widget('blend.switch', {
      * @private
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         var options = this.options;
 
         this.switches = this.element;
@@ -6660,6 +6672,7 @@ $.widget('blend.tab', {
      * _init 初始化的时候调用
      */
     _init: function () { 
+        FastClick.attach(this.element[0]);
           if (IS_UIX) {
             this._UIXInit();
           } else {
@@ -6927,6 +6940,8 @@ $.widget('blend.topnav', {
      * @private
      */
     _init: function () {
+
+        FastClick.attach(this.element[0]);
         var opt = this.options;
         this.$el = this.element;
 
@@ -7014,7 +7029,7 @@ $.widget('blend.topnav', {
     // TODO 判断UA环境,给body增加class
     $(function () {
         //fastclick单击
-        FastClick.attach(document.body);
+        //FastClick.attach(document.body);
         
         $('[data-blend-widget]').each(function (i, elem) {
             var $elem = $(elem);

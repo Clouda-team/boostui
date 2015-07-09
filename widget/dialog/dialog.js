@@ -77,6 +77,8 @@ $.widget('blend.dialog', {
      */
     _init: function () {
         var me = this;
+
+        //FastClick.attach(this.element[0]);
         /**
          * UIX 环境的初始化
          */
@@ -99,6 +101,7 @@ $.widget('blend.dialog', {
             this.$el = this._createHTMLDialog();
             this._bindEvent();
         }
+
     },
     /**
      * 返回随机的id

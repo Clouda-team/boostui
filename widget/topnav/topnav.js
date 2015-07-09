@@ -25,6 +25,8 @@ $.widget('blend.topnav', {
      * @private
      */
     _init: function () {
+
+        FastClick.attach(this.element[0]);
         var opt = this.options;
         this.$el = this.element;
 

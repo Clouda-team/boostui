@@ -57,6 +57,7 @@ $.widget('blend.tab', {
      * _init 初始化的时候调用
      */
     _init: function () { 
+        FastClick.attach(this.element[0]);
           if (IS_UIX) {
             this._UIXInit();
           } else {

@@ -57,6 +57,7 @@ $.widget('blend.counter', {
      * @private
      */
     _init: function () {
+        FastClick.attach(this.element[0]);
         var options = this.options;
         var minValue = Number(options.minValue);
         var maxValue = Number(options.maxValue);
@@ -66,6 +67,7 @@ $.widget('blend.counter', {
 
         this._initValue();
         this._initEvent();
+
     },
 
     /**

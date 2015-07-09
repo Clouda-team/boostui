@@ -7,7 +7,7 @@
     // TODO 判断UA环境,给body增加class
     $(function () {
         //fastclick单击
-        FastClick.attach(document.body);
+        //FastClick.attach(document.body);
         
         $('[data-blend-widget]').each(function (i, elem) {
             var $elem = $(elem);

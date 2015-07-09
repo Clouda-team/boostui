@@ -39,6 +39,8 @@ $.widget('blend.gallery', {
      */
     _init: function () {
 
+        //FastClick.attach(this.element[0]);
+
         var me = this;
 
         if (IS_UIX) {
@@ -62,6 +64,7 @@ $.widget('blend.gallery', {
             this._renderHTML();
             this._bindHandler();
         }
+
     },
     /**
      * 初始化 uix gallery
