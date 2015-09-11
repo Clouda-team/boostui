@@ -1,0 +1,62 @@
+@address-arrow: "\e878";
+@address-font-color: #262626;
+@address-red: #c20;
+@address-gray: #999;
+
+.@{namespace}address{
+    border: 1px solid @table-border-color;
+    border-right: none;
+    border-left: none;
+    background: @white;
+    color: @address-font-color;
+    display: -webkit-box;
+    font-size: @font-size-base;
+    position: relative;
+    .@{namespace}address-name{
+        width: 75px;
+        margin: 0;
+        span{
+            position: absolute;
+            top: 50%;
+            left: 0;
+            line-height: 20px;
+            height: 20px;
+            margin-top: -10px;
+            width: 75px;
+            text-align: center;
+        }
+    }
+    .@{namespace}address-value{
+        -webkit-box-flex: 1;
+        box-flex: 1;
+         .@{namespace}address-input{
+            border-top: 1px solid @table-border-color;
+        }
+        :first-child{
+            border-top: none;
+        }
+        .@{namespace}address-detail{
+            line-height: 22px;
+            padding: 10px 0;
+            margin: 0;
+            width: 100%;
+            display: 100%;
+            border: none;
+        }
+        .@{namespace}address-red{
+            color: @address-red;
+        }
+        .@{namespace}address-gray{
+            color: @address-gray;
+        }
+        .@{namespace}address-arrow{
+            width: 16px;
+            float: right;
+            border: none;
+            &:after{
+                content: @address-arrow !important;
+                .font(@font-left);
+            }
+        }
+    }
+}
