@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Topbar</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+        }
+        h1{
+            line-height: 70px;
+            font-size: 16px;
+            color: #262626;
+            padding-left: 10px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .main-l{
+            float: left;
+            width: 36.25%;
+            min-width: 300px;
+        }
+        .main-r{
+            width: 40%;
+            margin-right: 10%;
+        }
+        .main-r, .f-r{
+            float: right;
+        }
+        .blend-header{
+            background: #fff;
+        }
+        .blend-header-item{
+            color: #777;
+        }
+        .gray-lighten{
+            background-color: #ddd;
+            border-color: #ddd; 
+            color: #999 !important;
+        }
+        .blend-button-gray{
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+<h1>Topbar</h1>
+
+<div class="clearfix">
+        <div>
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                </span>
+                <span class="blend-header-title">
+                    <span class="blend-header-item">标题栏名称</span>
+                </span>
+                <span class="blend-header-right">
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+                </span>
+                <span class="blend-header-title">
+                    <span class="blend-header-item">标题栏名称</span>
+                </span>
+                <span class="blend-header-right">
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+                </span>
+                <span class="blend-header-title">
+                    <span class="blend-header-item">标题栏名称</span>
+                </span>
+                <span class="blend-header-right">
+                    <a class="blend-header-item blend-action-back-icon" href="header.test2.html">&#xe820;</a>
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item blend-button blend-button-gray gray-lighten" href="javascript:history.back();">图标</a>
+                    <a class="blend-header-item" href="javascript:history.back();">百度轻应用</a>
+                </span>
+                <span class="blend-header-title">
+                </span>
+                <span class="blend-header-right">
+                    <a class="blend-header-item blend-action-back-icon" href="header.test2.html">&#xe85f;</a>
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item" href="#">标题栏名称</a>
+                </span>
+                <span class="blend-header-title">
+                </span>
+                <span class="blend-header-right">
+                    <a class="blend-header-item blend-action-back-icon" href="header.test2.html">&#xe6d3; <span style="font-size:14px;">99+</span> &#xe745;<span style="font-size:14px;">199</span></a>
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item blend-button blend-button-gray" href="#">名称</a>
+                </span>
+                <span class="blend-header-title">
+                    <span class="blend-header-item">标题栏名称</span>
+                </span>
+                <span class="blend-header-right">
+                    <a class="blend-header-item blend-action-back-icon" href="header.test2.html">&#xe6d3; <span style="font-size:14px;">99+</span></a>
+                </span>
+            </header>
+        </div>
+
+        <div class="mar-t-10">
+            <header data-blend-widget="header" class="blend-header">
+                <span class="blend-header-left">
+                    <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+                </span>
+                <span class="blend-header-title">
+                    <span class="blend-header-item">标题栏名称</span>
+                </span>
+                <span class="blend-header-right">
+                    <a class="blend-header-item blend-button blend-button-gray" href="header.test2.html">按钮名称</a>
+                </span>
+            </header>
+        </div>
+
+</div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>
+    $(function (){
+        
+    });
+    
+    </script>
+</body>
+
+</html>

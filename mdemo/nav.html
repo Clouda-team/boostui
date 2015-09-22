@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>导航</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+        }
+        div>.blend-button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        h1{
+            line-height: 70px;
+            font-size: 16px;
+            color: #262626;
+        }
+        h2{
+            font-size: 14px;
+            line-height: 20px;
+            margin-bottom: 15px;
+        }
+        .mar-b-50{
+            margin-bottom: 50px;
+        }
+        .mar-t-50{
+            margin-top: 50px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .mar-r-8{
+            margin-right: 8px;
+        }
+        .main-l{
+            float: left;
+            width: 36.25%;
+        }
+        .main-r{
+            width: 40%;
+            margin-right: 10%;
+        }
+        .main-r, .f-r{
+            float: right;
+        }
+        .f-l{
+            float: left;
+        }
+        .clearfix{
+            overflow: hidden;
+        }
+        .write-wrap{
+            box-sizing: content-box;
+            background: #fff;
+        }
+        .blend-sidenav-nav{
+            position: absolute;
+        }
+        .blend-sidenav-content{
+            background: #fff;
+            height: 200px;
+        }
+        .blend-topnav{
+            padding: 0;
+        }
+        .fz-18{
+            border-bottom: 1px solid #ddd;
+        }
+        .fz-18 span{
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>TAB</h1>
+
+<div class="clearfix">
+    <div class="mar-b-50">
+        <h2>一级TAB</h2>
+        <nav data-blend-widget="tabnav" class="blend-tabnav">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前选中</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">一级导航</span>
+            </a>
+        </nav>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前选中</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">一级导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">一级导航</span>
+            </a>
+        </nav>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前的</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+        </nav>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+        </nav>
+
+        <nav class="blend-nav blend-nav-column-3 mar-t-10 write-wrap" id="nav1">
+            <a class="blend-nav-item blend-nav-item-active" href="?t=123">当前选中</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+        </nav>
+
+        <nav class="blend-nav blend-nav-column-3 mar-t-10 write-wrap" id="nav2">
+            <a class="blend-nav-item blend-nav-item-active" href="?t=123">当前选中</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+            <a class="blend-nav-item" href="#">我是导航</a>
+        </nav>
+
+        <div id="sidenav" class="blend-sidenav mar-t-10">
+            <nav class="blend-sidenav-nav">
+                <ul>
+                    <li>一级导航</li>
+                    <li>一级导航</li> 
+                    <li>一级导航</li>
+                    <li>一级导航</li>
+                </ul>
+            </nav>
+            <section class="blend-sidenav-content">
+                <div class="blend-sidenav-item">tab1</div>
+                <div class="blend-sidenav-item">tab2</div>
+                <div class="blend-sidenav-item">tab3</div>
+                <div class="blend-sidenav-item">tab4</div>
+            </section>
+        </div>
+    </div>
+
+    <div class="mar-b-50">
+        <h2>二级TAB</h2>
+        <div class="write-wrap" style="height:150px">
+            <nav id="topnav" class="blend-topnav" style="margin-top: 10px;">
+                <div class="blend-topnav-item">
+                    <span>我是导航</span>
+                    <ul>
+                        <li><a href="http://www.baidu.com">二级导航</a></li>
+                        <li><a href="http://www.qq.com">二级导航</a></li>
+                        <li><a href="http://www.163.com">二级导航</a></li>
+                    </ul>
+                </div>
+                <div class="blend-topnav-item">
+                    <span>我是导航</span>
+                    <ul>
+                        <li><a href="#">二级导航</a></li>
+                        <li><a href="#">二级导航</a></li>
+                    </ul>
+                </div>
+                <div class="blend-topnav-item">
+                    <span>我是导航</span>
+                    <ul>
+                        <li><a href="#">二级导航</a></li>
+                        <li><a href="#">二级导航</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10 fz-18">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+        </nav>
+        <nav class="blend-nav blend-nav-column-5 write-wrap" id="nav3">
+            <a class="blend-nav-item blend-nav-item-active" href="?t=123">当前</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+        </nav>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10 fz-18">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+        </nav>
+        <nav class="blend-nav blend-nav-column-6 write-wrap" id="nav4">
+            <a class="blend-nav-item blend-nav-item-active" href="?t=123">当前</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+        </nav>
+
+        <nav data-blend-widget="tabnav" class="blend-tabnav mar-t-10 fz-18">
+            <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+                <span class="blend-tabnav-item-text">当前</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+            <a class="blend-tabnav-item" href="#">
+                <span class="blend-tabnav-item-text">导航</span>
+            </a>
+        </nav>
+        <nav class="blend-nav blend-nav-column-2 write-wrap" id="nav5">
+            <a class="blend-nav-item" href="?t=123">当前类目</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+        </nav>
+        <nav class="blend-nav blend-nav-column-5 write-wrap" id="nav6">
+            <a class="blend-nav-item blend-nav-item-active" href="?t=123">当前</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+            <a class="blend-nav-item" href="#">导航</a>
+        </nav>
+
+    </div>
+</div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>
+    $(function (){
+        $('#nav1').nav({
+            row: 2,
+            expand: '<i class="lgm-nav-styleColor">更多</i>',
+            pack: '<i class="lgm-nav-styleColor">收起</i>',
+        });
+
+        $('#nav2').nav({
+            row: 3,
+            expand: '<i class="lgm-nav-styleColor">更多</i>',
+            pack: '<i class="lgm-nav-styleColor">收起</i>',
+        });
+
+        $('#nav3').nav({
+            expand: '',
+            pack: '',
+        });
+
+        $('#nav4').nav({
+            row: 1,
+            expand: '<i class="lgm-nav-styleColor"></i>',
+            pack: '<i class="lgm-nav-styleColor"></i>',
+        });
+
+        $('#nav5').nav({
+            row: 1,
+            expand: '<i class="lgm-nav-styleColor"></i>',
+            pack: '<i class="lgm-nav-styleColor"></i>',
+        });
+
+        $('#nav6').nav({
+            expand: '',
+            pack: '',
+        });
+
+        $("#sidenav").sidenav({
+        });
+
+        $("#topnav").topnav({
+        }); 
+    });
+    
+    </script>
+</body>
+
+</html>

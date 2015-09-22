@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>address</title>
+    <link rel="stylesheet" href="../../dist/boost.css"/>
+</head>
+
+<body>
+
+<div id="validate" class="blend-address" style="margin: 8px 0;">
+    <div class="blend-address-name"><span>收货人</span></div>
+    <div class="blend-address-value">
+        <div class="blend-address-input">
+            <input type="text" class="blend-address-detail blend-address-red" value="熊猫先森">
+        </div>
+        <div class="blend-address-input">
+            <input type="text" class="blend-address-detail" value="15710094933">
+        </div>
+    </div>
+</div>
+
+<div id="asyn" class="blend-address" style="margin: 20px 0;">
+    <div class="blend-address-name"><span>收货地址</span></div>
+    <div class="blend-address-value">
+        <div class="blend-address-input">
+            <p class="blend-address-detail blend-address-btn">四川省 成都市<span class="blend-address-arrow"></span></p>
+        </div>
+        <div class="blend-address-input">
+            <textarea class="blend-address-detail blend-address-gray" value="">北郊斧头山成都大熊猫繁育基地动物园区</textarea>
+        </div>
+    </div>
+</div>
+
+<script src="../../dist/boost.js"></script>
+<script>   
+    $('#validate').find('.blend-address-input').formgroup({
+        validate: true,
+        inputClass: "blend-address-detail",
+        validateFunction: function (value, $ele) {
+            if (!value) {
+                return 'empty';
+            }
+        }
+    });
+
+    $('#asyn').find('.blend-address-input').formgroup({
+        validate: true,
+        inputClass: "blend-address-detail",
+        validateFunction: function (value, $ele) {
+            if (!value) {
+                return 'empty';
+            }
+        }
+    });
+
+    $('#asyn').address({}).on("address:click", function (){
+        alert("点击事件");
+    });
+    
+    $('#validate').find('.blend-address-input').eq(1).formgroup({
+        validate: true,
+        asyn: true,
+        validateFunction: function (value, $ele, cb) {
+            $.ajax({
+                url: 'http://fedev.baidu.com/~wanghongliang02/ajax/boost-form-number.php?callback=?',
+                data: {
+                    value: value
+                },
+                dataType: 'jsonp',
+                success: function (ret) {
+                    if (ret.errno == 0) {
+                        // your code
+                    }
+                    else {
+                        cb(ret.errMsg);
+                    }
+
+                }
+            });
+        }
+    });
+</script>
+</body>
+
+</html>

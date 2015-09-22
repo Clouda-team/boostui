@@ -1,0 +1,78 @@
+@suggest-magnifier: "\e88b";
+@suggest-cha: "\e6ad";
+@suggest-font-color: #262626;
+
+.@{namespace}suggest-input{
+    border: 1px solid @table-border-color;
+    margin: 10px 10px;
+    background: @white;
+    height: 30px;
+    line-height: 30px;
+    overflow: hidden;
+    display: -webkit-box;
+    position: relative;
+    .@{namespace}suggest-ico{
+        &:before {
+            width: 34px;
+            height: 100%;
+            text-align: center;
+            content: @suggest-magnifier !important;
+            .font(@font-left);
+            color: #aaa;
+            display: block;
+            font-size: @font-size-lg;
+            line-height: 30px;
+        }
+    }
+    input{
+        -webkit-box-flex: 1;
+        box-flex: 1;
+        font-size: @font-size-base;
+        color: @suggest-font-color;
+        border: none;
+        display: block;
+        line-height: 20px;
+        height: 20px;
+        padding: 5px 0;
+        outline: 0;
+    }
+    .@{namespace}suggest-delete{
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 45px;
+        height: 30px;
+        text-decoration:none;
+        display: none;
+        &:after {
+            content: @suggest-cha !important;
+            .font(@font-left);
+            color: #b2b2b2;
+            font-size: @font-size-lg;
+            margin-left: 18px;
+        }
+    }
+}
+.@{namespace}suggest-list{
+    background: @white;
+    border-top: 1px solid #ededed;
+    padding: 0;
+    list-style: none;
+    margin: 0;
+    display: none;
+    li{
+        padding: 7px 15px;
+        border-bottom: 1px solid #ededed;
+        p{
+            margin: 0;
+            font-size: 1.3rem;
+            color: #aaa;
+            line-height: 20px;
+        }
+        p:first-child{
+            font-size: @font-size-base;
+            color: @suggest-font-color;
+        }
+    }
+}
+
