@@ -458,6 +458,7 @@ hr {
 .blend-button:focus {
   color: #808080;
   text-decoration: none;
+  outline: 0;
 }
 .blend-button:active,
 .blend-button.blend-active {
@@ -470,6 +471,7 @@ hr {
 .blend-button[disabled] {
   cursor: not-allowed;
   pointer-events: none;
+  opacity: 0.3;
 }
 .blend-button.blend-round {
   border-radius: 1000px;
@@ -489,6 +491,9 @@ hr {
   color: #808080;
   background-color: #ffffff;
   border-color: #808080;
+  /*&[disabled] {
+        .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+    }*/
 }
 .blend-button-default:hover,
 .blend-button-default:focus,
@@ -530,55 +535,20 @@ fieldset[disabled] .blend-button-default.active {
   color: #ffffff;
   background-color: #808080;
 }
-.blend-button-default[disabled] {
-  color: #4d4d4d;
-  background-color: #cccccc;
-  border-color: #4d4d4d;
-}
-.blend-button-default[disabled]:hover,
-.blend-button-default[disabled]:focus,
-.blend-button-default[disabled].focus,
-.blend-button-default[disabled]:active,
-.blend-button-default[disabled].active,
-.open > .dropdown-toggle.blend-button-default[disabled] {
-  color: #4d4d4d;
-  background-color: #b3b3b3;
-  border-color: #2e2e2e;
-}
-.blend-button-default[disabled]:active,
-.blend-button-default[disabled].active,
-.open > .dropdown-toggle.blend-button-default[disabled] {
-  background-image: none;
-}
-.blend-button-default[disabled].disabled,
-.blend-button-default[disabled][disabled],
-fieldset[disabled] .blend-button-default[disabled],
-.blend-button-default[disabled].disabled:hover,
-.blend-button-default[disabled][disabled]:hover,
-fieldset[disabled] .blend-button-default[disabled]:hover,
-.blend-button-default[disabled].disabled:focus,
-.blend-button-default[disabled][disabled]:focus,
-fieldset[disabled] .blend-button-default[disabled]:focus,
-.blend-button-default[disabled].disabled.focus,
-.blend-button-default[disabled][disabled].focus,
-fieldset[disabled] .blend-button-default[disabled].focus,
-.blend-button-default[disabled].disabled:active,
-.blend-button-default[disabled][disabled]:active,
-fieldset[disabled] .blend-button-default[disabled]:active,
-.blend-button-default[disabled].disabled.active,
-.blend-button-default[disabled][disabled].active,
-fieldset[disabled] .blend-button-default[disabled].active {
-  background-color: #cccccc;
-  border-color: #4d4d4d;
-}
-.blend-button-default[disabled] .badge {
-  color: #cccccc;
-  background-color: #4d4d4d;
+.blend-button-default:focus,
+.blend-button-default.blend-button-checkbox-checked {
+  background-color: #f60;
+  color: #eee;
+  border-color: #f60;
 }
 .blend-button-primary {
   color: #ffffff;
   background-color: #00a3e7;
   border-color: #00a3e7;
+  /*&.@{namespace}disabled,
+    &[disabled]{
+        .button-variant(@button-primary-disabled-color; @button-primary-disabled-bg; @button-primary-disabled-border);
+    }*/
 }
 .blend-button-primary:hover,
 .blend-button-primary:focus,
@@ -620,84 +590,14 @@ fieldset[disabled] .blend-button-primary.active {
   color: #00a3e7;
   background-color: #ffffff;
 }
-.blend-button-primary.blend-disabled,
-.blend-button-primary[disabled] {
-  color: #cccccc;
-  background-color: #005b81;
-  border-color: #005b81;
-}
-.blend-button-primary.blend-disabled:hover,
-.blend-button-primary[disabled]:hover,
-.blend-button-primary.blend-disabled:focus,
-.blend-button-primary[disabled]:focus,
-.blend-button-primary.blend-disabled.focus,
-.blend-button-primary[disabled].focus,
-.blend-button-primary.blend-disabled:active,
-.blend-button-primary[disabled]:active,
-.blend-button-primary.blend-disabled.active,
-.blend-button-primary[disabled].active,
-.open > .dropdown-toggle.blend-button-primary.blend-disabled,
-.open > .dropdown-toggle.blend-button-primary[disabled] {
-  color: #cccccc;
-  background-color: #00374e;
-  border-color: #003044;
-}
-.blend-button-primary.blend-disabled:active,
-.blend-button-primary[disabled]:active,
-.blend-button-primary.blend-disabled.active,
-.blend-button-primary[disabled].active,
-.open > .dropdown-toggle.blend-button-primary.blend-disabled,
-.open > .dropdown-toggle.blend-button-primary[disabled] {
-  background-image: none;
-}
-.blend-button-primary.blend-disabled.disabled,
-.blend-button-primary[disabled].disabled,
-.blend-button-primary.blend-disabled[disabled],
-.blend-button-primary[disabled][disabled],
-fieldset[disabled] .blend-button-primary.blend-disabled,
-fieldset[disabled] .blend-button-primary[disabled],
-.blend-button-primary.blend-disabled.disabled:hover,
-.blend-button-primary[disabled].disabled:hover,
-.blend-button-primary.blend-disabled[disabled]:hover,
-.blend-button-primary[disabled][disabled]:hover,
-fieldset[disabled] .blend-button-primary.blend-disabled:hover,
-fieldset[disabled] .blend-button-primary[disabled]:hover,
-.blend-button-primary.blend-disabled.disabled:focus,
-.blend-button-primary[disabled].disabled:focus,
-.blend-button-primary.blend-disabled[disabled]:focus,
-.blend-button-primary[disabled][disabled]:focus,
-fieldset[disabled] .blend-button-primary.blend-disabled:focus,
-fieldset[disabled] .blend-button-primary[disabled]:focus,
-.blend-button-primary.blend-disabled.disabled.focus,
-.blend-button-primary[disabled].disabled.focus,
-.blend-button-primary.blend-disabled[disabled].focus,
-.blend-button-primary[disabled][disabled].focus,
-fieldset[disabled] .blend-button-primary.blend-disabled.focus,
-fieldset[disabled] .blend-button-primary[disabled].focus,
-.blend-button-primary.blend-disabled.disabled:active,
-.blend-button-primary[disabled].disabled:active,
-.blend-button-primary.blend-disabled[disabled]:active,
-.blend-button-primary[disabled][disabled]:active,
-fieldset[disabled] .blend-button-primary.blend-disabled:active,
-fieldset[disabled] .blend-button-primary[disabled]:active,
-.blend-button-primary.blend-disabled.disabled.active,
-.blend-button-primary[disabled].disabled.active,
-.blend-button-primary.blend-disabled[disabled].active,
-.blend-button-primary[disabled][disabled].active,
-fieldset[disabled] .blend-button-primary.blend-disabled.active,
-fieldset[disabled] .blend-button-primary[disabled].active {
-  background-color: #005b81;
-  border-color: #005b81;
-}
-.blend-button-primary.blend-disabled .badge,
-.blend-button-primary[disabled] .badge {
-  color: #005b81;
-  background-color: #cccccc;
-}
 .blend-button-secondary {
   color: #ffffff;
   background-color: #62c9f4;
   border-color: #62c9f4;
+  /*&.@{namespace}disabled,
+    &[disabled] {
+        .button-variant(@button-secondary-disabled-color; @button-secondary-disabled-bg; @button-secondary-disabled-border);
+    }*/
 }
 .blend-button-secondary:hover,
 .blend-button-secondary:focus,
@@ -739,84 +639,14 @@ fieldset[disabled] .blend-button-secondary.active {
   color: #62c9f4;
   background-color: #ffffff;
 }
-.blend-button-secondary.blend-disabled,
-.blend-button-secondary[disabled] {
-  color: #cccccc;
-  background-color: #10a3e0;
-  border-color: #10a3e0;
-}
-.blend-button-secondary.blend-disabled:hover,
-.blend-button-secondary[disabled]:hover,
-.blend-button-secondary.blend-disabled:focus,
-.blend-button-secondary[disabled]:focus,
-.blend-button-secondary.blend-disabled.focus,
-.blend-button-secondary[disabled].focus,
-.blend-button-secondary.blend-disabled:active,
-.blend-button-secondary[disabled]:active,
-.blend-button-secondary.blend-disabled.active,
-.blend-button-secondary[disabled].active,
-.open > .dropdown-toggle.blend-button-secondary.blend-disabled,
-.open > .dropdown-toggle.blend-button-secondary[disabled] {
-  color: #cccccc;
-  background-color: #0c80b1;
-  border-color: #0c79a7;
-}
-.blend-button-secondary.blend-disabled:active,
-.blend-button-secondary[disabled]:active,
-.blend-button-secondary.blend-disabled.active,
-.blend-button-secondary[disabled].active,
-.open > .dropdown-toggle.blend-button-secondary.blend-disabled,
-.open > .dropdown-toggle.blend-button-secondary[disabled] {
-  background-image: none;
-}
-.blend-button-secondary.blend-disabled.disabled,
-.blend-button-secondary[disabled].disabled,
-.blend-button-secondary.blend-disabled[disabled],
-.blend-button-secondary[disabled][disabled],
-fieldset[disabled] .blend-button-secondary.blend-disabled,
-fieldset[disabled] .blend-button-secondary[disabled],
-.blend-button-secondary.blend-disabled.disabled:hover,
-.blend-button-secondary[disabled].disabled:hover,
-.blend-button-secondary.blend-disabled[disabled]:hover,
-.blend-button-secondary[disabled][disabled]:hover,
-fieldset[disabled] .blend-button-secondary.blend-disabled:hover,
-fieldset[disabled] .blend-button-secondary[disabled]:hover,
-.blend-button-secondary.blend-disabled.disabled:focus,
-.blend-button-secondary[disabled].disabled:focus,
-.blend-button-secondary.blend-disabled[disabled]:focus,
-.blend-button-secondary[disabled][disabled]:focus,
-fieldset[disabled] .blend-button-secondary.blend-disabled:focus,
-fieldset[disabled] .blend-button-secondary[disabled]:focus,
-.blend-button-secondary.blend-disabled.disabled.focus,
-.blend-button-secondary[disabled].disabled.focus,
-.blend-button-secondary.blend-disabled[disabled].focus,
-.blend-button-secondary[disabled][disabled].focus,
-fieldset[disabled] .blend-button-secondary.blend-disabled.focus,
-fieldset[disabled] .blend-button-secondary[disabled].focus,
-.blend-button-secondary.blend-disabled.disabled:active,
-.blend-button-secondary[disabled].disabled:active,
-.blend-button-secondary.blend-disabled[disabled]:active,
-.blend-button-secondary[disabled][disabled]:active,
-fieldset[disabled] .blend-button-secondary.blend-disabled:active,
-fieldset[disabled] .blend-button-secondary[disabled]:active,
-.blend-button-secondary.blend-disabled.disabled.active,
-.blend-button-secondary[disabled].disabled.active,
-.blend-button-secondary.blend-disabled[disabled].active,
-.blend-button-secondary[disabled][disabled].active,
-fieldset[disabled] .blend-button-secondary.blend-disabled.active,
-fieldset[disabled] .blend-button-secondary[disabled].active {
-  background-color: #10a3e0;
-  border-color: #10a3e0;
-}
-.blend-button-secondary.blend-disabled .badge,
-.blend-button-secondary[disabled] .badge {
-  color: #10a3e0;
-  background-color: #cccccc;
-}
 .blend-button-red {
   color: #ffffff;
   background-color: #fd461e;
   border-color: #fd461e;
+  /*&.@{namespace}disabled,
+  &[disabled] {
+    .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
+  }*/
 }
 .blend-button-red:hover,
 .blend-button-red:focus,
@@ -858,79 +688,9 @@ fieldset[disabled] .blend-button-red.active {
   color: #fd461e;
   background-color: #ffffff;
 }
-.blend-button-red.blend-disabled,
-.blend-button-red[disabled] {
-  color: #cccccc;
-  background-color: #b32102;
-  border-color: #b32102;
-}
-.blend-button-red.blend-disabled:hover,
-.blend-button-red[disabled]:hover,
-.blend-button-red.blend-disabled:focus,
-.blend-button-red[disabled]:focus,
-.blend-button-red.blend-disabled.focus,
-.blend-button-red[disabled].focus,
-.blend-button-red.blend-disabled:active,
-.blend-button-red[disabled]:active,
-.blend-button-red.blend-disabled.active,
-.blend-button-red[disabled].active,
-.open > .dropdown-toggle.blend-button-red.blend-disabled,
-.open > .dropdown-toggle.blend-button-red[disabled] {
-  color: #cccccc;
-  background-color: #811801;
-  border-color: #771601;
-}
-.blend-button-red.blend-disabled:active,
-.blend-button-red[disabled]:active,
-.blend-button-red.blend-disabled.active,
-.blend-button-red[disabled].active,
-.open > .dropdown-toggle.blend-button-red.blend-disabled,
-.open > .dropdown-toggle.blend-button-red[disabled] {
-  background-image: none;
-}
-.blend-button-red.blend-disabled.disabled,
-.blend-button-red[disabled].disabled,
-.blend-button-red.blend-disabled[disabled],
-.blend-button-red[disabled][disabled],
-fieldset[disabled] .blend-button-red.blend-disabled,
-fieldset[disabled] .blend-button-red[disabled],
-.blend-button-red.blend-disabled.disabled:hover,
-.blend-button-red[disabled].disabled:hover,
-.blend-button-red.blend-disabled[disabled]:hover,
-.blend-button-red[disabled][disabled]:hover,
-fieldset[disabled] .blend-button-red.blend-disabled:hover,
-fieldset[disabled] .blend-button-red[disabled]:hover,
-.blend-button-red.blend-disabled.disabled:focus,
-.blend-button-red[disabled].disabled:focus,
-.blend-button-red.blend-disabled[disabled]:focus,
-.blend-button-red[disabled][disabled]:focus,
-fieldset[disabled] .blend-button-red.blend-disabled:focus,
-fieldset[disabled] .blend-button-red[disabled]:focus,
-.blend-button-red.blend-disabled.disabled.focus,
-.blend-button-red[disabled].disabled.focus,
-.blend-button-red.blend-disabled[disabled].focus,
-.blend-button-red[disabled][disabled].focus,
-fieldset[disabled] .blend-button-red.blend-disabled.focus,
-fieldset[disabled] .blend-button-red[disabled].focus,
-.blend-button-red.blend-disabled.disabled:active,
-.blend-button-red[disabled].disabled:active,
-.blend-button-red.blend-disabled[disabled]:active,
-.blend-button-red[disabled][disabled]:active,
-fieldset[disabled] .blend-button-red.blend-disabled:active,
-fieldset[disabled] .blend-button-red[disabled]:active,
-.blend-button-red.blend-disabled.disabled.active,
-.blend-button-red[disabled].disabled.active,
-.blend-button-red.blend-disabled[disabled].active,
-.blend-button-red[disabled][disabled].active,
-fieldset[disabled] .blend-button-red.blend-disabled.active,
-fieldset[disabled] .blend-button-red[disabled].active {
-  background-color: #b32102;
-  border-color: #b32102;
-}
-.blend-button-red.blend-disabled .badge,
-.blend-button-red[disabled] .badge {
-  color: #b32102;
-  background-color: #cccccc;
+.blend-button-red:focus,
+.blend-button-red.blend-button-checkbox-checked {
+  background-color: #666;
 }
 .blend-button-gray {
   color: #ffffff;
@@ -977,79 +737,54 @@ fieldset[disabled] .blend-button-gray.active {
   color: #666666;
   background-color: #ffffff;
 }
-.blend-button-gray.blend-disabled,
-.blend-button-gray[disabled] {
-  color: #cccccc;
-  background-color: #333333;
-  border-color: #333333;
+.blend-button-ltgray {
+  color: #ffffff;
+  background-color: #dddddd;
+  border-color: #dddddd;
 }
-.blend-button-gray.blend-disabled:hover,
-.blend-button-gray[disabled]:hover,
-.blend-button-gray.blend-disabled:focus,
-.blend-button-gray[disabled]:focus,
-.blend-button-gray.blend-disabled.focus,
-.blend-button-gray[disabled].focus,
-.blend-button-gray.blend-disabled:active,
-.blend-button-gray[disabled]:active,
-.blend-button-gray.blend-disabled.active,
-.blend-button-gray[disabled].active,
-.open > .dropdown-toggle.blend-button-gray.blend-disabled,
-.open > .dropdown-toggle.blend-button-gray[disabled] {
-  color: #cccccc;
-  background-color: #1a1a1a;
-  border-color: #141414;
+.blend-button-ltgray:hover,
+.blend-button-ltgray:focus,
+.blend-button-ltgray.focus,
+.blend-button-ltgray:active,
+.blend-button-ltgray.active,
+.open > .dropdown-toggle.blend-button-ltgray {
+  color: #ffffff;
+  background-color: #c4c4c4;
+  border-color: #bebebe;
 }
-.blend-button-gray.blend-disabled:active,
-.blend-button-gray[disabled]:active,
-.blend-button-gray.blend-disabled.active,
-.blend-button-gray[disabled].active,
-.open > .dropdown-toggle.blend-button-gray.blend-disabled,
-.open > .dropdown-toggle.blend-button-gray[disabled] {
+.blend-button-ltgray:active,
+.blend-button-ltgray.active,
+.open > .dropdown-toggle.blend-button-ltgray {
   background-image: none;
 }
-.blend-button-gray.blend-disabled.disabled,
-.blend-button-gray[disabled].disabled,
-.blend-button-gray.blend-disabled[disabled],
-.blend-button-gray[disabled][disabled],
-fieldset[disabled] .blend-button-gray.blend-disabled,
-fieldset[disabled] .blend-button-gray[disabled],
-.blend-button-gray.blend-disabled.disabled:hover,
-.blend-button-gray[disabled].disabled:hover,
-.blend-button-gray.blend-disabled[disabled]:hover,
-.blend-button-gray[disabled][disabled]:hover,
-fieldset[disabled] .blend-button-gray.blend-disabled:hover,
-fieldset[disabled] .blend-button-gray[disabled]:hover,
-.blend-button-gray.blend-disabled.disabled:focus,
-.blend-button-gray[disabled].disabled:focus,
-.blend-button-gray.blend-disabled[disabled]:focus,
-.blend-button-gray[disabled][disabled]:focus,
-fieldset[disabled] .blend-button-gray.blend-disabled:focus,
-fieldset[disabled] .blend-button-gray[disabled]:focus,
-.blend-button-gray.blend-disabled.disabled.focus,
-.blend-button-gray[disabled].disabled.focus,
-.blend-button-gray.blend-disabled[disabled].focus,
-.blend-button-gray[disabled][disabled].focus,
-fieldset[disabled] .blend-button-gray.blend-disabled.focus,
-fieldset[disabled] .blend-button-gray[disabled].focus,
-.blend-button-gray.blend-disabled.disabled:active,
-.blend-button-gray[disabled].disabled:active,
-.blend-button-gray.blend-disabled[disabled]:active,
-.blend-button-gray[disabled][disabled]:active,
-fieldset[disabled] .blend-button-gray.blend-disabled:active,
-fieldset[disabled] .blend-button-gray[disabled]:active,
-.blend-button-gray.blend-disabled.disabled.active,
-.blend-button-gray[disabled].disabled.active,
-.blend-button-gray.blend-disabled[disabled].active,
-.blend-button-gray[disabled][disabled].active,
-fieldset[disabled] .blend-button-gray.blend-disabled.active,
-fieldset[disabled] .blend-button-gray[disabled].active {
-  background-color: #333333;
-  border-color: #333333;
+.blend-button-ltgray.disabled,
+.blend-button-ltgray[disabled],
+fieldset[disabled] .blend-button-ltgray,
+.blend-button-ltgray.disabled:hover,
+.blend-button-ltgray[disabled]:hover,
+fieldset[disabled] .blend-button-ltgray:hover,
+.blend-button-ltgray.disabled:focus,
+.blend-button-ltgray[disabled]:focus,
+fieldset[disabled] .blend-button-ltgray:focus,
+.blend-button-ltgray.disabled.focus,
+.blend-button-ltgray[disabled].focus,
+fieldset[disabled] .blend-button-ltgray.focus,
+.blend-button-ltgray.disabled:active,
+.blend-button-ltgray[disabled]:active,
+fieldset[disabled] .blend-button-ltgray:active,
+.blend-button-ltgray.disabled.active,
+.blend-button-ltgray[disabled].active,
+fieldset[disabled] .blend-button-ltgray.active {
+  background-color: #dddddd;
+  border-color: #dddddd;
 }
-.blend-button-gray.blend-disabled .badge,
-.blend-button-gray[disabled] .badge {
-  color: #333333;
-  background-color: #cccccc;
+.blend-button-ltgray .badge {
+  color: #dddddd;
+  background-color: #ffffff;
+}
+.blend-button-ltgray:focus,
+.blend-button-ltgray.blend-button-checkbox-checked {
+  background-color: #666;
 }
 .blend-button-large {
   font-size: 16px;
@@ -1066,6 +801,28 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   font-size: 1.2rem;
   line-height: 24px;
   height: 26px;
+}
+.blend-button-transparent {
+  background: transparent;
+  padding-left: 0;
+}
+.blend-button-transparent:active,
+.blend-button-transparent.blend-active {
+  outline: 0;
+  background-image: none;
+  -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+  box-shadow: inset 0 0 0 rgba(0, 0, 0, 0);
+}
+.blend-button-group {
+  display: flex;
+  width: 100%;
+  height: 48px;
+  background-color: #fff;
+  padding: 0 15px;
+}
+.blend-button-group .blend-button {
+  flex: 1;
+  margin: auto 5px;
 }
 .blend-push {
   border: none;
@@ -1215,7 +972,8 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   color: #ffffff;
   position: absolute;
 }
-.blend-checkbox-default {
+.blend-checkbox-default,
+.blend-checkbox-dot {
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -1223,6 +981,15 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-checkbox-default:before {
   top: 1px;
   left: 2px;
+}
+.blend-checkbox-dot:before {
+  top: 4px;
+  left: 4px;
+  background-color: #00a2eb;
+  width: 10px;
+  border-radius: 50%;
+  height: 10px;
+  content: "";
 }
 .blend-checkbox-square {
   width: 19px;
@@ -1254,6 +1021,10 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-checkbox-group .blend-checkbox-checked {
   background-color: #00a2eb;
 }
+.blend-checkbox-group .blend-checkbox-dot.blend-checkbox-checked {
+  background-color: #ffffff;
+  border: solid 1px #ededed;
+}
 .blend-counter {
   display: table;
 }
@@ -1268,6 +1039,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   line-height: 28px;
   -webkit-appearance: none;
   border-radius: 0;
+  background: #fff;
 }
 .blend-counter-minus,
 .blend-counter-plus {
@@ -2102,6 +1874,9 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   margin: 0;
   padding: 0;
 }
+.blend-imglist-wrapper.blend-imglist-theme {
+  padding: 1.875%;
+}
 .blend-imglist-title {
   padding-left: 10px;
   height: 24px;
@@ -2154,6 +1929,88 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 }
 .blend-imglist-item img {
   width: 100%;
+}
+/* 640*100 */
+.blend-imglist-wrapper .blend-imglist-full {
+  width: 100%;
+  margin: 10px 0 0 0;
+}
+.blend-imglist-wrapper .blend-imglist-full:after {
+  padding-top: 15.625%;
+}
+/* 600*338 */
+.blend-imglist-normal {
+  width: 97%;
+}
+.blend-imglist-normal:after {
+  padding-top: 56.33%;
+}
+/* 292:220 */
+.blend-imglist-wide {
+  width: 47.5%;
+}
+.blend-imglist-wide:after {
+  padding-top: 75.34%;
+}
+/* 188:188 */
+.blend-imglist-square {
+  width: 30.5%;
+}
+.blend-imglist-square:after {
+  padding-top: 100%;
+}
+/* 188:296 */
+.blend-imglist-middle {
+  width: 30.5%;
+}
+.blend-imglist-middle:after {
+  padding-top: 157.45%;
+}
+/* 140:140 */
+.blend-imglist-small {
+  width: 22.5%;
+}
+.blend-imglist-small:after {
+  padding-top: 100%;
+}
+.blend-imglist-normal,
+.blend-imglist-wide,
+.blend-imglist-square,
+.blend-imglist-middle,
+.blend-imglist-small,
+.blend-imglist-full {
+  position: relative;
+  margin: 1.25%;
+}
+.blend-imglist-normal a,
+.blend-imglist-wide a,
+.blend-imglist-square a,
+.blend-imglist-middle a,
+.blend-imglist-small a,
+.blend-imglist-full a {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+.blend-imglist-normal a img,
+.blend-imglist-wide a img,
+.blend-imglist-square a img,
+.blend-imglist-middle a img,
+.blend-imglist-small a img,
+.blend-imglist-full a img {
+  height: 100%;
+}
+.blend-imglist-normal:after,
+.blend-imglist-wide:after,
+.blend-imglist-square:after,
+.blend-imglist-middle:after,
+.blend-imglist-small:after,
+.blend-imglist-full:after {
+  content: "";
+  clear: both;
+  display: table;
 }
 .blend-link {
   width: 100%;
@@ -2561,20 +2418,37 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   margin: 0 !important;
 }
 .blend-loading {
-  height: 40px;
-  width: 40px;
+  background-color: #fff;
+  width: 170px;
+  height: 130px;
   position: fixed;
-  margin: -20px 0 0 -20px;
+  margin: -65px 0 0 -85px;
   left: 50%;
   top: 50%;
-  z-index: 100;
+  border: solid 1px #e0e0e0;
+  box-shadow: 0 0 1px 1px #e0e0e0;
+}
+.blend-loading .blend-loading-default {
+  height: 54px;
+  width: 54px;
+  position: absolute;
+  margin: -40px 0 0 -27px;
+  left: 50%;
+  top: 50%;
+  z-index: 54px;
   -webkit-animation: rotation 0.6s infinite linear;
   animation: rotation 0.6s infinite linear;
-  border-left: 4px solid rgba(47, 60, 87, 0.15);
-  border-right: 4px solid rgba(47, 60, 87, 0.15);
-  border-bottom: 4px solid rgba(47, 60, 87, 0.15);
-  border-top: 4px solid rgba(47, 60, 87, 0.75);
+  border: 2px solid #f0f0f0;
+  border-top: 2px solid #666666;
   border-radius: 100%;
+}
+.blend-loading .blend-loading-word {
+  position: absolute;
+  bottom: 20px;
+  font-size: 16px;
+  color: #262626;
+  text-align: center;
+  width: 100%;
 }
 @-webkit-keyframes rotation {
   from {
@@ -3030,6 +2904,10 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-slider-small:after {
   padding-top: 37.5%;
 }
+/* 640:464 */
+.blend-slider-middle:after {
+  padding-top: 72.5%;
+}
 .blend-slider .blend-slides {
   position: absolute;
   top: 0;
@@ -3174,6 +3052,54 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-slider-title ol li a.blend-slider-active {
   background-color: #0078da;
 }
+.blend-slider-special {
+  background: #fff;
+}
+.blend-slider-special .blend-slider-title {
+  color: #fff;
+  line-height: 40px;
+  height: 40px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.blend-slider-special ol {
+  bottom: 16px;
+  right: 10px;
+}
+.blend-slider-special ol li a {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+}
+.blend-slider-special ol li a.blend-slider-active {
+  background-color: #dd362d;
+}
+.blend-slider-special.blend-slider-small .blend-slider-title {
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
+}
+.blend-slider-bgImg {
+  /* 16:9 */
+  /* 1:1 */
+  /* 640:240 */
+  /* 640:464 */
+}
+.blend-slider-bgImg li {
+  background-size: 100%;
+}
+.blend-slider-bgImg.blend-slider-wide {
+  background: url("data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QODaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDE2MUY1RkYyRjIwNjgxMTgyMkFFRDRFRUI3QjA4NTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTcxM0FCRUQ1NUQ5MTFFNUFCRUU4NUJGRUQzMzVGN0IiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTcxM0FCRUM1NUQ5MTFFNUFCRUU4NUJGRUQzMzVGN0IiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcyRjAxNTZFMTgyMDY4MTE4MDgzQzZENDA1OUJFMTVDIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NDY5OWE5MjktMTk5OC0xMTc4LTk5NjUtODQyZmExYWM1ODY0Ii8+IDwvcmRmOkRlc2NyaXB0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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD/9k=") 0 0 no-repeat;
+}
+.blend-slider-bgImg.blend-slider-square {
+  background: url("data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QODaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDE2MUY1RkYyRjIwNjgxMTgyMkFFRDRFRUI3QjA4NTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RUQ0QTVDODA1NUQ5MTFFNTg4N0E4RjA0NTJFMDkyNDYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RUQ0QTVDN0Y1NUQ5MTFFNTg4N0E4RjA0NTJFMDkyNDYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcyRjAxNTZFMTgyMDY4MTE4MDgzQzZENDA1OUJFMTVDIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NDY5OWE5MjktMTk5OC0xMTc4LTk5NjUtODQyZmExYWM1ODY0Ii8+IDwvcmRmOkRlc2NyaXB0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AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//Z") 0 0 no-repeat;
+}
+.blend-slider-bgImg.blend-slider-small {
+  background: url("data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QODaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDE2MUY1RkYyRjIwNjgxMTgyMkFFRDRFRUI3QjA4NTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NUYwMEMwNEE1NUQ5MTFFNUJBN0RCQTMxMzFDRDkyQjYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NUYwMEMwNDk1NUQ5MTFFNUJBN0RCQTMxMzFDRDkyQjYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjcyRjAxNTZFMTgyMDY4MTE4MDgzQzZENDA1OUJFMTVDIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NDY5OWE5MjktMTk5OC0xMTc4LTk5NjUtODQyZmExYWM1ODY0Ii8+IDwvcmRmOkRlc2NyaXB0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") 0 0 no-repeat;
+}
+.blend-slider-bgImg.blend-slider-middle {
+  background: url("data:image/jpg;base64,/9j/4QAYRXhpZgAASUkqAAgAAAAAAAAAAAAAAP/sABFEdWNreQABAAQAAAAeAAD/4QODaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLwA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA1LjMtYzAxMSA2Ni4xNDU2NjEsIDIwMTIvMDIvMDYtMTQ6NTY6MjcgICAgICAgICI+IDxyZGY6UkRGIHhtbG5zOnJkZj0iaHR0cDovL3d3dy53My5vcmcvMTk5OS8wMi8yMi1yZGYtc3ludGF4LW5zIyI+IDxyZGY6RGVzY3JpcHRpb24gcmRmOmFib3V0PSIiIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6NDE2MUY1RkYyRjIwNjgxMTgyMkFFRDRFRUI3QjA4NTgiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzdBQzlGRTE1NURDMTFFNThDOTVGREVGN0ZFNkIzN0IiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzdBQzlGRTA1NURDMTFFNThDOTVGREVGN0ZFNkIzN0IiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjA2ODAxMTc0MDcyMDY4MTE4M0QxOTEzNjQ2QTE2OUMzIiBzdFJlZjpkb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6NDY5OWE5MjktMTk5OC0xMTc4LTk5NjUtODQyZmExYWM1ODY0Ii8+IDwvcmRmOkRlc2NyaXB0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") 0 0 no-repeat;
+}
 .blend-star {
   display: block;
   display: -webkit-box;
@@ -3273,6 +3199,61 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 .blend-suggest-list li p:first-child {
   font-size: 1.4rem;
   color: #262626;
+}
+.blend-suspend-mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  opacity: 0.8;
+  display: none;
+}
+.blend-suspend {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  max-height: 300px;
+  width: 100%;
+  z-index: 80;
+  overflow: hidden;
+}
+.blend-suspend .blend-suspend-content {
+  background: #ffffff;
+  -webkit-transform: translate3d(0, 100%, 0);
+  transform: translate3d(0, 100%, 0);
+}
+.blend-suspend .blend-suspend-content.blend-suspend-show {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  -webkit-transition: .3s ease all;
+  transition: .3s ease all;
+}
+.blend-suspend-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: inline-block;
+  padding: 8px;
+}
+.blend-suspend-close span {
+  display: inline-block;
+  width: 18px;
+  height: 2px;
+  background: #262626;
+  font-size: 0;
+  line-height: 0;
+  vertical-align: middle;
+  -webkit-transform: rotate(45deg);
+}
+.blend-suspend-close span:after {
+  content: '.';
+  display: block;
+  width: 18px;
+  height: 2px;
+  background: #262626;
+  -webkit-transform: rotate(-90deg);
 }
 .blend-switch {
   display: inline-block;

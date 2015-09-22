@@ -3843,7 +3843,6 @@ $.widget('blend.dialog', {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
-            alert("close");
             self.hide();
         });
     },
@@ -3865,8 +3864,8 @@ $.widget('blend.dialog', {
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                          +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'dialog-btn">' + this.cancelText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
         return this.$el;
@@ -4217,6 +4216,12 @@ $.widget('blend.gallery', {
             this._renderHTML();
             this._bindHandler();
         }
+
+        window.onhashchange = function (){
+            if (location.hash !== "#gallery"){
+                $("." + NAMESPACE + 'gallery-mask').hide();
+            }
+        };
 
     },
     /**
@@ -4893,7 +4898,6 @@ $.widget('blend.gallery', {
      * @param  {number} val 图片索引
      */
     show: function (val) {
-
         if (IS_UIX && this._uix) {
             this._uix.show();
             return;
@@ -4904,6 +4908,11 @@ $.widget('blend.gallery', {
         }
         else if (val >= this.data.length) {
             val = this.data.length - 1;
+        }
+        
+        if (location.hash === ""){
+            window.location.href = location.href + "#gallery";
+            //location.hash = "gallery";
         }
 
         this.initIndex = val;
@@ -5440,6 +5449,62 @@ function __genItemIterator(cb) {
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
+ * imglist 组件
+ * @file imglist.js
+ */
+'use strict';
+$.widget('blend.imglist', {
+    /**
+     * 组件的默认选项，可以由多重覆盖关系
+     */
+    options: {
+        ratio: '' ,    // normal/wide/square/small
+    },
+    /**
+     * 创建组件调用一次
+     * @private
+     */
+    _create: function () {
+
+        /**
+         * this.element 组件对应的单个 Zepto/jQuery 对象
+         */
+        var $el = this.element;
+        /**
+         * 经过继承的 options
+         */
+        var options = this.options;
+
+        if (options.ratio){
+            var ratioClass = NAMESPACE + 'imglist-';
+            switch (options.ratio) {
+                case 'wide':
+                case 'square':
+                case 'middle':
+                case 'small':
+                case 'full':
+                    ratioClass += options.ratio;
+                    break;
+                default :
+                    ratioClass += 'normal';
+            }
+            options.ratio !== 'full' && $el.find('.' + NAMESPACE + 'imglist-wrapper').addClass(NAMESPACE + 'imglist-theme');
+            this.$li = $el.find('.' + NAMESPACE + 'imglist-wrapper li');
+            this.$li.addClass(ratioClass);
+        }
+    },
+    /**
+     * _init 初始化的时候调用
+     * @private
+     */
+    _init: function () {
+
+    }
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/* eslint-disable fecs-camelcase */
+/**
  * @file list 组件
  * @author wanghongliang02
  */
@@ -5684,7 +5749,10 @@ $.widget('blend.loading', {
 	/*配置项*/
     options: {
         loadingClass: '',
-        loadingHtml: ''
+        loadingImgClass:'blend-loading-default',
+        loadingHtml: '',
+        loadingImg: '',
+        loadingWord: '正在载入...'
     },
     /**
      * _create 创建组件时调用一次
@@ -5694,8 +5762,9 @@ $.widget('blend.loading', {
         var options = this.options;
         this.$el = this.element;
         this.$body = $('body');
-        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="'
-        + (options.loadingClass || '') + ' ' + NAMESPACE + 'loading"></div>';
+        
+        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + NAMESPACE + 'loading '+ (options.loadingClass || '') + '"><div class="' + options.loadingImgClass + '"></div><p class="' + NAMESPACE + 'loading-word">' + options.loadingWord + '</p></div>';
+        console.log(this.loadingHtml);
     },
     /**
      * 组件初始化
@@ -6170,7 +6239,8 @@ $.widget('blend.slider', {
         theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
         ratio: 'normal' ,    // normal/wide/square/small
-        wrapWidth: document.body.clientWidth
+        wrapWidth: document.body.clientWidth,
+        bgImg: false        // 是否加默认背景图，默认不加
     },
     /**
      * 创建组件调用一次
@@ -6191,6 +6261,7 @@ $.widget('blend.slider', {
         switch (options.ratio) {
             case 'wide':
             case 'square':
+            case 'middle':
             case 'small':
                 ratioClass += options.ratio;
                 break;
@@ -6198,6 +6269,10 @@ $.widget('blend.slider', {
                 ratioClass += 'normal';
         }
         $el.addClass(ratioClass);
+        // 添加背景图样式
+        if (options.bgImg){
+            $el.addClass(NAMESPACE + "slider-bgImg");
+        }
         $el.css("visibility", "visible");
 
         this.$container = $el;
@@ -6371,6 +6446,10 @@ $.widget('blend.slider', {
         }
         if (theme === 'd2') {
             $el.addClass(NAMESPACE + 'slider-title');
+            this._initControl();
+        }
+        if (theme === 's1') {
+            $el.addClass(NAMESPACE + 'slider-special');
             this._initControl();
         }
     },
@@ -6707,6 +6786,131 @@ $.widget('blend.suggest', {
         });
     }
 
+});
+})(Zepto)
+;(function($){/* globals NAMESPACE */
+/**
+ * @function suspend
+ * @name suspend
+ * @param {Object} options 组件配置（以下参数为配置项）
+ * @param {String} options.addCSSClass (可选, 默认值: \'\') dialog最外层自定义class
+ * @param {String} options.maskTapClose (可选, 默认值: false) mask被点击后是否关闭dialog
+ * @example
+ *  1、$('.suspend').suspend(), $('.suspend')为dialog自定义节点,并不是dialog的容器,切记
+ *  2、var suspend = $.blend.suspend({
+ *                      addCSSClass: '',
+ *                      maskTapClose: true,
+ *                  });
+ *        suspend.show();
+ */
+'use strict';
+$.widget('blend.suspend', {
+    /*配置项*/
+    options: {
+        maskTapClose: true,    // 点击mask，关闭suspend
+    },
+    /**
+     * _create 创建组件时调用一次
+     * @private
+     */
+    _create: function () {
+        var options = this.options;
+
+        this.addCSSClass = options.addCSSClass ? options.addCSSClass : '';
+        this.maskTapClose = options.maskTapClose;
+        this.$el = this.element;
+    },
+    /**
+     * 初始化
+     * @private
+     */
+    _init: function () {
+        this._bindEvent();
+    },
+    /**
+     * 为suspend相关元素添加事件
+     * @private
+     */
+    _bindEvent: function () {
+        var self = this;
+
+        this.$el.on('click', '.' + NAMESPACE + 'suspend-close', function () {
+            self.hide();
+        });
+    },
+    /**
+     * 定义事件派发
+     * @param {Object} event 事件对象
+     * @private
+     */
+    _trigger: function (event) {
+        this.$el.trigger('suspend:' + event);
+    },
+    /**
+     * 显示suspend
+     * @param {string} content 指定show方法要展示的body内容
+     * @return {Object}
+     */
+    show: function () {
+        var self = this;
+        this.mask();
+        window.setTimeout(function () {
+            self.$el.find(".blend-suspend-content").addClass(NAMESPACE + 'suspend-show');
+        }, 50);
+        return this.$el;
+    },
+    /**
+     * 关闭dialog
+     * @return {Object}
+     */
+    hide: function () {
+        var self = this;
+        window.setTimeout(function () {
+            self.unmask();
+        }, 50);
+        return this.$el.find(".blend-suspend-content").removeClass(NAMESPACE + 'suspend-show');
+    },
+    /**
+     * 销毁dialog
+     * @return {Object}
+     */
+    destroy: function () {
+        this.unmask();
+        if (this.$el) {
+            this.$el.remove();
+            this.$el = [];
+        }
+        return this.$el;
+    },
+    /**
+     * 显示mask
+     * @param {number} opacity 透明度
+     */
+    mask: function () {
+        var self = this;
+        this._maskDom = $('.' + NAMESPACE + 'suspend-mask');
+        this._maskDom.show();
+        this._maskDom.on('click', function (e) {
+            e.preventDefault();
+            self.maskTapClose && self.hide();
+        }).on('touchmove', function (e) {
+            e.preventDefault();
+        });
+        /*this.$el.css({
+            '-webkit-transform':'translate3d(0,100%,0)',
+            'transform':'translate3d(0,100%,0)'
+        });*/
+    },
+    /**
+     * 关闭mask
+     */
+    unmask: function () {
+        this._maskDom.off('touchstart touchmove').hide();
+        /*this.$el.css({
+            '-webkit-transition': 'none',
+            'transition': 'none'
+        });*/
+    }
 });
 })(Zepto)
 ;(function($){/* globals NAMESPACE */
@@ -7176,9 +7380,6 @@ $.widget('blend.topnav', {
 ;(function ($) {
     // TODO 判断UA环境,给body增加class
     $(function () {
-        //fastclick单击
-        //FastClick.attach(document.body);
-        
         $('[data-blend-widget]').each(function (i, elem) {
             var $elem = $(elem);
             var widgetAttr = $elem.data('blend-widget');

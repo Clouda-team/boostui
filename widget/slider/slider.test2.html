@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>Slider Test</title>
+
+     <!-- <link rel="stylesheet" type="text/css" href="slider.css"> -->
+    <link rel="stylesheet" href="../../dist/boost.css"> 
+    <style type="text/css">
+    body{
+        margin: 0;
+    }
+
+    </style>
+
+
+</head>
+
+<body>
+	<br><br><br>
+    <div id="slider1" class="blend-slider">
+        <ul class="blend-slides">
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default1.jpg">
+                <div class="blend-slider-title">这是图片1的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default1.jpg">
+                <div class="blend-slider-title">这是图片2的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default1.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default1.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
+            </li>
+
+        </ul>
+    </div>
+<br><br><br>
+    <div id="slider2" class="blend-slider">
+        <ul class="blend-slides">
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default2.jpg">
+                <div class="blend-slider-title">这是图片1的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default2.jpg">
+                <div class="blend-slider-title">这是图片2的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default2.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default2.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
+            </li>
+
+        </ul>
+    </div>
+    <br><br><br>
+    <div id="slider3" class="blend-slider">
+        <ul class="blend-slides">
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default3.jpg">
+                <div class="blend-slider-title">这是图片1的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default3.jpg">
+                <div class="blend-slider-title">这是图片2的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default3.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default3.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
+            </li>
+
+        </ul>
+    </div>
+    <br><br><br>
+    <div id="slider4" class="blend-slider">
+        <ul class="blend-slides">
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default4.jpg">
+                <div class="blend-slider-title">这是图片1的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default4.jpg">
+                <div class="blend-slider-title">这是图片2的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default4.jpg">
+                <div class="blend-slider-title">这是图片3的标题</div>
+            </li>
+            <li>
+                <img src="http://fedev.baidu.com/~haoxin02/test/img/default4.jpg">
+                <div class="blend-slider-title">这是图片4的标题</div>
+            </li>
+
+        </ul>
+    </div>
+<br><br><br>
+    <script src="../../dist/boost.js"></script>
+  
+    <script>
+
+    ;(function(){
+        
+        $("#slider1").slider({
+        	"theme":'s1',
+        	"speed": 2000, 
+        	"ratio": "square",
+             "bgImg": true
+        });
+
+        $("#slider2").slider({
+            "theme":'s1',
+            "ratio": "middle",
+            autoSwipe: false,  
+        });
+
+        $("#slider3").slider({
+            "theme":'s1',
+            "ratio": "wide",
+            autoSwipe: false,  
+        });
+
+        $("#slider4").slider({
+            "theme":'s1',
+            "ratio": "small",
+            autoSwipe: false,  
+        });
+    })();
+            
+    </script>
+</body>
+
+</html>

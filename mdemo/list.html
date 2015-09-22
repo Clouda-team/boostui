@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>列表</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+        }
+        div>.blend-button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        h1{
+            line-height: 70px;
+            font-size: 16px;
+            color: #262626;
+        }
+        h2{
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .mar-b-30{
+            margin-bottom: 30px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .mar-r-8{
+            margin-right: 8px;
+        }
+        .main-l{
+            float: left;
+            width: 36.25%;
+        }
+        .main-r{
+            width: 40%;
+            margin-right: 10%;
+        }
+        .main-r, .f-r{
+            float: right;
+        }
+        .f-l{
+            float: left;
+        }
+        .clearfix{
+            overflow: hidden;
+        }
+        .write-wrap{
+            background: #fff;
+        }
+        .w-48{
+            width: 48%;
+        }
+        .w-30{
+            width: 30%;
+        }
+        .blend-counter{
+            margin-left: 20px;
+        }
+        .cor999{
+            color: #999;
+        }
+        .fz-12{
+            font-size: 12px;
+            line-height: 16px;
+        }
+        .blend-star{
+            width: 8rem;
+            margin: 5px 0;
+        }
+        .blend-star-item{
+            width: 21px;
+            height: 14px; 
+            background-size: 21px 28px;
+            background-position: 0 -14px;
+        }
+    </style>
+</head>
+
+<body>
+<h1>列表</h1>
+
+<div class="clearfix">
+    <div class="mar-b-30">
+        <h2>图文混合列表</h2>
+        <div class="blend-listview-main write-wrap mar-t-10">
+            <a class="blend-flexbox blend-listview-item" href="#" id="#nopic">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#summary">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                    <div class="clearfix cor999 fz-12">
+                        <span class="f-l">辅助信息</span>
+                        <span class="f-r">辅助信息</span>
+                    </div>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#sub">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#sub">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-sub-title fz-12">副标题：文字摘要文字摘要</p>
+                    <p class="blend-listview-item-sub-title fz-12">副标题：文字摘要文字摘要</p>
+                    <p class="blend-listview-item-sub-title fz-12">副标题：文字摘要文字摘要</p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#sub">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <div class="blend-star">
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item"></i>
+                    </div>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+        </div>
+    </div>
+
+    <div class="mar-b-30">
+        <section class="blend-listview blend-listview-pic-theme" style="margin: 20px 0;">
+            <div class="blend-listview-header">
+                <span class="blend-listview-header-title">图文列表</span>
+            </div>
+            <div class="blend-listview-pic-row blend-flexbox">
+                <div class="blend-listview-pic-theme-item blend-flexbox-item blend-flexbox-ratio">
+                    <img class="blend-listview-pic-theme-img" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                </div>
+                <div class="blend-listview-pic-theme-item blend-flexbox-item blend-flexbox-ratio">
+                    <img class="blend-listview-pic-theme-img" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="mar-b-30">
+        <section class="blend-listview blend-listview-theme3" style="margin: 20px 0;">
+            <div class="blend-listview-main">
+                <a class="blend-flexbox blend-listview-item">
+                    <div class="blend-flexbox-item">
+                        <img class="blend-listview-item-pic" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                    </div>
+                    <div class="blend-flexbox-item blend-flexbox-ratio">
+                        <div class="blend-listview-item-title">
+                            自产新鲜水果
+                        </div>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                    </div>
+                    <div class="blend-flexbox-item blend-listview-item-right"></div>
+                </a>
+                <a class="blend-flexbox blend-listview-item">
+                    <div class="blend-flexbox-item">
+                        <img class="blend-listview-item-pic" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                    </div>
+                    <div class="blend-flexbox-item blend-flexbox-ratio">
+                        <div class="blend-listview-item-title">
+                            自产新鲜水果
+                        </div>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <p class="blend-listview-item-sub-title">随订随用,随用随订</p>
+                        <div class="blend-listview-item-price">
+                            <em>￥</em>68
+                        </div>
+                    </div>
+                    <div class="blend-flexbox-item blend-listview-item-right"></div>
+                </a>
+            </div>
+    </section>
+    </div>
+
+    <div class="mar-b-30">
+        <h2 style="margin-bottom:12px;">卡片列表</h2>
+        <section class="blend-listview blend-listview-cart-theme" style="margin: 20px 0;">
+            <div class="blend-listview-main">
+                <a class="blend-listview-item" href="#" id="#cart1">
+                    <div class="blend-flexbox">
+                        <div class="blend-flexbox-item blend-flexbox-ratio">
+                            <p class="blend-listview-item-title blend-listview-item-two-line">招聘标题最多两行</p>
+                            <p class="blend-listview-item-sub-title">招聘信息副标题信息</p>
+                            <p class="blend-listview-item-sub-title">招聘信息副标题信息</p>
+                        </div>
+                        <p class="blend-flexbox-item blend-listview-status-text"><span>待支付</span></p>
+                    </div>
+                </a>
+                <a class="blend-listview-item" href="#" id="#cart2">
+                    <div class="blend-flexbox">
+                        <div class="blend-flexbox-item blend-flexbox-ratio">
+                            <p class="blend-listview-item-title blend-listview-item-two-line">这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两</p>
+                            <p class="blend-listview-item-sub-title">副标题一</p>
+                            <p class="blend-listview-item-sub-title">副标题二</p>
+                        </div>
+                    
+                    <p class="blend-flexbox-item blend-listview-status-text">3000-5000元/月</p>
+                    </div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="mar-b-30">
+        <h2 style="margin-bottom:12px;">标题+文字列表</h2>
+        <section class="blend-listview" style="margin: 20px 0;">
+            <div class="blend-listview-main">
+                <a class="blend-flexbox blend-listview-item" href="#" id="#nopic">
+                    <div class="blend-flexbox-item blend-flexbox-ratio">
+                        <p class="blend-listview-item-title">标题文字</p>
+                        <p class="blend-listview-item-summary blend-listview-item-two-line">
+                            这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                        </p>
+                    </div>
+                    <div class="blend-flexbox-item blend-listview-item-right"></div>
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <div class="mar-b-30">
+        <h2 style="margin-bottom:12px;">图文列表</h2>
+        <div class="blend-listview-main write-wrap mar-t-10">
+            <a class="blend-flexbox blend-listview-item" href="#" id="#nopic">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#summary">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-summary blend-listview-item-two-line">
+                        这里有两行摘要文字，多的省略号,这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号，这里有两行摘要文字，多的省略号
+                    </p>
+                    <div class="clearfix cor999 fz-12">
+                        <span class="f-l">辅助信息</span>
+                        <span class="f-r">辅助信息</span>
+                    </div>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#sub">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+            <a class="blend-flexbox blend-listview-item" href="#" id="#sub">
+                <img class="blend-listview-item-pic blend-flexbox-item" src="http://pic.4j4j.cn/upload/pic/20130530/f41069c61a.jpg" alt="pic"/>
+                <div class="blend-flexbox-item blend-flexbox-ratio">
+                    <p class="blend-listview-item-title">标题</p>
+                    <div class="blend-star">
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item selected"></i>
+                        <i class="blend-star-item"></i>
+                    </div>
+                    <p class="blend-listview-item-sub-title">副标题：文字摘要文字摘要</p>
+                </div>
+                <div class="blend-flexbox-item blend-listview-item-right"></div>
+            </a>
+        </div>
+    </div>
+
+</div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>    
+    </script>
+</body>
+
+</html>

@@ -39,7 +39,7 @@
   position: absolute;
 }
 
-.@{namespace}checkbox-default {
+.@{namespace}checkbox-default, .@{namespace}checkbox-dot {
   width: 20px;
   height: 20px;
   border-radius: 10px;
@@ -48,6 +48,16 @@
 .@{namespace}checkbox-default:before {
   top: 1px;
   left: 2px;
+}
+
+.@{namespace}checkbox-dot:before {
+  top: 4px;
+  left: 4px;
+  background-color: @color-checkbox-checked;
+  width: 10px;
+  border-radius: 50%;
+  height: 10px;
+  content: "";
 }
 
 .@{namespace}checkbox-square {
@@ -84,5 +94,10 @@
 
   .@{namespace}checkbox-checked {
     background-color: @color-checkbox-checked;
+  }
+
+  .@{namespace}checkbox-dot.@{namespace}checkbox-checked{
+    background-color: @color-checkbox-backgroud;
+    border: solid 1px @color-checkbox-border;
   }
 }

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单选/复选</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+            padding: 0 20px;
+        }
+        h1{
+            line-height: 50px;
+            font-size: 16px;
+            color: #262626;
+        }
+        h2{
+            font-size: 14px;
+            line-height: 24px;
+            margin-top: 20px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .mar-r-10{
+            margin-right: 10px;
+        }
+        .f-l{
+            float: left;
+        }
+        .clearfix{
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+<h1>单选/复选</h1>
+
+<div class="clearfix">
+    <h2>最多4字</h2>
+    <div id="checkbutton" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["man","woman"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
+        <button class="blend-button blend-button-ltgray blend-button-checkbox mar-r-10 blend-button-checkbox-checked">男</button>
+        <button class="blend-button blend-button-ltgray blend-button-checkbox">女</button>
+    </div>
+
+    <div id="checkbutton" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["button1","button2"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}' class="mar-t-10">
+        <button class="blend-button blend-button-ltgray blend-button-checkbox mar-r-10 blend-button-checkbox-checked">nocheck</button>
+        <button class="blend-button blend-button-ltgray blend-button-checkbox">checked</button>
+    </div>
+
+    <h2>字数不加控制</h2>
+    <div id="radio" class="clearfix" data-blend-widget="checkbox"
+     data-blend-checkbox='{"type":"radio","values":["radio1","radio2"]}'>
+         <div class="blend-checkbox-group f-l">
+            <span class="blend-checkbox blend-checkbox-dot"></span><label class="blend-checkbox-label">通用</label>
+        </div>
+        <div class="blend-checkbox-group f-l">
+            <span class="blend-checkbox blend-checkbox-dot"></span><label class="blend-checkbox-label">商家自有</label>
+        </div>
+        
+    </div>
+
+    <div class="clearfix">
+        <div class="f-l mar-r-10">
+            <h2>默认</h2>
+            <div id="checkbutton" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["big"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
+                <button class="blend-button blend-button-default blend-button-checkbox">大号</button>
+            </div>
+        </div>
+
+        <div class="f-l mar-r-10">
+            <h2>不可点击</h2>
+            <div id="checkbutton" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["big"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
+                <button class="blend-button blend-button-default blend-button-checkbox" disabled>中号</button>
+            </div>
+        </div>
+
+        <div class="f-l mar-r-10">
+            <h2>选中</h2>
+            <div id="checkbutton" data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["big"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
+                <button class="blend-button blend-button-default blend-button-checkbox blend-button-checkbox-checked">小号</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>
+    $(function (){
+        
+    });
+    
+    </script>
+</body>
+
+</html>

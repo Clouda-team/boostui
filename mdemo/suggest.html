@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>suggest</title>
+    <link rel="stylesheet" href="../dist/boost.css"/>
+    <style>
+    body{
+        background-color: #eee;
+    }
+    </style>
+</head>
+
+<body>
+
+<div id="validate" class="blend-suggest" style="margin: 20px auto; width:100%; background: #f8f8f8; padding:10px 0;">
+    <form>
+        <div class="blend-suggest-input">
+            <span class="blend-suggest-ico"></span>
+            <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+            <a href="javascript:;" class="blend-suggest-delete"></a>
+        </div>
+    </form>
+    <ul class="blend-suggest-list">
+    </ul>
+</div>
+
+<script src="../dist/boost.js"></script>
+<script>
+//http://nssug.baidu.com/su?callback=jsonp2&wd=s&prod=zhidacenter&json=1
+    (!window.baidu) && (window.baidu = {});
+
+    baidu.sug = function (rs){
+        var sugList = [];
+        $.each(rs.s, function (index, item){
+            var itemArr = item.split("{#S+_}");
+            sugList.push({"name": itemArr[0]});
+        });
+
+        var string = "";
+        $.each(sugList, function (index, value){
+            string += "<li><p>" + value["name"] + "</p><p>" + value["name"] + "</p></li>";
+        });
+        $(".blend-suggest-list").html("");
+        $(".blend-suggest-list").append(string);
+        $(".blend-suggest-list").show();
+    };
+
+    $('.blend-suggest').suggest({
+        "url": "http://nssug.baidu.com/su?prod=zhidacenter&json=1",
+        "wd": "wd",
+        "callback": "callback",
+        "success": baidu.sug
+    });
+</script>
+</body>
+
+</html>

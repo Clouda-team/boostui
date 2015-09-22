@@ -21,7 +21,8 @@ $.widget('blend.slider', {
         theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
         ratio: 'normal' ,    // normal/wide/square/small
-        wrapWidth: document.body.clientWidth
+        wrapWidth: document.body.clientWidth,
+        bgImg: false        // 是否加默认背景图，默认不加
     },
     /**
      * 创建组件调用一次
@@ -42,6 +43,7 @@ $.widget('blend.slider', {
         switch (options.ratio) {
             case 'wide':
             case 'square':
+            case 'middle':
             case 'small':
                 ratioClass += options.ratio;
                 break;
@@ -49,6 +51,10 @@ $.widget('blend.slider', {
                 ratioClass += 'normal';
         }
         $el.addClass(ratioClass);
+        // 添加背景图样式
+        if (options.bgImg){
+            $el.addClass(NAMESPACE + "slider-bgImg");
+        }
         $el.css("visibility", "visible");
 
         this.$container = $el;
@@ -222,6 +228,10 @@ $.widget('blend.slider', {
         }
         if (theme === 'd2') {
             $el.addClass(NAMESPACE + 'slider-title');
+            this._initControl();
+        }
+        if (theme === 's1') {
+            $el.addClass(NAMESPACE + 'slider-special');
             this._initControl();
         }
     },

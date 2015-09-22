@@ -28,7 +28,10 @@ $.widget('blend.loading', {
 	/*配置项*/
     options: {
         loadingClass: '',
-        loadingHtml: ''
+        loadingImgClass:'blend-loading-default',
+        loadingHtml: '',
+        loadingImg: '',
+        loadingWord: '正在载入...'
     },
     /**
      * _create 创建组件时调用一次
@@ -38,8 +41,9 @@ $.widget('blend.loading', {
         var options = this.options;
         this.$el = this.element;
         this.$body = $('body');
-        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="'
-        + (options.loadingClass || '') + ' ' + NAMESPACE + 'loading"></div>';
+        
+        this.loadingHtml = options.loadingHtml || '<div data-' + NAMESPACE + 'widget="loading" class="' + NAMESPACE + 'loading '+ (options.loadingClass || '') + '"><div class="' + options.loadingImgClass + '"></div><p class="' + NAMESPACE + 'loading-word">' + options.loadingWord + '</p></div>';
+        console.log(this.loadingHtml);
     },
     /**
      * 组件初始化

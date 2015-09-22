@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>按钮</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+        }
+        div>.blend-button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        .mar-b-50{
+            margin-bottom: 50px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .mar-r-8{
+            margin-right: 8px;
+        }
+        .main-l{
+            float: left;
+            width: 36.25%;
+        }
+        .main-r{
+            width: 40%;
+            margin-right: 10%;
+        }
+        .main-r, .f-r{
+            float: right;
+        }
+        .f-l{
+            float: left;
+        }
+        .clearfix{
+            overflow: hidden;
+        }
+        .write-wrap{
+            padding: 5px 20px 15px;
+            background: #fff;
+            display: -webkit-box;
+        }
+        .write-wrap .f-l{
+            margin-right: 8px;
+        }
+        .write-wrap div{
+            -webkit-box-flex: 1;
+            box-flex: 1;
+        }
+        .w-48{
+            width: 48%;
+        }
+        .w-30{
+            width: 30%;
+        }
+        .blend-counter{
+            margin-left: 20px;
+        }
+        .w-288{
+            width: 288px;
+            margin: 0 auto 50px;
+        }
+        h1{
+            line-height: 80px;
+            font-size: 16px;
+            color: #262626;
+            margin-bottom: 0 !important;
+        }
+        h2{
+            font-size: 14px;
+            line-height: 20px;
+        }
+    </style>
+</head>
+
+<body>
+<h1 class="w-288">按钮</h1>
+
+<div class="clearfix">
+        <div class="w-288 mar-b-50">
+            <h2>普通按钮</h2>
+            <button class="blend-button blend-button-gray">按钮名称</button>
+        </div>
+
+        <div class="w-288 mar-b-50">
+            <h2>常规大按钮</h2>
+            <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+        </div>
+
+        <div class="w-288 mar-b-50">
+            <h2>图标+文字按钮</h2>
+            <button class="blend-button blend-button-gray blend-button-icon"><em></em>名称</button>
+        </div>
+
+        <div class="w-288 mar-b-50">
+            <h2>纯文字按钮</h2>
+            <div class="blend-link blend-link-left">
+                <a href="http:www.baidu.com">我是link</a>
+            </div>
+        </div>
+
+        <div class="w-288 mar-b-50">
+            <h2 style="margin-bottom:12px;">特殊按钮</h2>
+            <div class="clearfix">
+                <div class="f-l">
+                    <span class="blend-switch on" data-blend-widget="switch"></span><span class="blend-switch" data-blend-widget="switch"></span>
+                </div>
+                
+                <div data-blend-widget="counter" data-blend-counter='{"step":1,"maxValue":10}' class="blend-counter f-l" style="margin-top: 3px;">
+                    <div class="blend-counter-minus"></div>
+                    <input class="blend-counter-input" type="text">
+                    <div class="blend-counter-plus"></div>
+                </div>
+            </div>
+            <br/>
+            <span class="blend-switch on round" data-blend-widget="switch"></span><span class="blend-switch round" data-blend-widget="switch"></span>
+        </div>
+
+        <div class="mar-b-50">
+            <h2 style="margin-bottom:12px;">普通按钮-按钮状态</h2>
+            <div class="write-wrap">
+                <button class="blend-button blend-button-gray " disabled>置灰按钮</button>
+                <button class="blend-button blend-button-red" disabled>立即购买</button>
+                <button class="blend-button blend-button-default clearfix" disabled>置灰按钮</button>
+            </div>
+        </div>
+
+        <div class="mar-b-50">
+            <h2 style="margin-bottom:12px;">按钮组合</h2>
+            <div class="write-wrap">
+                <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+            </div>
+            <div class="write-wrap clearfix mar-t-10">
+                <div class="mar-r-8">
+                    <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+                </div>
+                <div class="">
+                    <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+                </div>
+            </div>
+            <div class="write-wrap clearfix mar-t-10">
+                <div class="mar-r-8">
+                    <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+                </div>
+                <div class="mar-r-8">
+                    <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+                </div>
+                <div>
+                    <button class="blend-button blend-button-gray blend-button-large">按钮名称</button>
+                </div>
+            </div>
+            <div class="write-wrap mar-t-10">
+                <nav class="blend-nav blend-nav-column-4" style="width:100%;">
+                    <a class="blend-nav-item" href="?t=123">按钮</a>
+                    <a class="blend-nav-item" href="#">按钮</a>
+                    <a class="blend-nav-item" href="#">按钮</a>
+                    <a class="blend-nav-item" href="#">按钮</a>
+                </nav>
+            </div>
+        </div>
+</div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>
+    $(function (){
+        $('[data-blend-widget="counter"]').counter("value", 1);
+
+        $('.blend-nav').nav({
+            expand: '',
+            pack: '',
+        });
+    });
+    
+    </script>
+</body>
+
+</html>

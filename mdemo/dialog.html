@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>弹窗</title>
+    <link rel="stylesheet" href="../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+        *{
+            margin: 0;
+            padding: 0; 
+        }
+        a:hover{
+            text-decoration: none;
+        }
+        body{
+            background-color: #eee;
+            padding: 0 20px;
+        }
+        div>.blend-button {
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+        h1{
+            line-height: 70px;
+            font-size: 34px;
+            color: #262626;
+        }
+        h2{
+            font-size: 16px;
+            line-height: 20px;
+        }
+        .mar-b-50{
+            margin-bottom: 50px;
+        }
+        .mar-t-50{
+            margin-top: 50px;
+        }
+        .mar-t-10{
+            margin-top: 10px;
+        }
+        .mar-r-8{
+            margin-right: 8px;
+        }
+        .main-l{
+            float: left;
+            width: 36.25%;
+        }
+        .main-r{
+            width: 40%;
+            margin-right: 10%;
+        }
+        .main-r, .f-r{
+            float: right;
+        }
+        .f-l{
+            float: left;
+        }
+        .clearfix{
+            overflow: hidden;
+        }
+        .write-wrap{
+            padding: 5px 20px 15px;
+            background: #fff;
+            display: -webkit-box;
+        }
+        .write-wrap .f-l{
+            margin-right: 8px;
+        }
+        .write-wrap div{
+            -webkit-box-flex: 1;
+            box-flex: 1;
+        }
+        .w-48{
+            width: 48%;
+        }
+        .w-30{
+            width: 30%;
+        }
+        .blend-counter{
+            margin-left: 20px;
+        }
+        #Dialog3 h3{
+            background-color: #474747;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .cor-red-line{
+            color:#c20; 
+            text-align:center;
+        }
+    </style>
+</head>
+
+<body>
+<div class="clearfix mar-t-50">
+    <div class="mar-b-50">
+        <h2>2.常规带title弹窗</h2>
+        <button id="dialog1" class="blend-button blend-button-gray">点击显示弹窗1</button>
+        <br>
+        <button id="dialog2" class="blend-button blend-button-gray mar-t-10">点击显示弹窗2</button>
+    </div>
+
+    <div class="mar-b-50">
+        <h2>5.局部确认自动消失浮层</h2>
+        <button class="blend-button blend-button-gray" id="dialog3">局部确认自动消失浮层</button>
+    </div>
+
+    <div class="mar-b-50">
+        <h2>1.loading</h2>
+        <button class="blend-button blend-button-gray" id="loading">打开loading</button>
+        <button class="blend-button blend-button-gray" id="loading-close">关闭loading</button>
+    </div>
+
+    <div class="mar-b-50">
+        <h2>4.纯文本无标题弹窗</h2>
+        <button class="blend-button blend-button-gray" id="dialog4">纯文本无标题弹窗1</button>
+        <br>
+        <button class="blend-button blend-button-gray" id="dialog5">纯文本无标题弹窗2</button>
+        <br>
+        <button class="blend-button blend-button-gray" id="dialog6">提示错误信息1</button>
+        <br>
+        <button class="blend-button blend-button-gray" id="dialog7">提示错误信息2</button>
+    </div>
+</div>
+
+    <div  id="Dialog1" class="blend-dialog">
+    </div>
+
+    <div  id="Dialog2" class="blend-dialog">
+    </div>
+
+    <div  id="Dialog3" class="blend-dialog">
+      <h3>这里最多显示九个字</h3>
+    </div>
+
+    <div  id="Dialog4" class="blend-dialog">
+      <div class="blend-dialog-body">
+            您的退款金额已受理，退款金额将在5-7个工作日内返还到您的支付账号中！
+      </div>
+      <div class="blend-dialog-footer">
+        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
+      </div>
+    </div>
+
+    <div  id="Dialog5" class="blend-dialog">
+      <div class="blend-dialog-body">
+            您的退款金额已受理
+      </div>
+      <div class="blend-dialog-footer">
+        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
+      </div>
+    </div>
+
+    <div  id="Dialog6" class="blend-dialog">
+      <div class="blend-dialog-body">
+        <p class="cor-red-line">提示信息错误</p>
+        您的退款金额已受理，退款金额将在5-7个工作日内返还到您的支付账号中！
+      </div>
+      <div class="blend-dialog-footer">
+        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
+      </div>
+    </div>
+
+    <div  id="Dialog7" class="blend-dialog">
+      <div class="blend-dialog-body">
+        <p class="cor-red-line">提示信息错误</p>
+        您的退款金额已受理
+      </div>
+      <div class="blend-dialog-footer">
+        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
+      </div>
+    </div>
+
+    <script src="../dist/boost.js"></script>
+
+    <script>
+    $(function (){
+        var dialog1 = $("#Dialog1").dialog({
+            title:"弹窗标题栏",
+            content: '<p style="margin: 0;" class="blend-dialog-phone">您的退款金额已受理，退款金额将在5-7个工作日内返还到您的支付账号中！</p>',
+            // cancelOnly: 1,
+            confirmText:"确认",
+            cancelText: '取消',
+            btnStatus:3,
+            renderType:1  //js渲染
+          }).on('dialog:show',function(){
+            
+          }).on('dialog:hide',function(){
+
+          }).on("dialog:confirm",function(){
+            //alert("监听confirm事件");
+          }).on("dialog:cancel",function(){
+            //alert("监听cancel事件")
+          });
+
+        $("#dialog1").click(function (){
+            dialog1.dialog("show");
+        });
+
+        var dialog2 = $("#Dialog2").dialog({
+            title:"弹窗标题栏",
+            content: '<p style="margin: 0;" class="blend-dialog-phone">您的退款金额已受理</p>',
+            // cancelOnly: 1,
+            confirmText:"确认",
+            cancelText: '取消',
+            btnStatus:3,
+            renderType:1  //js渲染
+          }).on('dialog:show',function(){
+            
+          }).on('dialog:hide',function(){
+
+          }).on("dialog:confirm",function(){
+            //alert("监听confirm事件");
+          }).on("dialog:cancel",function(){
+            //alert("监听cancel事件")
+          });
+        $("#dialog2").click(function (){
+            dialog2.dialog("show");
+        });
+
+        var dialog3 = $("#Dialog3").dialog({
+            maskTapClose:true,
+            renderType:2
+          });
+        $("#dialog3").click(function (){
+            dialog3.dialog("show");
+        });
+
+        var dialog4 = $("#Dialog4").dialog({
+            maskTapClose:false,
+            renderType:0,
+            btnStatus:1,
+          });
+        $("#dialog4").click(function (){
+            dialog4.dialog("show");
+        });
+
+        var dialog5 = $("#Dialog5").dialog({
+            maskTapClose:false,
+            renderType:0,
+            btnStatus:1,
+          });
+        $("#dialog5").click(function (){
+            dialog5.dialog("show");
+        });
+
+        var dialog6 = $("#Dialog6").dialog({
+            maskTapClose:false,
+            renderType:0,
+            btnStatus:1,
+          });
+        $("#dialog6").click(function (){
+            dialog6.dialog("show");
+        });
+
+        var dialog7 = $("#Dialog7").dialog({
+            maskTapClose:false,
+            renderType:0,
+            btnStatus:1,
+          });
+        $("#dialog7").click(function (){
+            dialog7.dialog("show");
+        });
+
+        var loading = $.blend.loading({});
+        $("#loading").click(function (){
+            loading.show();
+        });
+        $("#loading-close").click(function (){
+            loading.hide();
+        });
+    });
+    
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>底部悬浮框</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style>
+    
+    </style>
+</head>
+
+<body>
+    <input id="showBtn" type="button" value="点击显示底部悬浮框">
+    <div class="blend-suspend-mask"></div>
+
+    <div data-blend-widget="suspend" class="blend-suspend">
+        <div class="blend-suspend-content">
+            <div class="blend-suspend-close">
+                <span></span>
+            </div>
+            <div>
+                这里是内容
+                <br>
+                这里是内容
+                <br>
+                这里是内容
+                <br>
+                这里是内容
+                <br>
+                这里是内容
+                <br>
+                这里是内容
+                <br>
+                这里是内容
+            </div>
+        </div>
+    </div>
+    
+    <script src="../../dist/boost.js"></script>
+    <script>
+        $(function () {
+            $("#showBtn").click(function (){
+                $(".blend-suspend").suspend({
+
+                }).suspend("show");
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -43,6 +43,8 @@
 @button-gray-color:              @color-white;
 @button-gray-bg:                 #666666;
 @button-gray-border:             #666666;
+@button-ltgray-bg:                 #ddd;
+@button-ltgray-border:             #ddd;
 @button-gray-disabled-color:     darken(@button-gray-color, 20%);
 @button-gray-disabled-bg:        darken(@button-gray-bg, 20%);
 @button-gray-disabled-border:    darken(@button-gray-border, 20%);
@@ -74,6 +76,7 @@
     &:focus {
         color: @button-default-color;
         text-decoration: none;
+	outline:0;
     }
 
     &:active,
@@ -86,7 +89,8 @@
     &.@{namespace}disabled,
     &[disabled] {
         cursor: @cursor-disabled;
-        pointer-events: none; 
+        pointer-events: none;
+        opacity: 0.3;
     }
 
     &.@{namespace}round {
@@ -107,42 +111,50 @@
 
 .@{namespace}button-default {
     .button-variant(@button-default-color; @button-default-bg; @button-default-border);
-
-    &[disabled] {
-        .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+    &:focus, &.@{namespace}button-checkbox-checked{
+        background-color: #f60;
+        color: #eee;
+        border-color:#f60;
     }
+    /*&[disabled] {
+        .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
+    }*/
 }
 .@{namespace}button-primary {
     .button-variant(@button-primary-color; @button-primary-bg; @button-primary-border);
-    &.@{namespace}disabled,
+    /*&.@{namespace}disabled,
     &[disabled]{
         .button-variant(@button-primary-disabled-color; @button-primary-disabled-bg; @button-primary-disabled-border);
-    }
+    }*/
 }
 .@{namespace}button-secondary {
     .button-variant(@button-secondary-color; @button-secondary-bg; @button-secondary-border);
-    &.@{namespace}disabled,
+    /*&.@{namespace}disabled,
     &[disabled] {
         .button-variant(@button-secondary-disabled-color; @button-secondary-disabled-bg; @button-secondary-disabled-border);
-    }
+    }*/
 }
 
 .@{namespace}button-red {
   .button-variant(@button-red-color; @button-red-bg; @button-red-border);
-
-  &.@{namespace}disabled,
+  &:focus, &.@{namespace}button-checkbox-checked{
+    background-color: #666;
+  }
+  /*&.@{namespace}disabled,
   &[disabled] {
     .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
-  }
+  }*/
 }
 
 .@{namespace}button-gray {
   .button-variant(@button-gray-color; @button-gray-bg; @button-gray-border);
+}
 
-  &.@{namespace}disabled,
-  &[disabled] {
-    .button-variant(@button-gray-disabled-color; @button-gray-disabled-bg; @button-gray-disabled-border);
-  }
+.@{namespace}button-ltgray {
+    .button-variant(@button-gray-color; @button-ltgray-bg; @button-ltgray-border);
+    &:focus, &.@{namespace}button-checkbox-checked{
+        background-color: #666;
+    }
 }
 
 .@{namespace}button-large {
@@ -160,4 +172,27 @@
     font-size: @font-size-small;
     line-height: @button-xs-line-height;
     height: @button-xs-height;
+}
+
+.@{namespace}button-transparent {
+    background:transparent;
+    padding-left:0;
+    &:active,
+    &.@{namespace}active {
+        outline: 0;
+        background-image: none;
+        .box-shadow(inset 0 0 0 rgba(0,0,0,0));
+    }
+}
+
+.@{namespace}button-group{
+    display:flex;
+    width:100%;
+    height:48px;
+    background-color: #fff;
+    padding:0 15px;
+    .@{namespace}button{
+        flex:1;
+        margin:auto 5px;
+    }
 }
