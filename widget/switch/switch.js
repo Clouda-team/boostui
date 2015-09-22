@@ -17,6 +17,7 @@ $.widget('blend.switch', {
      * @private
      */
     _create: function () {
+        this.$el = this.element;
     },
     /**
      * 初始化组件/
@@ -39,8 +40,10 @@ $.widget('blend.switch', {
         this.switches.on('click', function () {
             if ($(this).hasClass(that.options.classNameActive)) {
                 $(this).removeClass(that.options.classNameActive);
+                $(this).trigger('switch:off');
             }else {
                 $(this).addClass(that.options.classNameActive);
+                $(this).trigger('switch:on');
             }
         });
     }

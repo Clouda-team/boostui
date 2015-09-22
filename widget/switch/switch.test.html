@@ -9,13 +9,23 @@
 </head>
 
 <body style="padding:20px;">
-<span class="blend-switch" data-blend-widget="switch"></span><span class="blend-switch on" data-blend-widget="switch"></span>
+<span id="switch1" class="blend-switch"></span>
+<!-- <span class="blend-switch on" data-blend-widget="switch"></span> -->
 <br/>
 
-<span class="blend-switch round" data-blend-widget="switch"></span><span class="blend-switch on round" data-blend-widget="switch"></span>
+<span id="switch2" class="blend-switch round" ></span>
+<!-- <span class="blend-switch on round" data-blend-widget="switch"></span> -->
 
 
 <script src="../../dist/boost.js"></script>
+<script type="text/javascript">
+
+    $('.blend-switch').switch().on('switch:on',function(){
+        alert('on');
+    }).on('switch:off',function(){
+        alert('off');
+    });
+</script>
 </body>
 
 </html>

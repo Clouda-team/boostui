@@ -7,6 +7,8 @@
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
     <link rel="stylesheet" href="../../dist/boost.css">
+    <script src="../../dist/boost.js"></script>
+
     <style>
     body{
       /*height: 100%;*/
@@ -17,46 +19,45 @@
 <body>
 
 
-  <br><br><br><br><br><br><br>
-    
-
-
-
+  <br><br><br><br><br><br><br><br>
 
   <div>
       <button id="domInit">DOM渲染方式 提示弹框</button>
       <button id="jsInit">Js渲染方式 常规弹框</button>
-
       <button id="custome">自定义dialog</button>
   </div>
-  <textarea id="result"></textarea>
+  <br>
+  <textarea id="result" placeholder='事件触发时输出的一些文字...'></textarea>
 	
-    <div  id="customeDialog" class="blend-dialog">
-      
-      <h3>这是个h3标题</h3>
-      <h4 style="color:red">这是个自定义的h4标题</h4>
-      <span>哈哈<em>这个地方是斜体</em></span>
-      <p>因为是自定义的，所以没有绑定默认事件，可以点击mask关闭</p>
+  
+
+  <div  id="domInitDialog" class="blend-dialog">
+
+    <div class="blend-dialog-body ">
+      您的退款申请已受理，退款金额将会在5-7个工作日原路返回到您的支付账号中！
     </div>
+    <div class="blend-dialog-footer">
+      <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
 
-    <div  id="domInitDialog" class="blend-dialog">
-
-      <div class="blend-dialog-body">
-        这是提示弹框
-      </div>
-      <div class="blend-dialog-footer">
-        <a href="javascript:void(0);" class="blend-dialog-cancel">取消</a>
-        <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
-      </div>
+      <a href="javascript:void(0);" class="blend-dialog-cancel">取消</a>
+      <!-- <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a> -->
     </div>
+  </div>
 
-    <div  id="jsInitDialog" class="blend-dialog">
-    </div>
+  <div  id="jsInitDialog" class="blend-dialog">
+  </div>
 
-    <br><br><br><br><br><br><br><br>
+  <div  id="customeDialog" class="blend-dialog">
+    
+    <h3 class="blend-dialog-text-center">这是个h3标题</h3>
+    <h4 style="color:red">这是个自定义的h4标题</h4>
+    <span>哈哈<em>这个地方是斜体</em></span>
+    <p>因为是自定义的，所以没有绑定默认事件，可以点击mask关闭</p>
+  </div>
+
+  <br><br><br><br><br><br><br><br>
    
     
-    <script src="../../dist/boost.js"></script>
 
     <script>
           
@@ -107,10 +108,6 @@
           }).on('dialog:hide',function(){
             console.log("dialog3 hide");
             document.querySelector("#result").innerHTML = "dialog3 hide";
-          }).on("dialog:confirm",function(){
-            alert("监听confirm事件，3333333");
-          }).on("dialog:cancel",function(){
-            alert("监听cancel事件，888")
           });
 
 

@@ -11,6 +11,8 @@
 @dialog-line-height: 20px;
 @dialog-body-margin: 8px;
 
+@dialog-body-color: #262626;
+
 
 .@{namespace}dialog {
     position: fixed;
@@ -51,7 +53,7 @@
     margin: 0;
     padding: 0;
     font-weight: bold;
-  color: @color-dialog-header-text;
+    color: @color-dialog-header-text;
     font-size: @boost-font-size-nav;
     text-align: center;
     border-bottom: solid 1px #ddd; 
@@ -62,6 +64,7 @@
     line-height: @dialog-line-height;
     padding: @dialog-padding-tb @dialog-padding-lr;
     border-bottom: solid 1px @color-dialog-border;
+    color: @dialog-body-color;
   &.@{namespace}dialog-tips {
     text-align: center;
   }
@@ -103,4 +106,8 @@
 
 .@{namespace}dialog-btn:not(:first-child) {
     border-left: solid 1px @color-dialog-border;
+}
+
+.@{namespace}dialog-text-center{
+  text-align: center;
 }

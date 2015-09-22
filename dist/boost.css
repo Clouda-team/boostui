@@ -1353,6 +1353,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   line-height: 20px;
   padding: 13px 16px;
   border-bottom: solid 1px #ededed;
+  color: #262626;
 }
 .blend-dialog-body.blend-dialog-tips {
   text-align: center;
@@ -1391,6 +1392,9 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 }
 .blend-dialog-btn:not(:first-child) {
   border-left: solid 1px #ededed;
+}
+.blend-dialog-text-center {
+  text-align: center;
 }
 .blend-mail {
   padding: 8px 10px;
@@ -3299,6 +3303,9 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   border-right: 0.1rem #efefef solid;
   margin: 0.7rem 1.2rem;
   z-index: 2;
+}
+.blend-switch.round.blend-switch::before {
+  border: 0;
 }
 .blend-switch.on {
   background-color: #666666;
