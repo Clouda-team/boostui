@@ -1,22 +1,40 @@
-@loading-width: 40px;
-@loading-zindex: 100;
+@loading-width: 54px;
+@loading-zindex: 54px;
 @loading-duration: .6s;
+@loading-text-color: #262626;
 
 .@{namespace}loading{
-  height: @loading-width;
-  width: @loading-width;
+  background-color: #fff;
+  width: 170px;
+  height:  130px;
   position: fixed;
-  margin: -20px 0 0 -20px;
+  margin: -65px 0 0 -85px;
   left: 50%;
   top: 50%;
-  z-index: @loading-zindex;
-  -webkit-animation: rotation @loading-duration infinite linear;
-  animation: rotation @loading-duration infinite linear;
-  border-left: 4px solid rgba(47,60,87,.15);
-  border-right: 4px solid rgba(47,60,87,.15);
-  border-bottom: 4px solid rgba(47,60,87,.15);
-  border-top: 4px solid rgba(47,60,87,.75);
-  border-radius: 100%;
+  border:solid 1px #e0e0e0;
+  box-shadow: 0 0 1px 1px #e0e0e0;
+  .@{namespace}loading-default{
+    height: @loading-width;
+    width: @loading-width;
+    position: absolute;
+    margin: -40px 0 0 -27px;
+    left: 50%;
+    top: 50%;
+    z-index: @loading-zindex;
+    -webkit-animation: rotation @loading-duration infinite linear;
+    animation: rotation @loading-duration infinite linear;
+    border:2px solid rgba(240,240,240,1);
+    border-top: 2px solid rgba(102,102,102,1);
+    border-radius: 100%;
+  }
+  .@{namespace}loading-word{
+    position: absolute;
+    bottom: 20px;
+    font-size: 16px;
+    color:@loading-text-color;
+    text-align: center;
+    width: 100%;
+  }
 }
 
 @-webkit-keyframes rotation {

@@ -230,7 +230,6 @@ $.widget('blend.dialog', {
             self._trigger('confirm');
             self.autoCloseDone && self.hide();
         }).on('dialog.close', function () {
-            alert("close");
             self.hide();
         });
     },
@@ -252,8 +251,8 @@ $.widget('blend.dialog', {
         var dom = '<div class="' + NAMESPACE + 'dialog-header">' + this.title + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-body">' + this.content + '</div>'
                       + '<div class="' + NAMESPACE + 'dialog-footer">'
-                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                          +  '<a href="javascript:void(0);" class="' + this.cancelClass + ' ' + NAMESPACE + 'dialog-cancel ' + NAMESPACE + 'dialog-btn">' + this.cancelText + '</a>'
+                         +  '<a href="javascript:void(0);" class="' + this.confirmClass + ' ' + NAMESPACE + 'dialog-confirm ' + NAMESPACE + 'dialog-btn">' + this.confirmText + '</a>'
                       + '</div>';
         this.$el.append(dom);
         return this.$el;

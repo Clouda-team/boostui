@@ -6,7 +6,10 @@
 	list-style-type:none;
 	width:100%;
 	margin:0;
-	padding:0;
+	padding: 0;
+	&.@{namespace}imglist-theme{
+		padding: 1.875%;
+	}
 }
 
 .@{namespace}imglist-title{
@@ -63,4 +66,74 @@
 
 .@{namespace}imglist-item img{
 	width:100%;
+}
+
+
+/* 640*100 */
+.@{namespace}imglist-wrapper .@{namespace}imglist-full{
+	width: 100%;
+	margin: 10px 0 0 0;
+	&:after{
+		padding-top: 15.625%;
+	}
+}
+
+/* 600*338 */
+.@{namespace}imglist-normal{
+	width: 97%;
+	&:after{
+		padding-top: 56.33%;
+	}
+}
+
+/* 292:220 */
+.@{namespace}imglist-wide{
+	width: 47.5%;
+	&:after{
+		padding-top: 75.34%;
+	}
+}
+
+/* 188:188 */
+.@{namespace}imglist-square{
+	width: 30.5%;
+	&:after{
+		padding-top: 100%;
+	}
+}
+
+/* 188:296 */
+.@{namespace}imglist-middle{
+	width: 30.5%;
+  	&:after{
+  		padding-top: 157.45%;
+  	}
+}
+
+/* 140:140 */
+.@{namespace}imglist-small{
+	width: 22.5%;
+	&:after{
+		padding-top: 100%;
+	}
+}
+
+.@{namespace}imglist-normal, .@{namespace}imglist-wide, .@{namespace}imglist-square, .@{namespace}imglist-middle, .@{namespace}imglist-small, .@{namespace}imglist-full{
+	position: relative;
+	margin: 1.25%;
+	a{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		img{
+			height: 100%;
+		}
+	}
+	&:after{
+		content:"";
+	   clear:both;
+	   display: table;
+	}
 }
