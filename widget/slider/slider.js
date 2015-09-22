@@ -119,12 +119,13 @@ $.widget('blend.slider', {
         var that = this;
         var device = this._device();
         var evReady = true;
-         var isPhone = (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent));
+        var isPhone = (/AppleWebKit.*Mobile/i.test(navigator.userAgent) || /MIDP|SymbianOS|NOKIA|SAMSUNG|LG|NEC|TCL|Alcatel|BIRD|DBTEL|Dopod|PHILIPS|HAIER|LENOVO|MOT-|Nokia|SonyEricsson|SIE-|Amoi|ZTE/.test(navigator.userAgent));
         // 绑定触摸
         that.$ul[0].addEventListener(device.startEvt, function (evt){
             if (evReady){
                 that.startX = device.hasTouch ? evt.targetTouches[0].pageX : evt.pageX;
                 that.startY = device.hasTouch ? evt.targetTouches[0].pageY : evt.pageY;
+                //evt.preventDefault();
 
                 that.$ul[0].addEventListener(device.moveEvt, moveHandler, false);
                 that.$ul[0].addEventListener(device.endEvt, endHandler, false);
@@ -134,6 +135,7 @@ $.widget('blend.slider', {
         }, false);
         
         function moveHandler (evt){
+            $("#prevent").html("");
             if (that.options.autoSwipe) {
                 clearInterval(that.autoScroll);
             }
@@ -147,15 +149,17 @@ $.widget('blend.slider', {
             that._transitionHandle(that.$ul, 0);
 
             //横向滑动阻止默认事件
-            if (Math.abs(that.moveY) - Math.abs(that.moveX) > 10 && Math.abs(that.moveY)/Math.abs(that.moveX) > Math.atan(Math.PI/6) && that.options.axisX){
+
+            if (Math.abs(that.moveY) > 20 && that.options.axisX){   
                 endHandler(evt);
-            }else if (Math.abs(that.moveX) - Math.abs(that.moveY) > 10 || !isPhone){
+            }else if (Math.abs(that.moveX) > 7 || !isPhone){
                 evt.preventDefault();
             }
 
             if (that.options.axisX && Math.abs(that.moveX) > Math.abs(that.moveY)) {
                 that._fnTranslate(that.$ul, -(that._liWidth * (parseInt(that._index, 10)) - that.moveX));
             }
+
         };
 
         function endHandler (evt){

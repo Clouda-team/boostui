@@ -292,6 +292,67 @@ hr {
   overflow: visible;
   clip: auto;
 }
+.blend-address {
+  border: 1px solid #dddddd;
+  border-right: none;
+  border-left: none;
+  background: #ffffff;
+  color: #262626;
+  display: -webkit-box;
+  font-size: 1.4rem;
+  position: relative;
+}
+.blend-address .blend-address-name {
+  width: 75px;
+  margin: 0;
+}
+.blend-address .blend-address-name span {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  line-height: 20px;
+  height: 20px;
+  margin-top: -10px;
+  width: 75px;
+  text-align: center;
+}
+.blend-address .blend-address-value {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+}
+.blend-address .blend-address-value .blend-address-input {
+  border-top: 1px solid #dddddd;
+}
+.blend-address .blend-address-value :first-child {
+  border-top: none;
+}
+.blend-address .blend-address-value .blend-address-detail {
+  line-height: 22px;
+  padding: 10px 0;
+  margin: 0;
+  width: 100%;
+  display: 100%;
+  border: none;
+}
+.blend-address .blend-address-value .blend-address-red {
+  color: #cc2200;
+}
+.blend-address .blend-address-value .blend-address-gray {
+  color: #999999;
+}
+.blend-address .blend-address-value .blend-address-arrow {
+  width: 16px;
+  float: right;
+  border: none;
+}
+.blend-address .blend-address-value .blend-address-arrow:after {
+  content: "\e878" !important;
+  font-family: "boostfont";
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  content: "\e600";
+}
 .blend-badge {
   display: inline-block;
   min-width: 20px;
@@ -1964,7 +2025,7 @@ fieldset[disabled] .blend-button-gray[disabled].active {
   display: inline-block;
   line-height: 22px;
 }
-[class*="col-"] {
+[class*="blend-col-"] {
   padding-top: 8px;
   padding-bottom: 8px;
   background-color: #eee;
@@ -3129,6 +3190,85 @@ fieldset[disabled] .blend-button-gray[disabled].active {
 }
 .blend-star-item.selected {
   background-position: 0 0;
+}
+.blend-suggest-input {
+  border: 1px solid #dddddd;
+  margin: 10px 10px;
+  background: #ffffff;
+  height: 30px;
+  line-height: 30px;
+  overflow: hidden;
+  display: -webkit-box;
+  position: relative;
+}
+.blend-suggest-input .blend-suggest-ico:before {
+  width: 34px;
+  height: 100%;
+  text-align: center;
+  content: "\e88b" !important;
+  font-family: "boostfont";
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  content: "\e600";
+  color: #aaa;
+  display: block;
+  font-size: 1.6rem;
+  line-height: 30px;
+}
+.blend-suggest-input input {
+  -webkit-box-flex: 1;
+  box-flex: 1;
+  font-size: 1.4rem;
+  color: #262626;
+  border: none;
+  display: block;
+  line-height: 20px;
+  height: 20px;
+  padding: 5px 0;
+  outline: 0;
+}
+.blend-suggest-input .blend-suggest-delete {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 45px;
+  height: 30px;
+  text-decoration: none;
+  display: none;
+}
+.blend-suggest-input .blend-suggest-delete:after {
+  content: "\e6ad" !important;
+  font-family: "boostfont";
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  content: "\e600";
+  color: #b2b2b2;
+  font-size: 1.6rem;
+  margin-left: 18px;
+}
+.blend-suggest-list {
+  background: #ffffff;
+  border-top: 1px solid #ededed;
+  padding: 0;
+  list-style: none;
+  margin: 0;
+  display: none;
+}
+.blend-suggest-list li {
+  padding: 7px 15px;
+  border-bottom: 1px solid #ededed;
+}
+.blend-suggest-list li p {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #aaa;
+  line-height: 20px;
+}
+.blend-suggest-list li p:first-child {
+  font-size: 1.4rem;
+  color: #262626;
 }
 .blend-switch {
   display: inline-block;
