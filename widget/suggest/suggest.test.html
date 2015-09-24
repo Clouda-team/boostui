@@ -6,10 +6,14 @@
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <title>suggest</title>
     <link rel="stylesheet" href="../../dist/boost.css"/>
+    <style>
+    .mar-t-10{
+        margin-top: 10px;
+    }
+    </style>
 </head>
 
-<body style="background:#f8f8f8;">
-
+<body style="background:#eee;">
 <div id="validate" class="blend-suggest" style="margin: 8px 0;">
     <form>
         <div class="blend-suggest-input">
@@ -21,6 +25,60 @@
     <ul class="blend-suggest-list">
     </ul>
 </div>
+
+<div class="blend-suggest-wrap" id="inputGray">
+    <div class="blend-suggest">
+       <div class="blend-suggest-input-gray">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrap2 mar-t-10" id="inputGray2">
+    <div class="blend-suggest">
+        <span class="blend-suggest-arrow"></span>
+       <div class="blend-suggest-input-gray">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrapBlue2 mar-t-10" id="inputBlue">
+    <div class="blend-suggest">
+       <div class="blend-suggest-input-blue">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrapBlue mar-t-10" id="inputBlue2">
+    <div class="blend-suggest">
+       <div class="blend-suggest-input-blue">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrapRed mar-t-10" id="inputRed">
+    <div class="blend-suggest">
+        <span class="blend-suggest-arrow"></span>
+       <div class="blend-suggest-input-red">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+
 
 <script src="../../dist/boost.js"></script>
 <script>
@@ -38,17 +96,23 @@
         $.each(sugList, function (index, value){
             string += "<li><p>" + value["name"] + "</p><p>" + value["name"] + "</p></li>";
         });
-        $(".blend-suggest-list").html("");
-        $(".blend-suggest-list").append(string);
-        $(".blend-suggest-list").show();
+        $("#validate .blend-suggest-list").html("");
+        $("#validate .blend-suggest-list").append(string);
+        $("#validate .blend-suggest-list").show();
     };
 
-    $('.blend-suggest').suggest({
+    $('#validate').suggest({
         "url": "http://nssug.baidu.com/su?prod=zhidacenter&json=1",
         "wd": "wd",
         "callback": "callback",
         "success": baidu.sug
     });
+
+    $("#inputBlue").suggest({});
+    $("#inputBlue2").suggest({});
+    $("#inputRed").suggest({});
+    $("#inputGray").suggest({});
+    $("#inputGray2").suggest({});
 </script>
 </body>
 

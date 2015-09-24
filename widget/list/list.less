@@ -1,3 +1,5 @@
+@list-arrow: "\e878";
+
 .@{namespace}list {
   overflow: hidden;
 }
@@ -10,7 +12,7 @@
   }
 }
 
-.@{namespace}list-item {
+.@{namespace}list-item, .@{namespace}list-item-more {
   text-decoration: none;
   line-height: 46px;
   height: 46px;
@@ -61,5 +63,20 @@
   top: 0;
 }
 
+.@{namespace}list-item-more{
+  line-height: 43px;
+  height: 43px;
+  .@{namespace}list-item-content{
+    padding: 0 10px 0 20px;
+    line-height: 43px;
+    font-size: 14px;
+  }
+  .@{namespace}list-item-icon:after{
+       content: @list-arrow !important;
+       .font(@font-left);
+       float: right;
+       color: #c0c0c0;
+  }
+}
 
 

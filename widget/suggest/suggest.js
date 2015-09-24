@@ -45,7 +45,7 @@ $.widget('blend.suggest', {
         var $el = _suggest.element;
         var options = _suggest.options;
         _suggest.$input = $el.find('.' + options.inputClass);
-        _suggest.$list = $el.find('.' + options.listClass);
+        options.url && (_suggest.$list = $el.find('.' + options.listClass));
         _suggest.$del = $el.find('.' + options.delBtnClass);
         
         //输入内容时显示提示list
@@ -53,10 +53,10 @@ $.widget('blend.suggest', {
             var txt = this.value;
             if (txt === ""){
                 _suggest.$del.hide();
-                _suggest.$list.hide();
+                options.url && _suggest.$list.hide();
             }else{
                 _suggest.$del.show();
-                _suggest.renderSuggest(txt);
+                options.url && _suggest.renderSuggest(txt);
             }
         });
         
@@ -64,7 +64,7 @@ $.widget('blend.suggest', {
         _suggest.$del.on("click", function (){
             _suggest.$input.val("");
             $(this).hide();
-            _suggest.$list.hide();
+            options.url && _suggest.$list.hide();
         });
     },
     /**

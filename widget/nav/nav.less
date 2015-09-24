@@ -1,6 +1,7 @@
 @nav-height: 40px;
 @arrow-down: "\e7ba";
 @arrow-up: "\e7aa";
+@nav-item-active-color: #262626;
 
 .nav-item-column(@num) {
   width: percentage(1 / @num);
@@ -11,10 +12,19 @@
 }
 
 .@{namespace}nav {
-  padding: 7px 0;
   overflow: hidden;
   .clearfix();
   height: 0px;
+  background-color:#fff;
+}
+
+.@{namespace}nav a{
+  text-decoration: none;
+
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
 }
 
 .@{namespace}nav-animation {
@@ -34,7 +44,7 @@
   border-bottom: 1px solid @color-border;
 
   &.@{namespace}nav-item-active {
-    font-weight: bold;
+    color: @nav-item-active-color;
   }
   &:after {
     content: " ";

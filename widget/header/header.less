@@ -1,6 +1,7 @@
 
 @font-size-header: @boost-font-size-titlebar;
 @font-size-header-lr: @boost-font-size-link;
+@header-height: 44px;
 
 .@{namespace}boost .@{namespace}header {
   display: none;
@@ -9,7 +10,7 @@
 .@{namespace}header {
   //position: fixed;
   //width:100%;
-  height: 44px;
+  height: @header-height;
   text-align: center;
   -webkit-box-align: center;
   -moz-box-align: center;
@@ -18,6 +19,10 @@
   background-color: @color-titlebar-background;
   color: @color-titlebar;
   width: 100%;
+}
+
+.@{namespace}header a{
+  
 }
 
 .@{namespace}header-left,
@@ -33,11 +38,12 @@
   font-size: @font-size-header-lr;
 }
 .@{namespace}header-left {
-  padding-left: 10px;
+  padding-left: 7px;
   text-align: left;
 }
 .@{namespace}header-title {
   text-align: center;
+  line-height: @header-height;
 }
 
 .@{namespace}header-right {
@@ -59,8 +65,12 @@
 .@{namespace}action-back-icon {
   .font(@font-left);
   color: @color-titlebar-backicon;
-  font-size: 26px;
+  font-size: 16px;
   content: "";
+  em{
+    font-size:22px;
+    font-style:normal
+  }
 }
 
 //.@{namespace}header {
