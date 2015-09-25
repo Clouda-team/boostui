@@ -21,7 +21,7 @@ $.widget('blend.slider', {
         theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
         ratio: 'normal' ,    // normal/wide/square/small
-        wrapWidth: document.body.clientWidth,
+        wrapWidth: document.body && document.body.clientWidth,
         bgImg: false        // 是否加默认背景图，默认不加
     },
     /**
