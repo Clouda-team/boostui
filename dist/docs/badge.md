@@ -30,9 +30,15 @@
 
 <div class="doc-demo">
     <span class="blend-badge blend-badge-large">大微标</span>
+    <span class="blend-badge blend-badge-empty blend-badge-large">大透明微标</span>
+    <span class="blend-badge blend-badge-primary blend-badge-large">大重要微标</span>
+    <span class="blend-badge blend-badge-secondary blend-badge-large">大次要微标</span>
 </div>
 
     <span class="blend-badge blend-badge-large">大微标</span>
+    <span class="blend-badge blend-badge-empty blend-badge-large">大透明微标</span>
+    <span class="blend-badge blend-badge-primary blend-badge-large">大重要微标</span>
+    <span class="blend-badge blend-badge-secondary blend-badge-large">大次要微标</span>
 
 
 
