@@ -35,7 +35,7 @@
 
 <div class='doc-demo'>
 	<nav data-blend-widget="tabnav" class="blend-tabnav blend-tabnav-dash" style="margin-bottom: 20px;">
-	   	<a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+	   	<a class="blend-tabnav-item" href="#">
 	        <span class="blend-tabnav-item-text">链接1</span>
 	    </a>
 	    <a class="blend-tabnav-item" href="#">
@@ -44,12 +44,21 @@
 	    <a class="blend-tabnav-item" href="#">
 	        <span class="blend-tabnav-item-text">链接3</span>
 	    </a>
+	    <a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+	        <span class="blend-tabnav-item-text">链接4</span>
+	    </a>
+	    <a class="blend-tabnav-item" href="#">
+	        <span class="blend-tabnav-item-text">链接5</span>
+	    </a>
+	    <a class="blend-tabnav-item" href="#">
+	        <span class="blend-tabnav-item-text">链接6</span>
+	    </a>
 	</nav>
 </div>
 
 
 	<nav data-blend-widget="tabnav" class="blend-tabnav blend-tabnav-dash">
-		<a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+		<a class="blend-tabnav-item" href="#">
 			<span class="blend-tabnav-item-text">链接1</span>
 		</a>
 		<a class="blend-tabnav-item" href="#">
@@ -58,4 +67,13 @@
 		<a class="blend-tabnav-item" href="#">
 			<span class="blend-tabnav-item-text">链接3</span>
 		</a>
+		<a class="blend-tabnav-item blend-tabnav-item-active" href="#">
+	        <span class="blend-tabnav-item-text">链接4</span>
+	    </a>
+	    <a class="blend-tabnav-item" href="#">
+	        <span class="blend-tabnav-item-text">链接5</span>
+	    </a>
+	    <a class="blend-tabnav-item" href="#">
+	        <span class="blend-tabnav-item-text">链接6</span>
+	    </a>
 	</nav>

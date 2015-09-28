@@ -4217,12 +4217,6 @@ $.widget('blend.gallery', {
             this._bindHandler();
         }
 
-        window.onhashchange = function (){
-            if (location.hash !== "#gallery"){
-                $("." + NAMESPACE + 'gallery-mask').hide();
-            }
-        };
-
     },
     /**
      * 初始化 uix gallery
@@ -4909,11 +4903,6 @@ $.widget('blend.gallery', {
         else if (val >= this.data.length) {
             val = this.data.length - 1;
         }
-        
-        if (location.hash === ""){
-            window.location.href = location.href + "#gallery";
-            //location.hash = "gallery";
-        }
 
         this.initIndex = val;
         this._renderHTML();
@@ -4941,7 +4930,7 @@ $.widget('blend.gallery', {
      */
     hide: function () {
         this.mask.style.display = 'none';
-        this.mask.style.visibility = 'hidden';
+        this.mask.style.visibility = 'hidden';   
     },
     extend: function (plugin, main) {
         if (!main) {
@@ -6239,7 +6228,7 @@ $.widget('blend.slider', {
         theme: 'd2',
         // needDirection: false,    // 是否需要左右切换的按钮
         ratio: 'normal' ,    // normal/wide/square/small
-        wrapWidth: document.body.clientWidth,
+        wrapWidth: document.body && document.body.clientWidth,
         bgImg: false        // 是否加默认背景图，默认不加
     },
     /**

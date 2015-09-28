@@ -841,9 +841,10 @@ fieldset[disabled] .blend-button-ltgray.active {
   content: '\e604';
   display: block;
   width: 20px;
-  height: 20px;
+  height: 22px;
   right: 0;
-  top: 30px;
+  top: 50%;
+  margin-top: -11px;
   font-size: 18px;
   color: #c5c5c5;
 }
@@ -872,9 +873,10 @@ fieldset[disabled] .blend-button-ltgray.active {
   -moz-flex: 1;
   flex: 1;
 }
-.blend-card-title {
-  font-size: 16px;
-  color: #262626;
+.blend-card-content-view .blend-card-text {
+  margin: 0;
+  font-size: 14px;
+  color: #777;
   line-height: 18px;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -882,10 +884,9 @@ fieldset[disabled] .blend-button-ltgray.active {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.blend-card-text {
-  margin: 0;
-  font-size: 14px;
-  color: #777;
+.blend-card-title {
+  font-size: 16px;
+  color: #262626;
   line-height: 18px;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -2948,6 +2949,13 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-sidenav {
   width: 100%;
   position: relative;
+}
+.blend-sidenav a {
+  text-decoration: none;
+}
+.blend-sidenav a:hover,
+.blend-sidenav a:focus {
+  text-decoration: none;
 }
 .blend-sidenav-nav {
   position: fixed;
