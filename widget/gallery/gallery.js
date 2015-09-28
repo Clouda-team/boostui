@@ -65,12 +65,6 @@ $.widget('blend.gallery', {
             this._bindHandler();
         }
 
-        window.onhashchange = function (){
-            if (location.hash !== "#gallery"){
-                $("." + NAMESPACE + 'gallery-mask').hide();
-            }
-        };
-
     },
     /**
      * 初始化 uix gallery
@@ -757,11 +751,6 @@ $.widget('blend.gallery', {
         else if (val >= this.data.length) {
             val = this.data.length - 1;
         }
-        
-        if (location.hash === ""){
-            window.location.href = location.href + "#gallery";
-            //location.hash = "gallery";
-        }
 
         this.initIndex = val;
         this._renderHTML();
@@ -789,7 +778,7 @@ $.widget('blend.gallery', {
      */
     hide: function () {
         this.mask.style.display = 'none';
-        this.mask.style.visibility = 'hidden';
+        this.mask.style.visibility = 'hidden';   
     },
     extend: function (plugin, main) {
         if (!main) {
