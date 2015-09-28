@@ -8,6 +8,7 @@
 	<button id="dom-dialog-btn" class="blend-button blend-button-default">DOM渲染</button>
 	<button id="js-dialog-btn" class="blend-button blend-button-default">JS渲染</button>
 	<button id="custom-dialog-btn" class="blend-button blend-button-default">自定义弹窗</button>
+	<button id="noheader-dialog-btn" class="blend-button blend-button-default">没有header的弹窗</button>
 </div>
 <div  id="domDialog" class="blend-dialog">
 	<div class="blend-dialog-header">
@@ -17,8 +18,8 @@
 		这是提示弹框，这里是内容
 	</div>
 	<div class="blend-dialog-footer">
-		<a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
 		<a href="javascript:void(0);" class="blend-dialog-cancel">取消</a>
+		<a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
 	</div>
 </div>
 <div  id="jsDialog" class="blend-dialog">
@@ -28,6 +29,14 @@
 	<h4 style="color:red">这也是个自定义的H4标题，还带颜色</h4>
 	<span>哈哈<em>这个地方是斜体</em></span>
 	<p>因为是自定义的，所以没有绑定默认事件，可以点击mask关闭</p>
+</div>
+<div  id="noheaderDialog" class="blend-dialog">
+  <div class="blend-dialog-body">
+        您的退款金额已受理，退款金额将在5-7个工作日内返还到您的支付账号中！
+  </div>
+  <div class="blend-dialog-footer">
+    <a href="javascript:void(0);" class="blend-dialog-confirm">确认</a>
+  </div>
 </div>
 
 
@@ -75,6 +84,15 @@
 			dialog3.dialog("show");
 		});
 
+
+		var dialog4 = boost("#noheaderDialog").dialog({
+            maskTapClose:false,
+            renderType:0,
+            btnStatus:1,
+          });
+        boost("#noheader-dialog-btn").click(function (){
+            dialog4.dialog("show");
+        });
 
 
 	})();

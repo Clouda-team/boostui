@@ -9,7 +9,7 @@
     <div id="sidenav" class="blend-sidenav" style="overflow:hidden;">
         <nav class="blend-sidenav-nav" style="position:static; float:left;">
         	<ul>
-            	<li><a href="#">侧栏导航1</a></li>
+            	<li>侧栏导航1</li>
                 <li>侧栏导航2</li> 
         	    <li>侧栏导航3</li>
         	    <li>侧栏导航4</li>
