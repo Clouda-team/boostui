@@ -24,9 +24,10 @@
         content: '\e604';
         display: block;
         width: 20px;
-        height: 20px;
+        height: 22px;
         right: 0;
-        top: 30px;
+        top: 50%;
+        margin-top: -11px;
         font-size: 18px;
         color: #c5c5c5;
     }
@@ -34,13 +35,13 @@
     &.@{namespace}card-no-icon:after{
         content: '';
     }
-    
+
     text-decoration: none;
     &:hover,
     &:focus{
         text-decoration: none;
     }
-    
+
 }
 
 .@{namespace}card-img-view{
@@ -61,6 +62,17 @@
     -webkit-flex:1;
     -moz-flex:1;
     flex:1;
+    .@{namespace}card-text{
+        margin:0;
+        font-size:14px;
+        color:#777;
+        line-height:18px;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 }
 
 
@@ -75,17 +87,7 @@
     overflow: hidden;
 }
 
-.@{namespace}card-text{
-    margin:0;
-    font-size:14px;
-    color:#777;
-    line-height:18px;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
+
 
 .@{namespace}card-sub-title{
     font-size:14px;;
@@ -139,7 +141,7 @@
     align-items:flex-end;
     -webkit-justify-content:space-between;
     -moz-justify-content:space-between;
-    justify-content:space-between;  
+    justify-content:space-between;
 }
 
 .@{namespace}card-row-item{
@@ -163,8 +165,8 @@
     display: -moz-flex;
     -webkit-justify-content:space-between;
     -moz-justify-content:space-between;
-    justify-content:space-between; 
-    
+    justify-content:space-between;
+
 }
 
 .@{namespace}card-group-item {
@@ -186,7 +188,3 @@
         color: #999;
     }
 }
-
-
-
-
