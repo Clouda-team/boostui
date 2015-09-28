@@ -11,7 +11,24 @@
 	<span class="blend-switch round"></span><span class="blend-switch on round"></span>
 </div>
 
+<script type="text/javascript">
+
+    boost('.blend-switch').switch().on('switch:on',function(){
+        alert('响应打开事件');
+    }).on('switch:off',function(){
+        alert('响应关闭事件');
+    });
+</script>
+
 ##HTML结构
 
     <span class="blend-switch"></span><span class="blend-switch on"></span>
 	<span class="blend-switch round"></span><span class="blend-switch on round"></span>
+
+##初始化和监听
+
+    $('.blend-switch').switch().on('switch:on',function(){
+        alert('响应打开事件');
+    }).on('switch:off',function(){
+        alert('响应关闭事件');
+    });

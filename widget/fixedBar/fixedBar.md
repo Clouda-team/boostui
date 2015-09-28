@@ -1,96 +1,33 @@
-#按钮
+#固定容器
 
 ##基本使用
-在要应用按钮样式的元素上添加`.blend-button`，再设置相应的颜色或者信息标识。
-
-- `blend-button-default` 默认颜色
-- `blend-button-red` 红色按钮
-- `blend-button-gray` 灰色按钮
-- `blend-button-primary` 重要按钮
-- `blend-button-secondary` 次要按钮
-
-
-<div class="doc-demo">
-    <button class="blend-button blend-button-default">默认颜色</button>
-    <button class="blend-button blend-button-red">红色按钮</button>
-    <button class="blend-button blend-button-gray">灰色按钮</button>
-    <button class="blend-button blend-button-primary">重要按钮</button>
-    <button class="blend-button blend-button-secondary">次要按钮</button>
-</div>
-
-
-    <button class="blend-button blend-button-default">默认颜色</button>
-    <button class="blend-button blend-button-red">红色按钮</button>
-    <button class="blend-button blend-button-gray">灰色按钮</button>
-    <button class="blend-button blend-button-primary">重要按钮</button>
-    <button class="blend-button blend-button-secondary">次要按钮</button>
+通过`blend-fixedBar`来表明这是一个固定的容器，内部可以嵌套其他元素
 
 
 
-##按钮大小
-可以再次通过添加大小按钮 class 来标识按钮大小
+    <div class="doc-demo">
+        <div data-blend-widget="fixedBar" class="blend-fixedBar blend-fixedBar-top">
+            我是头部固定人
+        </div>
+    </div>
 
-- `blend-button-large` 大按钮
-- `blend-button-small` 小按钮
-- `blend-button-xs` 极小按钮
+##容器位置
 
+- `blend-fixedBar-top` 固定在页面顶部
+- `blend-fixedBar-bottom` 固定在页面底部
 
-<div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-button-large">大按钮</button><br/><br/>
-    <button class="blend-button blend-button-primary blend-button-small">小按钮</button>
-    <button class="blend-button blend-button-primary blend-button-xs">极小按钮</button>
-</div>
-
-    <button class="blend-button blend-button-primary blend-button-large">大按钮</button>
-    <button class="blend-button blend-button-primary blend-button-small">小按钮</button>
-    <button class="blend-button blend-button-primary blend-button-xs">极小按钮</button>
-
-## 按钮状态
-
-- `blend-disabled` 禁用状态
-- `blend-active` 激活状态
-
-
-<div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-disabled">禁用状</button>
-    <button class="blend-button blend-button-primary blend-active">激活状态</button>
-</div>
-
-	<button class="blend-button blend-button-primary blend-disabled">禁用状</button>
-    <button class="blend-button blend-button-primary blend-active">激活状态</button>
     
+    <div data-blend-widget="fixedBar" class="blend-fixedBar blend-fixedBar-bottom">
+        <div class="blend-button-group" style="background:transparent">  
+            <button class="blend-button blend-button-gray">按钮一</button>
+            <button class="blend-button blend-button-gray">按钮二</button>
+        </div>
+    </div>
 
-## 圆角按钮
 
-- `blend-round` 圆角按钮
-- `blend-radius` 半圆角按钮
-	
 <div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-round">圆角按钮</button>
-    <button class="blend-button blend-button-primary blend-radius">半圆角按钮</button>
-</div>
-
-	<button class="blend-button blend-button-primary blend-round">圆角按钮</button>
-    <button class="blend-button blend-button-primary blend-round">半圆角按钮</button>
+    <iframe src="/assets/blend2/demo/fixedBar.html" style="border:solid 1px #999;width:320px;height:540px;">
+        
+    </iframe>
     
-## 链接按钮
-
-- `blend-button-link` 链接样式
-
-
-<div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-button-link">链接按钮</button>
 </div>
-
-	<button class="blend-button blend-button-primary blend-button-link">圆角按钮</button>
-	
-	
-	
-
-
-
-
-
-
-
-

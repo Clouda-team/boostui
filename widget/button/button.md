@@ -52,11 +52,11 @@
 
 
 <div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-disabled">禁用状</button>
+    <button class="blend-button blend-button-primary" disabled>禁用状</button>
     <button class="blend-button blend-button-primary blend-active">激活状态</button>
 </div>
 
-	<button class="blend-button blend-button-primary blend-disabled">禁用状</button>
+	<button class="blend-button blend-button-primary" disabled>禁用状</button>
     <button class="blend-button blend-button-primary blend-active">激活状态</button>
 
 
@@ -73,16 +73,55 @@
 	<button class="blend-button blend-button-primary blend-round">圆角按钮</button>
     <button class="blend-button blend-button-primary blend-radius">半圆角按钮</button>
 
-## 链接按钮
 
-- `blend-button-link`
+## 纯文字按钮
 
+- `blend-button-transparent`
 
 <div class="doc-demo">
-    <button class="blend-button blend-button-primary blend-button-link">链接按钮</button>
+    <button class="blend-button blend-button-transparent">纯文字按钮</button>
 </div>
 
-	<button class="blend-button blend-button-primary blend-button-link">圆角按钮</button>
+    <button class="blend-button blend-button-transparent">纯文字按钮</button>
+
+
+## 图标+文字按钮
+
+- `blend-button-icon`
+
+<div class="doc-demo">
+    <button class="blend-button blend-button-primary blend-button-icon"><em></em>名称</button>
+</div>
+    
+    <button class="blend-button blend-button-primary blend-button-icon"><em></em>名称</button>
+
+
+## 按钮组合
+
+- 使用`blend-button-group`将`blend-button`包裹起来
+
+<div class="doc-demo">
+    <div class="blend-button-group">  
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+    </div>
+</div>
+
+    <div class="blend-button-group">  
+        <button class="blend-button blend-button-gray">按钮名称</button>
+        <button class="blend-button blend-button-gray">按钮名称</button>
+        <button class="blend-button blend-button-gray">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+        <button class="blend-button blend-button-primary">按钮名称</button>
+    </div>
+
+
+
 
 
 
