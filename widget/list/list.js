@@ -34,6 +34,7 @@ $.widget('blend.list', {
      */
     _init: function () {
         var list = this;
+        FastClick.attach(list.element[0]);
         if (!list.options.del) {
             this._destroy();
             return;
@@ -78,7 +79,7 @@ $.widget('blend.list', {
         });
         if (!list.eventInit) {
             list.eventInit = true;
-            list.element.on('tap.list', '.' + list.deleteBtnClass, function (e) {
+            list.element.on('click.list', '.' + list.deleteBtnClass, function (e) {
                 var $parent = $(this).closest('.' + list.options.itemClass);
                 list.tempIndex = $parent.index();
                 $parent.data('height', $parent.height());
