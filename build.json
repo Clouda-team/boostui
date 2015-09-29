@@ -7,5 +7,6 @@
     "JS_FILE": "js/boost.js",
     "FONT_FILE": "font/boostfont.ttf",
     "NAMESPACE": "blend-",
-    "widgets": "*"
+    "widgets": "*",
+    "exclude": ""
 }
