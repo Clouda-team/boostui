@@ -55,10 +55,11 @@ gulp.task("build: setConfigTmp", function (){
 
 gulp.task("build:prepar", function () {
     var widgets = CONFIG.widgets;
+    var exclude = CONFIG.exclude;
 
     var allWidgets = fs.readdirSync(CONFIG.WIDGET_DIR)
         .filter(function (name) {
-            return widgets === "*" || inArray(name, widgets) > -1;
+            return (widgets === "*" || inArray(name, widgets) > -1) && (exclude === "" || inArray(name, exclude) <= -1);
         });
 
     var allLessFiles = [];

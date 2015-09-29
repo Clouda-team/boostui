@@ -6094,9 +6094,6 @@ $.widget('blend.nav', {
     }
 });
 })(Zepto)
-;(function($){
-
-})(Zepto)
 ;(function($){/* globals NAMESPACE */
 /* eslint-disable fecs-camelcase */
 /**
