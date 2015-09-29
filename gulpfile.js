@@ -6,6 +6,9 @@ var path = require("path");
 var gulp = require("gulp");
 var $ = require('gulp-load-plugins')();
 var del = require('del');
+// var revCollector = require('gulp-rev-collector');
+var gulpReplace = require('gulp-replace');
+
 
 var CONFIG;
 
@@ -233,10 +236,12 @@ gulp.task('build:samples', function () {
         .pipe($.rename(function (path) {
             //path.basename = path.dirname.split('/')[0]+'_' + path.basename;
             if(path.basename==='button'){
-                path.basename = 'index';
+                //path.basename = 'index';
             }
             path.dirname = "";
           }))
+        // 以下为生成官网首页demo使用，本地预览请注释
+        .pipe(gulpReplace('../../dist/boost.','/assets/blend2/dist/boost.'))
         // replace css js->cdn
         .pipe(gulp.dest(CONFIG.DIST_DIR + '/samples'));
 });
