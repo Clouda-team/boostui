@@ -137,13 +137,13 @@
 
 .@{namespace}button-red {
   .button-variant(@button-red-color; @button-red-bg; @button-red-border);
-  &:focus, &.@{namespace}button-checkbox-checked{
+  /*&:focus, &.@{namespace}button-checkbox-checked{
     background-color: #666;
-  }
-  /*&.@{namespace}disabled,
+  }*/
+  &.@{namespace}disabled,
   &[disabled] {
     .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
-  }*/
+  }
 }
 
 .@{namespace}button-gray {

@@ -12,32 +12,17 @@
 
 选择框颜色：
 
-- `blend-button-default` 灰色，适用于按钮式
-- `blend-button-red` 红色，适用于按钮式
-- `blend-checkbox-default` 灰色，适用于点选式
-- `blend-checkbox-red` 红色，适用于点选式
+- `blend-checkbox-default` 蓝色
+- `blend-checkbox-red` 红色
 
 选择框形状：
 
-- `blend-checkbox-default` 圆形框
+- `blend-checkbox-default` 圆形框，勾选式选中状态
 - `blend-checkbox-square` 方形框
-
-## 按钮式单选
-
-<div class="doc-demo">
-	<div data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["button1","button2"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
-	    <button class="blend-button blend-button-red blend-button-checkbox">nocheck</button>
-	    <button class="blend-button blend-button-red blend-button-checkbox blend-button-checkbox-checked">checked</button>
-	</div>
-</div>
-
-	<div data-blend-widget="checkbox" data-blend-checkbox='{"type":"radio","values":["button1","button2"],"itemSelector":".blend-button","itemSelected":"blend-button-checkbox-checked"}'>
-    	<button class="blend-button blend-button-red blend-button-checkbox">nocheck</button>
-    	<button class="blend-button blend-button-red blend-button-checkbox blend-button-checkbox-checked">checked</button>
-	</div>
+- `blend-checkbox-dot` 圆形框，点选式选中状态
 
 
-## 点选式单选
+## 蓝色勾选式圆形框单选
 
 <div class="doc-demo">
 	<h2>你的性别</h2>
@@ -55,7 +40,7 @@
 	    <span class="blend-checkbox blend-checkbox-default"></span><label class="blend-checkbox-label">woman</label>
 	</div>
 
-## 复选框
+## 红色勾选式复选框
 
 <div class="doc-demo">
 	<h3>带全选的checkbox</h3>
@@ -87,8 +72,29 @@
 	    </div>
 	</div>
 
+## 蓝色点选式圆形框单选
 
+<div class="doc-demo">
+	<div data-blend-widget="checkbox"
+     data-blend-checkbox='{"type":"radio","values":["radio1","radio2"]}'>
+         <div class="blend-checkbox-group" style="float:left;border:none;">
+            <span class="blend-checkbox blend-checkbox-dot blend-checkbox-checked"></span><label class="blend-checkbox-label">通用</label>
+        </div>
+        <div class="blend-checkbox-group">
+            <span class="blend-checkbox blend-checkbox-dot"></span><label class="blend-checkbox-label">商家自有</label>
+        </div>
+    </div>
+</div>
 
+	<div data-blend-widget="checkbox"
+     data-blend-checkbox='{"type":"radio","values":["radio1","radio2"]}'>
+         <div class="blend-checkbox-group">
+            <span class="blend-checkbox blend-checkbox-dot blend-checkbox-checked"></span><label class="blend-checkbox-label">通用</label>
+        </div>
+        <div class="blend-checkbox-group">
+            <span class="blend-checkbox blend-checkbox-dot"></span><label class="blend-checkbox-label">商家自有</label>
+        </div>
+    </div>
 
 
 

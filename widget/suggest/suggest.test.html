@@ -15,13 +15,11 @@
 
 <body style="background:#eee;">
 <div id="validate" class="blend-suggest" style="margin: 8px 0;">
-    <form>
-        <div class="blend-suggest-input">
-            <span class="blend-suggest-ico"></span>
-            <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
-            <a href="javascript:;" class="blend-suggest-delete"></a>
-        </div>
-    </form>
+    <div class="blend-suggest-input">
+        <span class="blend-suggest-ico"></span>
+        <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+        <a href="javascript:;" class="blend-suggest-delete"></a>
+    </div>
     <ul class="blend-suggest-list">
     </ul>
 </div>
@@ -47,7 +45,7 @@
     </div>
 </div>
 
-<div class="blend-suggest-wrapBlue2 mar-t-10" id="inputBlue">
+<div class="blend-suggest-wrap mar-t-10" id="inputBlue">
     <div class="blend-suggest">
        <div class="blend-suggest-input-blue">
            <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
@@ -57,7 +55,18 @@
     </div>
 </div>
 
-<div class="blend-suggest-wrapBlue mar-t-10" id="inputBlue2">
+<div class="blend-suggest-wrap2 mar-t-10" id="inputBlue3">
+    <div class="blend-suggest">
+        <span class="blend-suggest-arrow"></span>
+       <div class="blend-suggest-input-blue">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrapBlue2 mar-t-10" id="inputBlue2">
     <div class="blend-suggest">
        <div class="blend-suggest-input-blue">
            <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
@@ -67,7 +76,17 @@
     </div>
 </div>
 
-<div class="blend-suggest-wrapRed mar-t-10" id="inputRed">
+<div class="blend-suggest-wrap mar-t-10" id="inputRed">
+    <div class="blend-suggest">
+       <div class="blend-suggest-input-red">
+           <input class="blend-suggest-wd" type="search" placeholder="搜索您想要的直达号">
+           <a href="javascript:;" class="blend-suggest-delete"></a>
+           <span class="blend-suggest-ico"></span>
+       </div>
+    </div>
+</div>
+
+<div class="blend-suggest-wrap2 mar-t-10" id="inputRed2">
     <div class="blend-suggest">
         <span class="blend-suggest-arrow"></span>
        <div class="blend-suggest-input-red">
@@ -110,9 +129,12 @@
 
     $("#inputBlue").suggest({});
     $("#inputBlue2").suggest({});
+    $("#inputBlue3").suggest({});
     $("#inputRed").suggest({});
+    $("#inputRed2").suggest({});
     $("#inputGray").suggest({});
     $("#inputGray2").suggest({});
+    
 </script>
 </body>
 

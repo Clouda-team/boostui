@@ -10,7 +10,7 @@ $.widget('blend.imglist', {
      * 组件的默认选项，可以由多重覆盖关系
      */
     options: {
-        ratio: '' ,    // normal/wide/square/small
+        ratio: ''   // normal/wide/square/small/middle/full
     },
     /**
      * 创建组件调用一次

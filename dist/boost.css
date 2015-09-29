@@ -333,6 +333,8 @@ hr {
   width: 100%;
   display: 100%;
   border: none;
+  outline: none;
+  resize: none;
 }
 .blend-address .blend-address-value .blend-address-red {
   color: #cc2200;
@@ -643,9 +645,8 @@ fieldset[disabled] .blend-button-secondary.active {
   color: #ffffff;
   background-color: #fd461e;
   border-color: #fd461e;
-  /*&.@{namespace}disabled,
-  &[disabled] {
-    .button-variant(@button-red-disabled-color; @button-red-disabled-bg; @button-red-disabled-border);
+  /*&:focus, &.@{namespace}button-checkbox-checked{
+    background-color: #666;
   }*/
 }
 .blend-button-red:hover,
@@ -688,9 +689,79 @@ fieldset[disabled] .blend-button-red.active {
   color: #fd461e;
   background-color: #ffffff;
 }
-.blend-button-red:focus,
-.blend-button-red.blend-button-checkbox-checked {
-  background-color: #666;
+.blend-button-red.blend-disabled,
+.blend-button-red[disabled] {
+  color: #cccccc;
+  background-color: #b32102;
+  border-color: #b32102;
+}
+.blend-button-red.blend-disabled:hover,
+.blend-button-red[disabled]:hover,
+.blend-button-red.blend-disabled:focus,
+.blend-button-red[disabled]:focus,
+.blend-button-red.blend-disabled.focus,
+.blend-button-red[disabled].focus,
+.blend-button-red.blend-disabled:active,
+.blend-button-red[disabled]:active,
+.blend-button-red.blend-disabled.active,
+.blend-button-red[disabled].active,
+.open > .dropdown-toggle.blend-button-red.blend-disabled,
+.open > .dropdown-toggle.blend-button-red[disabled] {
+  color: #cccccc;
+  background-color: #811801;
+  border-color: #771601;
+}
+.blend-button-red.blend-disabled:active,
+.blend-button-red[disabled]:active,
+.blend-button-red.blend-disabled.active,
+.blend-button-red[disabled].active,
+.open > .dropdown-toggle.blend-button-red.blend-disabled,
+.open > .dropdown-toggle.blend-button-red[disabled] {
+  background-image: none;
+}
+.blend-button-red.blend-disabled.disabled,
+.blend-button-red[disabled].disabled,
+.blend-button-red.blend-disabled[disabled],
+.blend-button-red[disabled][disabled],
+fieldset[disabled] .blend-button-red.blend-disabled,
+fieldset[disabled] .blend-button-red[disabled],
+.blend-button-red.blend-disabled.disabled:hover,
+.blend-button-red[disabled].disabled:hover,
+.blend-button-red.blend-disabled[disabled]:hover,
+.blend-button-red[disabled][disabled]:hover,
+fieldset[disabled] .blend-button-red.blend-disabled:hover,
+fieldset[disabled] .blend-button-red[disabled]:hover,
+.blend-button-red.blend-disabled.disabled:focus,
+.blend-button-red[disabled].disabled:focus,
+.blend-button-red.blend-disabled[disabled]:focus,
+.blend-button-red[disabled][disabled]:focus,
+fieldset[disabled] .blend-button-red.blend-disabled:focus,
+fieldset[disabled] .blend-button-red[disabled]:focus,
+.blend-button-red.blend-disabled.disabled.focus,
+.blend-button-red[disabled].disabled.focus,
+.blend-button-red.blend-disabled[disabled].focus,
+.blend-button-red[disabled][disabled].focus,
+fieldset[disabled] .blend-button-red.blend-disabled.focus,
+fieldset[disabled] .blend-button-red[disabled].focus,
+.blend-button-red.blend-disabled.disabled:active,
+.blend-button-red[disabled].disabled:active,
+.blend-button-red.blend-disabled[disabled]:active,
+.blend-button-red[disabled][disabled]:active,
+fieldset[disabled] .blend-button-red.blend-disabled:active,
+fieldset[disabled] .blend-button-red[disabled]:active,
+.blend-button-red.blend-disabled.disabled.active,
+.blend-button-red[disabled].disabled.active,
+.blend-button-red.blend-disabled[disabled].active,
+.blend-button-red[disabled][disabled].active,
+fieldset[disabled] .blend-button-red.blend-disabled.active,
+fieldset[disabled] .blend-button-red[disabled].active {
+  background-color: #b32102;
+  border-color: #b32102;
+}
+.blend-button-red.blend-disabled .badge,
+.blend-button-red[disabled] .badge {
+  color: #b32102;
+  background-color: #cccccc;
 }
 .blend-button-gray {
   color: #ffffff;
@@ -1000,6 +1071,9 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-checkbox-red .blend-checkbox-checked {
   border: none;
+  background-color: #fd461e;
+}
+.blend-checkbox-red .blend-checkbox-dot:before {
   background-color: #fd461e;
 }
 .blend-checkbox-checked {
@@ -3246,8 +3320,6 @@ fieldset[disabled] .blend-button-ltgray.active {
   color: #ff6600;
 }
 .blend-suggest-wrapBlue2,
-.blend-suggest-wrapBlue,
-.blend-suggest-wrapRed,
 .blend-suggest-wrap,
 .blend-suggest-wrap2 {
   background-color: #ffffff;
@@ -3407,65 +3479,39 @@ fieldset[disabled] .blend-button-ltgray.active {
   right: 45px;
   width: 40px;
 }
-.blend-suggest-wrapBlue {
+.blend-suggest-wrapBlue2 {
   background-color: #3bafda;
 }
-.blend-suggest-wrapBlue .blend-suggest-input-blue {
+.blend-suggest-wrapBlue2 .blend-suggest-input-blue {
   border: none;
 }
-.blend-suggest-wrapBlue input {
+.blend-suggest-wrapBlue2 input {
   background-color: #ffffff;
 }
-.blend-suggest-wrapBlue .blend-suggest-ico {
+.blend-suggest-wrapBlue2 .blend-suggest-ico {
   background-color: #4fc1e9;
 }
-.blend-suggest-wrapRed {
-  background-color: #fafafa;
-}
-.blend-suggest-wrapRed .blend-suggest {
-  display: -webkit-box;
-}
-.blend-suggest-wrapRed .blend-suggest .blend-suggest-input-red {
-  -webkit-box-flex: 1;
-  box-flex: 1;
-}
-.blend-suggest-wrapRed .blend-suggest .blend-suggest-arrow {
-  width: 31px;
-  height: 100%;
-  display: block;
-  padding-left: 4px;
-  line-height: 30px;
-}
-.blend-suggest-wrapRed .blend-suggest .blend-suggest-arrow:before {
-  content: "\e861" !important;
-  font-family: "boostfont";
-  font-style: normal;
-  -webkit-font-smoothing: antialiased;
-  -webkit-text-stroke-width: 0.2px;
-  content: "\e600";
-  color: #777;
-  font-size: 1.8rem;
-}
-.blend-suggest-wrapRed .blend-suggest-ico {
-  background-color: #e71225;
-}
-.blend-suggest-wrap .blend-suggest-ico,
-.blend-suggest-wrap2 .blend-suggest-ico {
+.blend-suggest-input-gray .blend-suggest-ico {
   background-color: #666;
+}
+.blend-suggest-input-red .blend-suggest-ico {
+  background-color: #e71225;
 }
 .blend-suggest-wrap2 .blend-suggest {
   display: -webkit-box;
 }
-.blend-suggest-wrap2 .blend-suggest .blend-suggest-input-gray {
+.blend-suggest-wrap2 .blend-suggest .blend-suggest-input-gray,
+.blend-suggest-wrap2 .blend-suggest .blend-suggest-input-blue,
+.blend-suggest-wrap2 .blend-suggest .blend-suggest-input-red {
   -webkit-box-flex: 1;
   box-flex: 1;
 }
-.blend-suggest-input-gray {
-  background-color: #ffffff;
-}
-.blend-suggest-input-gray input {
-  background-color: #ffffff;
-}
+/*.@{namespace}suggest-input-gray{
+    background-color: @white;
+    input{
+        background-color: @white;
+    }
+}*/
 .blend-suggest-arrow {
   width: 31px;
   height: 100%;
@@ -3484,7 +3530,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   font-size: 1.8rem;
 }
 .blend-suspend-mask {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -3494,7 +3540,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: none;
 }
 .blend-suspend {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   max-height: 300px;

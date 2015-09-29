@@ -4,7 +4,7 @@
 @suggest-font-color: #262626;
 @suggest-input-color: #f9f9f9;
 
-.@{namespace}suggest-wrapBlue2, .@{namespace}suggest-wrapBlue, .@{namespace}suggest-wrapRed, .@{namespace}suggest-wrap, .@{namespace}suggest-wrap2{
+.@{namespace}suggest-wrapBlue2, .@{namespace}suggest-wrap, .@{namespace}suggest-wrap2{
     background-color: @white;
     width: 100%;
     height: 50px;
@@ -116,7 +116,7 @@
         width: 40px;
     }
 }
-.@{namespace}suggest-wrapBlue{
+.@{namespace}suggest-wrapBlue2{
     background-color: #3bafda;
     .@{namespace}suggest-input-blue{
         border: none;
@@ -128,50 +128,27 @@
         background-color: #4fc1e9;
     }
 }
-.@{namespace}suggest-wrapRed{
-    background-color: #fafafa;
-    .@{namespace}suggest{
-        display: -webkit-box;
-        .@{namespace}suggest-input-red{
-            -webkit-box-flex: 1;
-            box-flex: 1;
-        }
-        .@{namespace}suggest-arrow{
-            width: 31px;
-            height: 100%;
-            display: block;
-            padding-left: 4px;
-            line-height: 30px;
-            &:before{
-                content: @suggest-arrow !important;
-                .font(@font-left);
-                color: #777;
-                font-size: 1.8rem;
-            }
-        }
-    }
-    .@{namespace}suggest-ico{
-        background-color: #e71225;
-    }
-}
-.@{namespace}suggest-wrap .@{namespace}suggest-ico, .@{namespace}suggest-wrap2 .@{namespace}suggest-ico{
+.@{namespace}suggest-input-gray .@{namespace}suggest-ico{
     background-color: #666;
+}
+.@{namespace}suggest-input-red .@{namespace}suggest-ico{
+    background-color: #e71225;
 }
 .@{namespace}suggest-wrap2{
     .@{namespace}suggest{
         display: -webkit-box;
-        .@{namespace}suggest-input-gray{
+        .@{namespace}suggest-input-gray, .@{namespace}suggest-input-blue, .@{namespace}suggest-input-red{
             -webkit-box-flex: 1;
             box-flex: 1;
         }
     }
 }
-.@{namespace}suggest-input-gray{
+/*.@{namespace}suggest-input-gray{
     background-color: @white;
     input{
         background-color: @white;
     }
-}
+}*/
 .@{namespace}suggest-arrow{
     width: 31px;
     height: 100%;

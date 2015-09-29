@@ -1,36 +1,38 @@
-#表单组
+#地址信息
 
 ## 1. 使用演示
 <div class="doc-demo">
-	<div id="blendForm1" class="blend-form" style="margin: 8px 0;">
-	    <div class="blend-formgroup">
-	        <label class="blend-formgroup-label">姓名</label>
-	        <input type="text" class="blend-formgroup-input" placeholder="姓名"/>
-	    </div>
-	    <div class="blend-formgroup">
-	        <label class="blend-formgroup-label">手机号码</label>
-	        <input type="text" class="blend-formgroup-input" placeholder="请输入手机号码,此处有校验"/>
-	    </div>
-	    <div class="blend-formgroup">
-	        <label class="blend-formgroup-label">愿望</label>
-	        <input type="text" class="blend-formgroup-input" placeholder="请输入你的愿望"/>
-	    </div>
-	</div>
+    <div class="blend-address">
+        <div class="blend-address-name"><span>收货人</span></div>
+        <div class="blend-address-value">
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" placeholder="姓名" value="熊猫先森">
+            </div>
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" placeholder="手机号" value="15710094933">
+            </div>
+        </div>
+    </div>
+	<div id="more" class="blend-address" style="margin: 20px 0;">
+        <div class="blend-address-name"><span>收货地址</span></div>
+        <div class="blend-address-value">
+            <div class="blend-address-input">
+                <p class="blend-address-detail blend-address-btn">四川省 成都市<span class="blend-address-arrow"></span></p>
+            </div>
+            <div class="blend-address-input">
+                <textarea class="blend-address-detail" value="">北郊斧头山成都大熊猫繁育基地动物园区</textarea>
+            </div>
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" value="61000" placeholder="邮编">
+            </div>
+        </div>
+    </div>
 </div>
 
-<script type="text/javascript">
-	;(function(){
-		boost('#blendForm1').find('.blend-formgroup').eq(1).formgroup({
-	        validate: true,
-	        validateFunction: function (value, $ele) {
-	        	var reg = /^\d{11}$/g;
-	            if (!reg.test(value)) {
-	                return '请输入正确的手机号';
-	            }
-	        }
-	    });
-	})();
-
+<script>
+boost('#more').address({}).on("click", function (){
+    alert("点击事件");
+});
 </script>
 
 ## 2. 使用方式
@@ -38,52 +40,44 @@
 ### HTML结构
 
 
-	<div class="blend-formgroup">
-        <label class="blend-formgroup-label">姓名</label>
-        <input type="text" class="blend-formgroup-input" placeholder="姓名"/>
+	<div class="blend-address">
+        <div class="blend-address-name"><span>收货人</span></div>
+        <div class="blend-address-value">
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" placeholder="姓名" value="熊猫先森">
+            </div>
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" placeholder="手机号" value="15710094933">
+            </div>
+        </div>
+    </div>
+
+	<div id="more" class="blend-address">
+        <div class="blend-address-name"><span>收货地址</span></div>
+        <div class="blend-address-value">
+            <div class="blend-address-input">
+                <p class="blend-address-detail blend-address-btn">四川省 成都市<span class="blend-address-arrow"></span></p>
+            </div>
+            <div class="blend-address-input">
+                <textarea class="blend-address-detail" value="">北郊斧头山成都大熊猫繁育基地动物园区</textarea>
+            </div>
+            <div class="blend-address-input">
+                <input type="text" class="blend-address-detail" value="61000" placeholder="邮编">
+            </div>
+        </div>
     </div>
 
 ### 初始化
 
-使用JS来初始化formgroup组件
+使用JS来初始化address组件
 	
-	boost('.blend-formgroup').formgroup({
-		validate: true,
-		asyn: false,
-		validateFunction:function(value, $ele){
-			// to do, 此处进行验证相关操作
-			return "该字段不能为空"; // 返回需要展示的信息
-		}
-	});
+	boost('#more').address({
+	}).on("address:click", function (){
+        alert("点击事件");	// 点击事件，用以触发显示选择列表
+    });
 
 ### 初始化参数说明
 
 	{
-		validate: true,		// 是否启用字段验证，默认为false
-		asyn: true,			// 是否为异步验证，默认为false
-		validateFunction: function(value, $ele, callback){
-			/**
-			 * value 为当前input的值
-			 * $ele 为当前对象实例
-			 * callback 为异步验证的回调函数, 如果asyn为false, callback缺省
-			 */
-			
-			$.ajax({
-                url: 'http://www.baidu.com/back.php?callback=?',
-                data: {
-                    value: value
-                },
-                dataType: 'jsonp',
-                success: function (ret) {
-                    if (ret.errno == 0) {
-                        // your code
-                    }
-                    else {
-                        callback(ret.errMsg);
-                    }
-
-                }
-            });
-			
-		}
+		btnClass: "blend-address-btn",	// 给元素添加点击事件，元素默认样式:"blend-address-btn"
 	}
