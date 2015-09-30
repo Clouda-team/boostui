@@ -1,0 +1,60 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>formgroup组件</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+</head>
+
+<body>
+    <header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">表单组</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+    </header>
+
+
+    <div id="validate" class="blend-form" style="margin: 8px 0;">
+        <div class="blend-formgroup">
+            <label class="blend-formgroup-label">姓名</label>
+            <input type="text" class="blend-formgroup-input" placeholder="姓名"/>
+        </div>
+        <div class="blend-formgroup">
+            <label class="blend-formgroup-label">手机号码</label>
+            <input type="text" class="blend-formgroup-input" placeholder="请输入手机号码"/>
+        </div>
+        <div class="blend-formgroup">
+            <label class="blend-formgroup-label">愿望</label>
+            <input type="text" class="blend-formgroup-input" placeholder="请输入你的愿望"/>
+        </div>
+
+    </div>
+
+
+
+
+
+
+<script src="../../dist/boost.js"></script>
+<script>
+$('#validate').find('.blend-formgroup').formgroup({
+    validate: true,
+    validateFunction: function (value, $ele) {
+        if (!value) {
+            return '不能为空';
+        }
+    }
+});
+</script>
+</body>
+
+</html>
