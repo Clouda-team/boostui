@@ -2620,6 +2620,8 @@ fieldset[disabled] .blend-button-ltgray.active {
   border-radius: 100%;
 }
 .blend-loading .blend-loading-word {
+  margin: 0;
+  padding: 0;
   position: absolute;
   bottom: 20px;
   font-size: 16px;
