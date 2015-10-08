@@ -1,0 +1,59 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>标签组件</title>
+    <link rel="stylesheet" href="../../dist/boost.css"/>
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+
+</head>
+
+<body>
+
+    
+    <header data-blend-widget="header" class="blend-header">
+    <span class="blend-header-left">
+        <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+    </span>
+    <span class="blend-header-title">
+        <span class="blend-header-item">标签组件</span>
+    </span>
+    <span class="blend-header-right">
+    </span>
+  </header>
+
+    <section class="blend-tab">
+        <div class="blend-tab-header">
+            <div class="blend-tab-header-item">美食</div>
+            <div class="blend-tab-header-item">影院</div>
+            <div class="blend-tab-header-active"></div>
+        </div>
+        <div class="blend-tab-content">
+            <div class="blend-tab-content-item">各类美食</div>
+            <div class="blend-tab-content-item">附近影院</div>
+        </div>
+    </section>
+
+    <!-- <button id="active">active</button><br>
+    <button id="destroy">destroy</button><br>
+    <button id="create">create</button><br> -->
+
+    <script src="../../dist/boost.js"></script>
+    <script>
+        $('.blend-tab').tab();
+        $('#active').click(function() {
+            $('.blend-tab').tab('active', 1);
+        });
+        $('#destroy').click(function() {
+            $('.blend-tab').tab('destroy');
+        });
+        $('#create').click(function() {
+            $('.blend-tab').tab();
+        });
+    </script>
+</body>
+
+</html>

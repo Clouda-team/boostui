@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>分级导航</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+
+    <style type="text/css">
+        html, body{
+            margin: 0;
+            padding: 0;
+            
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">分级导航</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+    </header>
+
+    <nav id="topnav" class="blend-topnav" style="margin-top: 10px;">
+        <div class="blend-topnav-item">
+            <span>导航1</span>
+            <ul>
+                <li><a href="http://www.baidu.com">百度</a></li>
+                <li><a href="http://www.qq.com">腾讯</a></li>
+                <li><a href="http://www.163.com">网易</a></li>
+            </ul>
+        </div>
+        <div class="blend-topnav-item">
+            <span>导航2</span>
+        </div>
+        <div class="blend-topnav-item">
+            <span>导航3</span>
+            <ul>
+                <li><a href="#">链接1</a></li>
+                <li><a href="#">链接2</a></li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+    <script src="../../dist/boost.js"></script>
+    <script type="text/javascript">
+        void function(){
+            $("#topnav").topnav({
+                // defaultIcon: false
+            }); 
+        }();
+
+    </script>
+
+</body>
+
+</html>

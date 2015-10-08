@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
+    <title>可展开导航组件</title>
+    <link rel="stylesheet" href="../../dist/boost.css">
+
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+
+</head>
+
+<body>
+
+    <header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">导航组件</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+    </header>
+
+    <nav data-blend-widget="nav" class="blend-nav blend-nav-column-3">
+        <a class="blend-nav-item" href="#">炒菜</a>
+        <a class="blend-nav-item" href="#">面食类</a>
+        <a class="blend-nav-item" href="#">饼类</a>
+        <a class="blend-nav-item" href="#">米线</a>
+        <a class="blend-nav-item" href="#">馄饨</a>
+        <a class="blend-nav-item" href="#">饺子</a>
+        <a class="blend-nav-item" href="#">饮料</a>
+        <a class="blend-nav-item" href="#">砂锅</a>
+        <a class="blend-nav-item" href="#">煲仔饭</a>
+    </nav>
+
+    <script src="../../dist/boost.js"></script>
+
+    <script>
+        $('.blend-nav').nav({
+            column: 3,
+            row: 2
+        }).nav('column');
+    </script>
+
+</body>
+
+</html>
