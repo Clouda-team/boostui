@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>单选滑块</title>
+    <link rel="stylesheet" href="/assets/blend2/dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+
+<body>
+
+  <header data-blend-widget="header" class="blend-header">
+    <span class="blend-header-left">
+        <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+    </span>
+    <span class="blend-header-title">
+        <span class="blend-header-item">单选滑块</span>
+    </span>
+    <span class="blend-header-right">
+    </span>
+  </header>
+
+<span id="switch1" class="blend-switch"></span>
+<br/>
+
+<span id="switch2" class="blend-switch round" ></span>
+
+
+<script src="/assets/blend2/dist/boost.js"></script>
+<script type="text/javascript">
+
+    $('.blend-switch').switch().on('switch:on',function(){
+        // alert('on');
+    }).on('switch:off',function(){
+        // alert('off');
+    });
+</script>
+</body>
+
+</html>

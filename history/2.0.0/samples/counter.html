@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>数量选择器</title>
+    <link rel="stylesheet" href="/assets/blend2/dist/boost.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <style type="text/css">
+    .blend-counter{
+        margin: 15px;
+    }
+    </style>
+</head>
+
+<body>
+
+<header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">计数器</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+</header>
+
+
+    <div data-blend-widget="counter" data-blend-counter='{"step":1,"maxValue":10}' class="blend-counter">
+        <div class="blend-counter-minus"></div>
+        <input class="blend-counter-input" type="text">
+        <div class="blend-counter-plus"></div>
+    </div>
+
+    <div data-blend-widget="counter" data-blend-counter='{"step":2,"maxValue":10}' class="blend-counter" style="margin-top: 10px;">
+        <div class="blend-counter-minus"></div>
+        <input class="blend-counter-input" type="text">
+        <div class="blend-counter-plus"></div>
+    </div>
+
+    <script src="/assets/blend2/dist/boost.js"></script>
+    <script>
+        $(function () {
+            // 选择元素
+            var $counter = $('[data-blend-widget="counter"]')
+
+            // 初始化, 已经由默认初始化
+            //.counter({
+            //    step: 2
+            //})
+
+            //监听事件
+            .on("counter:update", function (e) {
+                console.log(arguments);
+            })
+
+            .on("counter:beforeupdate", function (e) {
+                console.log("beforeupdate");
+            })
+
+            // 函数调用
+            .counter("value", 1);
+
+            var options = $counter.counter("option");
+            console.log(options);
+
+        });
+    </script>
+</body>
+
+</html>

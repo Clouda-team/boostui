@@ -1,0 +1,85 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>幻灯片</title>
+
+
+    <link rel="stylesheet" href="/assets/blend2/dist/boost.css">
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+
+</head>
+
+<body>
+
+    <header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">幻灯片</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+    </header>
+
+    <div id="slider1" data-blend-widget="slider" class="blend-slider" data-blend-slider='{"theme":"d2"}'>
+        <ul class="blend-slides">
+            <li>
+                <img src="http://b.hiphotos.baidu.com/image/pic/item/95eef01f3a292df5b933a51fbe315c6035a873c3.jpg"/>
+                <div class="blend-slider-title">图片1标题</div>
+            </li>
+            <li>
+                <a href="http://www.baidu.com" target="_blank">
+                    <img src="http://a.hiphotos.baidu.com/image/pic/item/c83d70cf3bc79f3dc8225e37b8a1cd11738b29f1.jpg"/>
+                </a>
+                <div class="blend-slider-title">图片2标题</div>
+            </li>
+            <li>
+                <a href="http://www.baidu.com" target="_blank">
+                    <img src="http://g.hiphotos.baidu.com/image/pic/item/50da81cb39dbb6fd2ca88b260b24ab18972b373a.jpg"/>
+                </a>
+                <div class="blend-slider-title">图片3标题</div>
+            </li>
+
+        </ul>
+  </div>
+
+<!--   <button id="prev">上一张</button>
+
+  <button id="paused">暂停</button>
+
+  <button id="next">下一张</button> -->
+
+
+  <script src="/assets/blend2/dist/boost.js"></script>
+
+
+  <script>
+
+    (function(){
+        $("#slider1").slider();
+
+        $("#next").on('click',function(){
+            $("#slider1").slider('next');
+        });
+
+        $("#paused").on('click',function(){
+            $("#slider1").slider('paused');
+        });
+
+        $("#prev").on('click',function(){
+            $("#slider1").slider('prev');
+        });
+
+
+
+    })();
+
+   </script>
+</body>
+
+</html>
