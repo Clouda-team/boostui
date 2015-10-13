@@ -30,6 +30,7 @@ $.widget('blend.slider', {
      */
     _create: function () {
 
+        var win = window;
         /**
          * this.element 组件对应的单个 Zepto/jQuery 对象
          */
@@ -61,18 +62,48 @@ $.widget('blend.slider', {
         this.$ul = $el.find('.' + NAMESPACE + 'slides');
         this.$li = $el.find('.' + NAMESPACE + 'slides li');
 
-        this._liWidth = this.$li.width() ? this.$li.width() : options.wrapWidth;
-        this._liHeight = this.$li.height();
-        this._liLength = this.$li.length;
+        // this._liWidth = this.$li.width() ? this.$li.width() : options.wrapWidth;
+        // this._liHeight = this.$li.height();
+        // this._liLength = this.$li.length;
+        //
+        // this.autoScroll = null;     // 自动播放interval对象
+        // this._index = 0;            // 当前幻灯片位置
+        //
+        // if (typeof options.theme !== 'string') {
+        //     options.theme = 'default';
+        // }
+        //
+        // this._addComponents(options.theme);
 
-        this.autoScroll = null;     // 自动播放interval对象
-        this._index = 0;            // 当前幻灯片位置
+        var that = this;
 
-        if (typeof options.theme !== 'string') {
-            options.theme = 'default';
+        var whichEvent = ('orientationchange' in win) ? 'orientationchange' : 'resize';
+        win.addEventListener(whichEvent, function(){
+            // that._init();
+            that._liWidth = that.$li.width() ? that.$li.width() : opts.wrapWidth;
+            that._liHeight = that.$li.height();
+            that._spin();
+        },false);
+
+        return;
+
+        /*
+        * matchMedia.addListener() 在安卓手机上支持太差，先注释掉
+        if (typeof win.matchMedia !== 'undefined') {
+          var mql = win.matchMedia("(orientation: portrait)");
+          alert(mql);
+          mql.addListener(function(m) {
+            alert('matchMedia');
+          	if(m.matches) {} else {}
+          });
+        }else{
+          var whichEvent = ('orientationchange' in win) ? 'orientationchange' : 'resize';
+          win.addEventListener(whichEvent, function(){
+              alert('orientationchange or resize ---');
+          },false);
         }
+        */
 
-        this._addComponents(options.theme);
     },
     /**
      * _init 初始化的时候调用
@@ -80,10 +111,29 @@ $.widget('blend.slider', {
      */
     _init: function () {
 
+
+
+
         var opts = this.options;
         var that = this;
         var $ul = this.$ul;
         var $li = this.$li;
+
+
+
+        this._liWidth = $li.width() ? $li.width() : opts.wrapWidth;
+        this._liHeight = $li.height();
+        this._liLength = $li.length;
+
+        this.autoScroll = null;     // 自动播放interval对象
+        this._index = 0;            // 当前幻灯片位置
+
+        if (typeof opts.theme !== 'string') {
+            opts.theme = 'default';
+        }
+
+        this._addComponents(opts.theme);
+
 
         // 如果speed是0, 不自动滚动
         if (this.options.speed <= 0) {
@@ -109,7 +159,7 @@ $.widget('blend.slider', {
 
         that._fnAutoSwipe();
         this._initEvent();
-        // this._initView();
+
     },
     /**
      * 初始化事件绑定
@@ -133,7 +183,7 @@ $.widget('blend.slider', {
                 evReady = false;
             }
         }, false);
-        
+
         function moveHandler (evt){
             $("#prevent").html("");
             if (that.options.autoSwipe) {
@@ -150,7 +200,7 @@ $.widget('blend.slider', {
 
             //横向滑动阻止默认事件
 
-            if (Math.abs(that.moveY) > 20 && that.options.axisX){   
+            if (Math.abs(that.moveY) > 20 && that.options.axisX){
                 endHandler(evt);
             }else if (Math.abs(that.moveX) > 7 || !isPhone){
                 evt.preventDefault();
@@ -192,7 +242,7 @@ $.widget('blend.slider', {
                 that._fnAutoSwipe();
             }
 
-            
+
 
             that.moveX = 0;
             that.moveY = 0;
@@ -437,6 +487,24 @@ $.widget('blend.slider', {
             moveEvt: moveEvt,
             endEvt: endEvt
         };
+    },
+    _spin: function () {
+      var that = this;
+      var $ul = this.$ul;
+      var $li = this.$li;
+      var options = this.options;
+
+      this.paused();
+      var widthOrHeight = options.axisX ? this._liWidth : this._liHeight;
+      this._fnTranslate($ul.children().first(), widthOrHeight * -1);
+      this._fnTranslate($ul.children().last(), widthOrHeight * that._liLength);
+
+      // 给初始图片定位
+      $li.each(function (i) {
+          that._fnTranslate($(this), (options.axisX ? that._liWidth : that._liHeight) * i);
+      });
+      this.start();
+      this.next();
     },
     /**
      * 下一张幻灯片
