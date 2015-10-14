@@ -488,6 +488,9 @@ $.widget('blend.slider', {
             endEvt: endEvt
         };
     },
+    /**
+     * 屏幕旋转后的处理函数
+     */
     _spin: function () {
       var that = this;
       var $ul = this.$ul;
