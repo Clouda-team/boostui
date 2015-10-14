@@ -1,7 +1,7 @@
 @dialog-zindexlarger: @boost-zindex-larger;
 @dialog-zindexsmall: @boost-zindex-large;
 @dialog-width: 250px;
-@dialog-duration: .2s;
+@dialog-duration: 0.2s;
 @dialog-header-height: 40px;
 @dialog-footer-height: 40px;
 
@@ -22,7 +22,21 @@
     z-index: @dialog-zindexlarger;
     background-color: @color-dialog-backgroud;
     color: @color-dialog-font;
-    visibility: hidden;
+    /*visibility: hidden;*/
+    opacity: 0;
+    transform: scale(0);
+    -webkit-transform: scale(0);
+    /*
+    -webkit-transition-property: -webkit-transform,opacity;
+    transition-property: transform,opacity;
+    -webkit-transition-duration: 200ms;
+    transition-duration: 200ms;
+    */
+    &.@{namespace}dialog-no-transition {
+      -webkit-transition-duration: 0s;
+      transition-duration: 0s;
+    }
+
 }
 
 .@{namespace}dialog-mask {
@@ -37,15 +51,21 @@
 }
 
 .@{namespace}dialog-show {
-    visibility: visible;
-    /*
+    /*visibility: visible;*/
+    opacity: 1;
     transform: scale(1);
     -webkit-transform: scale(1);
-    
+    -webkit-transition-property: -webkit-transform,opacity;
+    transition-property: transform,opacity;
+    -webkit-transition-duration: @dialog-duration;
+    transition-duration: @dialog-duration;
+  /*
     -webkit-transition: transform  @dialog-duration  ease-in-out;
     transition: transform @dialog-duration  ease-in-out;
-    */
+  */
 }
+
+
 
 .@{namespace}dialog-header {
     height: @dialog-header-height;
@@ -56,7 +76,7 @@
     color: @color-dialog-header-text;
     font-size: @boost-font-size-nav;
     text-align: center;
-    border-bottom: solid 1px #ddd; 
+    border-bottom: solid 1px #ddd;
 }
 
 .@{namespace}dialog-body {
@@ -80,12 +100,12 @@
     width: 100%;
     height: @dialog-footer-height;
     line-height: @dialog-footer-height;
-    display:-webkit-box; 
+    display:-webkit-box;
     display:box;
 }
 .@{namespace}dialog-cancel,
 .@{namespace}dialog-confirm {
-   -webkit-box-flex: 1; 
+   -webkit-box-flex: 1;
    box-flex: 1;
    width: 0;
    display: block;

@@ -6,7 +6,7 @@
     <title>dialog</title>
     <meta content="width=device-width,initial-scale=1,user-scalable=no" name="viewport">
     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-    <link rel="stylesheet" href="../../dist/boost.css">
+    <link rel="stylesheet" href="../../dist/boost.css?v=1">
     <script src="../../dist/boost.js"></script>
 
     <style>
@@ -15,7 +15,7 @@
     }
     </style>
 </head>
-	
+
 <body>
 
 
@@ -28,8 +28,8 @@
   </div>
   <br>
   <textarea id="result" placeholder='事件触发时输出的一些文字...'></textarea>
-	
-  
+
+
 
   <div  id="domInitDialog" class="blend-dialog">
 
@@ -48,7 +48,7 @@
   </div>
 
   <div  id="customeDialog" class="blend-dialog">
-    
+
     <h3 class="blend-dialog-text-center">这是个h3标题</h3>
     <h4 style="color:red">这是个自定义的h4标题</h4>
     <span>哈哈<em>这个地方是斜体</em></span>
@@ -56,11 +56,11 @@
   </div>
 
   <br><br><br><br><br><br><br><br>
-   
-    
+
+
 
     <script>
-          
+
         ;(function(){
 
           //自定义dom渲染方式
@@ -92,7 +92,7 @@
           });
 
           //Dom渲染方式
-          
+
 
           var dialog3 = $("#jsInitDialog").dialog({
             title:"这是title",
@@ -100,6 +100,7 @@
             // cancelOnly: 1,
             confirmText:"确认",
             cancelText: '取消',
+            needAnimate:false,  // 不需要动画
             btnStatus:3,
             renderType:1  //js渲染
           }).on('dialog:show',function(){
@@ -112,13 +113,13 @@
 
 
           $("#custome").bind("click",function(){
-            
+
             dialog1.dialog("show");
 
           });
 
           $("#domInit").bind("click",function(){
-            
+
             dialog2.dialog("show");
             // dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());
             /*dialog2.dialog("show",{
@@ -128,9 +129,9 @@
           });
 
           $("#jsInit").bind("click",function(){
-            
+
             dialog3.dialog("show");
-            /*if(dialog2) 
+            /*if(dialog2)
             dialog2.dialog("show","每一次都在变～～～"+ new Date().getTime());*/
 
 
@@ -138,7 +139,7 @@
 
 
         })();
-        
+
     </script>
 </body>
 
