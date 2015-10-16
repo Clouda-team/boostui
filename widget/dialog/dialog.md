@@ -165,6 +165,8 @@
         maskTapClose: false,    // 点击mask，关闭dialog，默认false
         renderType: 0,          // 渲染方式，0 是DOM渲染，1是js渲染，2是自定义DOM，默认为0
         btnStatus: 3            // 控制cancel按钮(2) 和 confirm按钮(1) 的和值，默认为3 展示两个按钮
+        hasHeader: false		// 是否需要diaolog的标题一栏，默认为true
+        needAnimate: false		// 弹框出现的时候是否需要动画，默认为true
 	}
 
 ## 4. 方法说明
