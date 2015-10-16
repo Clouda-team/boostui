@@ -53,22 +53,22 @@
         <ul class='blend-imglist-wrapper'>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
         </ul>
@@ -88,22 +88,22 @@
         <ul class='blend-imglist-wrapper'>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
             <li class='blend-imglist-item'>
                 <a href="http://www.baidu.com">
-                    <img src="http://f.hiphotos.baidu.com/image/pic/item/9922720e0cf3d7cabe2b73d2f11fbe096a63a9b1.jpg" />
+                    <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg" />
                 </a>
             </li>
         </ul>

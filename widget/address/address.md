@@ -30,7 +30,7 @@
 </div>
 
 <script>
-boost('#more').address({}).on("click", function (){
+boost('#more').address({}).on("address:click", function (){
     alert("点击事件");
 });
 </script>

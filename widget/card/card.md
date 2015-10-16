@@ -12,7 +12,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card ">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -26,7 +26,7 @@
 
     <div class="blend-card ">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -44,7 +44,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card ">
         <div class="blend-card-img-view" style="width:108px;height:148px;">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -58,7 +58,7 @@
 
     <div class="blend-card ">
         <div class="blend-card-img-view" style="width:108px;height:148px;">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -93,7 +93,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -107,7 +107,7 @@
 
     <div class="blend-card">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -126,7 +126,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -140,7 +140,7 @@
 
     <div class="blend-card">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -161,7 +161,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card blend-card-no-icon">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -184,7 +184,7 @@
 
     <div class="blend-card blend-card-no-icon">
         <div class="blend-card-img-view">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view">
             <div class="blend-card-title">
@@ -226,7 +226,7 @@
 <div class="doc-demo card-demo">
     <div class="blend-card " >
         <div class="blend-card-img-view" style="width:108px;height:108px;">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view" style="max-height:108px;">
             <div class="blend-card-title">
@@ -264,7 +264,7 @@
     </style>
     <div class="blend-card " >
         <div class="blend-card-img-view" style="width:108px;height:108px;">
-            <img src="http://images.cnitblog.com/blog/362463/201311/12170859-e6225a2a67ca4c7cbc9622d6845d4441.jpg">
+            <img src="http://clouda.baidu.com/assets/blend2/images/demo/fruit.jpg">
         </div>
         <div class="blend-card-content-view" style="max-height:108px;">
             <div class="blend-card-title">
