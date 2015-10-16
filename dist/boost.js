@@ -3657,7 +3657,8 @@ $.widget('blend.dialog', {
         confirmClass: '',
         maskTapClose: false,    // 点击mask，关闭dialog
         renderType: 0,            // 渲染方式，0 是DOM渲染，1是js渲染,2是自定义
-        btnStatus: 3             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        btnStatus: 3,             // 控制cancel按钮(2)和confirm按钮(1) 的和值
+        needAnimate: true         // 弹框出现的时候是否需要动画
     },
     /**
      * _create 创建组件时调用一次
@@ -3683,6 +3684,7 @@ $.widget('blend.dialog', {
         this.useCustom = (this.renderType === 2) ? true : false;    // renderType为2表示使用自定义dom
         this.btnStatus = options.btnStatus;
         this.$el = this.element;
+        this.needAnimate = options.needAnimate;
     },
     /**
      * 初始化
@@ -3702,7 +3704,7 @@ $.widget('blend.dialog', {
              $.dynamicLoad (function() {
                 require(['src/blend'], function (blend) {
                     me._uix = me._createUIXDialog(blend);
-                 
+
                 });
             });
             return;
@@ -3894,6 +3896,9 @@ $.widget('blend.dialog', {
         this.mask(0.5);
         (content) && this.$content.html(content);
         window.setTimeout(function () {
+            if (!self.needAnimate) {
+              self.$el.addClass(NAMESPACE + 'dialog-no-transition');  // 添加class，将过渡时间设置为0
+            }
             self.$el.addClass(NAMESPACE + 'dialog-show');
             self._trigger('show');
             self.lock = false;
@@ -6693,6 +6698,9 @@ $.widget('blend.slider', {
             endEvt: endEvt
         };
     },
+    /**
+     * 屏幕旋转后的处理函数
+     */
     _spin: function () {
       var that = this;
       var $ul = this.$ul;

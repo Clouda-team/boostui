@@ -1205,7 +1205,20 @@ fieldset[disabled] .blend-button-ltgray.active {
   z-index: 100;
   background-color: #ffffff;
   color: #262626;
-  visibility: hidden;
+  /*visibility: hidden;*/
+  opacity: 0;
+  transform: scale(0);
+  -webkit-transform: scale(0);
+  /*
+    -webkit-transition-property: -webkit-transform,opacity;
+    transition-property: transform,opacity;
+    -webkit-transition-duration: 200ms;
+    transition-duration: 200ms;
+    */
+}
+.blend-dialog.blend-dialog-no-transition {
+  -webkit-transition-duration: 0s;
+  transition-duration: 0s;
 }
 .blend-dialog-mask {
   display: block;
@@ -1218,14 +1231,18 @@ fieldset[disabled] .blend-button-ltgray.active {
   left: 0;
 }
 .blend-dialog-show {
-  visibility: visible;
+  /*visibility: visible;*/
+  opacity: 1;
+  transform: scale(1);
+  -webkit-transform: scale(1);
+  -webkit-transition-property: -webkit-transform, opacity;
+  transition-property: transform,opacity;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
   /*
-    transform: scale(1);
-    -webkit-transform: scale(1);
-    
     -webkit-transition: transform  @dialog-duration  ease-in-out;
     transition: transform @dialog-duration  ease-in-out;
-    */
+  */
 }
 .blend-dialog-header {
   height: 40px;
