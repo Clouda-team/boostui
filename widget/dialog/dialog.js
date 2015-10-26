@@ -329,7 +329,7 @@ $.widget('blend.dialog', {
     mask: function (opacity) {
         var self = this;
         opacity = opacity ? ' style="opacity:' + opacity + ';"' : '';
-        var bodyHeight = Math.max(document.body.scrollHeight, document.body.clientHeight, document.documentElement.clientHeight);
+        var bodyHeight = Math.max(document.body.scrollHeight, document.body.clientHeight, document.documentElement.clientHeight, window.screen.height);
         (this._maskDom = $('<div class="' + NAMESPACE + 'dialog-mask"' + opacity + '></div>')).prependTo(this.$body);
         this._maskDom.css('height', bodyHeight);
         this._maskDom.on('click', function (e) {

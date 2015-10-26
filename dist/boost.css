@@ -213,7 +213,7 @@ body {
   font-size: 1.4rem;
   line-height: 1.4;
   color: #333333;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 input,
 button,
@@ -254,8 +254,8 @@ img {
 .img-thumbnail {
   padding: 4px;
   line-height: 1.4;
-  background-color: #ffffff;
-  border: 1px solid #dddddd;
+  background-color: #fff;
+  border: 1px solid #ddd;
   border-radius: 4px;
   -webkit-transition: all 0.2s ease-in-out;
   -o-transition: all 0.2s ease-in-out;
@@ -293,10 +293,10 @@ hr {
   clip: auto;
 }
 .blend-address {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   border-right: none;
   border-left: none;
-  background: #ffffff;
+  background: #fff;
   color: #262626;
   display: -webkit-box;
   font-size: 1.4rem;
@@ -321,7 +321,7 @@ hr {
   box-flex: 1;
 }
 .blend-address .blend-address-value .blend-address-input {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }
 .blend-address .blend-address-value :first-child {
   border-top: none;
@@ -337,10 +337,10 @@ hr {
   resize: none;
 }
 .blend-address .blend-address-value .blend-address-red {
-  color: #cc2200;
+  color: #c20;
 }
 .blend-address .blend-address-value .blend-address-gray {
-  color: #999999;
+  color: #999;
 }
 .blend-address .blend-address-value .blend-address-arrow {
   width: 17px;
@@ -392,10 +392,10 @@ hr {
   color: #62c9f4;
 }
 .blend-badge-success {
-  background-color: #ff00ff;
+  background-color: #f0f;
 }
 .blend-badge-success.blend-badge-empty {
-  color: #ff00ff;
+  color: #f0f;
 }
 .blend-badge-info {
   background-color: #ef5d0a;
@@ -404,16 +404,16 @@ hr {
   color: #ef5d0a;
 }
 .blend-badge-warning {
-  background-color: #ff00ff;
+  background-color: #f0f;
 }
 .blend-badge-warning.blend-badge-empty {
-  color: #ff00ff;
+  color: #f0f;
 }
 .blend-badge-danger {
-  background-color: #ff00ff;
+  background-color: #f0f;
 }
 .blend-badge-danger.blend-badge-empty {
-  color: #ff00ff;
+  color: #f0f;
 }
 .blend-reddot {
   position: absolute;
@@ -425,7 +425,7 @@ hr {
   right: -0.7rem;
   top: -0.7rem;
   z-index: 10000;
-  background-color: #ff0000;
+  background-color: #f00;
   padding: 0 .2rem;
   color: #fff;
 }
@@ -491,7 +491,7 @@ hr {
 }
 .blend-button-default {
   color: #808080;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-color: #808080;
   /*&[disabled] {
         .button-variant(@button-default-disabled-color; @button-default-disabled-bg; @button-default-disabled-border);
@@ -530,11 +530,11 @@ fieldset[disabled] .blend-button-default:active,
 .blend-button-default.disabled.active,
 .blend-button-default[disabled].active,
 fieldset[disabled] .blend-button-default.active {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   border-color: #808080;
 }
 .blend-button-default .badge {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #808080;
 }
 .blend-button-default:focus,
@@ -544,7 +544,7 @@ fieldset[disabled] .blend-button-default.active {
   border-color: #f60;
 }
 .blend-button-primary {
-  color: #ffffff;
+  color: #fff;
   background-color: #00a3e7;
   border-color: #00a3e7;
   /*&.@{namespace}disabled,
@@ -558,7 +558,7 @@ fieldset[disabled] .blend-button-default.active {
 .blend-button-primary:active,
 .blend-button-primary.active,
 .open > .dropdown-toggle.blend-button-primary {
-  color: #ffffff;
+  color: #fff;
   background-color: #007fb4;
   border-color: #0078aa;
 }
@@ -590,10 +590,10 @@ fieldset[disabled] .blend-button-primary.active {
 }
 .blend-button-primary .badge {
   color: #00a3e7;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .blend-button-secondary {
-  color: #ffffff;
+  color: #fff;
   background-color: #62c9f4;
   border-color: #62c9f4;
   /*&.@{namespace}disabled,
@@ -607,7 +607,7 @@ fieldset[disabled] .blend-button-primary.active {
 .blend-button-secondary:active,
 .blend-button-secondary.active,
 .open > .dropdown-toggle.blend-button-secondary {
-  color: #ffffff;
+  color: #fff;
   background-color: #32b9f1;
   border-color: #29b5f0;
 }
@@ -639,10 +639,10 @@ fieldset[disabled] .blend-button-secondary.active {
 }
 .blend-button-secondary .badge {
   color: #62c9f4;
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .blend-button-red {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #fd461e;
   border-color: #fd461e;
   /*&:focus, &.@{namespace}button-checkbox-checked{
@@ -655,7 +655,7 @@ fieldset[disabled] .blend-button-secondary.active {
 .blend-button-red:active,
 .blend-button-red.active,
 .open > .dropdown-toggle.blend-button-red {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #e62b02;
   border-color: #dc2902;
 }
@@ -687,7 +687,7 @@ fieldset[disabled] .blend-button-red.active {
 }
 .blend-button-red .badge {
   color: #fd461e;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-button-red.blend-disabled,
 .blend-button-red[disabled] {
@@ -764,7 +764,7 @@ fieldset[disabled] .blend-button-red[disabled].active {
   background-color: #cccccc;
 }
 .blend-button-gray {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #666666;
   border-color: #666666;
 }
@@ -774,7 +774,7 @@ fieldset[disabled] .blend-button-red[disabled].active {
 .blend-button-gray:active,
 .blend-button-gray.active,
 .open > .dropdown-toggle.blend-button-gray {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #4d4d4d;
   border-color: #474747;
 }
@@ -806,12 +806,12 @@ fieldset[disabled] .blend-button-gray.active {
 }
 .blend-button-gray .badge {
   color: #666666;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-button-ltgray {
-  color: #ffffff;
-  background-color: #dddddd;
-  border-color: #dddddd;
+  color: #FFFFFF;
+  background-color: #ddd;
+  border-color: #ddd;
 }
 .blend-button-ltgray:hover,
 .blend-button-ltgray:focus,
@@ -819,7 +819,7 @@ fieldset[disabled] .blend-button-gray.active {
 .blend-button-ltgray:active,
 .blend-button-ltgray.active,
 .open > .dropdown-toggle.blend-button-ltgray {
-  color: #ffffff;
+  color: #FFFFFF;
   background-color: #c4c4c4;
   border-color: #bebebe;
 }
@@ -846,12 +846,12 @@ fieldset[disabled] .blend-button-ltgray:active,
 .blend-button-ltgray.disabled.active,
 .blend-button-ltgray[disabled].active,
 fieldset[disabled] .blend-button-ltgray.active {
-  background-color: #dddddd;
-  border-color: #dddddd;
+  background-color: #ddd;
+  border-color: #ddd;
 }
 .blend-button-ltgray .badge {
-  color: #dddddd;
-  background-color: #ffffff;
+  color: #ddd;
+  background-color: #FFFFFF;
 }
 .blend-button-ltgray:focus,
 .blend-button-ltgray.blend-button-checkbox-checked {
@@ -1056,8 +1056,8 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: inline-block;
   position: relative;
   font-family: BoostFont;
-  border: solid 1px #ededed;
-  background-color: #ffffff;
+  border: solid 1px #EDEDED;
+  background-color: #FFFFFF;
   vertical-align: middle;
 }
 .blend-checkbox-label {
@@ -1088,7 +1088,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   content: "\e601";
   font-size: 15px;
   line-height: 18px;
-  color: #ffffff;
+  color: #FFFFFF;
   position: absolute;
 }
 .blend-checkbox-default,
@@ -1121,7 +1121,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-checkbox-group {
   display: -webkit-box;
   padding: 0 16px;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-checkbox-group:last-child {
   border-bottom: none;
@@ -1140,8 +1140,8 @@ fieldset[disabled] .blend-button-ltgray.active {
   background-color: #00a2eb;
 }
 .blend-checkbox-group .blend-checkbox-dot.blend-checkbox-checked {
-  background-color: #ffffff;
-  border: solid 1px #ededed;
+  background-color: #FFFFFF;
+  border: solid 1px #EDEDED;
 }
 .blend-counter {
   display: table;
@@ -1194,7 +1194,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   border-width: 1px;
   border-color: #e6e4e3;
   color: #262626;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   text-align: center;
 }
 .blend-dialog {
@@ -1203,7 +1203,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   width: 250px;
   padding: 0;
   z-index: 100;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
   color: #262626;
   /*visibility: hidden;*/
   opacity: 0;
@@ -1259,14 +1259,14 @@ fieldset[disabled] .blend-button-ltgray.active {
   font-size: 14px;
   line-height: 20px;
   padding: 13px 16px;
-  border-bottom: solid 1px #ededed;
+  border-bottom: solid 1px #EDEDED;
   color: #262626;
 }
 .blend-dialog-body.blend-dialog-tips {
   text-align: center;
 }
 .blend-dialog-link {
-  color: #0d54d9;
+  color: #0D54D9;
 }
 .blend-dialog-phone {
   color: #000000;
@@ -1298,7 +1298,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   text-decoration: none;
 }
 .blend-dialog-btn:not(:first-child) {
-  border-left: solid 1px #ededed;
+  border-left: solid 1px #EDEDED;
 }
 .blend-dialog-text-center {
   text-align: center;
@@ -1448,11 +1448,11 @@ fieldset[disabled] .blend-button-ltgray.active {
   width: 0;
 }
 .blend-form {
-  border-top: 1px solid #ededed;
-  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-form .blend-formgroup {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-form .blend-formgroup:last-child {
   border-bottom-color: transparent;
@@ -1460,7 +1460,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-formgroup {
   display: -webkit-box;
   display: box;
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-formgroup-label {
   color: #262626;
@@ -1575,7 +1575,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   height: 44px;
   position: absolute;
   top: 0;
-  color: #ffffff;
+  color: #fff;
   background: rgba(0, 0, 0, 0.5);
   -webkit-transform: translate3d(0px, -44px, 0px);
   -webkit-transition: all 0.5s;
@@ -1606,14 +1606,14 @@ fieldset[disabled] .blend-button-ltgray.active {
   text-align: center;
   overflow: hidden;
   font-size: 18px;
-  color: #ffffff;
+  color: #fff;
 }
 .blend-gallery-bottom {
   width: 100%;
   height: 116px;
   position: absolute;
   bottom: 0;
-  color: #ffffff;
+  color: #fff;
   background: rgba(0, 0, 0, 0.5);
   -webkit-transform: translate3d(0px, 116px, 0px);
   -webkit-transition: all 0.5s;
@@ -1628,14 +1628,14 @@ fieldset[disabled] .blend-button-ltgray.active {
   word-break: break-all;
 }
 .blend-gallery-bottom-info {
-  color: #ffffff;
+  color: #fff;
   font-size: 14px;
   text-indent: 50px;
   -webkit-user-select: none;
   user-select: none;
 }
 .blend-gallery-bottom-info::selection {
-  color: #ffffff;
+  color: #fff;
   background: transparent;
 }
 .blend-gallery-bottom-page {
@@ -1646,7 +1646,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   height: 35px;
   line-height: 35px;
   font-size: 18px;
-  color: #ffffff;
+  color: #fff;
 }
 /**
  * 底部样式1: title
@@ -1982,7 +1982,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: -webkit-box;
   display: -moz-box;
   background-color: #000000;
-  color: #ffffff;
+  color: #FFFFFF;
   width: 100%;
 }
 .blend-header a {
@@ -2018,7 +2018,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-header-item {
   /*margin: 0 5px;*/
-  color: #ffffff;
+  color: #FFFFFF;
   -webkit-tap-highlight-color: transparent;
   height: 28px;
 }
@@ -2031,7 +2031,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   content: "\e600";
-  color: #ffffff;
+  color: #FFFFFF;
   font-size: 16px;
   content: "";
 }
@@ -2207,7 +2207,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-list-card {
   margin: 6px;
-  border: 1px solid #ededed;
+  border: 1px solid #EDEDED;
 }
 .blend-list-card .blend-list-item:last-child {
   border: none;
@@ -2221,7 +2221,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   color: #262626;
   overflow: hidden;
   position: relative;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-list-animation .blend-list-item {
   -webkit-transition: height 0.3s ease-in 0;
@@ -2249,7 +2249,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: block;
   height: 46px;
   font-size: 13px;
-  color: #ffffff;
+  color: #FFFFFF;
   text-align: center;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2278,11 +2278,11 @@ fieldset[disabled] .blend-button-ltgray.active {
   color: #c0c0c0;
 }
 .blend-listview {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .blend-listview-main {
-  border-top: 1px solid #ededed;
-  border-bottom: 1px solid #ededed;
+  border-top: 1px solid #EDEDED;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-listview-header {
   height: 40px;
@@ -2294,14 +2294,14 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-listview-item {
   height: 85px;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
   padding: 10px;
 }
 .blend-listview-item:last-child {
   border-bottom: none;
 }
 .blend-listview-item-desc {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
   line-height: 32px;
   padding: 0 16px;
 }
@@ -2385,7 +2385,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   word-break: break-all;
 }
 .blend-listview-theme1 .blend-listview-item-badge .blend-badge {
-  border-color: #ededed;
+  border-color: #EDEDED;
   color: #262626;
   padding: 0;
 }
@@ -2437,7 +2437,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus.blend-disabled,
 .blend-listview-theme1 .blend-listview-conter-box .blend-counter-plus.blend-disabled {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-listview-theme1 .blend-listview-conter-box .blend-counter-minus:before {
   color: #fd461e;
@@ -2503,7 +2503,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-listview-cart-theme .blend-listview-item {
   display: block;
   padding: 8px 10px;
-  border: 1px solid #ededed;
+  border: 1px solid #EDEDED;
   margin-bottom: 10px;
   height: auto;
 }
@@ -2543,7 +2543,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   word-break: break-all;
 }
 .blend-listview-theme3 .blend-listview-item-badge .blend-badge {
-  border-color: #ededed;
+  border-color: #EDEDED;
   color: #262626;
   padding: 0;
 }
@@ -2595,7 +2595,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-listview-theme3 .blend-listview-conter-box .blend-counter-minus.blend-disabled,
 .blend-listview-theme3 .blend-listview-conter-box .blend-counter-plus.blend-disabled {
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-listview-theme3 .blend-listview-conter-box .blend-counter-minus:before {
   color: #fd461e;
@@ -2757,7 +2757,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-nav-item.blend-nav-item-active {
   color: #262626;
@@ -2765,7 +2765,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-nav-item:after {
   content: " ";
   width: 0;
-  border-right: 1px solid #ededed;
+  border-right: 1px solid #EDEDED;
   display: block;
   height: 10px;
   float: right;
@@ -2856,25 +2856,25 @@ fieldset[disabled] .blend-button-ltgray.active {
   text-align: right;
 }
 .blend-panel-border {
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
 }
 .blend-panel-header {
   height: 35px;
   line-height: 35px;
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
   padding: 0 15px;
   font-size: 16px;
 }
 .blend-panel-body {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   font-size: 14px;
   padding: 10px 15px;
   line-height: 25px;
 }
 .blend-panel-footer {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #ddd;
   height: 30px;
   line-height: 30px;
   padding: 0 15px;
@@ -3008,19 +3008,19 @@ fieldset[disabled] .blend-button-ltgray.active {
 }
 .blend-separator {
   width: auto;
-  border-top: 2px solid #dddddd;
+  border-top: 2px solid #ddd;
   margin-top: 11px;
   margin-bottom: 11px;
 }
 .blend-separator-dashed {
-  border-top: 2px dashed #dddddd;
+  border-top: 2px dashed #ddd;
   margin-top: 11px;
   margin-bottom: 11px;
 }
 .blend-separator-rect1 {
   height: 20px;
   box-sizing: border-box;
-  background: #dddddd;
+  background: #ddd;
   border-top: 1px solid #cbcbcb;
   box-shadow: 0 1px 0 #ebeaea inset;
   margin-top: 0;
@@ -3032,7 +3032,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-separator-rect2 {
   height: 20px;
   box-sizing: border-box;
-  background: #dddddd;
+  background: #ddd;
   border-top: 1px solid #d0d0d0;
   border-bottom: 1px solid #d0d0d0;
   box-shadow: 0 1px 0 #ebeaea inset;
@@ -3341,7 +3341,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-suggest-wrapBlue2,
 .blend-suggest-wrap,
 .blend-suggest-wrap2 {
-  background-color: #ffffff;
+  background-color: #fff;
   width: 100%;
   height: 50px;
   padding: 10px;
@@ -3350,9 +3350,9 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-suggest-input-blue,
 .blend-suggest-input-red,
 .blend-suggest-input-gray {
-  border: 1px solid #dddddd;
+  border: 1px solid #ddd;
   margin: 10px 10px;
-  background: #ffffff;
+  background: #fff;
   height: 30px;
   line-height: 30px;
   overflow: hidden;
@@ -3447,7 +3447,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   margin-left: 18px;
 }
 .blend-suggest-list {
-  background: #ffffff;
+  background: #fff;
   border-top: 1px solid #ededed;
   padding: 0;
   list-style: none;
@@ -3490,7 +3490,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-suggest-input-red .blend-suggest-ico:before,
 .blend-suggest-input-gray .blend-suggest-ico:before {
   width: 45px;
-  color: #ffffff;
+  color: #fff;
 }
 .blend-suggest-input-blue .blend-suggest-delete,
 .blend-suggest-input-red .blend-suggest-delete,
@@ -3505,7 +3505,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   border: none;
 }
 .blend-suggest-wrapBlue2 input {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 .blend-suggest-wrapBlue2 .blend-suggest-ico {
   background-color: #4fc1e9;
@@ -3554,7 +3554,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   left: 0;
   width: 100%;
   height: 100%;
-  background: #000000;
+  background: #000;
   opacity: 0.8;
   display: none;
 }
@@ -3568,7 +3568,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   overflow: hidden;
 }
 .blend-suspend .blend-suspend-content {
-  background: #ffffff;
+  background: #fff;
   -webkit-transform: translate3d(0, 100%, 0);
   transform: translate3d(0, 100%, 0);
 }
@@ -3607,7 +3607,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: inline-block;
   width: 5.2rem;
   height: 3rem;
-  background-color: #dddddd;
+  background-color: #ddd;
   position: relative;
   margin-right: .5rem;
 }
@@ -3637,7 +3637,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   border: 0;
 }
 .blend-switch.on {
-  background-color: #666666;
+  background-color: #666;
 }
 .blend-switch.on::after,
 .blend-switch.on::before {
@@ -3657,7 +3657,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   color: #777777;
   text-align: center;
   /*border-bottom: 1px solid @color-tab-border;*/
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-tab-header-item {
   display: block;
@@ -3676,7 +3676,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   position: absolute;
   top: 15px;
   right: 0;
-  background-color: #ededed;
+  background-color: #EDEDED;
 }
 .blend-tab-header-item:last-child:after {
   display: none;
@@ -3706,7 +3706,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: box;
   height: 40px;
   /*border-bottom: 1px solid @tab-bottom-color;*/
-  background-color: #ffffff;
+  background-color: #FFFFFF;
 }
 .blend-tabnav a {
   text-decoration: none;
@@ -3732,7 +3732,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   top: 15px;
   right: 0;
   /*background-color: #efefef;*/
-  border-left: 1px solid #ededed;
+  border-left: 1px solid #EDEDED;
 }
 .blend-tabnav-item:last-child:after {
   display: none;
@@ -3806,7 +3806,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   padding: 0 16px;
   background-color: rgba(0, 0, 0, 0.7);
   border-radius: 3px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
   z-index: 99;
   word-break: break-all;
@@ -3886,7 +3886,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   padding: 0 10px;
 }
 .blend-topnav-item > ul li:not(:last-child) a {
-  border-bottom: 1px solid #ededed;
+  border-bottom: 1px solid #EDEDED;
 }
 .blend-topnav-item > ul li a {
   height: 100%;
