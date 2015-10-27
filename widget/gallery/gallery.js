@@ -333,6 +333,7 @@ $.widget('blend.gallery', {
                 // that.mask.style.visibility = "hidden";
                 that.mask.style.display = 'none';
                 that._hideMenu();
+                that.$el.trigger('gallery:close');
             };
         })(this));
 

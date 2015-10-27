@@ -5,6 +5,7 @@
     /*!read(js/blend.bridge.js)*/
     /*!read(js/fastclick.js)*/
     /*!read(js/event.js)*/
+    /*!read(js/lazyload.js)*/
     /*!read(js/data.js)*/
     /*!read(js/touch.js)*/
     /*!read(js/ajax.js)*/
