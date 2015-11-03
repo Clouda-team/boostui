@@ -6980,8 +6980,13 @@ $.widget('blend.suspend', {
         var self = this;
         this.mask();
         window.setTimeout(function () {
-            self.$el.find(".blend-suspend-content").addClass(NAMESPACE + 'suspend-show');
-        }, 50);
+            self.$el.addClass(NAMESPACE + 'suspend-show');
+            //$("body").css("overflow", "hidden");
+	    $('body').css({
+		position: 'fixed',
+		top:-(document.body.scrollTop || document.documentElement.scrollTop) + "px"	
+	    });
+        }, 0);
         return this.$el;
     },
     /**
@@ -6992,8 +6997,10 @@ $.widget('blend.suspend', {
         var self = this;
         window.setTimeout(function () {
             self.unmask();
-        }, 50);
-        return this.$el.find(".blend-suspend-content").removeClass(NAMESPACE + 'suspend-show');
+        }, 0);
+        //$("body").css("overflow", "auto");
+	$('body').css('position','relative');
+        return this.$el.removeClass(NAMESPACE + 'suspend-show');
     },
     /**
      * 销毁dialog
