@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>侧栏导航</title>
+    <link rel="stylesheet" href="/assets/blend2/dist/boost.css">
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+    <script type="text/javascript" src="http://weinre123.duapp.com/target/target-script-min.js"></script>
+
+    <style type="text/css">
+    #sidenav section div{
+        font-size: 24px;
+        text-align: center;
+        
+        height: 414px;
+    }
+
+    #sidenav section div:nth-child(even){
+        background: #A9E2D1;
+    }
+
+    #sidenav section div:nth-child(odd){
+        background: #999;
+    }
+
+    </style>
+
+</head>
+    
+<body>
+    
+<header data-blend-widget="header" class="blend-header">
+    <span class="blend-header-left">
+        <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+    </span>
+    <span class="blend-header-title">
+        <span class="blend-header-item">侧栏导航</span>
+    </span>
+    <span class="blend-header-right">
+    </span>
+  </header>
+    <!-- <div class="blend-header">header</div> -->
+    <div id="sidenav" class="blend-sidenav">
+        <nav class="blend-sidenav-nav">
+            <ul>
+                   <li>这是tab1</li>
+                <li>这是tab2</li> 
+                   <li>这是tab3</li>
+                   <li>这是tab4</li>
+                   <li>这是tab5</li>
+                   <li>这是tab6</li>
+            </ul>
+        </nav>
+        <section class="blend-sidenav-content">
+            <div class="blend-sidenav-item">tab1</div>
+            <div class="blend-sidenav-item">tab2</div>
+            <div class="blend-sidenav-item">tab3</div>
+            <div class="blend-sidenav-item">tab4</div>
+            <div class="blend-sidenav-item">tab5</div>
+            <div class="blend-sidenav-item">tab6</div>
+            <div class="blend-sidenav-item">tab7</div>
+        </section>
+    </div>
+    <script src="/assets/blend2/dist/boost.js"></script>
+    <script type="text/javascript">
+        $("#sidenav").sidenav({
+
+        });
+    </script>
+</body>
+</html>

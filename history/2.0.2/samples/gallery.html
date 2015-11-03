@@ -1,0 +1,105 @@
+
+<!DOCTYPE>
+
+<html>
+<head>
+    <title>Gallery组件</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+    <link rel="stylesheet" href="/assets/blend2/dist/boost.css">
+    <link rel="stylesheet" href="/assets/blend2/css/samples.css">
+
+    <style type="text/css">
+    body{
+        margin: 0;
+        padding: 0;
+    }
+
+    </style>
+</head>
+
+<body>
+
+    <header data-blend-widget="header" class="blend-header">
+        <span class="blend-header-left">
+            <a class="blend-header-item blend-action-back-icon" href="javascript:history.back();">&#xe600;</a>
+        </span>
+        <span class="blend-header-title">
+            <span class="blend-header-item">图集</span>
+        </span>
+        <span class="blend-header-right">
+        </span>
+</header>
+    <br/>
+
+    <button class="blend-button blend-button-primary" id="pic">图片预览</button>
+
+    <div id="gallery_wrapper"  class="blend-gallery" data-blend-gallery=''></div>
+
+    <script src="/assets/blend2/dist/boost.js"></script>
+    <script type="text/javascript">
+        window.boost = $.noConflict(true);
+    </script>
+
+    <script type="text/javascript">
+
+        (function(){
+
+
+        var list = [{
+            //手动设置图片宽高
+            height: 414,
+            width: 300,
+
+            image: "http://a.hiphotos.baidu.com/image/pic/item/4b90f603738da977a9aac626b251f8198618e332.jpg",
+            description:"这是第1张图片",
+            title:"图片集"
+        },{
+
+            image: "http://b.hiphotos.baidu.com/image/pic/item/b8389b504fc2d5627c886ee4e51190ef76c66c33.jpg",
+            description:"这是第2张图片",
+            title:"图片集"
+        },{
+
+            image: "http://c.hiphotos.baidu.com/image/pic/item/4034970a304e251f17a2e38ba486c9177f3e536f.jpg",
+            description:"这是第3张图片",
+            title:"图片集"
+        },{
+
+            image: "http://t12.baidu.com/it/u=4224136820,222817142&fm=32&s=CE73A55661C252F05E652DCE010070E2&w=623&h=799&img.JPEG",
+            description:"这是第4张图片",
+            title:"图片集"
+        },{
+
+            image: "http://d.hiphotos.baidu.com/image/pic/item/00e93901213fb80e80d7d65437d12f2eb938942b.jpg",
+            description:"这是第5张图片",
+            title:"图片集"
+        },{
+
+            image: "http://h.hiphotos.baidu.com/image/pic/item/d439b6003af33a87069d591bc45c10385343b53b.jpg",
+            description:"超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述超长的描述",
+            title:"图片集"
+        }];
+
+
+        var wrapper = boost("#gallery_wrapper").gallery({
+            data:list,
+            duration:2000,
+            isLooping:true,
+            useZoom:true,
+            isAutoplay:false //是否自动播放
+        });
+
+        boost('#pic').on('click',function(){
+            wrapper.gallery("show");
+        });
+
+        })();
+
+
+
+    </script>
+
+</body>
+</html>
