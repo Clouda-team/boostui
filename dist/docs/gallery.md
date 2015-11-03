@@ -156,5 +156,11 @@
 	boost("#gallery-wrapper").gallery('hide');
 
 
+### 事件说明
+
+-   `on('gallery:close', function(){...})` gallery关闭的时候触发该事件
+
+
+
 
 
