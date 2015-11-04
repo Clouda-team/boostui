@@ -48,7 +48,7 @@
             <div class="blend-suspend-close">
                 <span></span>
             </div>
-            <div>
+            <div class="blend-suspend-body">
                 这里是内容
                 <br>
                 这里是内容
@@ -149,7 +149,7 @@
             <div class="blend-suspend-close">
                 <span></span>
             </div>
-            <div>
+            <div class='blend-suspend-body'>
                 这里是内容2222
                 <br>
                 这里是内容
@@ -257,7 +257,11 @@
             $("#showBtn2").click(function (){
                 $("#suspend2").suspend({
 
-                }).suspend("show");
+                }).suspend("show").on('suspend:show',function(){
+                    console.log('show');
+                }).on('suspend:hide',function(){
+                    console.log('hide');
+                });
             });
         });
     </script>

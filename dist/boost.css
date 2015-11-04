@@ -3586,7 +3586,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   -webkit-transition: .3s ease all;
   transition: .3s ease all;
 }
-.blend-suspend .blend-suspend-content div {
+.blend-suspend .blend-suspend-content .blend-suspend-body {
   max-height: 300px;
   overflow: scroll;
 }

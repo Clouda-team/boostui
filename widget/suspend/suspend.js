@@ -18,6 +18,7 @@ $.widget('blend.suspend', {
     /*配置项*/
     options: {
         maskTapClose: true,    // 点击mask，关闭suspend
+        bodyNoScroll: true
     },
     /**
      * _create 创建组件时调用一次
@@ -28,6 +29,7 @@ $.widget('blend.suspend', {
 
         this.addCSSClass = options.addCSSClass ? options.addCSSClass : '';
         this.maskTapClose = options.maskTapClose;
+        this.bodyNoScroll = options.bodyNoScroll;
         this.$el = this.element;
     },
     /**
@@ -36,6 +38,8 @@ $.widget('blend.suspend', {
      */
     _init: function () {
         this._bindEvent();
+
+        this.bodyNoScroll && this._handleScroll();
     },
     /**
      * 为suspend相关元素添加事件
@@ -56,6 +60,71 @@ $.widget('blend.suspend', {
     _trigger: function (event) {
         this.$el.trigger('suspend:' + event);
     },
+    _preventDefault: function (e) {
+        e = e || window.event;
+        e.preventDefault && e.preventDefault();
+        e.returnValue = false;
+    },
+    _stopPropagation: function (e) {
+        e = e || window.event;
+        e.stopPropagation && e.stopPropagation();
+        e.returnValue = false;
+    },
+    _disableScroll: function () {
+        var _preventDefault = this._preventDefault;
+        document.addEventListener('mousewheel', _preventDefault);
+        document.addEventListener('touchmove', _preventDefault);
+    },
+    _enableScroll: function () {
+        var _preventDefault = this._preventDefault;
+        document.removeEventListener('mousewheel', _preventDefault);
+        document.removeEventListener('touchmove', _preventDefault);
+    },
+    _handleScroll: function () {
+        var startX, startY;
+        var ele = this.$el.find('.' + NAMESPACE + 'suspend-body')[0];
+
+
+        ele.addEventListener('touchstart',function(e){
+
+            startX = e.touches[0].pageX;
+            startY = e.touches[0].pageY;
+        });
+
+
+        ele.addEventListener('touchmove',function(e){
+
+
+            e.stopPropagation();
+
+            var deltaX = e.touches[0].pageX - startX;
+            var deltaY = e.touches[0].pageY - startY;
+
+
+            if(Math.abs(deltaY) < Math.abs(deltaX)){
+                e.preventDefault();
+                return false;
+            }
+
+            //console.log(ele.clientHeight + '+' + ele.scrollTop + ':' +ele.scrollHeight);
+            if (ele.clientHeight + ele.scrollTop >= ele.scrollHeight) {
+
+                if(deltaY < 0) {
+                    e.preventDefault();
+                    return false;
+                }                
+
+            }else if(ele.scrollTop <= 0) {
+                if(deltaY > 0) {
+                    e.preventDefault();
+                    return false;
+                }
+            }
+        });
+    },
+    _trigger: function (event) {
+        this.$el.trigger('suspend:' + event);
+    },
     /**
      * 显示suspend
      * @param {string} content 指定show方法要展示的body内容
@@ -63,14 +132,25 @@ $.widget('blend.suspend', {
      */
     show: function () {
         var self = this;
+
+        /*if (self.bodyNoScroll) {
+            self.bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+            $('body').css({
+              position: 'fixed',
+              top:(-self.bodyScrollTop) + "px",
+              width: '100%'
+            });
+        }*/
+        this.bodyNoScroll && this._disableScroll();
+
         this.mask();
         window.setTimeout(function () {
+
             self.$el.addClass(NAMESPACE + 'suspend-show');
-	    $('body').css({
-		position: 'fixed',
-		top:-(document.body.scrollTop || document.documentElement.scrollTop) + "px"	
-	    });
-        }, 0);
+            self._trigger('show');
+            
+        },50);
+
         return this.$el;
     },
     /**
@@ -79,11 +159,22 @@ $.widget('blend.suspend', {
      */
     hide: function () {
         var self = this;
+
+        /*if (self.bodyNoScroll) {
+            $('body').css('position','static');
+            document.body.scrollTop = self.bodyScrollTop;
+        }*/
+        this.bodyNoScroll && this._enableScroll();
+
+        self.unmask();
+
         window.setTimeout(function () {
-            self.unmask();
+            self.$el.removeClass(NAMESPACE + 'suspend-show');
+            self._trigger('hide');
         }, 0);
-	$('body').css('position','relative');
-        return this.$el.removeClass(NAMESPACE + 'suspend-show');
+
+	    
+        return this.$el;
     },
     /**
      * 销毁dialog
@@ -111,19 +202,11 @@ $.widget('blend.suspend', {
         }).on('touchmove', function (e) {
             e.preventDefault();
         });
-        /*this.$el.css({
-            '-webkit-transform':'translate3d(0,100%,0)',
-            'transform':'translate3d(0,100%,0)'
-        });*/
     },
     /**
      * 关闭mask
      */
     unmask: function () {
         this._maskDom.off('touchstart touchmove').hide();
-        /*this.$el.css({
-            '-webkit-transition': 'none',
-            'transition': 'none'
-        });*/
     }
 });
