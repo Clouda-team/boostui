@@ -6972,8 +6972,8 @@ $.widget('blend.suspend', {
      * @param {Object} event 事件对象
      * @private
      */
-    _trigger: function (event) {
-        this.$el.trigger('suspend:' + event);
+    _trigger: function (eventName) {
+        this.$el.trigger('suspend:' + eventName);
     },
     _preventDefault: function (e) {
         e = e || window.event;
@@ -7036,9 +7036,6 @@ $.widget('blend.suspend', {
                 }
             }
         });
-    },
-    _trigger: function (event) {
-        this.$el.trigger('suspend:' + event);
     },
     /**
      * 显示suspend
