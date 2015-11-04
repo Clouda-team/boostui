@@ -9,7 +9,7 @@
             <div class="blend-suspend-close">
                 <span></span>
             </div>
-            <div>
+            <div class='blend-suspend-body'>
                 这里是内容
                 <br>
                 这里是内容
@@ -47,7 +47,7 @@
             <div class="blend-suspend-close">
                 <span></span>
             </div>
-            <div>
+            <div class='blend-suspend-body'>
                 这里是内容
                 <br>
                 这里是内容
@@ -79,5 +79,6 @@
 ### JS初始化参数说明
 
 	{
-        maskTapClose: true,    // 点击页面阴影部分，是否关闭浮层，默认是true
+        maskTapClose: true,    // 点击页面遮罩，是否关闭浮层，默认是true
+        bodyNoScroll: true     // 当弹层中滚动是，是否要禁止页面本身的滚动，默认为true
 	}
