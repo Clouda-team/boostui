@@ -84,6 +84,10 @@ $.widget('blend.suspend', {
         var startX, startY;
         var ele = this.$el.find('.' + NAMESPACE + 'suspend-body')[0];
 
+        if (!ele) {
+            this.bodyNoScroll = false;
+            return;
+        }
 
         ele.addEventListener('touchstart',function(e){
 
