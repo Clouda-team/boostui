@@ -3559,32 +3559,26 @@ fieldset[disabled] .blend-button-ltgray.active {
   display: none;
 }
 .blend-suspend {
+  display: none;
   position: fixed;
-  bottom: -100%;
   left: 0;
+  bottom: 0;
   max-height: 300px;
   width: 100%;
   z-index: 80;
   overflow: hidden;
-  /*-webkit-transform:translate(0,100%);
-    transform:translate(0,100%);*/
+  -webkit-transform: translateY(100%);
+  transform: translateY(100%);
 }
 .blend-suspend.blend-suspend-show {
-  /*-webkit-transform:translate(0,0);
-        transform:translate(0,0);*/
-  bottom: 0;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
   -webkit-transition: .2s ease all;
   transition: .2s ease all;
 }
 .blend-suspend .blend-suspend-content {
   background: #fff;
   overflow: hidden;
-}
-.blend-suspend .blend-suspend-content.blend-suspend-show {
-  -webkit-transform: translate(0, 0);
-  transform: translate(0, 0);
-  -webkit-transition: .3s ease all;
-  transition: .3s ease all;
 }
 .blend-suspend .blend-suspend-content .blend-suspend-body {
   max-height: 300px;

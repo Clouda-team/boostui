@@ -43,7 +43,7 @@
     </div>
     <div class="blend-suspend-mask"></div>
 
-    <div data-blend-widget="suspend" class="blend-suspend" id="suspend1">
+    <div class="blend-suspend" id="suspend1">
         <div class="blend-suspend-content">
             <div class="blend-suspend-close">
                 <span></span>
@@ -144,7 +144,7 @@
         </div>
     </div>
 
-    <div data-blend-widget="suspend" class="blend-suspend" id="suspend2">
+    <div class="blend-suspend" id="suspend2">
         <div class="blend-suspend-content">
             <div class="blend-suspend-close">
                 <span></span>
@@ -254,14 +254,16 @@
                 }).suspend("show");
             });
 
-            $("#showBtn2").click(function (){
-                $("#suspend2").suspend({
 
-                }).suspend("show").on('suspend:show',function(){
+            $("#suspend2").suspend({}).on('suspend:show',function(){
                     console.log('show');
                 }).on('suspend:hide',function(){
                     console.log('hide');
-                });
+                    // alert('hide'+(+new Date()));
+                });;
+
+            $("#showBtn2").click(function (){
+                $("#suspend2").suspend("show");
             });
         });
     </script>

@@ -6945,6 +6945,7 @@ $.widget('blend.suspend', {
         this.addCSSClass = options.addCSSClass ? options.addCSSClass : '';
         this.maskTapClose = options.maskTapClose;
         this.bodyNoScroll = options.bodyNoScroll;
+        this._maskDom = $('.' + NAMESPACE + 'suspend-mask');
         this.$el = this.element;
     },
     /**
@@ -6962,9 +6963,15 @@ $.widget('blend.suspend', {
      */
     _bindEvent: function () {
         var self = this;
-
         this.$el.on('click', '.' + NAMESPACE + 'suspend-close', function () {
             self.hide();
+        });
+
+        this._maskDom.on('click', function (e) {
+            e.preventDefault();
+            self.maskTapClose && self.hide();
+        }).on('touchmove', function (e) {
+            e.preventDefault();
         });
     },
     /**
@@ -7049,17 +7056,10 @@ $.widget('blend.suspend', {
     show: function () {
         var self = this;
 
-        /*if (self.bodyNoScroll) {
-            self.bodyScrollTop = document.body.scrollTop || document.documentElement.scrollTop;
-            $('body').css({
-              position: 'fixed',
-              top:(-self.bodyScrollTop) + "px",
-              width: '100%'
-            });
-        }*/
         this.bodyNoScroll && this._disableScroll();
 
         this.mask();
+        self.$el.show();
         window.setTimeout(function () {
 
             self.$el.addClass(NAMESPACE + 'suspend-show');
@@ -7076,14 +7076,10 @@ $.widget('blend.suspend', {
     hide: function () {
         var self = this;
 
-        /*if (self.bodyNoScroll) {
-            $('body').css('position','static');
-            document.body.scrollTop = self.bodyScrollTop;
-        }*/
         this.bodyNoScroll && this._enableScroll();
 
         self.unmask();
-
+        self.$el.hide();
         window.setTimeout(function () {
             self.$el.removeClass(NAMESPACE + 'suspend-show');
             self._trigger('hide');
@@ -7110,20 +7106,14 @@ $.widget('blend.suspend', {
      */
     mask: function () {
         var self = this;
-        this._maskDom = $('.' + NAMESPACE + 'suspend-mask');
         this._maskDom.show();
-        this._maskDom.on('click', function (e) {
-            e.preventDefault();
-            self.maskTapClose && self.hide();
-        }).on('touchmove', function (e) {
-            e.preventDefault();
-        });
     },
     /**
      * 关闭mask
      */
     unmask: function () {
-        this._maskDom.off('touchstart touchmove').hide();
+        this._maskDom.hide();
+        // this._maskDom.off('touchmove click').hide();
     }
 });
 })(Zepto)
