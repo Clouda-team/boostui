@@ -1150,11 +1150,9 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-counter-plus,
 .blend-counter-input {
   display: table-cell;
-  height: 30px;
   vertical-align: top;
   text-align: center;
   font-size: 14px;
-  line-height: 28px;
   -webkit-appearance: none;
   border-radius: 0;
   background: #fff;
@@ -1162,6 +1160,7 @@ fieldset[disabled] .blend-button-ltgray.active {
 .blend-counter-minus,
 .blend-counter-plus {
   width: 28px;
+  height: 30px;
   border: 1px solid #e6e4e3;
 }
 .blend-counter-minus.blend-disabled,
@@ -1176,7 +1175,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   content: "\e603";
   color: #262626;
   font-size: 16px;
-  line-height: 27px;
+  line-height: 30px;
 }
 .blend-counter-plus:before {
   font-family: "boostfont";
@@ -1186,7 +1185,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   content: "\e602";
   color: #262626;
   font-size: 16px;
-  line-height: 27px;
+  line-height: 30px;
 }
 .blend-counter-input {
   width: 35px;
@@ -1196,6 +1195,7 @@ fieldset[disabled] .blend-button-ltgray.active {
   color: #262626;
   background-color: #FFFFFF;
   text-align: center;
+  padding: 6px 0;
 }
 .blend-dialog {
   position: fixed;
